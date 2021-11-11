@@ -2,7 +2,7 @@
 # Edit at https://www.toptal.com/developers/gitignore?templates=android,kotlin,androidstudio
 
 .idea/
-
+.idea/gradle.xml
 
 ### Android ###
 # Built application files
