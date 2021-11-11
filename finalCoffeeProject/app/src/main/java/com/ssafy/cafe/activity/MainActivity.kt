@@ -1,7 +1,8 @@
-package com.ssafy.cafe
+package com.ssafy.cafe.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.ssafy.cafe.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

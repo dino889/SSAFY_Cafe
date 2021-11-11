@@ -10,13 +10,17 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SsafyCafe">
         <activity
-            android:name=".LoginActivity"
-            android:exported="true" />
+            android:name="com.ssafy.cafe.activity.LoginActivity"
+            android:exported="true"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+
         <activity
-            android:name=".MainActivity"
-            android:exported="true" />
+            android:name="com.ssafy.cafe.activity.MainActivity"
+            android:exported="true"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+
         <activity
-            android:name=".LoadingActivity"
+            android:name="com.ssafy.cafe.activity.LoadingActivity"
             android:exported="true"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
