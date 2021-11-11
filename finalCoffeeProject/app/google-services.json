@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "908521205713",
+    "project_id": "final-coffee-project",
+    "storage_bucket": "final-coffee-project.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:908521205713:android:33cac1361bcdc620f37af0",
+        "android_client_info": {
+          "package_name": "com.ssafy.cafe"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "908521205713-d2l3vbj19li7sh8abs8arqfge7kip43k.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ssafy.cafe",
+            "certificate_hash": "7911a82fb567fc6b5e399d9fca4acc64ab4bc9ce"
+          }
+        },
+        {
+          "client_id": "908521205713-bjvpeaaptikbb8h0523300hdtj9p2p33.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB5x8egWE8I5TflApAcIQZKjhM1Jfn0pcU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "908521205713-bjvpeaaptikbb8h0523300hdtj9p2p33.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
