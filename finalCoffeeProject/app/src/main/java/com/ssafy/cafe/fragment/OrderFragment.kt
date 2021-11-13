@@ -41,7 +41,9 @@ class OrderFragment : Fragment() {
         binding.tabOrderMenu.addOnTabSelectedListener(object: TabLayout.OnTabSelectedListener{
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 when(tab!!.position){
-                    0 -> mainActivity.openFragment(7)
+                    0 -> {
+                        mainActivity.openFragment(7)
+                    }
                     1 -> mainActivity.openFragment(8)
                 }
             }

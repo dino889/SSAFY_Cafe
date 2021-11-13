@@ -91,12 +91,12 @@ class MainActivity : AppCompatActivity() {
             }
             7 -> {
                 //전체메뉴보기
-                transaction.replace(R.id.frame_layout_main, AllMenuFragment.newInstance(key, value))
+                transaction.replace(R.id.tabFrameLayout, AllMenuFragment.newInstance(key, value))
                     .addToBackStack(null)
             }
             8 -> {
                 //사용자메뉴보기
-                transaction.replace(R.id.frame_layout_main, UserCustomMenuFragment.newInstance(key, value))
+                transaction.replace(R.id.tabFrameLayout, UserCustomMenuFragment.newInstance(key, value))
                     .addToBackStack(null)
             }
 
