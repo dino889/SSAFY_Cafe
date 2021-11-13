@@ -39,6 +39,15 @@
 		SELECT * FROM t_product order by id asc
 	</select>
 	
+		
+	<select id="selectWithProductType" parameterType="String" resultType="Product">
+		select p.id, pt.type_name, p.name, p.price, p.img
+		from t_product as p
+		join t_product_type as pt
+		on p.type = pt.id
+		where pt.type_name = #{type}
+	</select>
+	
 	
 	<!-- backend  관통 과정에서 추가됨 -->
 	<select id="selectWithComment" resultType="map" parameterType="int">

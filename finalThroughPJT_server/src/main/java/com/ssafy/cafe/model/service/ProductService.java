@@ -19,4 +19,6 @@ public interface ProductService {
      */
     List<Map<String, Object>> selectWithComment(Integer productId);
     
+    List<Product> selectWithProductType(String type);
+    
 }

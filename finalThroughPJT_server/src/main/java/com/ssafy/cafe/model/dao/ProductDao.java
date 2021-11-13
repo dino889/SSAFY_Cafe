@@ -17,4 +17,7 @@ public interface ProductDao {
     
     // backend 관통 과정에서 추가됨.
     List<Map<String, Object>> selectWithComment(Integer productId);
+
+   
+    List<Product> selectWithProductType(String type);
 }
