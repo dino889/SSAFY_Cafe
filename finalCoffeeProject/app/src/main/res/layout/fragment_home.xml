@@ -106,16 +106,18 @@
 
     </LinearLayout>
 
-    <ScrollView
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white"
-        android:padding="20dp" >
+        android:orientation="vertical"
+        android:padding="10dp">
 
         <LinearLayout
             android:id="@+id/ll_bestMenu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
             android:background="@drawable/drawable_linearlayout_frame_custom"
             android:baselineAligned="false"
             android:orientation="vertical">
@@ -132,7 +134,8 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_bestMenuList"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                tools:listitem="@layout/recyclerview_menu_list_item"/>
 
         </LinearLayout>
 
@@ -158,9 +161,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
         </LinearLayout>
-
-    </ScrollView>
-
+    </LinearLayout>
 
 
 </LinearLayout>

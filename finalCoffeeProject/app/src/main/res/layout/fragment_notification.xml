@@ -1,14 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragment.OrderFragment">
+    tools:context=".fragment.NotificationFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/blue_300"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="?attr/actionBarTheme" />
 
         <LinearLayout
             android:id="@+id/ll_profileStateShort"
@@ -57,34 +66,48 @@
                     android:textColor="#FFFFFF" />
 
             </LinearLayout>
+
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/textView5"
+        <LinearLayout
+            android:id="@+id/ll_notificationLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#C4C4C4"
-            android:padding="15dp"
-            android:text="ORDER"
-            android:textColor="@color/black"
-            android:textSize="20sp" />
+            android:layout_height="match_parent"
+            android:layout_margin="15dp"
+            android:background="@drawable/drawable_linearlayout_frame_custom"
+            android:orientation="vertical"
+            android:padding="20dp">
 
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tab_orderMenu"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="전체메뉴" />
+                android:layout_marginBottom="15dp"
+                android:orientation="horizontal">
 
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="사용자메뉴" />
+                <ImageView
+                    android:id="@+id/imageView3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/notification_alert_bell_icon" />
 
-        </com.google.android.material.tabs.TabLayout>
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:paddingLeft="10dp"
+                    android:text="알림"
+                    android:textColor="#000000"
+                    android:textSize="20sp" />
+
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:listitem="@layout/recyclerview_notification_list_item"/>
+
+        </LinearLayout>
     </LinearLayout>
 
 </FrameLayout>
