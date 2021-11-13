@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- name space는 BookRepo의 fully qualified name으로 설정한다. -->
+<mapper namespace="com.ssafy.cafe.model.dao.UserDao">
+	
+	<!-- 1. 사용자 추가 -->
+	<insert id="insert" parameterType="User">
+		INSERT INTO t_user
+		    (id, 
+		    name, 
+		    pass,
+		    phone,
+		    money)
+		VALUES
+		    (#{id}, 
+		    #{name}, 
+		    #{pass},
+		    #{phone},
+		    #{money})
+	</insert>
+	
+	<!-- 2. id 기준으로 이름, 비밀번호 수정 -->
+	<update id="update" parameterType="User">
+		UPDATE t_user
+		SET
+		    name = #{name}, 
+		    pass = #{pass}
+		WHERE id = #{id}
+	</update>
+	
+	<!-- 3. id 기준으로 사용자 핸드폰 번호 수정 -->
+	<update id="updatePhone" parameterType="User">
+		UPDATE t_user
+		SET
+		    phone = #{phone}
+		WHERE id = #{id}
+	</update>
+	
+	<!-- 4. id 기준으로 사용자 잔액 수정 -->
+	<update id="updateMoney" parameterType="User">
+		UPDATE t_user
+		SET
+		    money = #{money}=
+		WHERE id = #{id}
+	</update>
+	
+	
+	<!-- 5. id 기준으로 사용자 stamp 수정 -->
+	<update id="updateStamp" parameterType="User">
+		UPDATE t_user
+		SET
+		    stamps = stamps + #{stamps}
+		WHERE id = #{id}
+	</update>
+	
+	<!-- 6. id로 사용자 삭제 -->
+	<delete id="delete" parameterType="string">
+		DELETE FROM t_user
+		WHERE id = #{id}
+	</delete>
+	
+	<!-- 7. id로 사용자 조회 -->
+	<select id="select" parameterType="string" resultType="User">
+		SELECT * FROM t_user
+		WHERE id = #{id}
+	</select>
+	
+	<!-- 8. 사용자 전체 조회 -->
+	<select id="selectAll" resultType="User">
+		SELECT * FROM t_user
+	</select>
+</mapper>
