@@ -1,9 +1,10 @@
-package com.ssafy.cafe
+package com.ssafy.cafe.activity
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
+import com.ssafy.cafe.R
 
 class LoadingActivity : AppCompatActivity() {
     private val SPLASH_TIME:Long = 4000
