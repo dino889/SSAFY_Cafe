@@ -10,10 +10,10 @@ public class Order {
     private String orderTable;
     private Date orderTime;
 
-    private Character completed;
+    private Integer completed;	// 1 or 0
     private List<OrderDetail> details ;
     
-    public Order(Integer id, String userId, String orderTable, Date orderTime, Character complited) {
+    public Order(Integer id, String userId, String orderTable, Date orderTime, Integer complited) {
         this.id = id;
         this.userId = userId;
         this.orderTable = orderTable;
@@ -21,7 +21,7 @@ public class Order {
         this.completed = complited;
     }
 
-    public Order(String userId, String orderTable, Date orderTime, Character complited) {
+    public Order(String userId, String orderTable, Date orderTime, Integer complited) {
         this.userId = userId;
         this.orderTable = orderTable;
         this.orderTime = orderTime;
@@ -63,11 +63,11 @@ public class Order {
 		this.orderTime = orderTime;
 	}
 
-	public Character getCompleted() {
+	public Integer getCompleted() {
 		return completed;
 	}
 
-	public void setCompleted(Character completed) {
+	public void setCompleted(Integer completed) {
 		this.completed = completed;
 	}
 

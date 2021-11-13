@@ -9,16 +9,22 @@ public class User {
     private String name;
     private String pass;
     private Integer stamps;
+    private String phone;
+    private Integer money;
     private List<Stamp> stampList = new ArrayList<>();
 
-    public User(String id, String name, String pass, Integer stamps) {
+    public User() {}
+    
+
+	public User(String id, String name, String pass, Integer stamps, String phone, Integer money) {
         this.id = id;
         this.name = name;
         this.pass = pass;
         this.stamps = stamps;
+        this.phone = phone;
+        this.money = money;
     }
     
-    public User() {}
 
 	public String getId() {
 		return id;
@@ -60,12 +66,28 @@ public class User {
 		this.stampList = stampList;
 	}
 
+	public String getPhone() {
+		return phone;
+	}
+	
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+	
+	public Integer getMoney() {
+		return money;
+	}
+	
+	public void setMoney(Integer money) {
+		this.money = money;
+	}
+
+
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", name=" + name + ", pass=" + pass + ", stamps=" + stamps + ", stampList="
-				+ stampList + "]";
+		return "User [id=" + id + ", name=" + name + ", pass=" + pass + ", stamps=" + stamps + ", phone=" + phone
+				+ ", money=" + money + ", stampList=" + stampList + "]";
 	}
-    
-    
+
     
 }

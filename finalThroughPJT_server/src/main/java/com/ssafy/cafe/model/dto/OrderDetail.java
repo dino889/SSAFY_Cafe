@@ -6,6 +6,23 @@ public class OrderDetail {
     private Integer orderId;
     private Integer productId;
     private Integer quantity;
+    private Integer type;	// 1 or 0
+    private String syrup;
+    private Integer shot;
+    
+    public OrderDetail() {}
+    
+
+	public OrderDetail(Integer id, Integer orderId, Integer productId, Integer quantity, Integer type, String syrup, Integer shot) {
+        super();
+        this.id = id;
+        this.orderId = orderId;
+        this.productId = productId;
+        this.quantity = quantity;
+        this.type = type;
+        this.syrup = syrup;
+        this.shot = shot;
+    }
     
     public OrderDetail(Integer id, Integer orderId, Integer productId, Integer quantity) {
         super();
@@ -26,7 +43,6 @@ public class OrderDetail {
         this.quantity = quantity;
     }
     
-    public OrderDetail() {}
 
 	public Integer getId() {
 		return id;
@@ -60,11 +76,38 @@ public class OrderDetail {
 		this.quantity = quantity;
 	}
 
+	public Integer getType() {
+		return type;
+	}
+
+	public void setType(Integer type) {
+		this.type = type;
+	}
+
+	public String getSyrup() {
+		return syrup;
+	}
+
+	public void setSyrup(String syrup) {
+		this.syrup = syrup;
+	}
+
+	public Integer getShot() {
+		return shot;
+	}
+
+	public void setShot(Integer shot) {
+		this.shot = shot;
+	}
+
+
 	@Override
 	public String toString() {
 		return "OrderDetail [id=" + id + ", orderId=" + orderId + ", productId=" + productId + ", quantity=" + quantity
-				+ "]";
+				+ ", type=" + type + ", syrup=" + syrup + ", shot=" + shot + "]";
 	}
+	
+	
     
     
 }
