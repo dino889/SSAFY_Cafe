@@ -19,6 +19,7 @@ import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.ssafy.cafe.activity.LoginActivity
+import com.ssafy.cafe.activity.MainActivity
 import com.ssafy.cafe.databinding.FragmentLoginBinding
 
 private const val TAG = "LoginFragment"
@@ -64,6 +65,8 @@ class LoginFragment : Fragment() {
 
         binding.btnLogin.setOnClickListener {
 //            login(id.text.toString(), password.text.toString())
+            val intent = Intent(requireContext(), MainActivity::class.java)
+            startActivity(intent)
         }
         //join
         binding.btnJoin.setOnClickListener {
