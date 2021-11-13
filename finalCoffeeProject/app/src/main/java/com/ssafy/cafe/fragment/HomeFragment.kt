@@ -27,6 +27,13 @@ class HomeFragment : Fragment() {
         binding = FragmentHomeBinding.inflate(inflater,container,false)
         return binding.root
     }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.ibtnNotificaton.setOnClickListener{
+            mainActivity.openFragment(6)
+        }
+    }
     fun initAdapter(){
         binding.rvBestMenuList.apply{
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)

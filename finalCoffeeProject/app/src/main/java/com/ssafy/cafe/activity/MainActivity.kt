@@ -6,10 +6,7 @@ import android.os.Bundle
 import android.view.View
 import com.ssafy.cafe.R
 import com.ssafy.cafe.databinding.ActivityMainBinding
-import com.ssafy.cafe.fragment.HomeFragment
-import com.ssafy.cafe.fragment.MyPageFragment
-import com.ssafy.cafe.fragment.OrderFragment
-import com.ssafy.cafe.fragment.PayFragment
+import com.ssafy.cafe.fragment.*
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -61,17 +58,17 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-//    fun openFragment(index:Int, key:String, value:Int){
-//        moveFragment(index, key, value)
-//    }
+    fun openFragment(index:Int, key:String, value:Int){
+        moveFragment(index, key, value)
+    }
+
+    fun openFragment(index: Int) {
+        moveFragment(index, "", 0)
+    }
 //
-//    fun openFragment(index: Int) {
-//        moveFragment(index, "", 0)
-//    }
-//
-//    private fun moveFragment(index:Int, key:String, value:Int){
-//        val transaction = supportFragmentManager.beginTransaction()
-//        when(index){
+    private fun moveFragment(index:Int, key:String, value:Int){
+        val transaction = supportFragmentManager.beginTransaction()
+        when(index){
 //            //장바구니
 //            1 -> transaction.replace(R.id.frame_layout_main, ShoppingListFragment())
 //                .addToBackStack(null)
@@ -88,9 +85,24 @@ class MainActivity : AppCompatActivity() {
 //            5 -> {
 //                logout()
 //            }
-//        }
-//        transaction.commit()
-//    }
+            6->{ // 알람페이지이동
+                transaction.replace(R.id.frame_layout_main, NotificationFragment())
+                    .addToBackStack(null)
+            }
+            7 -> {
+                //전체메뉴보기
+                transaction.replace(R.id.frame_layout_main, AllMenuFragment.newInstance(key, value))
+                    .addToBackStack(null)
+            }
+            8 -> {
+                //사용자메뉴보기
+                transaction.replace(R.id.frame_layout_main, UserCustomMenuFragment.newInstance(key, value))
+                    .addToBackStack(null)
+            }
+
+        }
+        transaction.commit()
+    }
 //
 //    fun hideBottomNav(state : Boolean){
 //        if(state) bottomNavigation.visibility =  View.GONE
