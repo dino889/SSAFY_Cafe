@@ -70,8 +70,8 @@ class MainActivity : AppCompatActivity() {
         val transaction = supportFragmentManager.beginTransaction()
         when(index){
 //            //장바구니
-//            1 -> transaction.replace(R.id.frame_layout_main, ShoppingListFragment())
-//                .addToBackStack(null)
+            1 -> transaction.replace(R.id.frame_layout_main, BucketFragment())
+                .addToBackStack(null)
 //            //주문 상세 보기
 //            2 -> transaction.replace(R.id.frame_layout_main, OrderDetailFragment.newInstance(key, value))
 //                .addToBackStack(null)

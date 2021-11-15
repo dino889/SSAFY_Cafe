@@ -13,4 +13,6 @@
     <color name="yellow_200">#FFF0BA</color>
     <color name="blue_700">#4D56B3</color>
     <color name="blue_300">#A1A9FF</color>
+    
+    <color name="nocolor">#00FFFFFF</color>
 </resources>
