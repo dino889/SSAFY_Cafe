@@ -10,11 +10,15 @@ import javax.annotation.PostConstruct;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import com.ssafy.cafe.model.dto.Order;
+import com.ssafy.cafe.model.dto.Product;
 import com.ssafy.cafe.model.dto.User;
+import com.ssafy.cafe.model.dto.UserCustom;
 import com.ssafy.cafe.model.service.OrderService;
 import com.ssafy.cafe.model.service.StampService;
+import com.ssafy.cafe.model.service.UserCustomService;
 import com.ssafy.cafe.model.service.UserService;
 import io.swagger.annotations.ApiOperation;
 
@@ -32,6 +36,8 @@ public class UserRestController {
 
     @Autowired
     OrderService oService;
+    
+
 
     @PostMapping
     @ApiOperation(value = "사용자 정보를 추가한다.", response = Boolean.class)
@@ -118,4 +124,8 @@ public class UserRestController {
             this.img = img;
         }
     }
+    
+    
+    
+    
 }

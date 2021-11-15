@@ -28,7 +28,10 @@
    
    <!-- 5. 유저별 알림 조회 -->
    <select id="selectByUser" parameterType="String" resultType="Notification">
-      select * from t_notification where user_id=#{userId} order by id desc
+      select * 
+      from t_notification 
+      where user_id=#{userId} 
+      order by id desc
    </select>
    
    <!-- 6. 유저-카테고리별 알림 조회 -->

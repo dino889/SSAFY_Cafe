@@ -31,4 +31,10 @@ public class ProductRestController {
     public List<Map<String, Object>> getProductWithComments(@PathVariable Integer productId){
         return pService.selectWithComment(productId);
     }
+    
+    @GetMapping("/type/{productType}")
+    @ApiOperation(value="{type}에 해당하는 상품의 목록을 반환한다.", response = List.class)
+    public List<Product> getProductWithProductType(@PathVariable String productType){
+        return pService.selectWithProductType(productType);
+    }
 }
