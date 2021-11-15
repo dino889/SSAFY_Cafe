@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="200dp"
+    android:layout_margin="10dp"
+    android:background="@drawable/drawable_notification_layout_list_item"
+    android:orientation="vertical">
+
+    <ImageButton
+        android:id="@+id/imageButton3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:background="#00FFFFFF"
+        app:srcCompat="@android:drawable/ic_menu_close_clear_cancel" />
+
+    <TextView
+        android:id="@+id/tv_notificationContent"
+        android:layout_width="match_parent"
+        android:layout_height="112dp"
+        android:text="메뉴가 모두 준비되었습니다. 픽업대에서 메뉴를 픽업해주세요! 매장 방문시 마스크를 꼭 착용해주세요"
+        android:textColor="@color/black" />
+
+    <TextView
+        android:id="@+id/tv_notificatonDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="bottom"
+        android:text="2021.11.08 23:06:30" />
+</LinearLayout>

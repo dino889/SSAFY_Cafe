@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="#00FFFFFF"
+    android:backgroundTint="#00FFFFFF"
+    android:orientation="vertical">
+
+    <ImageButton
+        android:id="@+id/imageButton2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/drawable_cafemenu_list_item_background"
+        android:backgroundTint="#00FFFFFF"
+        android:scaleType="fitStart"
+        tools:srcCompat="@drawable/ainsupeno" />
+
+    <TextView
+        android:id="@+id/tv_listItemCafeMenuName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="아인슈페너"
+        android:textColor="@color/black" />
+</LinearLayout>

@@ -4,28 +4,28 @@
         android:id="@+id/navigation_home"
         android:enabled="true"
         android:title="HOME"
-        android:icon ="@drawable/abc_vector_test"
+        android:icon ="@drawable/home"
         />
 
     <item
         android:id="@+id/navigation_order"
         android:enabled="true"
         android:title="ORDER"
-        android:icon ="@drawable/abc_vector_test"
+        android:icon ="@drawable/order"
         />
 
     <item
         android:id="@+id/navigation_pay"
         android:enabled="true"
         android:title="PAY"
-        android:icon ="@drawable/abc_vector_test"
+        android:icon ="@drawable/pay"
         />
 
     <item
         android:id="@+id/navigation_mypage"
         android:enabled="true"
         android:title="MYPAGE"
-        android:icon ="@drawable/abc_vector_test"
+        android:icon ="@drawable/mypage"
         />
 
 </menu>
