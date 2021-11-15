@@ -29,19 +29,22 @@
 		WHERE id = #{id}
 	</update>
 	
+	
 	<!-- 3. id 기준으로 사용자 핸드폰 번호 수정 -->
+	<!-- 
 	<update id="updatePhone" parameterType="User">
 		UPDATE t_user
 		SET
 		    phone = #{phone}
 		WHERE id = #{id}
 	</update>
+	-->
 	
 	<!-- 4. id 기준으로 사용자 잔액 수정 -->
 	<update id="updateMoney" parameterType="User">
 		UPDATE t_user
 		SET
-		    money = #{money}=
+		    money = #{money}
 		WHERE id = #{id}
 	</update>
 	
