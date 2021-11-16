@@ -33,6 +33,9 @@ class HomeFragment : Fragment() {
         binding.ibtnNotificaton.setOnClickListener{
             mainActivity.openFragment(6)
         }
+        binding.btnLogout.setOnClickListener {
+            mainActivity.openFragment(5)
+        }
     }
     fun initAdapter(){
         binding.rvBestMenuList.apply{
