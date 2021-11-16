@@ -19,7 +19,7 @@ import com.ssafy.cafe.model.service.UserCustomService;
 import io.swagger.annotations.ApiOperation;
 
 @RestController
-@RequestMapping("/rest/user/custom")
+@RequestMapping("/rest/custom")
 @CrossOrigin("*")
 public class UserCustomRestController {
 
@@ -56,7 +56,7 @@ public class UserCustomRestController {
         return ucService.selectUserCustom(customId);
     }
     
-    @GetMapping("/usercustom/{userId}")
+    @GetMapping("/uc/{userId}")
     @ApiOperation(value="{userId}에 해당하는 custom 메뉴의 목록을 반환한다."
     		+ "이 기능은 사용자별 custom 메뉴를 조회할 때 사용된다.", response = List.class)
     public List<UserCustom> getCustomWithUserId(@PathVariable String userId){
