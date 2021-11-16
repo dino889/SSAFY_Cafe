@@ -27,11 +27,11 @@
 
             <TextView
                 android:id="@+id/tv_stampCount"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.3"
                 android:gravity="right"
-                android:text="6/"
+                android:text="6 /"
                 android:textColor="@color/white"
                 android:textSize="20sp"
                 android:textStyle="bold" />
@@ -40,7 +40,7 @@
                 android:id="@+id/tv_stampTotal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="0.5"
                 android:text="20"
                 android:textColor="@color/yellow_700"
                 android:textSize="15sp" />
