@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import com.ssafy.cafe.R
+import com.ssafy.cafe.config.ApplicationClass
 import com.ssafy.cafe.databinding.ActivityMainBinding
 import com.ssafy.cafe.fragment.*
 
@@ -82,9 +83,9 @@ class MainActivity : AppCompatActivity() {
 //            4 -> transaction.replace(R.id.frame_layout_main, MapFragment())
 //                .addToBackStack(null)
 //            //logout
-//            5 -> {
-//                logout()
-//            }
+            5 -> {
+                logout()
+            }
             6->{ // 알람페이지이동
                 transaction.replace(R.id.frame_layout_main, NotificationFragment())
                     .addToBackStack(null)
@@ -109,15 +110,15 @@ class MainActivity : AppCompatActivity() {
 //        else bottomNavigation.visibility = View.VISIBLE
 //    }
 //
-//    fun logout(){
-//        //preference 지우기
-//        ApplicationClass.sharedPreferencesUtil.deleteUser()
-//
-//        //화면이동
-//        val intent = Intent(this, LoginActivity::class.java)
-//        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-//        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//
-//        startActivity(intent)
-//    }
+    fun logout(){
+        //preference 지우기
+        ApplicationClass.sharedPreferencesUtil.deleteUser()
+
+        //화면이동
+        val intent = Intent(this, LoginActivity::class.java)
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+        startActivity(intent)
+    }
 }

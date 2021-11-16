@@ -34,33 +34,14 @@ class JoinFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.etUserID.addTextChangedListener (object: TextWatcher{
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-            }
-
-            override fun afterTextChanged(s: Editable?) {
-//                if(TextInputEditText.text!!.isEmpty()){
-//                    TextInputLayout.error = "아이디를 입력해주세요"
-//                }else{
-//                    TextInputLayout.error = null
-//                }
-            }
-
-        })
+        setupListeners()
         binding.btnJoin.setOnClickListener {
-            val id = binding.etUserID.text.toString().trim()
-            val name = binding.etUserName.text.toString().trim()
-            val tel = binding.etUserTel.text.toString().trim()
-            val pw = binding.etUserPw.text.toString().trim()
-
-            if(isValid(id,name,tel,pw)){
-                join(id,name,tel,pw)
+            if(isValidate()){
+                join(binding.etUserID.text.toString(),binding.etUserName.text.toString(), binding.etUserTel.text.toString(), binding.etUserPw.text.toString())
             }
         }
     }
+    private fun isValidate():Boolean = validateUserID() && validateUserPW() && validateUserTel()
     private fun join(id:String, name:String, tel:String, pw:String){
         UserService().join(User(id,name,tel,pw), object : RetrofitCallback<Boolean> {
             override fun onError(t: Throwable) {
@@ -78,51 +59,88 @@ class JoinFragment : Fragment() {
 
         })
     }
-    private fun doubleCheckID(id:String?){
-        if(id.isNullOrBlank()){
-            toast("아이디를 입력해 주세요")
-        }else{
-            UserService().checkId(id, object: RetrofitCallback<Boolean>{
-                override fun onError(t: Throwable) {
-                    Log.d(TAG, t.message?: "아이디 체크 통신오류")
-                }
+    private fun doubleCheckID(id:String?) : Boolean{
+        UserService().checkId(id!!, object: RetrofitCallback<Boolean>{
+            override fun onError(t: Throwable) {
+                Log.d(TAG, t.message?: "아이디 체크 통신오류")
+            }
 
-                override fun onSuccess(code: Int, responseData: Boolean) {
-                    toast("사용가능한 아이디 입니다.")
-                    checkedId = true
-                }
+            override fun onSuccess(code: Int, responseData: Boolean) {
+                true
+            }
 
-                override fun onFailure(code: Int) {
-                    toast("이미 있는 아이디 입니다.")
-                    checkedId = false
-                }
-
-            })
-        }
+            override fun onFailure(code: Int) {
+                false
+            }
+        })
+        return false
     }
-    private fun isValid(id: String?, pass: String?, nick: String?, tel:String?): Boolean {
-        if(id.isNullOrBlank()) {
-            toast("id를 입력해 주세요")
-            return false
+    private fun setupListeners(){
+        binding.etUserID.addTextChangedListener(TextFieldValidation(binding.etUserID))
+        binding.etUserPw.addTextChangedListener(TextFieldValidation(binding.etUserPw))
+        binding.etUserTel.addTextChangedListener(TextFieldValidation(binding.etUserTel))
+    }
+
+    fun toast(msg: String) {
+        Toast.makeText(requireActivity(), msg, Toast.LENGTH_SHORT).show()
+    }
+    inner class TextFieldValidation(private val view: View):TextWatcher{
+        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
         }
-        if(checkedId == false) {
-            toast("id 중복체크를 해주세요")
-            return false
+
+        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            when(view.id){
+                R.id.et_userID -> {
+                    validateUserID()
+                }
+                R.id.et_userID -> {
+                    validateUserPW()
+                }
+                R.id.et_userTel -> {
+                    validateUserTel()
+                }
+            }
         }
-        if(pass.isNullOrBlank()) {
-            toast("비밀번호를 입력해 주세요")
-            return false
+
+        override fun afterTextChanged(s: Editable?) {
         }
-        if(nick.isNullOrBlank()) {
-            toast("이름을 입력해 주세요")
+
+    }
+    private fun validateUserID() : Boolean{
+        if(binding.etUserID.text.toString().trim().isEmpty()){
+            binding.userIDtextlayout.error = "Required Field"
+            binding.etUserID.requestFocus()
             return false
-        }
-        if(tel.isNullOrBlank()){
-            toast("휴대전화를 입력해 주세요")
+        }else{
+            if(doubleCheckID(binding.etUserID.text.toString())){
+                binding.userIDtextlayout.isErrorEnabled = false
+                checkedId = true
+            }else{
+                binding.userIDtextlayout.error = "이미 존재하는 아이디입니다."
+                checkedId = false
+            }
+//            binding.userIDtextlayout.isErrorEnabled = false
         }
         return true
     }
-    fun toast(msg: String) {
-        Toast.makeText(requireActivity(), msg, Toast.LENGTH_SHORT).show()
+    private fun validateUserPW() : Boolean{
+        if(binding.etUserPw.text.toString().trim().isEmpty()){
+            binding.userPWtextlayout.error = "Required Field"
+            binding.etUserPw.requestFocus()
+            return false
+        }else{
+            binding.userPWtextlayout.isErrorEnabled = false
+        }
+        return true
+    }
+    private fun validateUserTel() : Boolean{
+        if(binding.etUserTel.text.toString().trim().isEmpty()){
+            binding.userTeltextlayout.error = "Required Field"
+            binding.etUserTel.requestFocus()
+            return false
+        }else{
+            binding.userTeltextlayout.isErrorEnabled = false
+        }
+        return true
     }
 }
