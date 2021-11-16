@@ -76,19 +76,16 @@ class UserService {
                 call: Call<HashMap<String, Any>>,
                 response: Response<HashMap<String, Any>>
             ) {
-
                 val data = response.body()
                 if(response.code() == 200){
                     if(data!=null){
-                        val grade = data!!["grade"]
-                        val user = data!!["user"]
-                        Log.d(TAG, "onResponse: $grade, $user")
+                        Log.d(TAG, "onResponse: ${data!!["order"]}")
                         callback.onSuccess(response.code() , data)
                     }else{
                         callback.onFailure(response.code())
                     }
                 }
-                Log.d(TAG, "onResponse: $data")
+
 
             }
 
