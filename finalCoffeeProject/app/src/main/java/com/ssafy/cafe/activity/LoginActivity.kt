@@ -15,6 +15,7 @@ import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.ssafy.cafe.R
+import com.ssafy.cafe.config.ApplicationClass.Companion.sharedPreferencesUtil
 import com.ssafy.cafe.databinding.ActivityLoginBinding
 import com.ssafy.cafe.fragment.JoinFragment
 import com.ssafy.cafe.fragment.LoginFragment
@@ -29,17 +30,17 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-//        var user = sharedPreferencesUtil.getUser()
-//
-//        //로그인 상태 확인. id가 있다면 로그인 된 상태
-//        if (user.id != ""){
-//            openFragment(1)
-//        } else {
-//            // 가장 첫 화면은 홈 화면의 Fragment로 지정
-//            supportFragmentManager.beginTransaction()
-//                .replace(R.id.frame_layout_login, LoginFragment())
-//                .commit()
-//        }
+        var user = sharedPreferencesUtil.getUser()
+
+        //로그인 상태 확인. id가 있다면 로그인 된 상태
+        if (user.id != ""){
+            openFragment(1)
+        } else {
+            // 가장 첫 화면은 홈 화면의 Fragment로 지정
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.frame_layout_login, LoginFragment())
+                .commit()
+        }
 
         supportFragmentManager.beginTransaction()
                 .replace(R.id.frame_layout_login, LoginFragment())

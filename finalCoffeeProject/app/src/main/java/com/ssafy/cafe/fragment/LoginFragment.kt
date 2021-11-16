@@ -20,7 +20,11 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.ssafy.cafe.activity.LoginActivity
 import com.ssafy.cafe.activity.MainActivity
+import com.ssafy.cafe.config.ApplicationClass
 import com.ssafy.cafe.databinding.FragmentLoginBinding
+import com.ssafy.cafe.dto.User
+import com.ssafy.cafe.service.UserService
+import com.ssafy.cafe.util.RetrofitCallback
 
 private const val TAG = "LoginFragment"
 class LoginFragment : Fragment() {
@@ -64,41 +68,43 @@ class LoginFragment : Fragment() {
 
 
         binding.btnLogin.setOnClickListener {
-//            login(id.text.toString(), password.text.toString())
-            val intent = Intent(requireContext(), MainActivity::class.java)
-            startActivity(intent)
+            login(binding.etLoginID.text.toString(), binding.etLoginPW.text.toString())
+//            val intent = Intent(requireContext(), MainActivity::class.java)
+//            startActivity(intent)
         }
         //join
         binding.btnJoin.setOnClickListener {
             loginActivity.openFragment(2)
         }
     }
-//    fun login(loginId: String, loginPass: String) {
-//        val user = User(loginId, loginPass)
-//        UserService().login(user, LoginCallback())
-//    }
-//
-//    inner class LoginCallback: RetrofitCallback<User> {
-//        override fun onSuccess( code: Int, user: User) {
-//
-//            if (user.id != null) {
-//                Toast.makeText(context,"로그인 되었습니다.", Toast.LENGTH_SHORT).show()
-//                // 로그인 시 user정보 sp에 저장
-//                ApplicationClass.sharedPreferencesUtil.addUser(user)
-//                loginActivity.openFragment(1)
-//            }else{
-//                Toast.makeText(context,"ID 또는 패스워드를 확인해 주세요.", Toast.LENGTH_SHORT).show()
-//            }
-//        }
-//
-//        override fun onError(t: Throwable) {
-//            Log.d(TAG, t.message ?: "유저 정보 불러오는 중 통신오류")
-//        }
-//
-//        override fun onFailure(code: Int) {
-//            Log.d(TAG, "onResponse: Error Code $code")
-//        }
-//    }
+
+
+    fun login(loginId: String, loginPass: String) {
+        val user = User(loginId, loginPass)
+        UserService().login(user, LoginCallback())
+    }
+
+    inner class LoginCallback: RetrofitCallback<User> {
+        override fun onSuccess( code: Int, user: User) {
+
+            if (user.id != null) {
+                Toast.makeText(context,"로그인 되었습니다.", Toast.LENGTH_SHORT).show()
+                // 로그인 시 user정보 sp에 저장
+                ApplicationClass.sharedPreferencesUtil.addUser(user)
+                loginActivity.openFragment(1)
+            }else{
+                Toast.makeText(context,"ID 또는 패스워드를 확인해 주세요.", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        override fun onError(t: Throwable) {
+            Log.d(TAG, t.message ?: "유저 정보 불러오는 중 통신오류")
+        }
+
+        override fun onFailure(code: Int) {
+            Log.d(TAG, "onResponse: Error Code $code")
+        }
+    }
 
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

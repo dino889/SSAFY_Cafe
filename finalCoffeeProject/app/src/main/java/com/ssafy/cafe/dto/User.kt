@@ -12,4 +12,5 @@ data class User(
     constructor(): this("", "", "", 0, "", 0)
     constructor(id: String, name: String, pass: String, phone: String, money: Int):this(id, name, pass, 0, phone, money)
     constructor(id:String, pass:String):this(id, "" , pass, 0, "", 0)
+    constructor(id:String,name:String,tel:String,pw:String) : this(id,name,pw,0,tel,0)
 }
