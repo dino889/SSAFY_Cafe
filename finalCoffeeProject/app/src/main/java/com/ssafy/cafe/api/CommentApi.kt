@@ -17,4 +17,8 @@ interface CommentApi {
     // {id}에 해당하는 comment를 삭제한다.
     @DELETE("rest/comment/{id}")
     fun delete(@Path("id") id: Int): Call<Boolean>
+
+    // 사용자별 comment 정보를 조회한다.
+    @GET("rest/comment/{userId}")
+    fun selectCommentByUser(@Path("userId") userId : String) : Call<List<Comment>>
 }

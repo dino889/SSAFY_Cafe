@@ -15,4 +15,6 @@ public interface CommentDao {
     List<Comment> selectAll();
 
     List<Comment> selectByProduct(Integer productId);
+    
+    List<Comment> selectByUser(String userId);
 }

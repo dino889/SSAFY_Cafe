@@ -47,4 +47,9 @@ public class CommentServiceImpl implements CommentService {
         return cDao.select(id);
     }
 
+	@Override
+	public List<Comment> selectByUser(String userId) {
+		return cDao.selectByUser(userId);
+	}
+
 }

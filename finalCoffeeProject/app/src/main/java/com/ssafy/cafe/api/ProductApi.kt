@@ -15,4 +15,10 @@ interface ProductApi {
     // comment 조회시 사용
     @GET("rest/product/{productId}")
     fun getProductWithComments(@Path("productId") productId: Int): Call<List<MenuDetailWithCommentResponse>>
+
+
+    // {productType}에 해당하는 상품의 정보를 반환한다.
+    // 상품 타입별 조회
+    @GET("rest/product/type/{productType}")
+    fun getProductWithType(@Path("productType") productType: String): Call<List<Product>>
 }

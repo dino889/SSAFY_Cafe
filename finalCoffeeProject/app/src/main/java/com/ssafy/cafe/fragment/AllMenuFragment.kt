@@ -7,8 +7,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.view.menu.MenuAdapter
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ssafy.cafe.R
@@ -47,14 +45,14 @@ class AllMenuFragment : Fragment() {
 
         initCategoryAdapter()
 
-        initData()
+        initData()  // default : coffee
     }
 
     private fun initData() {
-        ProductService().getProductList(ProductCallback())
+        ProductService().getProductWithTypeList("coffee", ProductCallback())
     }
 
-    fun initCategoryAdapter(){
+    private fun initCategoryAdapter(){
 
         categoryList = arrayListOf(
             Category(1,"coffee"),
@@ -70,15 +68,19 @@ class AllMenuFragment : Fragment() {
             adapter!!.stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
         }
 
+
+
+
+
     }
 
 
 
     inner class ProductCallback: RetrofitCallback<List<Product>> {
-        override fun onSuccess( code: Int, productList: List<Product>) {
-            productList.let {
-                Log.d(TAG, "onSuccess: ${productList}")
-                allMenuAdapter = AllMenuAdapter(productList)
+        override fun onSuccess( code: Int, productWithTypeList: List<Product>) {
+            productWithTypeList.let {
+                Log.d(TAG, "onSuccess: ${productWithTypeList}")
+                allMenuAdapter = AllMenuAdapter(productWithTypeList)
                 allMenuAdapter.setItemClickListener(object : AllMenuAdapter.ItemClickListener{
                     override fun onClick(view: View, position: Int, productId:Int) {
                         mainActivity.openFragment(3, "productId", productId)
@@ -96,7 +98,7 @@ class AllMenuFragment : Fragment() {
                     RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
             }
 
-            Log.d(TAG, "ProductCallback: $productList")
+            Log.d(TAG, "ProductCallback: $productWithTypeList")
         }
 
         override fun onError(t: Throwable) {

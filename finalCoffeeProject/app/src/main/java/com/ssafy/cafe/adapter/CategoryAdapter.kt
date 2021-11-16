@@ -34,10 +34,13 @@ class CategoryAdapter(var categoryList:List<Category>) : RecyclerView.Adapter<Ca
     override fun getItemCount(): Int {
         return categoryList.size
     }
+
     interface ItemClickListener {
         fun onClick(view: View, position: Int, categoryId: Int)
     }
+
     private lateinit var itemClickListener: ItemClickListener
+
     fun setItemClickListener(itemClickListener: ItemClickListener){
         this.itemClickListener = itemClickListener
     }
