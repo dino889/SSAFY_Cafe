@@ -18,6 +18,7 @@ class OrderFragment : Fragment() {
     private lateinit var binding:FragmentOrderBinding
     private lateinit var mainActivity: MainActivity
     private lateinit var pagerAdapter:OrderMenuPagerAdapter
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
         mainActivity = context as MainActivity
