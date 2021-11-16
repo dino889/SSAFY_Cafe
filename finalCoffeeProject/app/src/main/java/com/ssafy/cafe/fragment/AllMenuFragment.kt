@@ -44,8 +44,6 @@ class AllMenuFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initCategoryAdapter()
-
-        initData()  // default : coffee
     }
 
     private fun initData() {
@@ -53,6 +51,7 @@ class AllMenuFragment : Fragment() {
     }
 
     private fun initCategoryAdapter(){
+        initData()  // default : coffee
 
         categoryList = arrayListOf(
             Category(1,"coffee"),
@@ -62,31 +61,37 @@ class AllMenuFragment : Fragment() {
             Category(5,"dessert"))
 
         categoryAdapter = CategoryAdapter(categoryList)
+
+        categoryAdapter.setItemClickListener(object : CategoryAdapter.ItemClickListener {
+            override fun onClick(view: View, position: Int, categoryId: Int) {
+                val category = categoryList[position]
+                ProductService().getProductWithTypeList(category.category, ProductCallback())
+            }
+        })
+
         binding.rvCategoryMenu.apply{
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             adapter = categoryAdapter
             adapter!!.stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
         }
 
-
-
-
-
     }
-
 
 
     inner class ProductCallback: RetrofitCallback<List<Product>> {
         override fun onSuccess( code: Int, productWithTypeList: List<Product>) {
-            productWithTypeList.let {
-                Log.d(TAG, "onSuccess: ${productWithTypeList}")
-                allMenuAdapter = AllMenuAdapter(productWithTypeList)
-                allMenuAdapter.setItemClickListener(object : AllMenuAdapter.ItemClickListener{
-                    override fun onClick(view: View, position: Int, productId:Int) {
-                        mainActivity.openFragment(3, "productId", productId)
-                    }
-                })
-            }
+
+            Log.d(TAG, "ProductCallback: $productWithTypeList")
+
+//            productWithTypeList.let {
+            allMenuAdapter = AllMenuAdapter(productWithTypeList)
+
+            allMenuAdapter.setItemClickListener(object : AllMenuAdapter.ItemClickListener {
+                override fun onClick(view: View, position: Int, productId:Int) {
+                    mainActivity.openFragment(3, "productId", productId)
+                }
+            })
+//            }
 
             binding.rvCafeMenuList.apply {
                 val linearLayoutManager = LinearLayoutManager(context)
@@ -98,11 +103,10 @@ class AllMenuFragment : Fragment() {
                     RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
             }
 
-            Log.d(TAG, "ProductCallback: $productWithTypeList")
         }
 
         override fun onError(t: Throwable) {
-            Log.d(TAG, t.message ?: "유저 정보 불러오는 중 통신오류")
+            Log.d(TAG, t.message ?: "상품 정보 불러오는 중 통신오류")
         }
 
         override fun onFailure(code: Int) {

@@ -34,10 +34,14 @@ class OrderFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         binding.ibtnShoplist.setOnClickListener {
             mainActivity.openFragment(1)
         }
+
         initTab()
+
+        mainActivity.openFragment(7)    // default : 전체 메뉴
     }
 
     fun initTab(){
