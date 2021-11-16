@@ -38,13 +38,13 @@ INSERT INTO t_product (name, type, price, img) VALUES ('레드오렌지티', 2, 
 INSERT INTO t_product (name, type, price, img) VALUES ('레몬티', 2, 5300, 'remontea.png');
 
 -- type : 3(ade)
-INSERT INTO t_product (name, type, price, img) VALUES ('핑크 캐모마일 릴렉서', 3, 6100, 'pinkChamomileRelaxer.png');
-INSERT INTO t_product (name, type, price, img) VALUES ('블랙 티 레모네이드 피지오', 3, 5400, 'blackTeaLemonadeFizzio.png');
-INSERT INTO t_product (name, type, price, img) VALUES ('패션 탱고 티 레모네이드 피지오', 3, 5400, 'passionTangoTeaLemonadeFizzio.png');
-INSERT INTO t_product (name, type, price, img) VALUES ('샤이닝 머스켓 에이드', 3, 5900, 'shiningMuscatAde.png');
-INSERT INTO t_product (name, type, price, img) VALUES ('샹그리아 에이드', 3, 6500, 'sangriaAde.png');
-INSERT INTO t_product (name, type, price, img) VALUES ('레몬 셔벗 에이드', 3, 6000, 'lemonSorbetAde.png');
-INSERT INTO t_product (name, type, price, img) VALUES ('오렌지 에이드', 3, 5500, 'orangeAde.png');
+INSERT INTO t_product (name, type, price, img) VALUES ('핑크 캐모마일 릴렉서', 3, 6100, 'pinkchamomilerelaxer.png');
+INSERT INTO t_product (name, type, price, img) VALUES ('블랙 티 레모네이드 피지오', 3, 5400, 'blackteaLemonadefizzio.png');
+INSERT INTO t_product (name, type, price, img) VALUES ('패션 탱고 티 레모네이드 피지오', 3, 5400, 'passiontangotealemonadefizzio.png');
+INSERT INTO t_product (name, type, price, img) VALUES ('샤이닝 머스켓 에이드', 3, 5900, 'shiningmuscatade.png');
+INSERT INTO t_product (name, type, price, img) VALUES ('샹그리아 에이드', 3, 6500, 'sangriaade.png');
+INSERT INTO t_product (name, type, price, img) VALUES ('레몬 셔벗 에이드', 3, 6000, 'lemonsorbetade.png');
+INSERT INTO t_product (name, type, price, img) VALUES ('오렌지 에이드', 3, 5500, 'orangeade.png');
 
 -- type : 4(frappuccino)
 INSERT INTO t_product (name, type, price, img) VALUES ('딸기 프라푸치노', 4, 6300, 'stroberyfrapp.png');
