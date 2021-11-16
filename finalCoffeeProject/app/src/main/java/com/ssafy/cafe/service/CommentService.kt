@@ -66,4 +66,23 @@ class CommentService {
             }
         })
     }
+    fun selectCommentByUser(id: String, callback: RetrofitCallback<List<Comment>>){
+        RetrofitUtil.commentService.selectCommentByUser(id).enqueue(object: Callback<List<Comment>>{
+            override fun onResponse(call: Call<List<Comment>>, response: Response<List<Comment>>) {
+                val res = response.body()
+                if(response.code() == 200){
+                    if (res != null) {
+                        callback.onSuccess(response.code(), res)
+                    }
+                }else {
+                    callback.onFailure(response.code())
+                }
+            }
+
+            override fun onFailure(call: Call<List<Comment>>, t: Throwable) {
+                callback.onError(t)
+            }
+
+        })
+    }
 }
