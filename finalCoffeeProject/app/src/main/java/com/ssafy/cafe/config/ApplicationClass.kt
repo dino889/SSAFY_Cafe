@@ -4,7 +4,7 @@ import android.Manifest
 import android.app.Application
 import com.ssafy.cafe.intercepter.AddCookiesInterceptor
 import com.ssafy.cafe.intercepter.ReceivedCookiesInterceptor
-import com.ssafy.cafeutil.SharedPreferencesUtil
+import com.ssafy.cafe.util.SharedPreferencesUtil
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

@@ -2,7 +2,6 @@ package com.ssafy.cafe.intercepter
 
 import android.util.Log
 import com.ssafy.cafe.config.ApplicationClass
-
 import okhttp3.Interceptor
 import okhttp3.Request
 import okhttp3.Response
@@ -12,7 +11,7 @@ private const val TAG = "AddCookiesInter_싸피"
 class AddCookiesInterceptor : Interceptor{
 
     @Throws(IOException::class)
-    override fun intercept(chain: Interceptor.Chain): Response? {
+    override fun intercept(chain: Interceptor.Chain): Response {
         val builder: Request.Builder = chain.request().newBuilder()
 
         // cookie 가져오기
