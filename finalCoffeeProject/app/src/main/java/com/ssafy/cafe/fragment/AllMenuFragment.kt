@@ -83,15 +83,16 @@ class AllMenuFragment : Fragment() {
 
             Log.d(TAG, "ProductCallback: $productWithTypeList")
 
-//            productWithTypeList.let {
-            allMenuAdapter = AllMenuAdapter(productWithTypeList)
+            productWithTypeList.let {
+                allMenuAdapter = AllMenuAdapter(productWithTypeList)
 
-            allMenuAdapter.setItemClickListener(object : AllMenuAdapter.ItemClickListener {
-                override fun onClick(view: View, position: Int, productId:Int) {
-                    mainActivity.openFragment(3, "productId", productId)
-                }
-            })
-//            }
+                allMenuAdapter.setItemClickListener(object : AllMenuAdapter.ItemClickListener {
+                    override fun onClick(view: View, position: Int, productId:Int) {
+                        Log.d(TAG, "onClick: $productId")
+                        mainActivity.openFragment(3, "productId", productId)
+                    }
+                })
+            }
 
             binding.rvCafeMenuList.apply {
                 val linearLayoutManager = LinearLayoutManager(context)

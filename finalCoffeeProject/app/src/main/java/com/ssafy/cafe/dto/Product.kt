@@ -2,8 +2,11 @@ package com.ssafy.cafe.dto
 
 data class Product(
     val id: Int,
-    val img: String,
     val name: String,
+    val type: String,
     val price: Int,
-    val type: String
-)
+    val img: String,
+    val comment: ArrayList<Comment> = ArrayList()
+) {
+    constructor(): this(0, "", "", 0, "")
+}
