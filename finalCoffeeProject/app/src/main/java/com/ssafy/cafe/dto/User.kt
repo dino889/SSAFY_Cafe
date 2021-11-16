@@ -7,9 +7,9 @@ data class User(
     val stamps: Int,
     val phone: String,
     val money: Int,
-    val stampList: List<Any>
+    val stampList: ArrayList<Stamp> = java.util.ArrayList()
 ){
-    constructor():this("", "", "", 0, "", 0)
+    constructor(): this("", "", "", 0, "", 0)
     constructor(id: String, name: String, pass: String, phone: String, money: Int):this(id, name, pass, 0, phone, money)
     constructor(id:String, pass:String):this(id, "" , pass, 0, "", 0)
 }
