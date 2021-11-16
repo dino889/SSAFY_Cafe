@@ -1,5 +1,7 @@
 package com.ssafy.cafe.service
 
+import android.util.Log
+import com.ssafy.cafe.dto.Grade
 import com.ssafy.cafe.dto.User
 import com.ssafy.cafe.util.RetrofitCallback
 import com.ssafy.cafe.util.RetrofitUtil
@@ -8,6 +10,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 
+private const val TAG = "UserService"
 class UserService {
     fun login(user: User, callback:RetrofitCallback<User>) {
         RetrofitUtil.userService.login(user).enqueue(object : Callback<User> {
@@ -61,6 +64,35 @@ class UserService {
             }
 
             override fun onFailure(call: Call<Boolean>, t: Throwable) {
+                callback.onError(t)
+            }
+
+        })
+    }
+
+    fun getUsers(id:String, callback: RetrofitCallback<HashMap<String, Any>>){
+        RetrofitUtil.userService.getInfo(id).enqueue(object : Callback<HashMap<String, Any>>{
+            override fun onResponse(
+                call: Call<HashMap<String, Any>>,
+                response: Response<HashMap<String, Any>>
+            ) {
+
+                val data = response.body()
+                if(response.code() == 200){
+                    if(data!=null){
+                        val grade = data!!["grade"]
+                        val user = data!!["user"]
+                        Log.d(TAG, "onResponse: $grade, $user")
+                        callback.onSuccess(response.code() , data)
+                    }else{
+                        callback.onFailure(response.code())
+                    }
+                }
+                Log.d(TAG, "onResponse: $data")
+
+            }
+
+            override fun onFailure(call: Call<HashMap<String, Any>>, t: Throwable) {
                 callback.onError(t)
             }
 

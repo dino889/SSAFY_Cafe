@@ -2,19 +2,34 @@ package com.ssafy.cafe.fragment
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.net.Uri.parse
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.gson.Gson
+import com.google.gson.JsonObject
+import com.google.gson.JsonParser
+import com.google.gson.internal.Streams.parse
+import com.google.gson.reflect.TypeToken
 import com.ssafy.cafe.R
+import com.ssafy.cafe.activity.LoginActivity
 import com.ssafy.cafe.activity.MainActivity
 import com.ssafy.cafe.config.ApplicationClass
 import com.ssafy.cafe.databinding.FragmentHomeBinding
+import com.ssafy.cafe.dto.User
+import com.ssafy.cafe.service.UserService
+import com.ssafy.cafe.util.RetrofitCallback
+import java.net.HttpCookie.parse
+import java.util.Locale.LanguageRange.parse
+import java.util.logging.Level.parse
 
-
+private const val TAG = "HomeFragment"
 class HomeFragment : Fragment() {
+
     private lateinit var mainActivity: MainActivity
     private lateinit var binding:FragmentHomeBinding
     override fun onAttach(context: Context) {
@@ -32,13 +47,38 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        initUserLevel()
     }
     fun initAdapter(){
         binding.rvBestMenuList.apply{
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
 
         }
+    }
+    fun initUserLevel(){
+        var user = ApplicationClass.sharedPreferencesUtil.getUser()
+        UserService().getUsers(user.id, object : RetrofitCallback<HashMap<String, Any>>{
+            override fun onError(t: Throwable) {
+                Log.d(TAG, "onError: ")
+            }
+
+            override fun onSuccess(code: Int, responseData: HashMap<String, Any>) {
+                Log.d(TAG, "onSuccess: $responseData")
+                //val grade = responseData!!["grade"]
+
+                val user = Gson().fromJson(responseData["user"].toString(),User::class.java)
+
+                Log.d(TAG, "onSuccess: ${user.stamps}")
+                binding.tvStampCount.text = "${user.stamps} /"
+
+
+            }
+
+            override fun onFailure(code: Int) {
+                Log.d(TAG, "onFailure: ")
+            }
+
+        })
     }
 
 }
