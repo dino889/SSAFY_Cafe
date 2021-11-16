@@ -1,5 +1,6 @@
 package com.ssafy.cafe.adapter
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +14,9 @@ class CategoryAdapter(var categoryList:List<Category>) : RecyclerView.Adapter<Ca
     inner class CategoryHolder(itemView: View): RecyclerView.ViewHolder(itemView){
         val category = itemView.findViewById<TextView>(R.id.tv_categoryName)
         fun bindInfo(categorys: Category){
+
             category.text = categorys.category
+
             itemView.setOnClickListener {
                 itemClickListener.onClick(it, layoutPosition, categoryList[layoutPosition].id)
             }
