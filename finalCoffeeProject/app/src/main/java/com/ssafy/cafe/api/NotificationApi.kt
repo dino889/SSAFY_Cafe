@@ -17,10 +17,10 @@ interface NotificationApi {
 
     // 사용자별 Notification 정보를 조회한다.
     @GET("rest/notification/{userId}")
-    fun gutUserWithNotifications(@Path("userId") userId : String) : Call<List<UserCustom>>
+    fun gutUserWithNotifications(@Path("userId") userId : String) : Call<List<Notification>>
 
     // 사용자별 Notification을 category별로 조회한다.
     @GET("rest/notification/{userId}/{category}")
-    fun getUserWithNotificationsAndNoti(@Path("userId") userId : String, @Path("category") category : String) : Call<List<UserCustom>>
+    fun getUserWithNotificationsAndNoti(@Path("userId") userId : String, @Path("category") category : String) : Call<List<Notification>>
 
 }

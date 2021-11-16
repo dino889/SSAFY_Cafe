@@ -52,7 +52,7 @@ public class UserCustomRestController {
     
     @GetMapping("/{customId}")
     @ApiOperation(value="{customId}에 해당하는 custom 메뉴의 정보를 반환한다.", response = UserCustom.class)
-    public UserCustom getProductWithComments(@PathVariable Integer customId){
+    public UserCustom selectUserCustom(@PathVariable Integer customId){
         return ucService.selectUserCustom(customId);
     }
     

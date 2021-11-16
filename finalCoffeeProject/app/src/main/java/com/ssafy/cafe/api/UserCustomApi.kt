@@ -1,26 +1,29 @@
 package com.ssafy.cafe.api
 
-import com.ssafy.cafe.dto.Notification
 import com.ssafy.cafe.dto.UserCustom
 import retrofit2.Call
 import retrofit2.http.*
 
 interface UserCustomApi {
 
-    // Notification을 추가한다.
-    @POST("rest/notification")
-    fun insert(@Body notification : Notification): Call<Boolean>
+    // User Custom Product 을 추가한다.
+    @POST("rest/custom")
+    fun insert(@Body userCustom: UserCustom): Call<Boolean>
 
-    // Notification을 삭제한다.
-    @DELETE("rest/notification/{id}")
+    // User Custom Product을 삭제한다.
+    @DELETE("rest/custom/{id}")
     fun delete(@Path("id") id : Int) : Call<Boolean>
 
-    // 사용자별 Notification 정보를 조회한다.
-    @GET("rest/notification/{userId}")
-    fun gutUserWithNotifications(@Path("userId") userId : String) : Call<List<UserCustom>>
+    // 전체 User Custom Product을 조회한다.
+    @GET("rest/custom")
+    fun selectUserCustomList() : Call<List<UserCustom>>
 
-    // 사용자별 Notification을 category별로 조회한다.
-    @GET("rest/notification/{userId}/{category}")
-    fun getUserWithNotificationsAndNoti(@Path("userId") userId : String, @Path("category") category : String) : Call<List<UserCustom>>
+    // id에 해당하는 Custom Product 정보를 조회한다.
+    @GET("rest/custom/{customId}")
+    fun selectUserCustom(@Path("customId") customId : Int) : Call<List<UserCustom>>
+
+    // 사용자 id로 사용자별 Custom Product 정보를 조회한다.
+    @GET("rest/custom/uc/{userId}")
+    fun getCustomWithUserId(@Path("userId") userId : String) : Call<List<UserCustom>>
 
 }
