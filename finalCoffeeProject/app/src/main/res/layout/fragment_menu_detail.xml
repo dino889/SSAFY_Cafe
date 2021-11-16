@@ -36,7 +36,7 @@
                     android:padding="20dp">
 
                     <TextView
-                        android:id="@+id/textView6"
+                        android:id="@+id/tv_cafeMenuName"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="카라멜 마끼야또"
@@ -73,7 +73,7 @@
                             android:orientation="horizontal">
 
                             <ImageButton
-                                android:id="@+id/imageButton"
+                                android:id="@+id/ibtn_addCount"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
@@ -92,7 +92,7 @@
                                 android:textSize="16sp" />
 
                             <ImageButton
-                                android:id="@+id/imageButton4"
+                                android:id="@+id/ibtn_minusCount"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
@@ -157,6 +157,7 @@
                                     android:id="@+id/hotice_ice"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
+                                    android:checked="false"
                                     android:text="ICE" />
 
                                 <TextView
