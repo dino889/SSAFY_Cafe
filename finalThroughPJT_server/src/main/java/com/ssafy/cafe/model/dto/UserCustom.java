@@ -11,6 +11,22 @@ public class UserCustom {
     
     public UserCustom() {}
 
+    // type 만 입력
+    public UserCustom(String userId, Integer productId, Integer type) {
+    	this.userId = userId;
+		this.productId = productId;
+		this.type = type;
+    }
+    
+    // type + syrup
+    public UserCustom(String userId, Integer productId, Integer type, String syrup) {
+    	this.userId = userId;
+		this.productId = productId;
+		this.type = type;
+		this.syrup = syrup;
+    }
+    
+    // type + syrup + shot
     public UserCustom(String userId, Integer productId, Integer type, String syrup, Integer shot) {
     	this.userId = userId;
 		this.productId = productId;

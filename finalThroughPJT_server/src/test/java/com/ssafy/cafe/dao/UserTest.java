@@ -9,7 +9,8 @@ import com.ssafy.cafe.model.dto.User;
 
 class UserTest extends AbstractDaoTest{
 
-    User data = new User("새사용자","hong gil dong","1234", 0);
+//    User data = new User("새사용자","hong gil dong","1234", 0);
+    User data = new User("새사용자","hong gil dong","1234", 0, "010-8888-8888", 10000);
     
     
     @Test
