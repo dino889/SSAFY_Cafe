@@ -67,4 +67,15 @@ class SharedPreferencesUtil (context: Context) {
         preferences.edit().remove("ot").apply()
     }
 
+    //사용자 잔액 저장
+    fun addUserPay(pay:Int){
+        val editor = preferences.edit()
+        editor.putInt("pay", pay)
+        editor.apply()
+    }
+    fun getUserPay() : Int? {
+        val pay = preferences.getInt("pay",0)
+        return pay
+    }
+
 }

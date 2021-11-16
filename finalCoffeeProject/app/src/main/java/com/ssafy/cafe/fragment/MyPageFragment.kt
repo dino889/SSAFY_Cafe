@@ -44,8 +44,9 @@ class MyPageFragment : Fragment() {
                 //val grade = responseData!!["grade"]
 
                 val user = Gson().fromJson(responseData["user"].toString(), User::class.java)
-
-                binding.tvMyPayMoney.text = "${user.money.toString()}원"
+                var pay = user.money
+                binding.tvMyPayMoney.text = "$pay 원"
+                ApplicationClass.sharedPreferencesUtil.addUserPay(pay)
 
             }
 
