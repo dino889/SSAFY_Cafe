@@ -7,7 +7,7 @@ import android.os.Handler
 import com.ssafy.cafe.R
 
 class LoadingActivity : AppCompatActivity() {
-    private val SPLASH_TIME:Long = 4000
+    private val SPLASH_TIME:Long = 1000 // 4000
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

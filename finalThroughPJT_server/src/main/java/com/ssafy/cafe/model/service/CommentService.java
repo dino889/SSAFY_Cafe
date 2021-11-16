@@ -35,4 +35,11 @@ public interface CommentService {
      * @return
      */
     List<Comment> selectByProduct(Integer productId);
+    
+    /**
+     * userId에 해당하는 Comment의 목록을 id 내림차순으로 반환.
+     * @param userId
+     * @return
+     */
+    List<Comment> selectByUser(String userId);
 }

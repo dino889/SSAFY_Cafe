@@ -15,19 +15,29 @@
 		comment = #{comment}
 		WHERE id = #{id}
 	</update>
+	
 	<delete id="delete" parameterType="int">
 		DELETE FROM t_comment
 		WHERE id = #{id}
 	</delete>
+	
 	<select id="select" parameterType="int" resultType="Comment">
 		SELECT * FROM t_comment
 		WHERE id = #{id}
 	</select>
+	
 	<select id="selectAll" resultType="Comment">
 		SELECT * FROM t_comment order by id desc
 	</select>
 	
 	<select id="selectByProduct" parameterType="int" resultType="Comment">
 		select * from t_comment where product_id=#{productId} order by id desc
+	</select>
+	
+	<select id="selectByUser" parameterType="String" resultType="Comment">
+		SELECT *
+		FROM t_comment
+		WHERE user_id = #{userId}
+		ORDER BY id desc
 	</select>
 </mapper>
