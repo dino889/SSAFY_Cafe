@@ -2,6 +2,8 @@ package com.ssafy.cafe.config
 
 import android.Manifest
 import android.app.Application
+import com.ssafy.cafe.intercepter.AddCookiesInterceptor
+import com.ssafy.cafe.intercepter.ReceivedCookiesInterceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -13,7 +15,8 @@ class ApplicationClass : Application() {
         const val SERVER_URL = "http://1.251.96.80:8888/"
 
         //jiwoo serverurl
-//        const val SERVER_URL = ""
+//        const val SERVER_URL = "http://url:8888/"
+
 //        const val MENU_IMGS_URL = "${SERVER_URL}imgs/menu/"
 //        const val IMGS_URL = "${SERVER_URL}imgs/"
 
