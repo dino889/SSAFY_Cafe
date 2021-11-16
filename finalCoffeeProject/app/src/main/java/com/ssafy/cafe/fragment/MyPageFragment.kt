@@ -72,7 +72,7 @@ class MyPageFragment : Fragment() {
                 //val grade = responseData!!["grade"]
 
                 val user = Gson().fromJson(responseData["user"].toString(), User::class.java)
-
+//                val order:List<Order> = Gson().fromJson(responseData["order"].toString(), List<Order>::class.java).toList()
                 var pay = user.money
                 binding.tvMyPayMoney.text = "$pay 원"
                 ApplicationClass.sharedPreferencesUtil.addUserPay(pay)
