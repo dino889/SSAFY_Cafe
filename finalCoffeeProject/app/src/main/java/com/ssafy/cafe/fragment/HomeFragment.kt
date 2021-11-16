@@ -1,6 +1,7 @@
 package com.ssafy.cafe.fragment
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,6 +10,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ssafy.cafe.R
 import com.ssafy.cafe.activity.MainActivity
+import com.ssafy.cafe.config.ApplicationClass
 import com.ssafy.cafe.databinding.FragmentHomeBinding
 
 
@@ -30,12 +32,7 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.ibtnNotificaton.setOnClickListener{
-            mainActivity.openFragment(6)
-        }
-        binding.btnLogout.setOnClickListener {
-            mainActivity.openFragment(5)
-        }
+
     }
     fun initAdapter(){
         binding.rvBestMenuList.apply{

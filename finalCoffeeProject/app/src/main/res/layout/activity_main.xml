@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout  xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".activity.MainActivity">
+
     <LinearLayout
         android:id="@+id/ll_profileStateShort"
         android:layout_width="match_parent"
@@ -37,6 +38,14 @@
                 android:background="#00FFFFFF"
                 android:scaleType="fitEnd"
                 android:src="@drawable/notification_alert_bell_icon" />
+
+            <ImageButton
+                android:id="@+id/btn_logout"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="#00FFFFFF"
+                android:scaleType="centerInside"
+                app:srcCompat="@drawable/heart" />
         </LinearLayout>
 
         <TextView
@@ -47,10 +56,12 @@
             android:textColor="#FFFFFF" />
 
     </LinearLayout>
+
     <FrameLayout
         android:id="@+id/frame_layout_main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@id/ll_profileStateShort"
         android:layout_above="@id/tab_layout_bottom_navigation" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -61,4 +72,4 @@
         android:background="@color/blue_700"
         app:menu="@menu/bottom_nav" />
 
-</LinearLayout>
+</RelativeLayout>
