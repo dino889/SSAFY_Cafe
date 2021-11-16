@@ -1,6 +1,7 @@
 package com.ssafy.cafe.fragment
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,6 +10,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ssafy.cafe.R
 import com.ssafy.cafe.activity.MainActivity
+import com.ssafy.cafe.config.ApplicationClass
 import com.ssafy.cafe.databinding.FragmentHomeBinding
 
 
@@ -30,6 +32,7 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initUserName()
         binding.ibtnNotificaton.setOnClickListener{
             mainActivity.openFragment(6)
         }
@@ -43,5 +46,8 @@ class HomeFragment : Fragment() {
 
         }
     }
-
+    fun initUserName(){
+        var user = ApplicationClass.sharedPreferencesUtil.getUser()
+        binding.tvUserName.text = "${user.name}님"
+    }
 }
