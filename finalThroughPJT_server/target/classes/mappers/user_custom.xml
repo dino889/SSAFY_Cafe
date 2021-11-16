@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- name space는 BookRepo의 fully qualified name으로 설정한다. -->
+<mapper namespace="com.ssafy.cafe.model.dao.UserCustomDao">
+
+	<!-- 1. 사용자 custom 메뉴 추가 -->
+	<insert id="insert" parameterType="UserCustom">
+		INSERT INTO t_user_custom
+		    (user_id, 
+		    product_id,
+		    type,
+		    syrup,
+		    shot)
+		VALUES
+		    (#{userId}, 
+		    #{productId},
+		    #{type},
+		    #{syrup},
+		    #{shot})
+	</insert>
+	
+	<!-- 2. id로 사용자 custom 메뉴 삭제 -->
+	<delete id="delete" parameterType="int">
+		DELETE FROM t_user_custom
+		WHERE id = #{id}
+	</delete>
+	
+	<!-- 3. id로 사용자 custom 메뉴 조회 -->
+	<select id="select" parameterType="int" resultType="UserCustom">
+		SELECT * 
+		FROM t_user_custom
+		WHERE id = #{id}
+	</select>
+	
+	<!-- 4. 사용자 custom 메뉴 전체 조회 -->
+	<select id="selectAll" resultType="UserCustom">
+		SELECT * FROM t_user_custom
+	</select>
+	
+	<!-- 5. 사용자 id 기준 사용자 custom 메뉴 전체 조회 -->
+	<select id="selectWithUser" parameterType="string" resultType="UserCustom">
+		SELECT * 
+		FROM t_user_custom
+		WHERE user_id = #{userId}
+	</select>
+
+</mapper>
