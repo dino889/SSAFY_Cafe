@@ -56,9 +56,18 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-
+        initUserName()
+        binding.ibtnNotificaton.setOnClickListener{
+            openFragment(6)
+        }
+        binding.btnLogout.setOnClickListener {
+            openFragment(5)
+        }
     }
-
+    fun initUserName(){
+        var user = ApplicationClass.sharedPreferencesUtil.getUser()
+        binding.tvUserName.text = "${user.name}님"
+    }
     fun openFragment(index:Int, key:String, value:Int){
         moveFragment(index, key, value)
     }

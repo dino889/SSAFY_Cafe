@@ -32,13 +32,7 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initUserName()
-        binding.ibtnNotificaton.setOnClickListener{
-            mainActivity.openFragment(6)
-        }
-        binding.btnLogout.setOnClickListener {
-            mainActivity.openFragment(5)
-        }
+
     }
     fun initAdapter(){
         binding.rvBestMenuList.apply{
@@ -46,8 +40,5 @@ class HomeFragment : Fragment() {
 
         }
     }
-    fun initUserName(){
-        var user = ApplicationClass.sharedPreferencesUtil.getUser()
-        binding.tvUserName.text = "${user.name}님"
-    }
+
 }
