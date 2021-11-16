@@ -38,8 +38,8 @@
 	
 	<!-- 4. id로 상품 조회 -->
 	<select id="select" parameterType="int" resultType="Product">
-		SELECT * FROM
-		t_product
+		SELECT * 
+		FROM t_product
 		WHERE id = #{id}
 	</select>
 	
@@ -50,7 +50,7 @@
 	
 	<!-- 6. 상품 타입 텍스트로 상품 조회 -->
 	<select id="selectWithProductType" parameterType="String" resultType="Product">
-		select p.id, pt.type_name, p.name, p.price, p.img
+		select p.id, pt.type_name as type, p.name, p.price, p.img
 		from t_product as p
 		join t_product_type as pt
 		on p.type = pt.id
@@ -60,14 +60,16 @@
 	<!-- 7. id 기준 상품에 대한 comment 조회 -->
 	<!-- backend  관통 과정에서 추가됨 -->
 	<select id="selectWithComment" resultType="map" parameterType="int">
-	select p.name, p.price, p.img, c.id as commentId, c.user_id, c.rating, c.comment, p.id as product_id,p.type as product_type,
-	(select name from t_user where id=c.user_Id	) userName,
-    (select count(rating)  from t_comment where product_id=p.id) as commentCnt,
-    (select avg(rating)  from t_comment where product_id=p.id) as avg,
-    (select sum(quantity) from t_order_detail where product_id=p.id) as sells
-from t_product p left join  t_comment c on p.id=c.product_id
-where p.id=#{productId}
-order by c.id desc;
+	select p.name, p.price, p.img, c.id as commentId, c.user_id, c.rating, c.comment, p.id as product_id, p.type as product_type,
+		(select name from t_user where id=c.user_Id	) userName,
+	    (select count(rating)  from t_comment where product_id=p.id) as commentCnt,
+	    (select avg(rating)  from t_comment where product_id=p.id) as avg,
+	    (select sum(quantity) from t_order_detail where product_id=p.id) as sells
+	from (select p.id, pt.type_name as type, p.name, p.price, p.img from t_product as p join t_product_type as pt on p.type = pt.id) as p
+	left join  t_comment c 
+	on p.id=c.product_id
+	where p.id = #{id}
+	order by c.id desc;
 	</select>
 	
 </mapper>

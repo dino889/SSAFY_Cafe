@@ -50,7 +50,7 @@ INSERT INTO t_product (name, type, price, img) VALUES ('오렌지 에이드', 3,
 INSERT INTO t_product (name, type, price, img) VALUES ('딸기 프라푸치노', 4, 6300, 'stroberyfrapp.png');
 INSERT INTO t_product (name, type, price, img) VALUES ('오레오 프라푸치노', 4, 6100, 'oreofrapp.png');
 INSERT INTO t_product (name, type, price, img) VALUES ('자바 칩 프라푸치노', 4, 6100, 'javachipfrapp.png');
-INSERT INTO t_product (name, type, price, img) VALUES ('초콜릿 크림 칩 프라푸치노', 4, 5700, 'chocofrapp.png');
+INSERT INTO t_product (name, type, price, img) VALUES ('초콜릿 크림 칩 프라푸치노', 4, 5700, 'chocolatecreamchipfrappuccino.png');
 
 -- type : 5(dessert)
 INSERT INTO t_product (name, type, price, img) VALUES ('티라미슈 케이크', 5, 6900, 'tiramisu.png');
