@@ -4,6 +4,7 @@ import android.Manifest
 import android.app.Application
 import com.ssafy.cafe.intercepter.AddCookiesInterceptor
 import com.ssafy.cafe.intercepter.ReceivedCookiesInterceptor
+import com.ssafy.cafeutil.SharedPreferencesUtil
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -17,7 +18,7 @@ class ApplicationClass : Application() {
         //jiwoo serverurl
 //        const val SERVER_URL = "http://url:8888/"
 
-//        const val MENU_IMGS_URL = "${SERVER_URL}imgs/menu/"
+        const val MENU_IMGS_URL = "${SERVER_URL}imgs/menu/"
 //        const val IMGS_URL = "${SERVER_URL}imgs/"
 
         lateinit var sharedPreferencesUtil: SharedPreferencesUtil
