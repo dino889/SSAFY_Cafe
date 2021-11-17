@@ -21,4 +21,6 @@ public interface ProductService {
     
     List<Product> selectWithProductType(String type);
     
+    List<Map<String, Object>> selectBestProduct();
+    
 }

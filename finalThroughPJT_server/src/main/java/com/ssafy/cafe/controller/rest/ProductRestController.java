@@ -37,4 +37,10 @@ public class ProductRestController {
     public List<Product> getProductWithProductType(@PathVariable String productType){
         return pService.selectWithProductType(productType);
     }
+    
+    @GetMapping("/bestProduct")
+    @ApiOperation(value="주문 내역이 많은 product top 5를 조죄한다.", response = List.class)
+    public List<Map<String, Object>> getBestProduct(){
+        return pService.selectBestProduct();
+    }
 }

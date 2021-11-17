@@ -9,8 +9,8 @@ import com.ssafy.cafe.model.dao.ProductDao;
 import com.ssafy.cafe.model.dto.Product;
 
 /**
- * @author itsmeyjc
- * @since 2021. 6. 23.
+ * @author jiwoo
+ * @since 2021. 11. 18.
  */
 @Service
 public class ProductServiceImpl implements ProductService{
@@ -31,6 +31,11 @@ public class ProductServiceImpl implements ProductService{
 	@Override
 	public List<Product> selectWithProductType(String type) {
 		return pDao.selectWithProductType(type);
+	}
+
+	@Override
+	public List<Map<String, Object>> selectBestProduct() {
+		return pDao.selectBestProduct();
 	}
 
 }
