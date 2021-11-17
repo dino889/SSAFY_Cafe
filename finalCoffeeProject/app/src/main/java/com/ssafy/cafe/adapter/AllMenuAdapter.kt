@@ -10,6 +10,7 @@ import android.widget.TextView
 import androidx.appcompat.view.menu.MenuAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.google.android.gms.common.internal.service.Common
 import com.ssafy.cafe.R
 import com.ssafy.cafe.config.ApplicationClass
 import com.ssafy.cafe.dto.Product
@@ -31,7 +32,7 @@ class AllMenuAdapter(var productList:List<Product>) :RecyclerView.Adapter<AllMen
                 .into(productImage)
 
             productName.text = product.name
-            productPrice.text = product.price.toString()
+            productPrice.text = CommonUtils.makeComma(product.price)
 
             itemView.setOnClickListener{
                 itemClickListner.onClick(it, layoutPosition, productList[layoutPosition].id)

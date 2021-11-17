@@ -106,19 +106,29 @@ class MainActivity : AppCompatActivity() {
             }
             8 -> {
                 //사용자메뉴보기
-                transaction.replace(R.id.tabFrameLayout, UserCustomMenuFragment.newInstance(key, value))
+                transaction.replace(R.id.tabFrameLayout, UserCustomMenuFragment())
+                    .addToBackStack(null)
+            }
+            9->{
+                //메뉴상세정보보기
+                transaction.replace(R.id.fl_tablayout, MenuInfoDetailFragment.newInstance(key,value))
+                    .addToBackStack(null)
+            }
+            10->{
+                //메뉴 리뷰보기
+                transaction.replace(R.id.fl_tablayout, ReviewFragment())
                     .addToBackStack(null)
             }
 
         }
         transaction.commit()
     }
-//
-//    fun hideBottomNav(state : Boolean){
-//        if(state) bottomNavigation.visibility =  View.GONE
-//        else bottomNavigation.visibility = View.VISIBLE
-//    }
-//
+
+    fun hideBottomNav(state : Boolean){
+        if(state) binding.tabLayoutBottomNavigation.visibility =  View.GONE
+        else binding.tabLayoutBottomNavigation.visibility = View.VISIBLE
+    }
+
     fun logout(){
         //preference 지우기
         ApplicationClass.sharedPreferencesUtil.deleteUser()
