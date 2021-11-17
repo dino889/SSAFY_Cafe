@@ -220,6 +220,34 @@
                 </RadioGroup>
             </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <Button
+                    android:id="@+id/btn_gotoBucket"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="4dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/drawable_button_selector2"
+                    android:text="장바구니"
+                    android:textColor="@color/black"></Button>
+
+                <Button
+                    android:id="@+id/btn_gotoOrder"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="4dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/drawable_button_selector2"
+                    android:text="바로주문"
+                    android:textColor="@color/black" />
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 
