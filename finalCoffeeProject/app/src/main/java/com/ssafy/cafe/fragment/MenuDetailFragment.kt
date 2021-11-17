@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.lifecycle.MutableLiveData
 import com.bumptech.glide.Glide
 import com.google.android.material.tabs.TabLayout
 import com.ssafy.cafe.R
@@ -21,11 +22,13 @@ import com.ssafy.cafe.util.RetrofitCallback
 import retrofit2.Retrofit
 
 private const val TAG = "MenuDetailFragment_싸피"
+
 class MenuDetailFragment : Fragment() {
     private lateinit var mainActivity : MainActivity
     private lateinit var binding : FragmentMenuDetailBinding
 
     private var productId = -1
+
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -95,6 +98,8 @@ class MenuDetailFragment : Fragment() {
         super.onDestroy()
         mainActivity.hideBottomNav(false)
     }
+
+
     fun initTab(){
         binding.menudetailTabLayout.addOnTabSelectedListener(object: TabLayout.OnTabSelectedListener{
             override fun onTabSelected(tab: TabLayout.Tab?) {
@@ -102,7 +107,7 @@ class MenuDetailFragment : Fragment() {
                     0 -> {
                         mainActivity.openFragment(9,"productId", productId)
                     }
-                    1 -> mainActivity.openFragment(10)
+                    1 -> mainActivity.openFragment(10, "productId", productId)
                 }
             }
 

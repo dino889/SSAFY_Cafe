@@ -1,9 +1,9 @@
 package com.ssafy.cafe.dto
 
 data class Comment(
-    val comment: String,
+    var comment: String,
     val id: Int,
     val productId: Int,
-    val rating: Int,
+    val rating: Float,
     val userId: String
 )

@@ -54,7 +54,7 @@ class MenuInfoDetailFragment : Fragment() {
     private fun countProduct() {
         var tmp = binding.tvCafeMenuCnt.text.toString()
         var menuCnt = tmp[0].toString().toInt()
-//        Log.d(TAG, "countProduct: ${tmp[0]} ****** ${tmp[1]}")
+
         binding.ibtnAddCount.setOnClickListener {
             menuCnt++
             binding.tvCafeMenuCnt.text = "${menuCnt}개"
@@ -63,21 +63,13 @@ class MenuInfoDetailFragment : Fragment() {
         binding.ibtnMinusCount.setOnClickListener {
             if(menuCnt <= 0) {
                 Toast.makeText(requireContext(), "수량을 입력해주세요.", Toast.LENGTH_SHORT).show()
-                binding.tvCafeMenuCnt.text = "0개"
+                menuCnt = 0
+                binding.tvCafeMenuCnt.text = "${menuCnt}개"
             } else {
                 menuCnt--
                 binding.tvCafeMenuCnt.text = "${menuCnt}개"
             }
         }
-    }
-    companion object {
-        @JvmStatic
-        fun newInstance(key:String, value:Int) =
-            MenuInfoDetailFragment().apply {
-                arguments = Bundle().apply {
-                    putInt(key, value)
-                }
-            }
     }
 
     inner class ProductWithCommentInsertCallback :
@@ -103,4 +95,13 @@ class MenuInfoDetailFragment : Fragment() {
         }
     }
 
+    companion object {
+        @JvmStatic
+        fun newInstance(key:String, value:Int) =
+            MenuInfoDetailFragment().apply {
+                arguments = Bundle().apply {
+                    putInt(key, value)
+                }
+            }
+    }
 }
