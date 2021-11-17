@@ -22,14 +22,18 @@ class LastOrderAdapter : RecyclerView.Adapter<LastOrderAdapter.LatestOrderHolder
             val name = if(data.orderCnt == 1) {
                 data.productName
             } else {
-                "${data.productName} 외 ${data.orderCnt - 1}잔"
+                if(data.productName.length <=5){
+                    "${data.productName} 외 ${data.orderCnt - 1}잔"
+                }else{
+                    "${data.productName}외 ..."
+                }
             }
             itemView.findViewById<TextView>(R.id.tv_listItemCafeMenuName).text = name
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LatestOrderHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.list_item_latest_order, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.recyclerview_menu_list_item, parent, false)
         return LatestOrderHolder(view)
     }
 

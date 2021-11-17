@@ -75,25 +75,7 @@
             </LinearLayout>
 
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:orientation="horizontal">
 
-            <Button
-                android:id="@+id/btn_gotoBucket"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="장바구니"></Button>
-
-            <Button
-                android:id="@+id/btn_gotoOrder"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="바로주문" />
-        </LinearLayout>
     </LinearLayout>
 
 </FrameLayout>
