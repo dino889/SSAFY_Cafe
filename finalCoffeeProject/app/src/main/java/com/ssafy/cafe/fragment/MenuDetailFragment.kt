@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.bumptech.glide.Glide
+import com.google.android.material.tabs.TabLayout
 import com.ssafy.cafe.R
 import com.ssafy.cafe.activity.MainActivity
 import com.ssafy.cafe.config.ApplicationClass
@@ -53,6 +54,7 @@ class MenuDetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initData()
+        initTab()
         countProduct()
     }
 
@@ -64,29 +66,26 @@ class MenuDetailFragment : Fragment() {
     private fun initScreen(menu : MenuDetailWithCommentResponse) {
         Glide.with(this).load("${ApplicationClass.MENU_IMGS_URL}${menu.productImg}").into(binding.ivCafeMenuImg)
         binding.tvCafeMenuName.text = menu.productName
-        binding.tvCafeMenuPrice.text = CommonUtils.makeComma(menu.productPrice)
-
-        binding.hoticeIce.isChecked = true
     }
 
     private fun countProduct() {
-        var tmp = binding.tvCafeMenuCnt.text.toString()
-        var menuCnt = tmp[0].toString().toInt()
-//        Log.d(TAG, "countProduct: ${tmp[0]} ****** ${tmp[1]}")
-        binding.ibtnAddCount.setOnClickListener {
-            menuCnt++
-            binding.tvCafeMenuCnt.text = "${menuCnt}개"
-        }
-
-        binding.ibtnMinusCount.setOnClickListener {
-            if(menuCnt <= 0) {
-                Toast.makeText(requireContext(), "수량을 입력해주세요.", Toast.LENGTH_SHORT).show()
-                binding.tvCafeMenuCnt.text = "0개"
-            } else {
-                menuCnt--
-                binding.tvCafeMenuCnt.text = "${menuCnt}개"
-            }
-        }
+//        var tmp = binding.tvCafeMenuCnt.text.toString()
+//        var menuCnt = tmp[0].toString().toInt()
+////        Log.d(TAG, "countProduct: ${tmp[0]} ****** ${tmp[1]}")
+//        binding.ibtnAddCount.setOnClickListener {
+//            menuCnt++
+//            binding.tvCafeMenuCnt.text = "${menuCnt}개"
+//        }
+//
+//        binding.ibtnMinusCount.setOnClickListener {
+//            if(menuCnt <= 0) {
+//                Toast.makeText(requireContext(), "수량을 입력해주세요.", Toast.LENGTH_SHORT).show()
+//                binding.tvCafeMenuCnt.text = "0개"
+//            } else {
+//                menuCnt--
+//                binding.tvCafeMenuCnt.text = "${menuCnt}개"
+//            }
+//        }
     }
 
 
@@ -118,7 +117,26 @@ class MenuDetailFragment : Fragment() {
         super.onDestroy()
         mainActivity.hideBottomNav(false)
     }
+    fun initTab(){
+        binding.menudetailTabLayout.addOnTabSelectedListener(object: TabLayout.OnTabSelectedListener{
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+                when(tab!!.position){
+                    0 -> {
+                        mainActivity.openFragment(9)
+                    }
+                    1 -> mainActivity.openFragment(10)
+                }
+            }
 
+            override fun onTabUnselected(tab: TabLayout.Tab?) {
+            }
+
+            override fun onTabReselected(tab: TabLayout.Tab?) {
+
+            }
+
+        })
+    }
     companion object {
         @JvmStatic
         fun newInstance(key: String, value : Int) =
