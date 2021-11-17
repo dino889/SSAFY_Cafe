@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
+import com.google.gson.reflect.TypeToken
 import com.ssafy.cafe.R
 import com.ssafy.cafe.config.ApplicationClass
 import com.ssafy.cafe.databinding.FragmentMyPageBinding
@@ -18,8 +19,12 @@ import com.ssafy.cafe.dto.User
 import com.ssafy.cafe.service.CommentService
 import com.ssafy.cafe.service.UserService
 import com.ssafy.cafe.util.RetrofitCallback
+import org.json.JSONException
 import org.json.JSONObject
 import java.io.StringReader
+import java.util.*
+import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
 
 private const val TAG = "MyPageFragment"
 class MyPageFragment : Fragment() {
@@ -68,13 +73,14 @@ class MyPageFragment : Fragment() {
             }
 
             override fun onSuccess(code: Int, responseData: HashMap<String, Any>) {
-                Log.d(TAG, "onSuccess: $responseData")
+                //Log.d(TAG, "onSuccess: $responseData")
                 //val grade = responseData!!["grade"]
 
                 val user = Gson().fromJson(responseData["user"].toString(), User::class.java)
-//                val order:List<Order> = Gson().fromJson(responseData["order"].toString(), List<Order>::class.java).toList()
+
                 var pay = user.money
                 binding.tvMyPayMoney.text = "$pay 원"
+//                binding.tvOrderHistoryCnt.text = "${arr.length()}"
                 ApplicationClass.sharedPreferencesUtil.addUserPay(pay)
             }
 
