@@ -113,12 +113,12 @@ class MainActivity : AppCompatActivity() {
         }
         transaction.commit()
     }
-//
-//    fun hideBottomNav(state : Boolean){
-//        if(state) bottomNavigation.visibility =  View.GONE
-//        else bottomNavigation.visibility = View.VISIBLE
-//    }
-//
+
+    fun hideBottomNav(state : Boolean){
+        if(state) binding.tabLayoutBottomNavigation.visibility =  View.GONE
+        else binding.tabLayoutBottomNavigation.visibility = View.VISIBLE
+    }
+
     fun logout(){
         //preference 지우기
         ApplicationClass.sharedPreferencesUtil.deleteUser()
