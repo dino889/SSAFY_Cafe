@@ -111,7 +111,7 @@ class MainActivity : AppCompatActivity() {
             }
             9->{
                 //메뉴상세정보보기
-                transaction.replace(R.id.fl_tablayout, MenuInfoDetailFragment())
+                transaction.replace(R.id.fl_tablayout, MenuInfoDetailFragment.newInstance(key,value))
                     .addToBackStack(null)
             }
             10->{

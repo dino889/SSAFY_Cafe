@@ -33,7 +33,6 @@ class ProductService {
         })
     }
 
-
     fun getProductWithTypeList(productType: String, callback: RetrofitCallback<List<Product>>)  {
         val menuInfoByTypeRequest: Call<List<Product>> = RetrofitUtil.productService.getProductWithType(productType)
         menuInfoByTypeRequest.enqueue(object : Callback<List<Product>> {
@@ -73,7 +72,6 @@ class ProductService {
                 callback.onError(t)
             }
         })
-
     }
 
 

@@ -2,15 +2,23 @@ package com.ssafy.cafe.fragment
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import com.bumptech.glide.Glide
 import com.ssafy.cafe.R
 import com.ssafy.cafe.activity.MainActivity
+import com.ssafy.cafe.config.ApplicationClass
 import com.ssafy.cafe.databinding.FragmentMenuInfoDetailBinding
+import com.ssafy.cafe.response.MenuDetailWithCommentResponse
+import com.ssafy.cafe.service.ProductService
+import com.ssafy.cafe.util.CommonUtils
+import com.ssafy.cafe.util.RetrofitCallback
 
+private const val TAG = "MenuInfoDetailFragment"
 class MenuInfoDetailFragment : Fragment() {
     private lateinit var mainActivity : MainActivity
     private lateinit var binding:FragmentMenuInfoDetailBinding
@@ -36,7 +44,13 @@ class MenuInfoDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         countProduct()
+        Log.d(TAG, "onViewCreated: $productId")
+        ProductService().getProductWithComments(productId, ProductWithCommentInsertCallback())
     }
+    private fun initData(menu : MenuDetailWithCommentResponse) {
+        binding.tvCafeMenuPrice.text = CommonUtils.makeComma(menu.productPrice)
+    }
+
     private fun countProduct() {
         var tmp = binding.tvCafeMenuCnt.text.toString()
         var menuCnt = tmp[0].toString().toInt()
@@ -59,11 +73,34 @@ class MenuInfoDetailFragment : Fragment() {
     companion object {
         @JvmStatic
         fun newInstance(key:String, value:Int) =
-            AllMenuFragment().apply {
+            MenuInfoDetailFragment().apply {
                 arguments = Bundle().apply {
                     putInt(key, value)
                 }
             }
+    }
+
+    inner class ProductWithCommentInsertCallback :
+        RetrofitCallback<List<MenuDetailWithCommentResponse>> {
+        override fun onError(t: Throwable) {
+            Log.d(TAG, t.message ?: "물품 정보를 받아오는 중 통신오류")
+        }
+
+        override fun onSuccess(code: Int, responseData: List<MenuDetailWithCommentResponse>) {
+            // comment가 없을 경우 -> 들어온 response가 1개이고 해당 userId가 null일 경우 빈 배열 adapter에 연결
+//            commentAdapter = if(responseData.size == 1 && responseData[0].userId == null) {
+//                CommentAdapter(mutableListOf(), this@MenuDetailFragment::initData)
+//            } else {
+//                CommentAdapter(responseData, this@MenuDetailFragment::initData)
+//            }
+//            liveData.value = responseData
+
+            initData(responseData[0])
+        }
+
+        override fun onFailure(code: Int) {
+            Log.d(TAG, "onFailure: Error Code $code")
+        }
     }
 
 }

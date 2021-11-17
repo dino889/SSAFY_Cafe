@@ -13,7 +13,7 @@ import java.util.concurrent.TimeUnit
 class ApplicationClass : Application() {
     companion object{
         //boyeon serverurl
-        const val SERVER_URL = "http://172.30.1.15:8888/"
+        const val SERVER_URL = "http://192.168.0.46:8888/"
 
         //jiwoo serverurl
 //        const val SERVER_URL = "http://172.30.1.36:8888/"
