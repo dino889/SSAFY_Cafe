@@ -63,8 +63,8 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<Order> getOrdreByUser(String id) {
-        return oDao.selectByUser(id);
+    public List<Order> getOrdreByUser(String userId) {
+        return oDao.selectByUser(userId);
     }
 
     @Override

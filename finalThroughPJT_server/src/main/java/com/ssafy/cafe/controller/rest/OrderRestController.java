@@ -43,4 +43,12 @@ public class OrderRestController {
     public List<Map<String, Object>> getLastMonthOrder(String id) {
         return oService.getLastMonthOrder(id);
     }
+    
+    
+    @GetMapping("/byUser/{userId}")
+    @ApiOperation(value="{userId}에 해당하는 사용자 주문 내역을 보여준다."
+    		+ "MyPage 주문 내역 count", response = List.class)
+    public List<Order> getOrderByUser(@PathVariable String userId) {
+    	return oService.getOrdreByUser(userId);
+    }
 }
