@@ -27,7 +27,6 @@ class MenuDetailFragment : Fragment() {
 
     private var productId = -1
 
-
     override fun onAttach(context: Context) {
         super.onAttach(context)
         mainActivity = context as MainActivity
@@ -55,12 +54,11 @@ class MenuDetailFragment : Fragment() {
 
         initData()
         initTab()
-        countProduct()
+
     }
 
     private fun initData() {
         ProductService().getProductWithComments(productId, ProductWithCommentInsertCallback())
-
     }
 
     private fun initScreen(menu : MenuDetailWithCommentResponse) {
@@ -68,25 +66,6 @@ class MenuDetailFragment : Fragment() {
         binding.tvCafeMenuName.text = menu.productName
     }
 
-    private fun countProduct() {
-//        var tmp = binding.tvCafeMenuCnt.text.toString()
-//        var menuCnt = tmp[0].toString().toInt()
-////        Log.d(TAG, "countProduct: ${tmp[0]} ****** ${tmp[1]}")
-//        binding.ibtnAddCount.setOnClickListener {
-//            menuCnt++
-//            binding.tvCafeMenuCnt.text = "${menuCnt}개"
-//        }
-//
-//        binding.ibtnMinusCount.setOnClickListener {
-//            if(menuCnt <= 0) {
-//                Toast.makeText(requireContext(), "수량을 입력해주세요.", Toast.LENGTH_SHORT).show()
-//                binding.tvCafeMenuCnt.text = "0개"
-//            } else {
-//                menuCnt--
-//                binding.tvCafeMenuCnt.text = "${menuCnt}개"
-//            }
-//        }
-    }
 
 
     inner class ProductWithCommentInsertCallback : RetrofitCallback<List<MenuDetailWithCommentResponse>> {
