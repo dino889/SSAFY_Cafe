@@ -25,12 +25,12 @@ public interface OrderService {
     
     
     /**
-     * id에 해당하는 사용자의 Order 목록을 주문 번호의 내림차순으로 반환한다.
+     * userId에 해당하는 사용자의 Order 목록을 주문 번호의 내림차순으로 반환한다.
      * 
-     * @param id
+     * @param userId
      * @return
      */
-    public List<Order> getOrdreByUser(String id);
+    public List<Order> getOrdreByUser(String userId);
     
     /**
      * 주문 정보를 수정한다. - 주문의 상태만 변경된다.
