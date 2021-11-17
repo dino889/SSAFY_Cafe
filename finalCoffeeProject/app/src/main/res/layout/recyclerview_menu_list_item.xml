@@ -9,12 +9,12 @@
     android:orientation="vertical">
 
     <ImageButton
-        android:id="@+id/imageButton2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/ib_cafeImg"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:background="@drawable/drawable_cafemenu_list_item_background"
         android:backgroundTint="#00FFFFFF"
-        android:scaleType="fitStart"
+        android:scaleType="centerInside"
         tools:srcCompat="@drawable/ainsupeno" />
 
     <TextView

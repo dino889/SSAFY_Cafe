@@ -82,7 +82,6 @@ class MenuDetailFragment : Fragment() {
 //            }
 //            liveData.value = responseData
 
-
             initScreen(responseData[0])
         }
 
@@ -101,7 +100,7 @@ class MenuDetailFragment : Fragment() {
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 when(tab!!.position){
                     0 -> {
-                        mainActivity.openFragment(9)
+                        mainActivity.openFragment(9,"productId", productId)
                     }
                     1 -> mainActivity.openFragment(10)
                 }
