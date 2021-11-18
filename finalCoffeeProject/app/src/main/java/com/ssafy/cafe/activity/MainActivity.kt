@@ -123,7 +123,10 @@ class MainActivity : AppCompatActivity() {
                 transaction.replace(R.id.frame_layout_main, PayFragment())
                     .addToBackStack(null)
             }
-
+            12 -> {
+                transaction.replace(R.id.frame_layout_main, MyReviewFragment())
+                    .addToBackStack(null)
+            }
 
         }
         transaction.commit()
