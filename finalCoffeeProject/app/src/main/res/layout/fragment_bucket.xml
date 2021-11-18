@@ -51,32 +51,6 @@
                 android:textColor="@color/black" />
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#83A1A9FF"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:padding="10dp">
-
-            <TextView
-                android:id="@+id/textView13"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="주문할 매장을 선택해주세요"
-                android:textColor="@color/black"
-                android:textSize="15sp" />
-
-            <ImageButton
-                android:id="@+id/imageButton8"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:background="#00FFFFFF"
-                android:scaleType="centerInside"
-                android:src="@drawable/direction_gps_location_map_maps_navigation_pin_icon_123198" />
-        </LinearLayout>
-
 
         <ScrollView
             android:layout_width="match_parent"

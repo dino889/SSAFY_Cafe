@@ -34,18 +34,30 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
-                android:layout_weight="1"
+                android:layout_marginLeft="8dp"
                 android:background="#00FFFFFF"
                 android:scaleType="fitEnd"
                 android:src="@drawable/notification_alert_bell_icon" />
 
             <ImageButton
-                android:id="@+id/btn_logout"
+                android:id="@+id/ib_Map"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:background="#00FFFFFF"
                 android:scaleType="centerInside"
-                app:srcCompat="@drawable/heart" />
+                android:tint="@color/white"
+                app:srcCompat="@drawable/direction_gps_location_map_maps_navigation_pin_icon_123198" />
+
+            <ImageButton
+                android:id="@+id/btn_logout"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginLeft="8dp"
+                android:background="#00FFFFFF"
+                android:backgroundTint="@color/white"
+                android:scaleType="centerInside"
+                android:tint="@color/white"
+                app:srcCompat="@drawable/logout" />
         </LinearLayout>
 
         <TextView
