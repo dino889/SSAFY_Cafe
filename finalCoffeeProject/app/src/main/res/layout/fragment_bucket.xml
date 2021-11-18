@@ -80,8 +80,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_shoppinglist"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-
+            android:layout_height="match_parent"
+            tools:listitem="@layout/recyclerview_shoppingcart_list_item"/>
     </LinearLayout>
 </FrameLayout>
