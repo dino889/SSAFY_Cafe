@@ -72,4 +72,15 @@
 	order by c.id desc;
 	</select>
 	
+	<!-- 8. 주문 베스트 메뉴 top 5 -->
+	<select id="selectBestProduct" resultType="map">
+		select ot.product_id, ot.d_id, count(ot.d_id) as cnt, p.name, p.type, p.price, p.img
+		from t_order_detail as ot
+		join t_product as p
+		on ot.product_id = p.id
+		group by ot.product_id
+		order by cnt desc
+		limit 5;
+	</select>
+	
 </mapper>
