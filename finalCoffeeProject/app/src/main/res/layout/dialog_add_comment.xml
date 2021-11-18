@@ -2,19 +2,28 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:layout_height="wrap_content"
     android:layout_margin="10dp"
-    android:gravity="center">
+    android:gravity="center"
+    android:orientation="vertical"
+    android:paddingTop="100dp"
+    android:paddingBottom="100dp">
+
+    <TextView
+        android:id="@+id/tv_productNameContent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="주문하신 아메리카노 어떠셨냐요?"
+        android:textColor="@color/black" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
         app:boxCornerRadiusBottomEnd="20dp"
         app:boxCornerRadiusBottomStart="20dp"
         app:boxCornerRadiusTopEnd="20dp"
-        app:boxCornerRadiusTopStart="20dp"
-        android:gravity="center">
+        app:boxCornerRadiusTopStart="20dp">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/et_loginID"
@@ -23,6 +32,7 @@
             android:layout_gravity="center"
             android:layout_margin="10dp"
             android:backgroundTint="@color/yellow_500"
+            android:gravity="center"
             android:hint="리뷰 내용을 입력해주세요"
             app:boxStrokeColor="#00FFFFFF" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -30,16 +40,18 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:layout_gravity="center"
         android:layout_marginTop="20dp"
-        android:gravity="center">
+        android:gravity="center"
+        android:orientation="horizontal">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
             android:text="별점선택"
-            android:textSize="30dp" />
+            android:textColor="@color/black"
+            android:textSize="16sp" />
 
         <RatingBar
             android:id="@+id/ratingBarMenuDialogComment"
