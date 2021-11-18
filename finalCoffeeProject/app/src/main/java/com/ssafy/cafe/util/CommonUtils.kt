@@ -1,5 +1,6 @@
 package com.ssafy.cafe.util
 
+import android.icu.text.StringPrepParseException
 import android.util.Log
 import com.ssafy.cafe.config.ApplicationClass
 import com.ssafy.cafe.response.LatestOrderResponse
@@ -40,7 +41,9 @@ object CommonUtils {
     fun isOrderCompleted(order: LatestOrderResponse): String {
         return if( checkTime(order.orderDate.time))  "주문완료" else "진행 중.."
     }
-
+    fun dialogProductComent(pName: String) : String {
+        return "주문하신 ${pName} 어떠셨나요?"
+    }
     private fun checkTime(time:Long):Boolean{
         val curTime = (Date().time+60*60*9*1000)
 
