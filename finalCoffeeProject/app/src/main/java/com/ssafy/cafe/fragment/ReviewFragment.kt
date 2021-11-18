@@ -12,6 +12,8 @@ import android.widget.RatingBar
 import android.widget.TextView
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.MutableLiveData
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.android.material.textfield.TextInputEditText
 import com.ssafy.cafe.R
@@ -36,7 +38,7 @@ class ReviewFragment : Fragment() {
 //    lateinit var prodWithComment: MenuDetailWithCommentResponse
     private var productId = -1
 
-    var liveData = MutableLiveData<List<MenuDetailWithCommentResponse>>()
+    val liveData = MutableLiveData<List<MenuDetailWithCommentResponse>>()
     private var commentAdapter = CommentAdapter(emptyList(), this::initData)
     private lateinit var newComment : Comment   // 새로 추가되는 comment
 
@@ -64,7 +66,6 @@ class ReviewFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Log.d(TAG, "onViewCreated: ${productId}")
         initData()
         initListener()
 //        setScreen(liveData.value!![0])
@@ -77,7 +78,7 @@ class ReviewFragment : Fragment() {
     }
 
     private fun initData() {
-        liveData.observe(mainActivity, {
+        liveData.observe(requireActivity(), {
 //            Log.d(TAG, "livaData changed ${liveData.value}")
             binding.rvReview.adapter = liveData.value?.let { it1 ->
                 CommentAdapter(
@@ -89,6 +90,14 @@ class ReviewFragment : Fragment() {
         })
 
         ProductService().getProductWithComments(productId, ProductWithCommentInsertCallback())
+
+        binding.rvReview.apply {
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+            adapter = commentAdapter
+            //원래의 목록위치로 돌아오게함
+            adapter!!.stateRestorationPolicy =
+                RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
+        }
     }
 
     private fun initListener() {
@@ -105,7 +114,8 @@ class ReviewFragment : Fragment() {
 //            setTitle("별점선택")
             setView(view)
             val prodName = view.findViewById<TextView>(R.id.tv_productNameContent)
-            Log.d(TAG, "showDialogRatingStar: ${view.findViewById<TextInputEditText>(R.id.et_comment).text.toString()}")
+            prodName.text = CommonUtils.dialogProductComent(liveData.value!!.get(0).productName)
+//            Log.d(TAG, "showDialogRatingStar: ${view.findViewById<TextInputEditText>(R.id.et_comment).text.toString()}")
 
             setPositiveButton("확인") { dialog, which ->
 
@@ -138,10 +148,12 @@ class ReviewFragment : Fragment() {
                 Log.d(TAG, "initData: ${responseData[0]}")
 
                 // comment 가 없을 경우 -> 들어온 response가 1개이고 해당 userId 가 null일 경우 빈 배열 Adapter 연결
-                commentAdapter = if (responseData.size == 1 && responseData[0].userId == null) {
-                    CommentAdapter(mutableListOf(), this@ReviewFragment::initData)
+                if (responseData.size == 1 && responseData[0].userId == null) {
+                    Log.d(TAG, "onSuccess: 111")
+                    commentAdapter = CommentAdapter(mutableListOf(), this@ReviewFragment::initData)
                 } else {
-                    CommentAdapter(responseData, this@ReviewFragment::initData)
+                    Log.d(TAG, "onSuccess: 222${responseData}")
+                    commentAdapter = CommentAdapter(responseData, this@ReviewFragment::initData)
                 }
                 liveData.value = responseData
                 // 화면 정보 갱신
@@ -201,8 +213,8 @@ class ReviewFragment : Fragment() {
 
     companion object {
         @JvmStatic
-        fun newInstance(key:String, value:Int) =
-            MenuInfoDetailFragment().apply {
+        fun newInstance(key: String, value : Int) =
+            ReviewFragment().apply {
                 arguments = Bundle().apply {
                     putInt(key, value)
                 }

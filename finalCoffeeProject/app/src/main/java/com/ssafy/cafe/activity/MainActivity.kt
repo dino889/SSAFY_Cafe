@@ -116,7 +116,7 @@ class MainActivity : AppCompatActivity() {
             }
             10->{
                 //메뉴 리뷰보기
-                transaction.replace(R.id.fl_tablayout, ReviewFragment())
+                transaction.replace(R.id.fl_tablayout, ReviewFragment.newInstance(key, value))
                     .addToBackStack(null)
             }
             11 -> {

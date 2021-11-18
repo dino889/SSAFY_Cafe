@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
 import com.ssafy.cafe.R
 import com.ssafy.cafe.activity.MainActivity
 import com.ssafy.cafe.config.ApplicationClass
@@ -17,102 +18,6 @@ import com.ssafy.cafe.service.ProductService
 import com.ssafy.cafe.util.RetrofitCallback
 
 private const val TAG = "CommentAdapter_싸피"
-//class CommentAdapter(val list: List<MenuDetailWithCommentResponse>, kFunction0: () -> Unit) :RecyclerView.Adapter<CommentAdapter.CommentHolder>(){
-//    lateinit var context: MainActivity
-//
-//    inner class CommentHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
-//        val userId = itemView.findViewById<TextView>(R.id.tv_userID)
-//        val comment = itemView.findViewById<TextView>(R.id.tv_reviewContent)
-//        val modifyComment = itemView.findViewById<TextInputEditText>(R.id.til_reviewContent)
-//        val rating = itemView.findViewById<TextView>(R.id.tv_reviewCnt)
-//
-//        val modify = itemView.findViewById<Button>(R.id.btn_modify)
-//        val delete = itemView.findViewById<Button>(R.id.btn_delete)
-//        val cancel = itemView.findViewById<Button>(R.id.btn_cancel)
-//        val confirm = itemView.findViewById<Button>(R.id.btn_confirm)
-//        val mutableList = list.toMutableList()
-//
-//
-//        fun bindInfo(data :MenuDetailWithCommentResponse){
-//
-//            comment.text = data.commentContent.toString()
-//            Log.d(TAG, "bindInfo: ${data}")
-//
-//            delete.setOnClickListener {
-//                deleteComment(data.commentId)
-//                mutableList.removeAt(layoutPosition)
-//            }
-//
-//        }
-//
-//    }
-//
-//    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CommentHolder {
-//        context = parent.context as MainActivity
-//        val view = LayoutInflater.from(parent.context).inflate(R.layout.recyclerview_review_list_item, parent, false)
-//        return CommentHolder(view)
-//    }
-//
-//    override fun onBindViewHolder(holder: CommentHolder, position: Int) {
-//        holder.apply{
-//            bindInfo(list[position])
-//
-//        }
-//    }
-//
-//    override fun getItemCount(): Int {
-//        return list.size
-//    }
-//
-//    interface ItemClickListener{
-//        fun onClick(view: View, position: Int, commentId:Int)
-//    }
-//
-//    private lateinit var itemClickListener: ItemClickListener
-//
-//    fun setItemClickListener(itemClickListener: ItemClickListener){
-//        this.itemClickListener = itemClickListener
-//    }
-//
-//    fun updateComment(dto: Comment){
-//        Log.d(TAG, "updateComment: $dto")
-//        CommentService().modify(dto, object: RetrofitCallback<Boolean> {
-//            override fun onError(t: Throwable) {
-//                Log.d(TAG, "onError: ")
-//            }
-//
-//            override fun onSuccess(code: Int, responseData: Boolean) {
-//                Toast.makeText(context,"코맨트수정성공", Toast.LENGTH_SHORT).show()
-//            }
-//
-//            override fun onFailure(code: Int) {
-//                Log.d(TAG, "onFailure: ")
-//            }
-//
-//        })
-//    }
-//
-//    fun deleteComment(id:Int){
-//        Log.d(TAG, "deleteComment: $id")
-//        CommentService().delete(id, object : RetrofitCallback<Boolean>{
-//            override fun onError(t: Throwable) {
-//                Log.d(TAG, "onError: ")
-//            }
-//
-//            override fun onSuccess(code: Int, responseData: Boolean) {
-//                Toast.makeText(context, "코맨트 삭제 성공",Toast.LENGTH_SHORT).show()
-//
-//            }
-//
-//            override fun onFailure(code: Int) {
-//                Log.d(TAG, "onFailure: ")
-//            }
-//
-//        })
-//    }
-//}
-
-
 class CommentAdapter(val list: List<MenuDetailWithCommentResponse>, val kFunction0: () -> Unit) :
     RecyclerView.Adapter<CommentAdapter.CommentHolder>() {
 
@@ -123,7 +28,8 @@ class CommentAdapter(val list: List<MenuDetailWithCommentResponse>, val kFunctio
     inner class CommentHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val userId = itemView.findViewById<TextView>(R.id.tv_userID)
         val comment = itemView.findViewById<TextView>(R.id.tv_reviewContent)
-        val modifyComment = itemView.findViewById<TextInputEditText>(R.id.til_reviewContent)
+        val modifyCommentLayout = itemView.findViewById<TextInputLayout>(R.id.til_reviewContent)
+        val modifyComment = itemView.findViewById<TextInputEditText>(R.id.tiet_reviewContent)
         val rating = itemView.findViewById<TextView>(R.id.tv_reviewCnt)
 
         val modify = itemView.findViewById<Button>(R.id.btn_modify)
@@ -131,6 +37,7 @@ class CommentAdapter(val list: List<MenuDetailWithCommentResponse>, val kFunctio
         val cancel = itemView.findViewById<Button>(R.id.btn_cancel)
         val confirm = itemView.findViewById<Button>(R.id.btn_confirm)
 
+        // 수정 삭제 버튼 전환
         private fun visibleMainButton(visible: Boolean = true) {
             if (visible) {
                 modify.visibility = ImageView.VISIBLE
@@ -141,20 +48,26 @@ class CommentAdapter(val list: List<MenuDetailWithCommentResponse>, val kFunctio
             }
         }
 
+        // 취소 확인 버튼 + editText 전환
         private fun visibleModifiedButton(visible: Boolean = true) {
             if (visible) {
                 confirm.visibility = ImageView.VISIBLE
                 cancel.visibility = ImageView.VISIBLE
-                modifyComment.visibility = EditText.VISIBLE
+                modifyCommentLayout.visibility = TextInputLayout.VISIBLE
             } else {
-                confirm.visibility = EditText.GONE
+                confirm.visibility = ImageView.GONE
                 cancel.visibility = ImageView.GONE
-                modifyComment.visibility = ImageView.GONE
+                modifyCommentLayout.visibility = TextInputLayout.GONE
             }
         }
 
 
         fun bindInfo(data: MenuDetailWithCommentResponse, index: Int) {
+
+            userId.text = "${data.userId} 님"
+            comment.text = data.commentContent
+            rating.text = "${data.productRating} 점"
+
             val newComment = Comment(
                 data.commentContent ?: "content X",
                 data.commentId,
@@ -162,40 +75,47 @@ class CommentAdapter(val list: List<MenuDetailWithCommentResponse>, val kFunctio
                 data.productRating.toFloat(),
                 user.id
             )
+
             visibleModifiedButton(false)
 
-            if (data.userId == user.id) {
-                visibleMainButton()
+            if (data.userId == user.id) {   // 작성자와 현재 로그인한 사용자가 같으면
+                visibleMainButton() // 수정, 삭제 버튼 보여줌.
 
                 modify.setOnClickListener {
+                    comment.visibility = View.GONE
+                    modifyComment.setText(data.commentContent.toString())
+
                     visibleModifiedButton()
                     visibleMainButton(false)
                 }
 
+                delete.setOnClickListener {
+                    CommentService().delete(newComment.id, DeleteCallback())
+                    visibleMainButton()
+                    visibleModifiedButton(false)
+                }
+
                 cancel.setOnClickListener {
+                    comment.visibility = View.VISIBLE
+
                     visibleMainButton()
                     visibleModifiedButton(false)
                 }
 
                 confirm.setOnClickListener {
+                    comment.visibility = View.VISIBLE
+
                     newComment.comment = modifyComment.text.toString()
+                    modifyComment.text!!.clear()
                     CommentService().modify(newComment, ModifyCallback())
                     visibleMainButton()
                     visibleModifiedButton(false)
                 }
 
-                delete.setOnClickListener {
-//                    val i = list.indexOfFirst { item -> item.commentId == data.id }
-//                    commentService.deleteComment(data.id)
-//                    list.removeAt(i)
-                    CommentService().delete(newComment.id, DeleteCallback())
-                    visibleMainButton()
-                    visibleModifiedButton(false)
-                }
             } else {
                 visibleMainButton(false)
             }
-            comment.text = data.commentContent
+
         }
 
         inner class ModifyCallback : RetrofitCallback<Boolean> {
