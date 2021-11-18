@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.ssafy.cafe.dto.Product
 import com.ssafy.cafe.dto.ShoppingCart
+import com.ssafy.cafe.response.MenuDetailWithCommentResponse
 import com.ssafy.cafe.service.ProductService
 import com.ssafy.cafe.util.RetrofitCallback
 
@@ -17,7 +18,7 @@ class MainViewModel : ViewModel() {
 
     var productList: List<Product>? = null
 
-    val a = ProductService().getProductList(object: RetrofitCallback<List<Product>> {
+    val prodService = ProductService().getProductList(object: RetrofitCallback<List<Product>> {
         override fun onError(t: Throwable) {
         }
 
@@ -44,4 +45,13 @@ class MainViewModel : ViewModel() {
         shoppingCartList.clear()
         liveShoppingCartList.value = shoppingCartList
     }
+
+
+
+    val productWithComment = mutableListOf<MenuDetailWithCommentResponse>()
+
+    val liveProductWithComment = MutableLiveData<List<MenuDetailWithCommentResponse>>().apply {
+        value = productWithComment
+    }
+
 }

@@ -13,9 +13,106 @@ import com.ssafy.cafe.config.ApplicationClass
 import com.ssafy.cafe.dto.Comment
 import com.ssafy.cafe.response.MenuDetailWithCommentResponse
 import com.ssafy.cafe.service.CommentService
+import com.ssafy.cafe.service.ProductService
 import com.ssafy.cafe.util.RetrofitCallback
 
 private const val TAG = "CommentAdapter_싸피"
+//class CommentAdapter(val list: List<MenuDetailWithCommentResponse>, kFunction0: () -> Unit) :RecyclerView.Adapter<CommentAdapter.CommentHolder>(){
+//    lateinit var context: MainActivity
+//
+//    inner class CommentHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
+//        val userId = itemView.findViewById<TextView>(R.id.tv_userID)
+//        val comment = itemView.findViewById<TextView>(R.id.tv_reviewContent)
+//        val modifyComment = itemView.findViewById<TextInputEditText>(R.id.til_reviewContent)
+//        val rating = itemView.findViewById<TextView>(R.id.tv_reviewCnt)
+//
+//        val modify = itemView.findViewById<Button>(R.id.btn_modify)
+//        val delete = itemView.findViewById<Button>(R.id.btn_delete)
+//        val cancel = itemView.findViewById<Button>(R.id.btn_cancel)
+//        val confirm = itemView.findViewById<Button>(R.id.btn_confirm)
+//        val mutableList = list.toMutableList()
+//
+//
+//        fun bindInfo(data :MenuDetailWithCommentResponse){
+//
+//            comment.text = data.commentContent.toString()
+//            Log.d(TAG, "bindInfo: ${data}")
+//
+//            delete.setOnClickListener {
+//                deleteComment(data.commentId)
+//                mutableList.removeAt(layoutPosition)
+//            }
+//
+//        }
+//
+//    }
+//
+//    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CommentHolder {
+//        context = parent.context as MainActivity
+//        val view = LayoutInflater.from(parent.context).inflate(R.layout.recyclerview_review_list_item, parent, false)
+//        return CommentHolder(view)
+//    }
+//
+//    override fun onBindViewHolder(holder: CommentHolder, position: Int) {
+//        holder.apply{
+//            bindInfo(list[position])
+//
+//        }
+//    }
+//
+//    override fun getItemCount(): Int {
+//        return list.size
+//    }
+//
+//    interface ItemClickListener{
+//        fun onClick(view: View, position: Int, commentId:Int)
+//    }
+//
+//    private lateinit var itemClickListener: ItemClickListener
+//
+//    fun setItemClickListener(itemClickListener: ItemClickListener){
+//        this.itemClickListener = itemClickListener
+//    }
+//
+//    fun updateComment(dto: Comment){
+//        Log.d(TAG, "updateComment: $dto")
+//        CommentService().modify(dto, object: RetrofitCallback<Boolean> {
+//            override fun onError(t: Throwable) {
+//                Log.d(TAG, "onError: ")
+//            }
+//
+//            override fun onSuccess(code: Int, responseData: Boolean) {
+//                Toast.makeText(context,"코맨트수정성공", Toast.LENGTH_SHORT).show()
+//            }
+//
+//            override fun onFailure(code: Int) {
+//                Log.d(TAG, "onFailure: ")
+//            }
+//
+//        })
+//    }
+//
+//    fun deleteComment(id:Int){
+//        Log.d(TAG, "deleteComment: $id")
+//        CommentService().delete(id, object : RetrofitCallback<Boolean>{
+//            override fun onError(t: Throwable) {
+//                Log.d(TAG, "onError: ")
+//            }
+//
+//            override fun onSuccess(code: Int, responseData: Boolean) {
+//                Toast.makeText(context, "코맨트 삭제 성공",Toast.LENGTH_SHORT).show()
+//
+//            }
+//
+//            override fun onFailure(code: Int) {
+//                Log.d(TAG, "onFailure: ")
+//            }
+//
+//        })
+//    }
+//}
+
+
 class CommentAdapter(val list: List<MenuDetailWithCommentResponse>, val kFunction0: () -> Unit) :
     RecyclerView.Adapter<CommentAdapter.CommentHolder>() {
 
