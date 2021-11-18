@@ -67,7 +67,7 @@ class ReviewFragment : Fragment() {
 
     private fun initListener() {
         binding.btnInsertComment.setOnClickListener {
-            showDialogRatingStar()
+            //showDialogRatingStar()
         }
     }
 

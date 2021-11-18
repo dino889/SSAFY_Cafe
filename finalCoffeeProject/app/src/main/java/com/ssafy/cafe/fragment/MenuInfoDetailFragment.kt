@@ -57,14 +57,15 @@ class MenuInfoDetailFragment : Fragment() {
         ProductService().getProductWithComments(productId, ProductWithCommentInsertCallback())
 
         binding.btnGotoBucket.setOnClickListener {
-            var count = binding.tvCafeMenuCnt.text.toString().toInt()
+            var countTmp = binding.tvCafeMenuCnt.text.toString()
+            var count = countTmp.substring(0,countTmp.length-1).toInt()
             var pricetmp = binding.tvCafeMenuPrice.text.toString()
             var priceConvert = pricetmp.substring(0,pricetmp.length-1)
             var price = priceConvert.replace(",","").trim().toInt()
 
             val cart = ShoppingCart(productId,productImg,productName,count,price,count*price,productType)
             viewModel.insertShoppingCartItem(cart)
-            mainActivity.openFragment(7)
+            mainActivity.openFragment(1)
         }
     }
     private fun initData(menu : MenuDetailWithCommentResponse) {
