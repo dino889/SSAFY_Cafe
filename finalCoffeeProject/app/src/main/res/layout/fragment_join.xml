@@ -23,26 +23,42 @@
             android:orientation="vertical"
             android:padding="20dp">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/userIDtextlayout"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:boxCornerRadiusBottomEnd="20dp"
-                app:boxCornerRadiusBottomStart="20dp"
-                app:boxCornerRadiusTopEnd="20dp"
-                app:boxCornerRadiusTopStart="20dp"
-                app:errorEnabled="true">
+                android:orientation="horizontal"
+                android:gravity="center">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/et_userID"
-                    android:layout_width="300dp"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/userIDtextlayout"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_margin="10dp"
-                    android:backgroundTint="@color/yellow_500"
-                    android:hint="ID"
-                    app:boxStrokeColor="#00FFFFFF" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    app:boxCornerRadiusBottomEnd="20dp"
+                    app:boxCornerRadiusBottomStart="20dp"
+                    app:boxCornerRadiusTopEnd="20dp"
+                    app:boxCornerRadiusTopStart="20dp"
+                    app:errorEnabled="true"
+                    android:layout_marginTop="10dp">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_userID"
+                        android:layout_width="270dp"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@color/yellow_500"
+                        android:hint="ID"
+                        app:boxStrokeColor="#00FFFFFF" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <ImageButton
+                    android:id="@+id/ibtn_IdDupChk"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:background="@android:color/transparent"
+                    android:scaleType="fitStart"
+                    android:src="@drawable/accept_check_checklist_circle_mark_ok_yes_icon_123225" />
+
+
+            </LinearLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/userNametextlayout"
@@ -52,11 +68,13 @@
                 app:boxCornerRadiusBottomStart="20dp"
                 app:boxCornerRadiusTopEnd="20dp"
                 app:boxCornerRadiusTopStart="20dp"
-                >
+                app:counterEnabled="true"
+                app:counterMaxLength="30"
+                app:errorEnabled="true" >
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_userName"
-                    android:layout_width="300dp"
+                    android:layout_width="320dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_margin="10dp"
@@ -73,16 +91,18 @@
                 app:boxCornerRadiusBottomStart="20dp"
                 app:boxCornerRadiusTopEnd="20dp"
                 app:boxCornerRadiusTopStart="20dp"
+                app:errorEnabled="true"
+                android:inputType="phone"
                 >
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_userTel"
-                    android:layout_width="300dp"
+                    android:layout_width="320dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_margin="10dp"
                     android:backgroundTint="@color/yellow_500"
-                    android:hint="PHONE NUMBER"
+                    android:hint="PHONE NUMBER(010-1234-5678)"
                     app:boxStrokeColor="#00FFFFFF" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -94,22 +114,25 @@
                 app:boxCornerRadiusBottomStart="20dp"
                 app:boxCornerRadiusTopEnd="20dp"
                 app:boxCornerRadiusTopStart="20dp"
-                >
+                app:passwordToggleEnabled="true"
+                app:counterEnabled="true"
+                app:counterMaxLength="50"
+                app:errorEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_userPw"
-                    android:layout_width="300dp"
+                    android:layout_width="320dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_margin="10dp"
                     android:backgroundTint="@color/yellow_500"
-                    android:hint="PASSWORD"
+                    android:hint="PW(영문+숫자+특수문자 9자 이상)"
                     app:boxStrokeColor="#00FFFFFF" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <Button
                 android:id="@+id/btn_join"
-                android:layout_width="300dp"
+                android:layout_width="320dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="10dp"

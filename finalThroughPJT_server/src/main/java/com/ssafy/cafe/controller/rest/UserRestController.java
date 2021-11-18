@@ -46,6 +46,13 @@ public class UserRestController {
         return true;
     }
 
+    @GetMapping("/isUsed")
+    @ApiOperation(value = "request parameter로 전달된 id가 이미 사용중인지 반환한다,"
+    		+ "반환 값이 true이면 해당 id는 사용 중이다.", response = Boolean.class)
+    public Boolean isUsedId(String id) {
+        return uService.isUsedId(id);
+    }
+
     @PostMapping("/login")
     @ApiOperation(value = "로그인 처리 후 성공적으로 로그인 되었다면 loginId라는 쿠키를 내려보낸다.", response = User.class)
     public User login(@RequestBody User user, HttpServletResponse response) throws UnsupportedEncodingException {
@@ -74,12 +81,6 @@ public class UserRestController {
             info.put("grade", getGrade(selected.getStamps()));
             return info;
         }
-    }
-    
-    @GetMapping("/isUsed")
-    @ApiOperation(value = "id가 사용 중이면 true를 반환한다.", response = Boolean.class)
-    public Boolean isUsedId(@RequestParam("userId") String userId) {
-    	return uService.isUsedId(userId);
     }
     
     public Map<String, Object> getGrade(Integer stamp) {
