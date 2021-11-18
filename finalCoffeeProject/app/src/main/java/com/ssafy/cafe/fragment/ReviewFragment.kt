@@ -67,33 +67,33 @@ class ReviewFragment : Fragment() {
 
     private fun initListener() {
         binding.btnInsertComment.setOnClickListener {
-            showDialogRatingStar()
+            //showDialogRatingStar()
         }
     }
 
-    private fun showDialogRatingStar(): AlertDialog? {
-        val view = layoutInflater.inflate(R.layout.dialog_menu_comment, null)
-        val dialog = AlertDialog.Builder(mainActivity).apply {
-            setTitle("별점선택")
-            setView(view)
-            setPositiveButton("확인") { dialog, which ->
-
-                val user = ApplicationClass.sharedPreferencesUtil.getUser()
-                newComment = Comment(
-                    -1,
-                    user.id,
-                    productId,
-                    view.findViewById<RatingBar>(R.id.ratingBarMenuDialogComment).rating,
-                    binding.newCommentEdt.text.toString()
-                )
-                CommentService().insert(newComment, CommentAddCallback())
-            }
-            setNegativeButton("취소") { dialog, which ->
-                dialog.cancel()
-            }
-        }
-        return dialog.create()
-    }
+//    private fun showDialogRatingStar(): AlertDialog? {
+//        val view = layoutInflater.inflate(R.layout.dialog_menu_comment, null)
+//        val dialog = AlertDialog.Builder(mainActivity).apply {
+//            setTitle("별점선택")
+//            setView(view)
+//            setPositiveButton("확인") { dialog, which ->
+//
+//                val user = ApplicationClass.sharedPreferencesUtil.getUser()
+//                newComment = Comment(
+//                    -1,
+//                    user.id,
+//                    productId,
+//                    view.findViewById<RatingBar>(R.id.ratingBarMenuDialogComment).rating,
+//                    binding.newCommentEdt.text.toString()
+//                )
+//                CommentService().insert(newComment, CommentAddCallback())
+//            }
+//            setNegativeButton("취소") { dialog, which ->
+//                dialog.cancel()
+//            }
+//        }
+//        return dialog.create()
+//    }
 
 
     inner class ProductWithCommentInsertCallback :

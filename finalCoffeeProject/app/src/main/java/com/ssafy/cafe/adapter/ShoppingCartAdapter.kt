@@ -9,49 +9,43 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.ssafy.cafe.R
 import com.ssafy.cafe.dto.ShoppingCart
+import com.ssafy.cafe.util.CommonUtils
 
-//class ShoppingCartAdapter : RecyclerView.Adapter<ShoppingCartAdapter.ShoppingListHolder>(){
-//
-//    var list = mutableListOf<ShoppingCart>()
-//    lateinit var cancelListener: ItemCancelListener
-//
-//    inner class ShoppingListHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
-//        init {
-//            itemView.findViewById<ImageView>(R.id.).setOnClickListener{
-//                cancelListener.onClick(bindingAdapterPosition)
-//                notifyDataSetChanged()
-//            }
-//        }
-//        fun bindInfo(data: ShoppingCart){
-//
-//            Glide.with(itemView)
-//                .load("${ApplicationClass.MENU_IMGS_URL}${data.menuImg}")
-//                .into(itemView.findViewById<ImageView>(R.id.imageShoppingMenu))
-//            itemView.findViewById<TextView>(R.id.textShoppingMenuName).text = data.menuName
-//            itemView.findViewById<TextView>(R.id.textShoppingMenuCount).text = "${data.menuCnt}잔"
-//            itemView.findViewById<TextView>(R.id.textShoppingMenuMoney).text = "${data.menuPrice}원"
-//            itemView.findViewById<TextView>(R.id.textShoppingMenuMoneyAll).text = "${data.totalPrice}원"
-//        }
-//
-//        fun getImageId(name: String): Int {
-//            return itemView.resources.getIdentifier(name, "drawable", "com.ssafy.smartstore")
-//        }
-//    }
-//
-//    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ShoppingListHolder {
-//        val view = LayoutInflater.from(parent.context).inflate(R.layout.list_item_shopping_list, parent, false)
-//        return ShoppingListHolder(view)
-//    }
-//
-//    override fun onBindViewHolder(holder: ShoppingListHolder, position: Int) {
-//        holder.bindInfo(list[position])
-//    }
-//
-//    override fun getItemCount(): Int {
-//        return list.size
-//    }
-//
-//    interface ItemCancelListener {
-//        fun onClick(position: Int)
-//    }
-//}
+class ShoppingCartAdapter : RecyclerView.Adapter<ShoppingCartAdapter.ShoppingListHolder>(){
+
+    var list = mutableListOf<ShoppingCart>()
+    lateinit var cancelListener: ItemCancelListener
+
+    inner class ShoppingListHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
+        init {
+            itemView.findViewById<ImageView>(R.id.ib_cancleBtn).setOnClickListener{
+                cancelListener.onClick(bindingAdapterPosition)
+                notifyDataSetChanged()
+            }
+        }
+        fun bindInfo(data: ShoppingCart){
+            itemView.findViewById<TextView>(R.id.tv_menuName).text = data.menuName
+            itemView.findViewById<TextView>(R.id.tv_cafeMenuCnt).text = "${data.menuCnt}개"
+            itemView.findViewById<TextView>(R.id.tv_menuPrice).text = "${CommonUtils.makeComma(data.menuPrice)}"
+            itemView.findViewById<TextView>(R.id.tv_menuTotalPrice).text = "${CommonUtils.makeComma(data.totalPrice)}"
+        }
+
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ShoppingListHolder {
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.recyclerview_shoppingcart_list_item, parent, false)
+        return ShoppingListHolder(view)
+    }
+
+    override fun onBindViewHolder(holder: ShoppingListHolder, position: Int) {
+        holder.bindInfo(list[position])
+    }
+
+    override fun getItemCount(): Int {
+        return list.size
+    }
+
+    interface ItemCancelListener {
+        fun onClick(position: Int)
+    }
+}
