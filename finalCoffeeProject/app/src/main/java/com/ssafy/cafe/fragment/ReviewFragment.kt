@@ -71,14 +71,14 @@ class ReviewFragment : Fragment() {
         }
     }
 
-    private fun showDialogRatingStar(): AlertDialog? {
-        val view = layoutInflater.inflate(R.layout.dialog_add_comment, null)
-        val dialog = AlertDialog.Builder(mainActivity).apply {
-            setTitle("별점선택")
-            setView(view)
-            setPositiveButton("확인") { dialog, which ->
-
-                val user = ApplicationClass.sharedPreferencesUtil.getUser()
+//    private fun showDialogRatingStar(): AlertDialog? {
+//        val view = layoutInflater.inflate(R.layout.dialog_add_comment, null)
+//        val dialog = AlertDialog.Builder(mainActivity).apply {
+//            setTitle("별점선택")
+//            setView(view)
+//            setPositiveButton("확인") { dialog, which ->
+//
+//                val user = ApplicationClass.sharedPreferencesUtil.getUser()
 //                new Comment = Comment(
 //                    -1,
 //                    user.id,
@@ -87,13 +87,13 @@ class ReviewFragment : Fragment() {
 //                    binding.textView6.text.toString()
 //                )
 //                CommentService().insert(newComment, CommentAddCallback())
-            }
-            setNegativeButton("취소") { dialog, which ->
-                dialog.cancel()
-            }
-        }
-        return dialog.create()
-    }
+//            }
+//            setNegativeButton("취소") { dialog, which ->
+//                dialog.cancel()
+//            }
+//        }
+//        return dialog.create()
+//    }
 
 
     inner class ProductWithCommentInsertCallback :
