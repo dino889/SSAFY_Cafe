@@ -16,9 +16,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.cardview.widget.CardView
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -53,12 +55,14 @@ class MapFragment : Fragment() , OnMapReadyCallback{
     private var firstRendering: Boolean = true
     private lateinit var mapView: MapView
 
+    private lateinit var cardView:LinearLayout
     override fun onAttach(context: Context) {
         super.onAttach(context)
         mainActivity = context as MainActivity
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
     }
 
     override fun onCreateView(
@@ -68,6 +72,7 @@ class MapFragment : Fragment() , OnMapReadyCallback{
 
         var view = inflater.inflate(R.layout.fragment_map, container, false)
         mapView = view.findViewById(R.id.mapView)
+        cardView = view.findViewById(R.id.card_view)
         mapView.onCreate(savedInstanceState)
         mapView.getMapAsync(this)
         return view
@@ -111,6 +116,7 @@ class MapFragment : Fragment() , OnMapReadyCallback{
             }
         }
         map!!.uiSettings.isMyLocationButtonEnabled = true
+        
     }
 
     private val PERMISSIONS_CODE = 100
