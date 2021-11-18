@@ -19,11 +19,13 @@ import com.ssafy.cafe.dto.User
 import com.ssafy.cafe.service.UserService
 import com.ssafy.cafe.util.RetrofitCallback
 import retrofit2.Response.error
+import java.util.regex.Pattern
 
-private const val TAG = "JoinFragment"
+private const val TAG = "JoinFragment_싸피"
 class JoinFragment : Fragment() {
     lateinit var binding: FragmentJoinBinding
-    private var checkedId = false
+    private var dupChkId = false    // Id 중복 확인 여부 체크, true - 중복O, false - 중복X
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -34,14 +36,37 @@ class JoinFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         setupListeners()
+
+//        test()
+
+        // JOIN 버튼 클릭
         binding.btnJoin.setOnClickListener {
             if(isValidate()){
                 join(binding.etUserID.text.toString(),binding.etUserName.text.toString(), binding.etUserTel.text.toString(), binding.etUserPw.text.toString())
             }
         }
     }
+
+    //
+    fun makeToast(msg: String) {
+        Toast.makeText(requireActivity(), msg, Toast.LENGTH_SHORT).show()
+    }
+
+    // TextInputEditText listener 등록
+    private fun setupListeners(){
+
+        binding.etUserID.addTextChangedListener(TextFieldValidation(binding.etUserID))
+        binding.etUserName.addTextChangedListener(TextFieldValidation(binding.etUserName))
+        binding.etUserPw.addTextChangedListener(TextFieldValidation(binding.etUserPw))
+        binding.etUserTel.addTextChangedListener(TextFieldValidation(binding.etUserTel))
+    }
+
+    // id 중복, pw 기준 충족, 폰 번호 중복 체크 전부 true인 경우에 join 허용
     private fun isValidate():Boolean = validateUserID() && validateUserPW() && validateUserTel()
+
+    // DB에 사용자 추가
     private fun join(id:String, name:String, tel:String, pw:String){
         UserService().join(User(id,name,tel,pw), object : RetrofitCallback<Boolean> {
             override fun onError(t: Throwable) {
@@ -49,7 +74,7 @@ class JoinFragment : Fragment() {
             }
 
             override fun onSuccess(code: Int, responseData: Boolean) {
-                toast("회원가입이 완료되었습니다. 다시 로그인 해주세요")
+                makeToast("회원가입이 완료되었습니다. 다시 로그인 해주세요")
                 (requireActivity() as LoginActivity).onBackPressed()
             }
 
@@ -59,6 +84,8 @@ class JoinFragment : Fragment() {
 
         })
     }
+
+    // 사용자가 입력한 userId를 인자로 받아서 id 중복 체크
     private fun doubleCheckID(id:String?) : Boolean{
         UserService().checkId(id!!, object: RetrofitCallback<Boolean>{
             override fun onError(t: Throwable) {
@@ -66,81 +93,148 @@ class JoinFragment : Fragment() {
             }
 
             override fun onSuccess(code: Int, responseData: Boolean) {
-                true
+                dupChkId = responseData
             }
 
             override fun onFailure(code: Int) {
-                false
+                Log.d(TAG, "onFailure: ")
             }
         })
         return false
     }
-    private fun setupListeners(){
-        binding.etUserID.addTextChangedListener(TextFieldValidation(binding.etUserID))
-        binding.etUserPw.addTextChangedListener(TextFieldValidation(binding.etUserPw))
-        binding.etUserTel.addTextChangedListener(TextFieldValidation(binding.etUserTel))
+
+    private fun test() {
+
+        binding.etUserID.onFocusChangeListener =
+            View.OnFocusChangeListener { _, hasFocus ->
+                Log.d(TAG, "test: ${hasFocus}")
+                if(!hasFocus) {
+                    validateUserID()
+                } else {
+
+                }
+            }
+
+
+
     }
 
-    fun toast(msg: String) {
-        Toast.makeText(requireActivity(), msg, Toast.LENGTH_SHORT).show()
+    // id 중복 체크
+    private fun validateUserID() : Boolean{
+
+        val inputUserId = binding.etUserID.text.toString()
+
+        if(inputUserId.trim().isEmpty()){   // 값이 비어있으면 error
+            binding.userIDtextlayout.error = "Required Field"
+            binding.etUserID.requestFocus()
+//                    return false
+        } else {
+            doubleCheckID(inputUserId)
+            Log.d(TAG, "validateUserID: ${inputUserId}")
+            if(!dupChkId) {   // DB 내에 중복되는 ID가 없으면
+                binding.userIDtextlayout.error = null
+                dupChkId = true
+            } else {// DB 내에 중복되는 ID가 있으면
+                binding.userIDtextlayout.error = "이미 존재하는 아이디입니다."
+//                binding.etUserID.requestFocus()
+                dupChkId = false
+            }
+        }
+
+        return dupChkId
     }
+
+    // 비밀번호 유효성 체크
+    private fun validateUserPW() : Boolean{
+        val inputUserPw = binding.etUserPw.text.toString()
+
+//        ^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[$@$!%*#?&]).{8,15}.$
+        if(inputUserPw.trim().isEmpty()){   // 값이 비어있으면
+            binding.userPWtextlayout.error = "Required Field"
+            binding.etUserPw.requestFocus()
+            return false
+        } else if(!Pattern.matches("^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[\$@\$!%*#?&]).{8,50}.\$", inputUserPw)) {
+            binding.userPWtextlayout.error = "비밀번호 형식을 확인해주세요."
+            binding.etUserPw.requestFocus()
+            return false
+        }
+        else {
+            binding.userPWtextlayout.isErrorEnabled = false
+        }
+        return true
+    }
+
+    // 핸드폰 번호 중복 + 유효성 체크
+    private fun validateUserTel() : Boolean{
+        val inputUserTel = binding.etUserTel.text.toString()
+
+        if(inputUserTel.trim().isEmpty()){
+            binding.userTeltextlayout.error = "Required Field"
+            binding.etUserTel.requestFocus()
+            return false
+        } else if(!Pattern.matches("^01(?:0|1|[6-9])-(?:\\d{3}|\\d{4})-\\d{4}$", inputUserTel)) {
+            binding.userTeltextlayout.error = "휴대폰 번호 형식을 확인해주세요."
+            binding.etUserTel.requestFocus()
+            return false
+        }
+        else {
+//            binding.userTeltextlayout.isErrorEnabled = false
+
+            binding.userTeltextlayout.error = null
+        }
+        return true
+    }
+
+    // Name 텍스트 필드 값이 비어있는지 check
+    private fun validateUserName() : Boolean {
+        val inputUserName = binding.etUserName.text.toString()
+        if(inputUserName.trim().isEmpty()){ // 값이 비어있으면
+            binding.userNametextlayout.error = "Required Field"
+            binding.etUserName.requestFocus()
+            return false
+        }else{
+            binding.userNametextlayout.error = null
+        }
+        return true
+    }
+
+
     inner class TextFieldValidation(private val view: View):TextWatcher{
         override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
         }
 
         override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+//            when(view.id){
+//                R.id.et_userID -> {
+//                    validateUserID()
+//                }
+//                R.id.et_userName -> {
+//                    validateUserName()
+//                }
+//                R.id.et_userTel -> {
+//                    validateUserTel()
+//                }
+//                R.id.et_userPw -> {
+//                    validateUserPW()
+//                }
+//            }
+        }
+
+        override fun afterTextChanged(s: Editable?) {
             when(view.id){
                 R.id.et_userID -> {
                     validateUserID()
                 }
-                R.id.et_userID -> {
-                    validateUserPW()
+                R.id.et_userName -> {
+                    validateUserName()
                 }
                 R.id.et_userTel -> {
                     validateUserTel()
                 }
+                R.id.et_userPw -> {
+                    validateUserPW()
+                }
             }
         }
-
-        override fun afterTextChanged(s: Editable?) {
-        }
-
-    }
-    private fun validateUserID() : Boolean{
-        if(binding.etUserID.text.toString().trim().isEmpty()){
-            binding.userIDtextlayout.error = "Required Field"
-            binding.etUserID.requestFocus()
-            return false
-        }else{
-            if(doubleCheckID(binding.etUserID.text.toString())){
-                binding.userIDtextlayout.isErrorEnabled = false
-                checkedId = true
-            }else{
-                binding.userIDtextlayout.error = "이미 존재하는 아이디입니다."
-                checkedId = false
-            }
-//            binding.userIDtextlayout.isErrorEnabled = false
-        }
-        return true
-    }
-    private fun validateUserPW() : Boolean{
-        if(binding.etUserPw.text.toString().trim().isEmpty()){
-            binding.userPWtextlayout.error = "Required Field"
-            binding.etUserPw.requestFocus()
-            return false
-        }else{
-            binding.userPWtextlayout.isErrorEnabled = false
-        }
-        return true
-    }
-    private fun validateUserTel() : Boolean{
-        if(binding.etUserTel.text.toString().trim().isEmpty()){
-            binding.userTeltextlayout.error = "Required Field"
-            binding.etUserTel.requestFocus()
-            return false
-        }else{
-            binding.userTeltextlayout.isErrorEnabled = false
-        }
-        return true
     }
 }

@@ -35,7 +35,7 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_userID"
-                    android:layout_width="300dp"
+                    android:layout_width="320dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_margin="10dp"
@@ -52,11 +52,13 @@
                 app:boxCornerRadiusBottomStart="20dp"
                 app:boxCornerRadiusTopEnd="20dp"
                 app:boxCornerRadiusTopStart="20dp"
-                >
+                app:counterEnabled="true"
+                app:counterMaxLength="30"
+                app:errorEnabled="true" >
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_userName"
-                    android:layout_width="300dp"
+                    android:layout_width="320dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_margin="10dp"
@@ -73,16 +75,18 @@
                 app:boxCornerRadiusBottomStart="20dp"
                 app:boxCornerRadiusTopEnd="20dp"
                 app:boxCornerRadiusTopStart="20dp"
+                app:errorEnabled="true"
+                android:inputType="phone"
                 >
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_userTel"
-                    android:layout_width="300dp"
+                    android:layout_width="320dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_margin="10dp"
                     android:backgroundTint="@color/yellow_500"
-                    android:hint="PHONE NUMBER"
+                    android:hint="PHONE NUMBER(010-1234-5678)"
                     app:boxStrokeColor="#00FFFFFF" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -94,22 +98,25 @@
                 app:boxCornerRadiusBottomStart="20dp"
                 app:boxCornerRadiusTopEnd="20dp"
                 app:boxCornerRadiusTopStart="20dp"
-                >
+                app:passwordToggleEnabled="true"
+                app:counterEnabled="true"
+                app:counterMaxLength="50"
+                app:errorEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_userPw"
-                    android:layout_width="300dp"
+                    android:layout_width="320dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_margin="10dp"
                     android:backgroundTint="@color/yellow_500"
-                    android:hint="PASSWORD"
+                    android:hint="PW(영문+숫자+특수문자 8자 이상)"
                     app:boxStrokeColor="#00FFFFFF" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <Button
                 android:id="@+id/btn_join"
-                android:layout_width="300dp"
+                android:layout_width="320dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="10dp"

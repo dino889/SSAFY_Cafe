@@ -65,12 +65,12 @@ class ReviewFragment : Fragment() {
         ProductService().getProductWithComments(productId, ProductWithCommentInsertCallback())
     }
 
-    private fun initListener() {
-        binding.btnInsertComment.setOnClickListener {
-            //showDialogRatingStar()
-        }
-    }
-
+//    private fun initListener() {
+//        binding.btnInsertComment.setOnClickListener {
+//            showDialogRatingStar()
+//        }
+//    }
+//
 //    private fun showDialogRatingStar(): AlertDialog? {
 //        val view = layoutInflater.inflate(R.layout.dialog_add_comment, null)
 //        val dialog = AlertDialog.Builder(mainActivity).apply {
@@ -79,12 +79,12 @@ class ReviewFragment : Fragment() {
 //            setPositiveButton("확인") { dialog, which ->
 //
 //                val user = ApplicationClass.sharedPreferencesUtil.getUser()
-//                new Comment = Comment(
+//                newComment = Comment(
 //                    -1,
 //                    user.id,
 //                    productId,
 //                    view.findViewById<RatingBar>(R.id.ratingBarMenuDialogComment).rating,
-//                    binding.textView6.text.toString()
+//                    binding.newCommentEdt.text.toString()
 //                )
 //                CommentService().insert(newComment, CommentAddCallback())
 //            }
