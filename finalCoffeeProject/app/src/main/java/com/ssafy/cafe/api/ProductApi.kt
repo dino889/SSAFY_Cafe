@@ -1,6 +1,7 @@
 package com.ssafy.cafe.api
 
 import com.ssafy.cafe.dto.Product
+import com.ssafy.cafe.response.BestProductResponse
 import com.ssafy.cafe.response.MenuDetailWithCommentResponse
 import retrofit2.Call
 import retrofit2.http.GET
@@ -21,4 +22,7 @@ interface ProductApi {
     // 상품 타입별 조회
     @GET("rest/product/type/{productType}")
     fun getProductWithType(@Path("productType") productType: String): Call<List<Product>>
+
+    @GET("rest/product/bestProduct")
+    fun getBestProduct5() : Call<List<BestProductResponse>>
 }

@@ -19,12 +19,15 @@ import com.google.gson.reflect.TypeToken
 import com.ssafy.cafe.R
 import com.ssafy.cafe.activity.LoginActivity
 import com.ssafy.cafe.activity.MainActivity
+import com.ssafy.cafe.adapter.BestMenuAdapter
 import com.ssafy.cafe.adapter.LastOrderAdapter
 import com.ssafy.cafe.config.ApplicationClass
 import com.ssafy.cafe.databinding.FragmentHomeBinding
 import com.ssafy.cafe.dto.User
+import com.ssafy.cafe.response.BestProductResponse
 import com.ssafy.cafe.response.LatestOrderResponse
 import com.ssafy.cafe.service.OrderService
+import com.ssafy.cafe.service.ProductService
 import com.ssafy.cafe.service.UserService
 import com.ssafy.cafe.util.RetrofitCallback
 import java.net.HttpCookie.parse
@@ -34,6 +37,8 @@ import java.util.logging.Level.parse
 private const val TAG = "HomeFragment"
 class HomeFragment : Fragment() {
     private var lastOrderAdapter : LastOrderAdapter = LastOrderAdapter()
+    private var bestMenuAdapter : BestMenuAdapter = BestMenuAdapter()
+
     private lateinit var mainActivity: MainActivity
     private lateinit var binding:FragmentHomeBinding
     override fun onAttach(context: Context) {
@@ -61,11 +66,19 @@ class HomeFragment : Fragment() {
             lastOrderAdapter.list = it as MutableList<LatestOrderResponse>
             lastOrderAdapter.notifyDataSetChanged()
         }
+
+        val bestLiveData = ProductService().getBestProduct()
+        bestLiveData.observe(viewLifecycleOwner){
+            bestMenuAdapter.list = it as MutableList<BestProductResponse>
+            bestMenuAdapter.notifyDataSetChanged()
+        }
     }
     fun initAdapter(){
+        bestMenuAdapter = BestMenuAdapter()
         binding.rvBestMenuList.apply{
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-
+            adapter = bestMenuAdapter
+            adapter!!.stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
         }
         lastOrderAdapter = LastOrderAdapter()
         binding.rvLastOrderMenuList.apply {

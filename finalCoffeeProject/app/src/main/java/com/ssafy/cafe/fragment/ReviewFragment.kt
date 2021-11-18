@@ -79,14 +79,14 @@ class ReviewFragment : Fragment() {
             setPositiveButton("확인") { dialog, which ->
 
                 val user = ApplicationClass.sharedPreferencesUtil.getUser()
-                newComment = Comment(
-                    -1,
-                    user.id,
-                    productId,
-                    view.findViewById<RatingBar>(R.id.ratingBarMenuDialogComment).rating,
-                    binding.newCommentEdt.text.toString()
-                )
-                CommentService().insert(newComment, CommentAddCallback())
+//                new Comment = Comment(
+//                    -1,
+//                    user.id,
+//                    productId,
+//                    view.findViewById<RatingBar>(R.id.ratingBarMenuDialogComment).rating,
+//                    binding.textView6.text.toString()
+//                )
+//                CommentService().insert(newComment, CommentAddCallback())
             }
             setNegativeButton("취소") { dialog, which ->
                 dialog.cancel()

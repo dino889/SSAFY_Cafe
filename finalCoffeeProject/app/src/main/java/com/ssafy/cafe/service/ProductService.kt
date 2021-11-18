@@ -1,8 +1,12 @@
 package com.ssafy.cafe.service
 
 
+import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.ssafy.cafe.dto.Product
 import com.ssafy.cafe.fragment.AllMenuFragment
+import com.ssafy.cafe.response.BestProductResponse
 import com.ssafy.cafe.response.MenuDetailWithCommentResponse
 import com.ssafy.cafe.util.RetrofitCallback
 import com.ssafy.cafe.util.RetrofitUtil
@@ -74,5 +78,31 @@ class ProductService {
         })
     }
 
+    fun getBestProduct() : LiveData<List<BestProductResponse>>{
+        val responseLiveData : MutableLiveData<List<BestProductResponse>> = MutableLiveData()
+        val bestProductRequest: Call<List<BestProductResponse>> = RetrofitUtil.productService.getBestProduct5()
+        
+        bestProductRequest.enqueue(object : Callback<List<BestProductResponse>>{
+            override fun onResponse(
+                call: Call<List<BestProductResponse>>,
+                response: Response<List<BestProductResponse>>
+            ) {
+                val res = response.body()
+                if(response.code() == 200){
+                    if(res != null){
+                        responseLiveData.value = res
+                    }
+                }else{
+                    Log.d(TAG, "onResponse: ")
+                }
+            }
 
+            override fun onFailure(call: Call<List<BestProductResponse>>, t: Throwable) {
+                Log.d(TAG, "onFailure: ")
+            }
+
+        })
+
+        return responseLiveData
+    }
 }
