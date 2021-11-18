@@ -109,4 +109,24 @@ class OrderService{
         })
     }
 
+    fun getOrderbyUser(userId: String, callback: RetrofitCallback<List<Order>>){
+        RetrofitUtil.orderService.getOrderbyUser(userId).enqueue(object : Callback<List<Order>>{
+            override fun onResponse(call: Call<List<Order>>, response: Response<List<Order>>) {
+                val res = response.body()
+                if(response.code() == 200){
+                    if(res != null){
+                        callback.onSuccess(response.code(), res)
+                    }
+                }else{
+                    callback.onFailure(response.code())
+                }
+            }
+
+            override fun onFailure(call: Call<List<Order>>, t: Throwable) {
+                callback.onError(t)
+            }
+
+        })
+    }
+
 }

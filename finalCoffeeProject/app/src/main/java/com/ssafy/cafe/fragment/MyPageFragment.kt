@@ -22,6 +22,7 @@ import com.ssafy.cafe.dto.Comment
 import com.ssafy.cafe.dto.Order
 import com.ssafy.cafe.dto.User
 import com.ssafy.cafe.service.CommentService
+import com.ssafy.cafe.service.OrderService
 import com.ssafy.cafe.service.UserService
 import com.ssafy.cafe.util.RetrofitCallback
 import org.json.JSONException
@@ -71,6 +72,7 @@ class MyPageFragment : Fragment() {
         binding.tvUserProfilName.text = "${users.name}님"
         getUsers(users.id)
         getCommentByUsers(users.id)
+        getOrderbyUser(users.id)
 
     }
     fun initAdapter(){
@@ -109,6 +111,22 @@ class MyPageFragment : Fragment() {
                 binding.tvMyPayMoney.text = "$pay 원"
 //                binding.tvOrderHistoryCnt.text = "${arr.length()}"
                 ApplicationClass.sharedPreferencesUtil.addUserPay(pay)
+            }
+
+            override fun onFailure(code: Int) {
+                Log.d(TAG, "onFailure: ")
+            }
+
+        })
+    }
+    fun getOrderbyUser(id:String){
+        OrderService().getOrderbyUser(id, object : RetrofitCallback<List<Order>>{
+            override fun onError(t: Throwable) {
+                Log.d(TAG, "onError: ")
+            }
+
+            override fun onSuccess(code: Int, responseData: List<Order>) {
+                binding.tvOrderHistoryCnt.text = responseData.size.toString()
             }
 
             override fun onFailure(code: Int) {
