@@ -190,7 +190,8 @@
             <ListView
                 android:id="@+id/lv_setting"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                tools:listitem="@layout/listview_mypage_list_item"/>
         </LinearLayout>
 
     </LinearLayout>
