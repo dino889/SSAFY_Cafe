@@ -50,23 +50,22 @@ class UserService {
         })
     }
 
-    fun checkId(id: String, callback: RetrofitCallback<Boolean>) {
-        RetrofitUtil.userService.isUsedId(id).enqueue(object : Callback<Boolean>{
+    fun isUsed(id: String, callback: RetrofitCallback<Boolean>) {
+        RetrofitUtil.userService.isUsedId(id).enqueue(object : Callback<Boolean> {
             override fun onResponse(call: Call<Boolean>, response: Response<Boolean>) {
-                val data = response.body()
+                val res = response.body()
                 if(response.code() == 200) {
-                    if(data == false) {
-                        callback.onSuccess(response.code(), data)
-                    } else {
-                        callback.onFailure(response.code())
+                    if (res != null) {
+                        callback.onSuccess(response.code(), res)
                     }
+                } else {
+                    callback.onFailure(response.code())
                 }
             }
 
             override fun onFailure(call: Call<Boolean>, t: Throwable) {
                 callback.onError(t)
             }
-
         })
     }
 

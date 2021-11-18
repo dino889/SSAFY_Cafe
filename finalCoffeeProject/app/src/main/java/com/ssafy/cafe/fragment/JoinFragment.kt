@@ -1,5 +1,6 @@
 package com.ssafy.cafe.fragment
 
+import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -39,7 +40,9 @@ class JoinFragment : Fragment() {
 
         setupListeners()
 
-//        test()
+        binding.ibtnIdDupChk.setOnClickListener{
+            validateUserID()
+        }
 
         // JOIN 버튼 클릭
         binding.btnJoin.setOnClickListener {
@@ -86,37 +89,19 @@ class JoinFragment : Fragment() {
     }
 
     // 사용자가 입력한 userId를 인자로 받아서 id 중복 체크
-    private fun doubleCheckID(id:String?) : Boolean{
-        UserService().checkId(id!!, object: RetrofitCallback<Boolean>{
-            override fun onError(t: Throwable) {
-                Log.d(TAG, t.message?: "아이디 체크 통신오류")
-            }
+    inner class isUsedCallBack : RetrofitCallback<Boolean> {
+        override fun onError(t: Throwable) {
+            Log.d(TAG, "onError: ")
+        }
 
-            override fun onSuccess(code: Int, responseData: Boolean) {
-                dupChkId = responseData
-            }
+        override fun onSuccess(code: Int, responseData: Boolean) {
+            Log.d(TAG, "onSuccess: $responseData")
+            dupChkId = responseData
+        }
 
-            override fun onFailure(code: Int) {
-                Log.d(TAG, "onFailure: ")
-            }
-        })
-        return false
-    }
-
-    private fun test() {
-
-        binding.etUserID.onFocusChangeListener =
-            View.OnFocusChangeListener { _, hasFocus ->
-                Log.d(TAG, "test: ${hasFocus}")
-                if(!hasFocus) {
-                    validateUserID()
-                } else {
-
-                }
-            }
-
-
-
+        override fun onFailure(code: Int) {
+            Log.d(TAG, "onFailure: ")
+        }
     }
 
     // id 중복 체크
@@ -129,15 +114,18 @@ class JoinFragment : Fragment() {
             binding.etUserID.requestFocus()
 //                    return false
         } else {
-            doubleCheckID(inputUserId)
             Log.d(TAG, "validateUserID: ${inputUserId}")
-            if(!dupChkId) {   // DB 내에 중복되는 ID가 없으면
+            UserService().isUsed(inputUserId, isUsedCallBack())
+            if(dupChkId) {   // DB 내에 중복되는 ID가 없으면
                 binding.userIDtextlayout.error = null
                 dupChkId = true
+                binding.ibtnIdDupChk.setColorFilter(Color.GREEN)
             } else {// DB 내에 중복되는 ID가 있으면
                 binding.userIDtextlayout.error = "이미 존재하는 아이디입니다."
-//                binding.etUserID.requestFocus()
+                binding.etUserID.requestFocus()
                 dupChkId = false
+                binding.ibtnIdDupChk.setColorFilter(Color.BLACK)
+
             }
         }
 
@@ -204,27 +192,13 @@ class JoinFragment : Fragment() {
         }
 
         override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-//            when(view.id){
-//                R.id.et_userID -> {
-//                    validateUserID()
-//                }
-//                R.id.et_userName -> {
-//                    validateUserName()
-//                }
-//                R.id.et_userTel -> {
-//                    validateUserTel()
-//                }
-//                R.id.et_userPw -> {
-//                    validateUserPW()
-//                }
-//            }
         }
 
         override fun afterTextChanged(s: Editable?) {
             when(view.id){
-                R.id.et_userID -> {
-                    validateUserID()
-                }
+//                R.id.et_userID -> {
+//                    validateUserID()
+//                }
                 R.id.et_userName -> {
                     validateUserName()
                 }
