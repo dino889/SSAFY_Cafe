@@ -113,4 +113,8 @@ dependencies {
     implementation group: 'org.altbeacon', name: 'android-beacon-library', version: '2.18'
     //noinspection GradleCompatible
     implementation 'com.android.support:design:27.1.1'
+
+    //marker
+    implementation 'com.makeramen:roundedimageview:2.3.0'
+
 }

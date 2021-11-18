@@ -63,6 +63,9 @@ class MainActivity : AppCompatActivity() {
         binding.btnLogout.setOnClickListener {
             openFragment(5)
         }
+        binding.ibMap.setOnClickListener {
+            openFragment(4)
+        }
     }
     fun initUserName(){
         var user = ApplicationClass.sharedPreferencesUtil.getUser()
