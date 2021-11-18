@@ -1,5 +1,6 @@
 package com.ssafy.cafe.fragment
 
+import android.content.Context
 import android.os.Bundle
 import android.util.JsonReader
 import android.util.Log
@@ -7,6 +8,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.BaseAdapter
+import android.widget.ImageView
+import android.widget.TextView
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
@@ -29,6 +33,14 @@ import kotlin.collections.HashMap
 private const val TAG = "MyPageFragment"
 class MyPageFragment : Fragment() {
     private lateinit var binding : FragmentMyPageBinding
+
+    var settingList = arrayListOf<Setting>(
+        Setting("headphone","고객센터"),
+        Setting("note","공지사항"),
+        Setting("setting","환경설정"),
+        Setting("version","버전정보")
+    )
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -40,6 +52,7 @@ class MyPageFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initUserInfo()
+        initAdapter()
     }
 
     fun initUserInfo(){
@@ -49,7 +62,10 @@ class MyPageFragment : Fragment() {
         getCommentByUsers(users.id)
 
     }
-
+    fun initAdapter(){
+        val settingAdapter = settingListViewAdapter(requireContext(), settingList)
+        binding.lvSetting.adapter = settingAdapter
+    }
     fun getCommentByUsers(id:String){
 
         CommentService().selectCommentByUser(id, object : RetrofitCallback<List<Comment>> {
@@ -90,4 +106,35 @@ class MyPageFragment : Fragment() {
 
         })
     }
+    inner class settingListViewAdapter(val context: Context, val settingList:ArrayList<Setting>) : BaseAdapter(){
+        override fun getCount(): Int {
+            return settingList.size
+        }
+
+        override fun getItem(position: Int): Any {
+            return settingList[position]
+        }
+
+        override fun getItemId(position: Int): Long {
+            return position.toLong()
+        }
+
+        override fun getView(position: Int, view: View?, p2: ViewGroup?): View {
+            val view:View = LayoutInflater.from(context).inflate(R.layout.listview_mypage_list_item,null)
+            val icon = view.findViewById<ImageView>(R.id.iconImg)
+            val settingName = view.findViewById<TextView>(R.id.tv_settingName)
+
+            val setting = settingList[position]
+            val resourceImg = context.resources.getIdentifier(setting.img,"drawable",context.packageName)
+            icon.setImageResource(resourceImg)
+            settingName.text = setting.title.toString()
+
+            return view
+        }
+
+    }
 }
+data class Setting(
+    val img: String,
+    val title:String
+)

@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.RadioGroup
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import com.bumptech.glide.Glide
@@ -56,6 +57,8 @@ class MenuInfoDetailFragment : Fragment() {
         Log.d(TAG, "onViewCreated: $productId")
         ProductService().getProductWithComments(productId, ProductWithCommentInsertCallback())
 
+
+
         binding.btnGotoBucket.setOnClickListener {
             var count = binding.tvCafeMenuCnt.text.toString().toInt()
             var pricetmp = binding.tvCafeMenuPrice.text.toString()
@@ -65,6 +68,25 @@ class MenuInfoDetailFragment : Fragment() {
             val cart = ShoppingCart(productId,productImg,productName,count,price,count*price,productType)
             viewModel.insertShoppingCartItem(cart)
             mainActivity.openFragment(7)
+        }
+
+        initRadioGroup()
+    }
+
+    private fun initRadioGroup(){
+        binding.hoticeGroup.setOnCheckedChangeListener(typeRadioCheck)
+    }
+    var typeRadioCheck: RadioGroup.OnCheckedChangeListener = RadioGroup.OnCheckedChangeListener { group, checkedId ->
+        if(group.id == R.id.hoticeGroup){
+            if(checkedId == R.id.hot){
+                if(binding.hot.isChecked == true){
+                    binding.ice.isChecked = false
+                    Toast.makeText(requireContext(), "${binding.hot.text.toString()}",Toast.LENGTH_SHORT).show()
+                }else{
+                    binding.hot.isChecked = false
+                    Toast.makeText(requireContext(), "${binding.ice.text.toString()}",Toast.LENGTH_SHORT).show()
+                }
+            }
         }
     }
     private fun initData(menu : MenuDetailWithCommentResponse) {

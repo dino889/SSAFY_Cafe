@@ -90,7 +90,7 @@
                         android:orientation="horizontal">
 
                         <RadioButton
-                            android:id="@+id/hotice_hot"
+                            android:id="@+id/hot"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="HOT" />
@@ -112,7 +112,7 @@
                         android:orientation="horizontal">
 
                         <RadioButton
-                            android:id="@+id/hotice_ice"
+                            android:id="@+id/ice"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:checked="false"
