@@ -89,8 +89,8 @@ class MainActivity : AppCompatActivity() {
             3 -> transaction.replace(R.id.frame_layout_main, MenuDetailFragment.newInstance(key, value))
                 .addToBackStack(null)
 //            //map으로 가기
-//            4 -> transaction.replace(R.id.frame_layout_main, MapFragment())
-//                .addToBackStack(null)
+            4 -> transaction.replace(R.id.frame_layout_main, MapFragment())
+                .addToBackStack(null)
 //            //logout
             5 -> {
                 logout()
