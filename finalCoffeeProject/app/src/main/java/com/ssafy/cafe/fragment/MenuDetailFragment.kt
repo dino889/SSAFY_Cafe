@@ -7,25 +7,23 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.lifecycle.MutableLiveData
+import androidx.fragment.app.activityViewModels
 import com.bumptech.glide.Glide
 import com.google.android.material.tabs.TabLayout
-import com.ssafy.cafe.R
 import com.ssafy.cafe.activity.MainActivity
+import com.ssafy.cafe.adapter.CommentAdapter
 import com.ssafy.cafe.config.ApplicationClass
 import com.ssafy.cafe.databinding.FragmentMenuDetailBinding
 import com.ssafy.cafe.response.MenuDetailWithCommentResponse
 import com.ssafy.cafe.service.ProductService
-import com.ssafy.cafe.util.CommonUtils
 import com.ssafy.cafe.util.RetrofitCallback
-import retrofit2.Retrofit
+import com.ssafy.cafe.viewmodel.MainViewModel
 
 private const val TAG = "MenuDetailFragment_싸피"
-
 class MenuDetailFragment : Fragment() {
     private lateinit var mainActivity : MainActivity
     private lateinit var binding : FragmentMenuDetailBinding
+    private val viewModel: MainViewModel by activityViewModels()
 
     private var productId = -1
 
@@ -54,7 +52,7 @@ class MenuDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        Log.d(TAG, "onViewCreated: ${productId}")
         initData()
         initTab()
 
@@ -62,6 +60,8 @@ class MenuDetailFragment : Fragment() {
 
     private fun initData() {
         ProductService().getProductWithComments(productId, ProductWithCommentInsertCallback())
+//        initScreen(viewModel.test?.value!!.get(0))
+//        viewModel.prodWithComment?.let { initScreen(it) }
     }
 
     private fun initScreen(menu : MenuDetailWithCommentResponse) {
@@ -71,28 +71,38 @@ class MenuDetailFragment : Fragment() {
 
 
 
-    inner class ProductWithCommentInsertCallback : RetrofitCallback<List<MenuDetailWithCommentResponse>> {
+//    inner class ProductWithCommentInsertCallback : RetrofitCallback<List<MenuDetailWithCommentResponse>> {
+//        override fun onError(t: Throwable) {
+//            Log.d(TAG, t.message ?: "물품 정보를 받아오는 중 통신오류")
+//        }
+//
+//        override fun onSuccess(code: Int, responseData: List<MenuDetailWithCommentResponse>) {
+//            viewModel.prodWithComment = responseData[0]
+////            initScreen(responseData[0])
+//        }
+//
+//        override fun onFailure(code: Int) {
+//            Log.d(TAG, "onFailure: Error Code $code")
+//        }
+//    }
+    inner class ProductWithCommentInsertCallback :
+        RetrofitCallback<List<MenuDetailWithCommentResponse>> {
         override fun onError(t: Throwable) {
             Log.d(TAG, t.message ?: "물품 정보를 받아오는 중 통신오류")
         }
 
         override fun onSuccess(code: Int, responseData: List<MenuDetailWithCommentResponse>) {
-            // comment가 없을 경우 -> 들어온 response가 1개이고 해당 userId가 null일 경우 빈 배열 adapter에 연결
-//            commentAdapter = if(responseData.size == 1 && responseData[0].userId == null) {
-//                CommentAdapter(mutableListOf(), this@MenuDetailFragment::initData)
-//            } else {
-//                CommentAdapter(responseData, this@MenuDetailFragment::initData)
-//            }
-//            liveData.value = responseData
+            viewModel.liveProductWithComment.value = responseData
 
-            initScreen(responseData[0])
+            initScreen(viewModel.liveProductWithComment.value!![0])
+
+            Log.d(TAG, "onSuccess: ${viewModel.liveProductWithComment.value!![0]}")
         }
 
         override fun onFailure(code: Int) {
             Log.d(TAG, "onFailure: Error Code $code")
         }
     }
-
 
     override fun onDestroy() {
         super.onDestroy()
@@ -103,11 +113,13 @@ class MenuDetailFragment : Fragment() {
     fun initTab(){
         binding.menudetailTabLayout.addOnTabSelectedListener(object: TabLayout.OnTabSelectedListener{
             override fun onTabSelected(tab: TabLayout.Tab?) {
+                Log.d(TAG, "onTabSelected: $productId")
                 when(tab!!.position){
                     0 -> {
                         mainActivity.openFragment(9,"productId", productId)
                     }
                     1 -> mainActivity.openFragment(10, "productId", productId)
+
                 }
             }
 
@@ -120,6 +132,7 @@ class MenuDetailFragment : Fragment() {
 
         })
     }
+
     companion object {
         @JvmStatic
         fun newInstance(key: String, value : Int) =

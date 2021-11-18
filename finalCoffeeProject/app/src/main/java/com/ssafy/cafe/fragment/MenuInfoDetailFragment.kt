@@ -27,12 +27,13 @@ class MenuInfoDetailFragment : Fragment() {
     private lateinit var mainActivity : MainActivity
     private lateinit var binding:FragmentMenuInfoDetailBinding
 
-    private var productId = -1
-    private var productName = ""
-    private var productImg = ""
-    private var productType = ""
+//    private var productId = -1
+    private lateinit var productName : String
+    private lateinit var productImg : String
+    private lateinit var productType : String
 
     private val viewModel: MainViewModel by activityViewModels()
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
         mainActivity = context as MainActivity
@@ -41,10 +42,11 @@ class MenuInfoDetailFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mainActivity.hideBottomNav(true)
-        arguments?.let {
-            productId = it.getInt("productId", -1)
-        }
+//        arguments?.let {
+//            productId = it.getInt("productId", -1)
+//        }
     }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         binding = FragmentMenuInfoDetailBinding.inflate(inflater,container,false)
@@ -54,10 +56,11 @@ class MenuInfoDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         countProduct()
-        Log.d(TAG, "onViewCreated: $productId")
-        ProductService().getProductWithComments(productId, ProductWithCommentInsertCallback())
-
-
+//        val product = viewModel.prodWithComment
+        val product = viewModel.liveProductWithComment!!.value?.get(0)
+//        Log.d(TAG, "onViewCreated: $productId")
+//        ProductService().getProductWithComments(productId, ProductWithCommentInsertCallback())
+        initData(product!!)
 
         binding.btnGotoBucket.setOnClickListener {
             var countTmp = binding.tvCafeMenuCnt.text.toString()
@@ -66,7 +69,7 @@ class MenuInfoDetailFragment : Fragment() {
             var priceConvert = pricetmp.substring(0,pricetmp.length-1)
             var price = priceConvert.replace(",","").trim().toInt()
 
-            val cart = ShoppingCart(productId,productImg,productName,count,price,count*price,productType)
+            val cart = ShoppingCart(product.productId,productImg,productName,count,price,count*price,productType)
             viewModel.insertShoppingCartItem(cart)
             mainActivity.openFragment(1)
         }
@@ -74,22 +77,6 @@ class MenuInfoDetailFragment : Fragment() {
         initRadioGroup()
     }
 
-    private fun initRadioGroup(){
-        binding.hoticeGroup.setOnCheckedChangeListener(typeRadioCheck)
-    }
-    var typeRadioCheck: RadioGroup.OnCheckedChangeListener = RadioGroup.OnCheckedChangeListener { group, checkedId ->
-        if(group.id == R.id.hoticeGroup){
-            if(checkedId == R.id.hot){
-                if(binding.hot.isChecked == true){
-                    binding.ice.isChecked = false
-                    Toast.makeText(requireContext(), "${binding.hot.text.toString()}",Toast.LENGTH_SHORT).show()
-                }else{
-                    binding.hot.isChecked = false
-                    Toast.makeText(requireContext(), "${binding.ice.text.toString()}",Toast.LENGTH_SHORT).show()
-                }
-            }
-        }
-    }
     private fun initData(menu : MenuDetailWithCommentResponse) {
         binding.tvCafeMenuPrice.text = CommonUtils.makeComma(menu.productPrice)
         productImg = menu.productImg
@@ -97,6 +84,27 @@ class MenuInfoDetailFragment : Fragment() {
         productType = menu.productType.toString()
     }
 
+    // Init RadioGroup
+    private fun initRadioGroup() {
+        binding.hoticeGroup.setOnCheckedChangeListener(typeRadioCheck)
+    }
+
+    // radioBtn Check Listener
+    private var typeRadioCheck: RadioGroup.OnCheckedChangeListener = RadioGroup.OnCheckedChangeListener { group, checkedId ->
+        if(group.id == R.id.hoticeGroup){
+            if(checkedId == R.id.hot){
+                if(binding.hot.isChecked == true){
+                    binding.ice.isChecked = false
+                    Toast.makeText(requireContext(), "${binding.hot.text}",Toast.LENGTH_SHORT).show()
+                }else{
+                    binding.hot.isChecked = false
+                    Toast.makeText(requireContext(), "${binding.ice.text}",Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
+
+    // 수량 조절 버튼으로 Product 개수 조절
     private fun countProduct() {
         var tmp = binding.tvCafeMenuCnt.text.toString()
         var menuCnt = tmp[0].toString().toInt()
@@ -118,28 +126,28 @@ class MenuInfoDetailFragment : Fragment() {
         }
     }
 
-    inner class ProductWithCommentInsertCallback :
-        RetrofitCallback<List<MenuDetailWithCommentResponse>> {
-        override fun onError(t: Throwable) {
-            Log.d(TAG, t.message ?: "물품 정보를 받아오는 중 통신오류")
-        }
-
-        override fun onSuccess(code: Int, responseData: List<MenuDetailWithCommentResponse>) {
-            // comment가 없을 경우 -> 들어온 response가 1개이고 해당 userId가 null일 경우 빈 배열 adapter에 연결
-//            commentAdapter = if(responseData.size == 1 && responseData[0].userId == null) {
-//                CommentAdapter(mutableListOf(), this@MenuDetailFragment::initData)
-//            } else {
-//                CommentAdapter(responseData, this@MenuDetailFragment::initData)
-//            }
-//            liveData.value = responseData
-
-            initData(responseData[0])
-        }
-
-        override fun onFailure(code: Int) {
-            Log.d(TAG, "onFailure: Error Code $code")
-        }
-    }
+//    inner class ProductWithCommentInsertCallback :
+//        RetrofitCallback<List<MenuDetailWithCommentResponse>> {
+//        override fun onError(t: Throwable) {
+//            Log.d(TAG, t.message ?: "물품 정보를 받아오는 중 통신오류")
+//        }
+//
+//        override fun onSuccess(code: Int, responseData: List<MenuDetailWithCommentResponse>) {
+//            // comment가 없을 경우 -> 들어온 response가 1개이고 해당 userId가 null일 경우 빈 배열 adapter에 연결
+////            commentAdapter = if(responseData.size == 1 && responseData[0].userId == null) {
+////                CommentAdapter(mutableListOf(), this@MenuDetailFragment::initData)
+////            } else {
+////                CommentAdapter(responseData, this@MenuDetailFragment::initData)
+////            }
+////            liveData.value = responseData
+//
+//            initData(responseData[0])
+//        }
+//
+//        override fun onFailure(code: Int) {
+//            Log.d(TAG, "onFailure: Error Code $code")
+//        }
+//    }
 
     companion object {
         @JvmStatic
