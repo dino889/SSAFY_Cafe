@@ -75,7 +75,13 @@ public class UserRestController {
             return info;
         }
     }
-
+    
+    @GetMapping("/isUsed")
+    @ApiOperation(value = "id가 사용 중이면 true를 반환한다.", response = Boolean.class)
+    public Boolean isUsedId(@RequestParam("userId") String userId) {
+    	return uService.isUsedId(userId);
+    }
+    
     public Map<String, Object> getGrade(Integer stamp) {
         Map<String, Object> grade = new HashMap<>();
         int pre = 0;
