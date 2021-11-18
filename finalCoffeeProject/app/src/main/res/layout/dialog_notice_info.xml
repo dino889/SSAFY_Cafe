@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+<LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="200dp"
+        android:src="@drawable/logo"
+        android:layout_marginBottom="30dp"
+        android:layout_gravity="center"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginBottom="20dp"
+        android:text="이용 알림"
+        android:textSize="30dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginRight="20dp"
+        android:text="1. 매장내 이용시 테이블의 NFC를 태그하면 해당 테이블로 음료를 가져다드립니다."
+        android:textAlignment="viewStart"
+        android:textSize="20dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:text="주문하신 음료"
+        android:textSize="30dp"/>
+
+    <TextView
+        android:id="@+id/dialog_tmp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="30dp"
+        android:text="최근 주문 내역이 없습니다."
+        android:textSize="24sp"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:id="@+id/dialog_lastOrder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_margin="20dp">
+
+        <ImageView
+            android:id="@+id/dialog_menuImg"
+            android:layout_width="wrap_content"
+            android:layout_height="180dp"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/americano"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_margin="20dp"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/dialog_menuName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                android:textSize="26sp"/>
+
+            <TextView
+                android:id="@+id/dialog_menuPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                android:textSize="26sp"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/dialog_confirm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:text="확인"
+        android:textSize="24sp"
+        android:layout_margin="20dp"/>
+
+</LinearLayout>
+</FrameLayout>
