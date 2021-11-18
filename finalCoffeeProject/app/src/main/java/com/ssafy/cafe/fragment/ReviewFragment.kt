@@ -72,7 +72,7 @@ class ReviewFragment : Fragment() {
     }
 
     private fun showDialogRatingStar(): AlertDialog? {
-        val view = layoutInflater.inflate(R.layout.dialog_menu_comment, null)
+        val view = layoutInflater.inflate(R.layout.dialog_add_comment, null)
         val dialog = AlertDialog.Builder(mainActivity).apply {
             setTitle("별점선택")
             setView(view)
