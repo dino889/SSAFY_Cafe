@@ -119,7 +119,10 @@ class MainActivity : AppCompatActivity() {
                 transaction.replace(R.id.fl_tablayout, ReviewFragment())
                     .addToBackStack(null)
             }
-
+            11 -> {
+                transaction.replace(R.id.frame_layout_main, PayFragment())
+                    .addToBackStack(null)
+            }
 
 
         }

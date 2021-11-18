@@ -15,6 +15,7 @@ import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
 import com.ssafy.cafe.R
+import com.ssafy.cafe.activity.MainActivity
 import com.ssafy.cafe.config.ApplicationClass
 import com.ssafy.cafe.databinding.FragmentMyPageBinding
 import com.ssafy.cafe.dto.Comment
@@ -33,14 +34,17 @@ import kotlin.collections.HashMap
 private const val TAG = "MyPageFragment"
 class MyPageFragment : Fragment() {
     private lateinit var binding : FragmentMyPageBinding
-
+    private lateinit var mainActivity: MainActivity
     var settingList = arrayListOf<Setting>(
         Setting("headphone","고객센터"),
         Setting("note","공지사항"),
         Setting("setting","환경설정"),
         Setting("version","버전정보")
     )
-
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        mainActivity = context as MainActivity
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -53,6 +57,10 @@ class MyPageFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initUserInfo()
         initAdapter()
+
+        binding.btnPay.setOnClickListener {
+            mainActivity.openFragment(11)
+        }
     }
 
     fun initUserInfo(){
