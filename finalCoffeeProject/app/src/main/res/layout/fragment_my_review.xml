@@ -18,10 +18,11 @@
             android:theme="?attr/actionBarTheme" />
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_myReview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:padding="15dp"
-            tools:listitem="@layout/recyclerview_myreview_list_item"/>
+            tools:listitem="@layout/recyclerview_myreview_list_item" />
 
 
     </LinearLayout>

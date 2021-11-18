@@ -1,5 +1,6 @@
 package com.ssafy.cafe.service
 
+import android.util.Log
 import com.ssafy.cafe.dto.Comment
 import com.ssafy.cafe.util.RetrofitCallback
 import com.ssafy.cafe.util.RetrofitUtil
@@ -7,8 +8,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-private const val TAG = "OrderService_싸피"
-
+private const val TAG = "CommentService"
 class CommentService {
     fun insert(comment: Comment, callback: RetrofitCallback<Boolean>) {
         RetrofitUtil.commentService.insert(comment).enqueue(object : Callback<Boolean> {
@@ -85,4 +85,5 @@ class CommentService {
 
         })
     }
+
 }
