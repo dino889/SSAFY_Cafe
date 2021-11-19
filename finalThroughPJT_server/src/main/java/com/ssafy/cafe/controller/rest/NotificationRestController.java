@@ -1,8 +1,11 @@
 package com.ssafy.cafe.controller.rest;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -23,9 +26,11 @@ import io.swagger.annotations.ApiOperation;
 @RequestMapping("/rest/notification")
 @CrossOrigin("*")
 public class NotificationRestController {
-
+	private static final Logger logger = LoggerFactory.getLogger(NotificationRestController.class);
     @Autowired
     NotificationService nService;
+    
+
     
     @PostMapping
     @Transactional
@@ -63,5 +68,4 @@ public class NotificationRestController {
        return nService.selectByUserAndCategory(map);
     }
     
-
 }
