@@ -152,7 +152,7 @@ class MainActivity : AppCompatActivity(), BeaconConsumer {
         mShakeDetector!!.setOnShakeListener(object : ShakeDetector.OnShakeListener {
             override fun onShake(count: Int) {
                 //쉐이크 시 프래그먼트 이동시키기
-                openFragment(11)
+                //openFragment(11)
             }
         })
 
@@ -437,6 +437,11 @@ class MainActivity : AppCompatActivity(), BeaconConsumer {
             Log.d(TAG, "getLastOrder: ${it[0]}")
             isLastOrderLoaded = true
         }
+    }
+
+    //shake nfc dialog
+    fun showShakeNfcDialog(){
+
     }
 
     override fun onStop() {

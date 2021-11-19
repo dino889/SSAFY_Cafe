@@ -28,6 +28,7 @@
         tools:layout_editor_absoluteY="53dp" />
 
     <LinearLayout
+        android:id="@+id/ll_orderCheckLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
@@ -37,27 +38,26 @@
             android:id="@+id/tv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="주문확인" />
+            android:text="주문확인"
+            android:textColor="@color/black" />
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/tv_orderProductName"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:paddingLeft="20dp"
+            android:text="아메리카노 외 3건"
+            android:textColor="@color/black" />
 
-            <TextView
-                android:id="@+id/tv_orderProductName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="아메리카노" />
-
-            <TextView
-                android:id="@+id/tv_orderProductCnt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="2잔" />
-        </LinearLayout>
+        <TextView
+            android:id="@+id/tv_orderTotalPrice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="총 27,000원"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
 
     </LinearLayout>
 </LinearLayout>
