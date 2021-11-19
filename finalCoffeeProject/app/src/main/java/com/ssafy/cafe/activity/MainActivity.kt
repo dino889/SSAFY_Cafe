@@ -435,7 +435,6 @@ class MainActivity : AppCompatActivity(), BeaconConsumer {
         live.observe(this) {
             if(it == null){
                 lastOrder = null
-                
             }
             if(it != null && it.isNotEmpty()) lastOrder = it[0] // 가장 최근 주문 내역 1건
 //            Log.d(TAG, "getLastOrder: ${it[0]}")
