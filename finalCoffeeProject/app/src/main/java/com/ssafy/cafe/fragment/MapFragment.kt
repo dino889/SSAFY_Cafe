@@ -4,10 +4,12 @@ import android.Manifest
 import android.app.AlertDialog
 import android.content.Context
 import android.content.Context.LOCATION_SERVICE
+import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
 import android.location.LocationManager
+import android.net.Uri
 import android.os.Bundle
 import android.os.Looper
 import android.provider.Settings
@@ -23,6 +25,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.cardview.widget.CardView
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
@@ -34,6 +37,9 @@ import com.google.android.gms.maps.model.MarkerOptions
 import com.ssafy.cafe.R
 import com.ssafy.cafe.activity.MainActivity
 import com.ssafy.cafe.databinding.FragmentMapBinding
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.GoogleMap.OnInfoWindowClickListener
+
 
 private const val TAG = "MapFragment"
 class MapFragment : Fragment() , OnMapReadyCallback{
@@ -55,7 +61,6 @@ class MapFragment : Fragment() , OnMapReadyCallback{
     private var firstRendering: Boolean = true
     private lateinit var mapView: MapView
 
-    private lateinit var cardView:LinearLayout
     override fun onAttach(context: Context) {
         super.onAttach(context)
         mainActivity = context as MainActivity
@@ -72,7 +77,6 @@ class MapFragment : Fragment() , OnMapReadyCallback{
 
         var view = inflater.inflate(R.layout.fragment_map, container, false)
         mapView = view.findViewById(R.id.mapView)
-        cardView = view.findViewById(R.id.card_view)
         mapView.onCreate(savedInstanceState)
         mapView.getMapAsync(this)
         return view
@@ -81,6 +85,7 @@ class MapFragment : Fragment() , OnMapReadyCallback{
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
     }
     override fun onMapReady(p0: GoogleMap) {
         map = p0
@@ -216,7 +221,34 @@ class MapFragment : Fragment() , OnMapReadyCallback{
         val cameraUpdate = CameraUpdateFactory.newLatLngZoom(currentLatLng, 15F)
         map!!.moveCamera(cameraUpdate)
 
+        map!!.setOnInfoWindowClickListener(infoWindowClickListener);
     }
+
+    // 정보창 클릭 리스너
+    var infoWindowClickListener = OnInfoWindowClickListener { marker ->
+        val markerId = marker.id
+
+        var listener = DialogInterface.OnClickListener{_, p1 ->
+            when(p1){
+                DialogInterface.BUTTON_POSITIVE ->{
+                    var intent = Intent(Intent.ACTION_DIAL)
+                    intent.data = Uri.parse("tel:01062427712")
+                    startActivity(intent)
+                }
+                DialogInterface.BUTTON_NEUTRAL -> {
+                    //길찾기
+                }
+
+            }
+        }
+
+        var builder = AlertDialog.Builder(requireContext())
+        builder.setView(R.layout.dialog_store_info)
+        builder.setNeutralButton("길찾기",listener)
+        builder.setPositiveButton("전화걸기", listener)
+        builder.show()
+    }
+
     private fun setDefaultStoreLocation(){
         val location = Location("")
         location.latitude = STORE_LOCATION.latitude
