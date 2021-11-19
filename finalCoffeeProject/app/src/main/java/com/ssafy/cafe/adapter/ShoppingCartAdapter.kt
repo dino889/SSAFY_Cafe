@@ -4,8 +4,11 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.ssafy.cafe.R
@@ -32,31 +35,51 @@ class ShoppingCartAdapter : RecyclerView.Adapter<ShoppingCartAdapter.ShoppingLis
             itemView.findViewById<TextView>(R.id.tv_menuTotalPrice).text = "${CommonUtils.makeComma(data.totalPrice)}"
 
             Log.d(TAG, "bindInfo: ${data.shot} | ${data.syrup} ")
-
-            val option = if(data.syrup == null || data.syrup.toString().equals("null")){
-                    Log.d(TAG, "bindInfo: noSyrup")
-                if(data.shot == 0){
-                    "없음"
-                }else{
-                    "샷: ${data.shot}개추가"
-                }
-            }else if(data.syrup.equals("설탕")){
-                Log.d(TAG, "bindInfo: this is sugar")
-
-                if(data.shot == 0){
-                    "시럽: ${data.syrup}(+0원) | 샷: 없음"
-                }else{
-                    "시럽: ${data.syrup}(+0원) | 샷: ${data.shot}개추가"
-                }
+            val type = if(data.type == 0){
+                "HOT"
             }else{
-                ""
-                if(data.shot == 0){
-                    "시럽: ${data.syrup}(+500원) | 없음"
-                }else{
-                   "시럽: ${data.syrup}(+500원) | 샷: ${data.shot}개추가"
+                "ICE"
+            }
+
+            val syrup = if(data.syrup == null || data.syrup.equals("null")){
+                "없음"
+            }else if(data.syrup.equals("설탕")){
+                "${data.syrup}(+0원)"
+            }else{
+                "${data.syrup}(+500원)"
+            }
+
+            val shot = if(data.shot == 0 || data.shot.toString().equals("null") || data.shot == null){
+                "없음"
+            }else{
+                "${data.shot}개 추가"
+            }
+
+            itemView.findViewById<TextView>(R.id.tv_menuOption).text = "$type | $syrup | 샷(+500원) $shot"
+
+
+
+            var tmp = itemView.findViewById<TextView>(R.id.tv_cafeMenuCnt).text.toString()
+            var menuCnt = tmp[0].toString().toInt()
+            
+            var addBtn = itemView.findViewById<ImageButton>(R.id.ibtn_addCount)
+            addBtn.setOnClickListener {
+                Log.d(TAG, "bindInfo: addBtn")
+                menuCnt++
+                itemView.findViewById<TextView>(R.id.tv_cafeMenuCnt).text = "${menuCnt}개"
+            }
+            
+            var minusBtn = itemView.findViewById<ImageButton>(R.id.ibtn_minusCount)
+            minusBtn.setOnClickListener {
+                Log.d(TAG, "bindInfo: minusBtn")
+                if(menuCnt <= 0) {
+                    menuCnt = 0
+                    itemView.findViewById<TextView>(R.id.tv_cafeMenuCnt).text = "${menuCnt}개"
+                } else {
+                    menuCnt--
+                    itemView.findViewById<TextView>(R.id.tv_cafeMenuCnt).text = "${menuCnt}개"
                 }
             }
-            itemView.findViewById<TextView>(R.id.tv_menuOption).text = option
         }
 
     }
