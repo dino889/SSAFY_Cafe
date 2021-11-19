@@ -372,10 +372,11 @@ class MainActivity : AppCompatActivity(), BeaconConsumer {
 
                 if(isYourBeacon(beacon)){
                     if(isDialogCalled == false && isLastOrderLoaded == true) {
-//                        showDialog()
+                        beaconScanStop()
                         runOnUiThread{
                             showDialog()
                         }
+
                     }
                 }
             }
@@ -451,15 +452,18 @@ class MainActivity : AppCompatActivity(), BeaconConsumer {
         startScan()
         sensorManager?.registerListener(mShakeDetector,accelerometerListener,SensorManager.SENSOR_DELAY_UI)
     }
-    // beacon 스캔 중지
+
     override fun onPause() {
         sensorManager?.unregisterListener(mShakeDetector)
 
+        beaconScanStop()
+        super.onPause()
+    }
+
+    // beacon 스캔 중지
+    private fun beaconScanStop() {
         beaconManager.stopMonitoringBeaconsInRegion(region)
         beaconManager.stopRangingBeaconsInRegion(region)
         beaconManager.unbind(this)
-
-
-        super.onPause()
     }
 }

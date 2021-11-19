@@ -16,7 +16,7 @@ class ApplicationClass : Application() {
 //        const val SERVER_URL = "http://1.251.96.80:8888/"
 
         // jiwoo
-//        const val SERVER_URL = "http://172.30.1.51:8888/"
+        const val SERVER_URL = "http://172.30.1.51:8888/"
 //        const val SERVER_URL = "http://172.30.1.14:8888/" // desktop
 
         const val MENU_IMGS_URL = "${SERVER_URL}imgs/menu/"
