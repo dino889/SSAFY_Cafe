@@ -68,39 +68,4 @@ class MainViewModel : ViewModel() {
         value = 0
     }
 
-    fun initUserLevel() {
-
-        var user = ApplicationClass.sharedPreferencesUtil.getUser()
-
-        UserService().getUsers(user.id, object : RetrofitCallback<HashMap<String, Any>>{
-            override fun onError(t: Throwable) {
-//                Log.d(com.ssafy.cafe.fragment.TAG, "onError: ")
-            }
-
-            override fun onSuccess(code: Int, responseData: HashMap<String, Any>) {
-//                Log.d(com.ssafy.cafe.fragment.TAG, "onSuccess: $responseData")
-                //val grade = responseData!!["grade"]
-
-                val user = Gson().fromJson(responseData["user"].toString(),User::class.java)
-
-//                Log.d(com.ssafy.cafe.fragment.TAG, "onSuccess: ${user.stamps}")
-
-                userStamp.value = user.stamps
-
-//                binding.tvStampCount.text = "${user.stamps} /"
-//
-//                for(i in 0..UserLevel.userInfoList.size-1){
-//                    if(UserLevel.userInfoList.get(i).max <= user.stamps){
-//                        binding.tvUserLevel.text = UserLevel.userInfoList.get(i).title.toString()
-//                    }
-//                }
-
-            }
-
-            override fun onFailure(code: Int) {
-//                Log.d(com.ssafy.cafe.fragment.TAG, "onFailure: ")
-            }
-
-        })
-    }
 }

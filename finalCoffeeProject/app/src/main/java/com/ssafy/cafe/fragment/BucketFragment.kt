@@ -12,14 +12,16 @@ import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.ssafy.cafe.R
 import com.ssafy.cafe.activity.MainActivity
 import com.ssafy.cafe.adapter.ShoppingCartAdapter
 import com.ssafy.cafe.config.ApplicationClass
 import com.ssafy.cafe.databinding.FragmentBucketBinding
 import com.ssafy.cafe.dto.Order
 import com.ssafy.cafe.dto.OrderDetail
+import com.ssafy.cafe.dto.User
+import com.ssafy.cafe.dto.UserLevel
 import com.ssafy.cafe.service.OrderService
+import com.ssafy.cafe.service.UserService
 import com.ssafy.cafe.util.CommonUtils
 import com.ssafy.cafe.util.RetrofitCallback
 import com.ssafy.cafe.viewmodel.MainViewModel
@@ -34,6 +36,7 @@ class BucketFragment : Fragment() {
     private var hereOrTogo : Boolean = true // table : true, TakeOut : false
     var isChk = false   // Nfc 태그 데이터 chk
 
+    var totalPrice = 0
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -80,7 +83,7 @@ class BucketFragment : Fragment() {
 
         viewModel.liveShoppingCartList.observe(viewLifecycleOwner) {
             shoppingListAdapter!!.notifyDataSetChanged()
-            var totalPrice = 0
+            totalPrice = 0
             var totalCnt = 0
             for(i in it) {
                 totalCnt += i.menuCnt
@@ -88,6 +91,9 @@ class BucketFragment : Fragment() {
             }
 
             binding.btnOrder.text = "${totalCnt}개 총 ${CommonUtils.makeComma(totalPrice)}"
+
+            binding.btnOrder.isEnabled = viewModel.shoppingCartList.size != 0
+
         }
 
         makeOrder()
@@ -183,12 +189,33 @@ class BucketFragment : Fragment() {
                     tmp.syrup,
                     tmp.shot
                 ))
+            Log.d(TAG, "makeOrderDto: $tmp")
+            Log.d(TAG, "makeOrderDto: ${tmp.syrup}")
         }
 
-        completedOrder(order)
+
+        var point = 0
+        val userPay = ApplicationClass.sharedPreferencesUtil.getUserPay()
+
+        // 등급 계산
+        for(i in 0..UserLevel.userInfoList.size-1) {
+            if (UserLevel.userInfoList.get(i).max <= viewModel.userStamp.value!!) {
+                point = (totalPrice * UserLevel.userInfoList.get(i).point * 0.01).toInt()   // 등급에 따른 포인트 부여(총 금액 * 등급별 퍼센트)
+            }
+        }
+
+        if (userPay!! - totalPrice >= 0) {  // 현재 잔액 - 주문 금액이 0보다 크면 주문 가능
+            val balance = (userPay!! - totalPrice) + point  // 현재 잔액 - 주문 금액
+            completedOrder(order, balance)
+        } else{
+            Toast.makeText(requireContext(), "현재 잔액이 부족합니다. 매장에서 잔액을 충전해주세요.", Toast.LENGTH_LONG).show()
+        }
+
+
+//        completedOrder(order)
     }
 
-    private fun completedOrder(order: Order){
+    private fun completedOrder(order: Order, balance:Int){
 //        var orderTable = mainActivity.orderTable!!
 //        if(orderTable.contains("order_table")) {   // 데이터가 있으면
 //            isChk = true
@@ -217,8 +244,31 @@ class BucketFragment : Fragment() {
                 viewModel.shoppingCartList.clear()  // 장바구니 비우기
 //                shoppingCarList.clear()
 //                mainActivity.openFragment(2, "orderId", responseData)   // 주문 상세 페이지로 이동
+
                 isChk = false
                 viewModel.nfcTaggingData = ""
+
+                // 잔액 업데이트
+                var updateUser = User(ApplicationClass.sharedPreferencesUtil.getUser().id, balance)
+
+                UserService().updateMoney(updateUser , object : RetrofitCallback<User> {
+                    override fun onError(t: Throwable) {
+                        Log.d(TAG, "onError: ")
+                    }
+
+                    override fun onSuccess(code: Int, responseData: User) {
+                        Log.d(TAG, "onSuccess: $responseData")
+                        ApplicationClass.sharedPreferencesUtil.addUserPay(responseData.money)
+                    }
+
+                    override fun onFailure(code: Int) {
+                        Log.d(TAG, "onFailure: ")
+                    }
+
+                })
+
+
+
 //                ApplicationClass.sharedPreferencesUtil.addOrderTable("x")
             }
 

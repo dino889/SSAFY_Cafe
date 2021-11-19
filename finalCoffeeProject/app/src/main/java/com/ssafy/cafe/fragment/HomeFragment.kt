@@ -63,10 +63,9 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        initUserLevel()
+        initUserLevel()
         initAdapter()
         getData()
-        setUserLevel()
     }
     fun getData() {
         val liveData = OrderService().getLastMonthOrder(ApplicationClass.sharedPreferencesUtil.getUser().id)
@@ -108,6 +107,8 @@ class HomeFragment : Fragment() {
         }
     }
 
+    fun initUserLevel(){
+
         var user = ApplicationClass.sharedPreferencesUtil.getUser()
         UserService().getUsers(user.id, object : RetrofitCallback<HashMap<String, Any>>{
             override fun onError(t: Throwable) {
@@ -123,6 +124,7 @@ class HomeFragment : Fragment() {
                 Log.d(TAG, "onSuccess: ${user.stamps}")
                 binding.tvStampCount.text = "${user.stamps} /"
 
+                viewModel.userStamp.value = user.stamps
 
                 for(i in 0..UserLevel.userInfoList.size-1){
                     if(UserLevel.userInfoList.get(i).max <= user.stamps){
@@ -132,10 +134,14 @@ class HomeFragment : Fragment() {
                         binding.progressBarStampState.progress = user.stamps
                     }
                 }
-            }
-        }
-//        binding.tvStampCount.text = "${viewModel.userStamp} /"
 
+            }
+
+            override fun onFailure(code: Int) {
+                Log.d(TAG, "onFailure: ")
+            }
+
+        })
     }
     fun getOrderItemsById(orderId: Int) {
         OrderService().getOrderDetails(orderId).observe(viewLifecycleOwner) {
@@ -145,7 +151,7 @@ class HomeFragment : Fragment() {
                 for(i in viewModel.productList!!.indices) {
                     val product = viewModel.productList!![i]
                     if(item.productName.equals(product.name)) {
-                     //   viewModel.insertShoppingCartItem(ShoppingCart( product.id, product.img, product.name, item.quantity, item.unitPrice,))
+                        //   viewModel.insertShoppingCartItem(ShoppingCart( product.id, product.img, product.name, item.quantity, item.unitPrice,))
                         break
                     }
                 }

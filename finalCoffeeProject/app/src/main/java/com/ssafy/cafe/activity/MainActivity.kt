@@ -119,7 +119,7 @@ class MainActivity : AppCompatActivity(), BeaconConsumer {
         checkPermissions()
 
         // user 정보 받아오기
-        viewModel.initUserLevel()
+//        viewModel.initUserLevel()
 
         supportFragmentManager.beginTransaction()
             .replace(R.id.frame_layout_main, HomeFragment())
@@ -571,19 +571,19 @@ class MainActivity : AppCompatActivity(), BeaconConsumer {
     // Tag Data 추출하는 함수
     private fun getNFCData(intent: Intent) {
         // Tag가 태깅되었을 때 데이터 추출
-        if(intent.action.equals(NfcAdapter.ACTION_NDEF_DISCOVERED)) {
+        if (intent.action.equals(NfcAdapter.ACTION_NDEF_DISCOVERED)) {
             val rawMsgs = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES)
 
-            if(rawMsgs != null) {
+            if (rawMsgs != null) {
                 val message = arrayOfNulls<NdefMessage>(rawMsgs.size)
-                for(i in rawMsgs.indices) {
+                for (i in rawMsgs.indices) {
                     message[i] = rawMsgs[i] as NdefMessage
                 }
                 // 실제 저장되어 있는 데이터를 추출
                 val record_data = message[0]!!.records[0]
                 val record_type = record_data.type
                 val type = String(record_type)
-                if(type.equals("T")) {
+                if (type.equals("T")) {
                     val data = message[0]!!.records[0].payload
                     orderTable = String(data, 3, data.size - 3)
                     viewModel.nfcTaggingData = orderTable
@@ -591,6 +591,10 @@ class MainActivity : AppCompatActivity(), BeaconConsumer {
                     Log.d(TAG, "getNFCData: $orderTable")
                 }
             }
+        }
+    }
+
+
     companion object{
         // Notification Channel ID
         const val channel_id = "ssafy_channel"

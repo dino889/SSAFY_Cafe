@@ -1,5 +1,6 @@
 package com.ssafy.cafe.api
 
+import com.ssafy.cafe.dto.Comment
 import com.ssafy.cafe.dto.User
 import retrofit2.Call
 import retrofit2.http.*
@@ -20,4 +21,8 @@ interface UserApi {
     // 로그인 처리 후 성공적으로 로그인 되었다면 loginId라는 쿠키를 내려준다.
     @POST("rest/user/login")
     fun login(@Body body: User): Call<User>
+
+    // user 잔액을 수정한다.
+    @PUT("rest/user")
+    fun update(@Body user: User): Call<User>
 }

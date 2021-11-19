@@ -137,9 +137,12 @@ public class UserRestController {
     @PutMapping
     @Transactional
     @ApiOperation(value="user 잔액을 수정한다.", response = Boolean.class)
-    public Boolean updateMoney(@RequestBody User user) {
+    public User updateMoney(@RequestBody User user) {
         uService.updateUserMoney(user);
-        return true;
+        
+        User updateUser = uService.getInfo(user.getId());
+        
+        return updateUser;
     }
     
     
