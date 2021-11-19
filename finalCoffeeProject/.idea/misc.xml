@@ -5,12 +5,13 @@
       <map>
         <entry key="..\:/SSAFY/GIT/finalcoffeeproject/finalCoffeeProject/app/src/main/res/layout/dialog_add_comment.xml" value="0.1" />
         <entry key="..\:/SSAFY/GIT/finalcoffeeproject/finalCoffeeProject/app/src/main/res/layout/fragment_all_menu.xml" value="0.25364583333333335" />
+        <entry key="..\:/SSAFY/GIT/finalcoffeeproject/finalCoffeeProject/app/src/main/res/layout/fragment_bucket.xml" value="0.536" />
         <entry key="..\:/SSAFY/GIT/finalcoffeeproject/finalCoffeeProject/app/src/main/res/layout/fragment_join.xml" value="0.264" />
+        <entry key="..\:/SSAFY/GIT/finalcoffeeproject/finalCoffeeProject/app/src/main/res/layout/fragment_menu_info_detail.xml" value="0.4" />
         <entry key="..\:/SSAFY/GIT/finalcoffeeproject/finalCoffeeProject/app/src/main/res/layout/fragment_review.xml" value="0.2" />
         <entry key="..\:/SSAFY/GIT/finalcoffeeproject/finalCoffeeProject/app/src/main/res/layout/recyclervie_order_history_list_item.xml" value="0.25364583333333335" />
         <entry key="..\:/SSAFY/GIT/finalcoffeeproject/finalCoffeeProject/app/src/main/res/layout/recyclerview_allmenu_list_item.xml" value="0.29675425038639874" />
         <entry key="..\:/SSAFY/GIT/finalcoffeeproject/finalCoffeeProject/app/src/main/res/layout/recyclerview_review_list_item.xml" value="0.1" />
-        <entry key="..\:/SSAFY/GitLab/finalcoffeeproject/finalCoffeeProject/app/src/main/res/layout/dialog_notice_info.xml" value="0.21927083333333333" />
         <entry key="..\:/SSAFY/GitLab/finalcoffeeproject/finalCoffeeProject/app/src/main/res/layout/fragment_menu_detail.xml" value="0.1" />
         <entry key="..\:/SSAFY/GitLab/finalcoffeeproject/finalCoffeeProject/app/src/main/res/layout/fragment_review.xml" value="0.33" />
         <entry key="..\:/SSAFY/GitLab/finalcoffeeproject/finalCoffeeProject/app/src/main/res/layout/recyclerview_menu_category_list_item.xml" value="0.2046875" />
@@ -23,16 +24,11 @@
         <entry key="..\:/SSAFY/WorkSpace/final_cafe_Application/finalcoffeeproject/finalCoffeeProject/app/src/main/res/drawable/drawable_linearlayout_frame_custom.xml" value="0.19739583333333333" />
         <entry key="..\:/SSAFY/WorkSpace/final_cafe_Application/finalcoffeeproject/finalCoffeeProject/app/src/main/res/drawable/drawable_notification_layout_list_item.xml" value="0.3536458333333333" />
         <entry key="..\:/SSAFY/WorkSpace/final_cafe_Application/finalcoffeeproject/finalCoffeeProject/app/src/main/res/drawable/login_button_drawable.xml" value="0.1" />
-        <entry key="..\:/SSAFY/WorkSpace/final_cafe_Application/finalcoffeeproject/finalCoffeeProject/app/src/main/res/layout/dialog_add_comment.xml" value="0.17760416666666667" />
-        <entry key="..\:/SSAFY/WorkSpace/final_cafe_Application/finalcoffeeproject/finalCoffeeProject/app/src/main/res/layout/dialog_nfc_order.xml" value="0.25" />
-        <entry key="..\:/SSAFY/WorkSpace/final_cafe_Application/finalcoffeeproject/finalCoffeeProject/app/src/main/res/layout/dialog_notice_info.xml" value="0.22" />
-        <entry key="..\:/SSAFY/WorkSpace/final_cafe_Application/finalcoffeeproject/finalCoffeeProject/app/src/main/res/layout/dialog_store_info.xml" value="0.25" />
         <entry key="..\:/SSAFY/WorkSpace/final_cafe_Application/finalcoffeeproject/finalCoffeeProject/app/src/main/res/layout/fragment_all_menu.xml" value="0.14" />
         <entry key="..\:/SSAFY/WorkSpace/final_cafe_Application/finalcoffeeproject/finalCoffeeProject/app/src/main/res/layout/fragment_bucket.xml" value="0.16" />
         <entry key="..\:/SSAFY/WorkSpace/final_cafe_Application/finalcoffeeproject/finalCoffeeProject/app/src/main/res/layout/fragment_home.xml" value="0.5" />
         <entry key="..\:/SSAFY/WorkSpace/final_cafe_Application/finalcoffeeproject/finalCoffeeProject/app/src/main/res/layout/fragment_join.xml" value="0.25" />
         <entry key="..\:/SSAFY/WorkSpace/final_cafe_Application/finalcoffeeproject/finalCoffeeProject/app/src/main/res/layout/fragment_login.xml" value="0.1765625" />
-        <entry key="..\:/SSAFY/WorkSpace/final_cafe_Application/finalcoffeeproject/finalCoffeeProject/app/src/main/res/layout/fragment_map.xml" value="0.15833333333333333" />
         <entry key="..\:/SSAFY/WorkSpace/final_cafe_Application/finalcoffeeproject/finalCoffeeProject/app/src/main/res/layout/fragment_menu_detail.xml" value="0.1" />
         <entry key="..\:/SSAFY/WorkSpace/final_cafe_Application/finalcoffeeproject/finalCoffeeProject/app/src/main/res/layout/fragment_my_page.xml" value="0.22" />
         <entry key="..\:/SSAFY/WorkSpace/final_cafe_Application/finalcoffeeproject/finalCoffeeProject/app/src/main/res/layout/fragment_notification.xml" value="0.11277173913043478" />
@@ -63,7 +59,6 @@
         <entry key="..\:/ssafy/workspace/finalProject/finalCoffeeProject/app/src/main/res/drawable/input_text_drawable.xml" value="0.1" />
         <entry key="..\:/ssafy/workspace/finalProject/finalCoffeeProject/app/src/main/res/layout/activity_main.xml" value="0.5126315789473684" />
         <entry key="..\:/ssafy/workspace/finalProject/finalCoffeeProject/app/src/main/res/layout/dialog_add_comment.xml" value="0.536" />
-        <entry key="..\:/ssafy/workspace/finalProject/finalCoffeeProject/app/src/main/res/layout/dialog_nfc_order.xml" value="0.28935185185185186" />
         <entry key="..\:/ssafy/workspace/finalProject/finalCoffeeProject/app/src/main/res/layout/drawable_cafemenu_list_item_background.xml" value="0.25364583333333335" />
         <entry key="..\:/ssafy/workspace/finalProject/finalCoffeeProject/app/src/main/res/layout/fragment_all_menu.xml" value="0.1621376811594203" />
         <entry key="..\:/ssafy/workspace/finalProject/finalCoffeeProject/app/src/main/res/layout/fragment_bucket.xml" value="0.176" />

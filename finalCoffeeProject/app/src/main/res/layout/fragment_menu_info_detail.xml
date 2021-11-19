@@ -79,56 +79,76 @@
                     android:textColor="@color/black"
                     android:textSize="15sp" />
 
+
                 <RadioGroup
                     android:id="@+id/hoticeGroup"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
+                    <RadioButton
+                        android:id="@+id/hot"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:text="HOT" />
 
-                        <RadioButton
-                            android:id="@+id/hot"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="HOT" />
-
-                        <TextView
-                            android:id="@+id/tv_addedPlace1"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="right"
-                            android:text="+ 0원"
-                            android:textColor="@color/black"
-                            android:textSize="15sp" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
+                    <RadioButton
+                        android:id="@+id/ice"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:checked="true"
+                        android:text="ICE" />
 
-                        <RadioButton
-                            android:id="@+id/ice"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:checked="false"
-                            android:text="ICE" />
-
-                        <TextView
-                            android:id="@+id/tv_addedPlace2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="right"
-                            android:text="+ 0원"
-                            android:textColor="@color/black"
-                            android:textSize="15sp" />
-                    </LinearLayout>
                 </RadioGroup>
+<!--                <RadioGroup-->
+<!--                    android:id="@+id/hoticeGroup"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content">-->
+
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:orientation="horizontal">-->
+
+<!--                        <RadioButton-->
+<!--                            android:id="@+id/hot"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:text="HOT" />-->
+
+<!--                        <TextView-->
+<!--                            android:id="@+id/tv_addedPlace1"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_weight="1"-->
+<!--                            android:gravity="right"-->
+<!--                            android:text="+ 0원"-->
+<!--                            android:textColor="@color/black"-->
+<!--                            android:textSize="15sp" />-->
+<!--                    </LinearLayout>-->
+
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:orientation="horizontal">-->
+
+<!--                        <RadioButton-->
+<!--                            android:id="@+id/ice"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:checked="true"-->
+<!--                            android:text="ICE" />-->
+
+<!--                        <TextView-->
+<!--                            android:id="@+id/tv_addedPlace2"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_weight="1"-->
+<!--                            android:gravity="right"-->
+<!--                            android:text="+ 0원"-->
+<!--                            android:textColor="@color/black"-->
+<!--                            android:textSize="15sp" />-->
+<!--                    </LinearLayout>-->
+<!--                </RadioGroup>-->
 
 
             </LinearLayout>
@@ -147,77 +167,49 @@
                     android:textColor="@color/black"
                     android:textSize="15sp" />
 
-                <RadioGroup
-                    android:id="@+id/addedGroup"
+
+
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
+                    <CheckBox
+                        android:id="@+id/chkB_syrup"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:layout_weight="1"
+                        android:text="시럽 추가(+500원)" />
 
-                        <RadioButton
-                            android:id="@+id/option1"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="시럽추가" />
+                    <Spinner
+                        android:id="@+id/spinner_syrup"
+                        android:layout_width="120dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="right" />
 
-                        <TextView
-                            android:id="@+id/tv_addedPlace3"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="right"
-                            android:text="+ 0원"
-                            android:textColor="@color/black"
-                            android:textSize="15sp" />
                     </LinearLayout>
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <CheckBox
+                        android:id="@+id/chkB_shot"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:layout_weight="1"
+                        android:text="샷 추가(+500)"/>
 
-                        <RadioButton
-                            android:id="@+id/option2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="샷추가" />
-
-                        <TextView
-                            android:id="@+id/tv_addedPlace4"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="right"
-                            android:text="+ 500원"
-                            android:textColor="@color/black"
-                            android:textSize="15sp" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
+                    <Spinner
+                        android:id="@+id/spinner_shot"
+                        android:layout_width="120dp"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:layout_gravity="center"
+                        android:gravity="right" />
+                </LinearLayout>
 
-                        <RadioButton
-                            android:id="@+id/option3"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="휘핑추가" />
-
-                        <TextView
-                            android:id="@+id/tv_addedPlace5"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="right"
-                            android:text="+ 500원"
-                            android:textColor="@color/black"
-                            android:textSize="15sp" />
-                    </LinearLayout>
-                </RadioGroup>
             </LinearLayout>
 
             <LinearLayout
@@ -236,7 +228,7 @@
                     android:layout_weight="1"
                     android:background="@drawable/drawable_button_selector2"
                     android:text="장바구니"
-                    android:textColor="@color/black"></Button>
+                    android:textColor="@color/black" />
 
                 <Button
                     android:id="@+id/btn_gotoOrder"

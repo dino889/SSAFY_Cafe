@@ -38,4 +38,9 @@ public class ProductServiceImpl implements ProductService{
 		return pDao.selectBestProduct();
 	}
 
+	@Override
+	public Product selectProduct(Integer productId) {
+		return pDao.select(productId);
+	}
+
 }

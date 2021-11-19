@@ -23,4 +23,11 @@ public interface ProductService {
     
     List<Map<String, Object>> selectBestProduct();
     
+    /**
+     * productId에 해당하는 상품 정보를 반환한다.
+     * @param productId
+     * @return
+     */
+    Product selectProduct(Integer productId);
+    
 }
