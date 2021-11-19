@@ -99,7 +99,8 @@ class MenuInfoDetailFragment : Fragment() {
                 totalPrice += (shot!! * 500)
             }
 
-            val cart = ShoppingCart(product.productId, productImg, productName, count, price, totalPrice, productType, type, syrup, shot)
+//            val cart = ShoppingCart(product.productId, productImg, productName, count, price, totalPrice, productType, type, syrup, shot)
+            val cart = ShoppingCart(product.productId, productImg, productName, count, price, totalPrice, type, syrup, shot)
             viewModel.insertShoppingCartItem(cart)
             mainActivity.openFragment(1)
         }
@@ -155,21 +156,6 @@ class MenuInfoDetailFragment : Fragment() {
             }
             binding.ice.id -> {
                 type = 0
-            }
-        }
-    }
-
-    // radioBtn Check Listener
-    private var typeRadioCheck: RadioGroup.OnCheckedChangeListener = RadioGroup.OnCheckedChangeListener { group, checkedId ->
-        if(group.id == R.id.hoticeGroup){
-            if(checkedId == R.id.hot){
-                if(binding.hot.isChecked == true){
-                    binding.ice.isChecked = false
-                    Toast.makeText(requireContext(), "${binding.hot.text}",Toast.LENGTH_SHORT).show()
-                }else{
-                    binding.hot.isChecked = false
-                    Toast.makeText(requireContext(), "${binding.ice.text}",Toast.LENGTH_SHORT).show()
-                }
             }
         }
     }

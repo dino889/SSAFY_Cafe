@@ -106,6 +106,7 @@ class HomeFragment : Fragment() {
             adapter!!.stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
         }
     }
+
     fun initUserLevel(){
 
         var user = ApplicationClass.sharedPreferencesUtil.getUser()
@@ -123,6 +124,7 @@ class HomeFragment : Fragment() {
                 Log.d(TAG, "onSuccess: ${user.stamps}")
                 binding.tvStampCount.text = "${user.stamps} /"
 
+                viewModel.userStamp.value = user.stamps
 
                 for(i in 0..UserLevel.userInfoList.size-1){
                     if(UserLevel.userInfoList.get(i).max <= user.stamps){
@@ -149,7 +151,7 @@ class HomeFragment : Fragment() {
                 for(i in viewModel.productList!!.indices) {
                     val product = viewModel.productList!![i]
                     if(item.productName.equals(product.name)) {
-                     //   viewModel.insertShoppingCartItem(ShoppingCart( product.id, product.img, product.name, item.quantity, item.unitPrice,))
+                        //   viewModel.insertShoppingCartItem(ShoppingCart( product.id, product.img, product.name, item.quantity, item.unitPrice,))
                         break
                     }
                 }

@@ -4,16 +4,16 @@ use ssafy_cafe;
 -- t_user
 INSERT INTO t_user (id, name, pass, stamps, phone, money) VALUES ('test', 'testUser', 'test', 50, '010-8019-4628', 200000);
 INSERT INTO t_user (id, name, pass, stamps, phone, money) VALUES ('admin', 'admin', 'admin', 100, '010-6242-7712', 1000000);
-INSERT INTO t_user (id, name, pass, stamps, phone, money) VALUES ('id 01', 'name 01', 'pass 01', 4, '010-0001-0001', 0);
-INSERT INTO t_user (id, name, pass, stamps, phone, money) VALUES ('id 02', 'name 02', 'pass 02', 1, '010-0002-0002', 10000);
-INSERT INTO t_user (id, name, pass, stamps, phone, money) VALUES ('id 03', 'name 03', 'pass 03', 0, '010-0003-0003', 20000);
-INSERT INTO t_user (id, name, pass, stamps, phone, money) VALUES ('id 04', 'name 04', 'pass 04', 0, '010-0004-0004', 300);
-INSERT INTO t_user (id, name, pass, stamps, phone, money) VALUES ('id 05', 'name 05', 'pass 05', 0, '010-0005-0005', 4000);
-INSERT INTO t_user (id, name, pass, stamps, phone, money) VALUES ('id 06', 'name 06', 'pass 06', 0, '010-0006-0006', 0);
-INSERT INTO t_user (id, name, pass, stamps, phone, money) VALUES ('id 07', 'name 07', 'pass 07', 0, '010-0007-0007', 0);
-INSERT INTO t_user (id, name, pass, stamps, phone, money) VALUES ('id 08', 'name 08', 'pass 08', 0, '010-0008-0008', 0);
-INSERT INTO t_user (id, name, pass, stamps, phone, money) VALUES ('id 09', 'name 09', 'pass 09', 0, '010-0009-0009', 0);
-INSERT INTO t_user (id, name, pass, stamps, phone, money) VALUES ('id 10', 'name 10', 'pass 10', 0, '010-0010-0010', 0);
+INSERT INTO t_user (id, name, pass, stamps, phone, money) VALUES ('id01', 'name01', 'pass01', 4, '010-0001-0001', 0);
+INSERT INTO t_user (id, name, pass, stamps, phone, money) VALUES ('id02', 'name02', 'pass02', 1, '010-0002-0002', 10000);
+INSERT INTO t_user (id, name, pass, stamps, phone, money) VALUES ('id03', 'name03', 'pass03', 0, '010-0003-0003', 20000);
+INSERT INTO t_user (id, name, pass, stamps, phone, money) VALUES ('id04', 'name04', 'pass04', 0, '010-0004-0004', 300);
+INSERT INTO t_user (id, name, pass, stamps, phone, money) VALUES ('id05', 'name05', 'pass05', 0, '010-0005-0005', 4000);
+INSERT INTO t_user (id, name, pass, stamps, phone, money) VALUES ('id06', 'name06', 'pass06', 0, '010-0006-0006', 0);
+INSERT INTO t_user (id, name, pass, stamps, phone, money) VALUES ('id07', 'name07', 'pass07', 0, '010-0007-0007', 0);
+INSERT INTO t_user (id, name, pass, stamps, phone, money) VALUES ('id08', 'name08', 'pass08', 0, '010-0008-0008', 0);
+INSERT INTO t_user (id, name, pass, stamps, phone, money) VALUES ('id09', 'name09', 'pass09', 0, '010-0009-0009', 0);
+INSERT INTO t_user (id, name, pass, stamps, phone, money) VALUES ('id10', 'name10', 'pass10', 0, '010-0010-0010', 0);
 
 
 -- t_product_type
