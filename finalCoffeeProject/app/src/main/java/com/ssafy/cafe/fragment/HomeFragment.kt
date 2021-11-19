@@ -123,9 +123,13 @@ class HomeFragment : Fragment() {
                 Log.d(TAG, "onSuccess: ${user.stamps}")
                 binding.tvStampCount.text = "${user.stamps} /"
 
+
                 for(i in 0..UserLevel.userInfoList.size-1){
                     if(UserLevel.userInfoList.get(i).max <= user.stamps){
                         binding.tvUserLevel.text = UserLevel.userInfoList.get(i).title.toString()
+                        binding.tvStampTotal.text = UserLevel.userInfoList.get(i).max.toString()
+                        binding.progressBarStampState.max = UserLevel.userInfoList.get(i).max
+                        binding.progressBarStampState.progress = user.stamps
                     }
                 }
 
