@@ -70,7 +70,7 @@ class MenuInfoDetailFragment : Fragment() {
         countProduct()
 //        val product = viewModel.prodWithComment
         val product = viewModel.liveProductWithComment!!.value?.get(0)
-//        Log.d(TAG, "onViewCreated: $productId")
+        Log.d(TAG, "onViewCreated: $product")
 //        ProductService().getProductWithComments(productId, ProductWithCommentInsertCallback())
         initData(product!!)
 
