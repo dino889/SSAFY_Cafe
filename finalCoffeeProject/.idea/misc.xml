@@ -6,6 +6,7 @@
         <entry key="..\:/SSAFY/GIT/finalcoffeeproject/finalCoffeeProject/app/src/main/res/layout/dialog_add_comment.xml" value="0.1" />
         <entry key="..\:/SSAFY/GIT/finalcoffeeproject/finalCoffeeProject/app/src/main/res/layout/fragment_all_menu.xml" value="0.25364583333333335" />
         <entry key="..\:/SSAFY/GIT/finalcoffeeproject/finalCoffeeProject/app/src/main/res/layout/fragment_bucket.xml" value="0.536" />
+        <entry key="..\:/SSAFY/GIT/finalcoffeeproject/finalCoffeeProject/app/src/main/res/layout/fragment_home.xml" value="0.264" />
         <entry key="..\:/SSAFY/GIT/finalcoffeeproject/finalCoffeeProject/app/src/main/res/layout/fragment_join.xml" value="0.264" />
         <entry key="..\:/SSAFY/GIT/finalcoffeeproject/finalCoffeeProject/app/src/main/res/layout/fragment_menu_detail.xml" value="0.13125" />
         <entry key="..\:/SSAFY/GIT/finalcoffeeproject/finalCoffeeProject/app/src/main/res/layout/fragment_menu_info_detail.xml" value="0.35714285714285715" />
@@ -67,7 +68,7 @@
         <entry key="..\:/ssafy/workspace/finalProject/finalCoffeeProject/app/src/main/res/layout/fragment_home.xml" value="0.25361512791991103" />
         <entry key="..\:/ssafy/workspace/finalProject/finalCoffeeProject/app/src/main/res/layout/fragment_join.xml" value="0.25364583333333335" />
         <entry key="..\:/ssafy/workspace/finalProject/finalCoffeeProject/app/src/main/res/layout/fragment_menu_detail.xml" value="0.2" />
-        <entry key="..\:/ssafy/workspace/finalProject/finalCoffeeProject/app/src/main/res/layout/fragment_menu_info_detail.xml" value="0.264" />
+        <entry key="..\:/ssafy/workspace/finalProject/finalCoffeeProject/app/src/main/res/layout/fragment_menu_info_detail.xml" value="0.2" />
         <entry key="..\:/ssafy/workspace/finalProject/finalCoffeeProject/app/src/main/res/layout/fragment_my_page.xml" value="0.264" />
         <entry key="..\:/ssafy/workspace/finalProject/finalCoffeeProject/app/src/main/res/layout/fragment_notification.xml" value="0.4" />
         <entry key="..\:/ssafy/workspace/finalProject/finalCoffeeProject/app/src/main/res/layout/fragment_order.xml" value="0.264" />

@@ -111,12 +111,13 @@ class JoinFragment : Fragment() {
 
         if(inputUserId.trim().isEmpty()){   // 값이 비어있으면 error
             binding.userIDtextlayout.error = "Required Field"
+            binding.ibtnIdDupChk.setColorFilter(Color.BLACK)
             binding.etUserID.requestFocus()
 //                    return false
         } else {
             Log.d(TAG, "validateUserID: ${inputUserId}")
             UserService().isUsed(inputUserId, isUsedCallBack())
-            if(dupChkId) {   // DB 내에 중복되는 ID가 없으면
+            if(!dupChkId) {   // DB 내에 중복되는 ID가 없으면
                 binding.userIDtextlayout.error = null
                 dupChkId = true
                 binding.ibtnIdDupChk.setColorFilter(Color.GREEN)

@@ -292,21 +292,9 @@ class BucketFragment : Fragment() {
         mainActivity.nfcAdapter!!.disableForegroundDispatch(mainActivity)
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        mainActivity.hideBottomNav(false)
+    }
+
 }
-
-
-//INSERT INTO t_order (user_id, order_table) VALUES (?, ?)
-//Parameters: test(String), order_table 01(String)
-//Updates: 1
-//Preparing: select max(o_id) from t_order
-//Parameters:
-//Total: 1
-//INSERT INTO t_order_detail ( order_id, product_id, quantity) VALUES ( ?, ?, ?)
-//16(Integer), 4(Integer), 1(Integer)
-//Updates: 1
-//INSERT INTO t_stamp (user_id, order_id, quantity) VALUES (?, ?, ?)
-//test(String), 16(Integer), 1(Integer)
-//Updates: 1
-//UPDATE t_user SET stamps = stamps + ? WHERE id = ?
-//Parameters: 1(Integer), test(String)
-//Updates: 1

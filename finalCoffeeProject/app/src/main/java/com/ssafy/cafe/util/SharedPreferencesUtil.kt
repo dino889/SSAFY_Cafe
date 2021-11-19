@@ -51,22 +51,6 @@ class SharedPreferencesUtil (context: Context) {
     }
 
 
-    //사용자 정보 저장
-    fun addOrderTable(orderTable:String){
-        val editor = preferences.edit()
-        editor.putString("ot", orderTable)
-        editor.apply()
-    }
-
-    fun getOrderTable(): String? {
-        val orderTable = preferences.getString("ot", "")
-        return orderTable
-    }
-
-    fun deleteOrderTable(){
-        preferences.edit().remove("ot").apply()
-    }
-
     //사용자 잔액 저장
     fun addUserPay(pay:Int){
         val editor = preferences.edit()

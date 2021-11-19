@@ -125,12 +125,17 @@ class HomeFragment : Fragment() {
                 binding.tvStampCount.text = "${user.stamps} /"
 
                 viewModel.userStamp.value = user.stamps
-
-                for(i in 0..UserLevel.userInfoList.size-1){
+                val tmp = UserLevel.userInfoList.size
+                for(i in 0..tmp-1){
                     if(UserLevel.userInfoList.get(i).max <= user.stamps){
                         binding.tvUserLevel.text = UserLevel.userInfoList.get(i).title.toString()
-                        binding.tvStampTotal.text = UserLevel.userInfoList.get(i).max.toString()
-                        binding.progressBarStampState.max = UserLevel.userInfoList.get(i).max
+                        if(i == tmp - 1) {  // 마지막 레벨
+                            binding.tvStampTotal.text = "..."
+                            binding.progressBarStampState.max = Int.MAX_VALUE
+                        } else if(i + 1 < tmp - 1) {
+                            binding.tvStampTotal.text = UserLevel.userInfoList.get(i + 1).max.toString()
+                            binding.progressBarStampState.max = UserLevel.userInfoList.get(i).max
+                        }
                         binding.progressBarStampState.progress = user.stamps
                     }
                 }
