@@ -239,3 +239,4 @@ fabric.properties
 # End of https://www.toptal.com/developers/gitignore/api/android,kotlin,androidstudio
 finalCoffeeProject/.idea/misc.xml
 /.metadata/
+finalCoffeeProject/app/src/main/java/com/ssafy/cafe/config/ApplicationClass.kt
