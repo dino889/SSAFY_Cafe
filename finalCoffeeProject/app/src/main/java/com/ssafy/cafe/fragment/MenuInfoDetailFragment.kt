@@ -24,6 +24,7 @@ import android.widget.AdapterView
 import android.widget.RadioButton
 
 import android.widget.RadioGroup
+import androidx.core.view.isVisible
 import com.ssafy.cafe.dto.UserCustom
 import com.ssafy.cafe.service.UserCustomService
 
@@ -145,6 +146,10 @@ class MenuInfoDetailFragment : Fragment() {
         productImg = menu.productImg
         productName = menu.productName
         productType = menu.productType.toString()
+        if(productType != "coffee"){
+            binding.llOption.isVisible = false
+        }
+
     }
 
     // Init RadioGroup
