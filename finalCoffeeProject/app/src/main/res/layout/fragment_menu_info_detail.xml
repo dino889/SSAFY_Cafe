@@ -186,7 +186,8 @@
                         android:layout_width="120dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:gravity="right" />
+                        android:gravity="right"
+                        android:visibility="gone" />
 
                     </LinearLayout>
 
@@ -207,7 +208,8 @@
                         android:layout_width="120dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:gravity="right" />
+                        android:gravity="right"
+                        android:visibility="gone" />
                 </LinearLayout>
 
             </LinearLayout>

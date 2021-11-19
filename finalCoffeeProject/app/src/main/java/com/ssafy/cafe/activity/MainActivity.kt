@@ -9,6 +9,7 @@ import android.content.pm.PackageManager
 import android.hardware.Sensor
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
+import android.nfc.NdefMessage
 import android.nfc.NfcAdapter
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
@@ -22,9 +23,11 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
+import androidx.fragment.app.activityViewModels
 import com.bumptech.glide.Glide
 import com.ssafy.cafe.R
 import com.ssafy.cafe.config.ApplicationClass
@@ -32,15 +35,17 @@ import com.ssafy.cafe.databinding.ActivityMainBinding
 import com.ssafy.cafe.fragment.*
 import com.ssafy.cafe.response.LatestOrderResponse
 import com.ssafy.cafe.service.OrderService
+import com.ssafy.cafe.viewmodel.MainViewModel
 import com.ssafy.medical.service.ShakeDetector
 import org.altbeacon.beacon.*
 
 class MainActivity : AppCompatActivity(), BeaconConsumer {
     private val TAG = "MainActivity_싸피"
     private lateinit var binding: ActivityMainBinding
+    private val viewModel: MainViewModel by viewModels()
+
     //----------------------------------------------------------------------------------------------
     // Shake 관련 변수
-
     private var accelerometerListener: Sensor? = null
     private var sensorManager: SensorManager?= null
     private var sensorEventListener: SensorEventListener?= null
@@ -79,11 +84,20 @@ class MainActivity : AppCompatActivity(), BeaconConsumer {
     private var lastOrder : LatestOrderResponse? = null
     private var isLastOrderLoaded = false
 
+    //----------------------------------------------------------------------------------------------
+    // NFC 관련 변수
+    var nfcAdapter: NfcAdapter? = null
+    var pIntent: PendingIntent? = null
+    lateinit var filters: Array<IntentFilter>
+    //    lateinit var orderTable : String
+    var orderTable : String? = "x"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        setNdef()
 
         getLastOrder()
 
@@ -92,6 +106,9 @@ class MainActivity : AppCompatActivity(), BeaconConsumer {
         setBeacon()
 
         checkPermissions()
+
+        // user 정보 받아오기
+        viewModel.initUserLevel()
 
         supportFragmentManager.beginTransaction()
             .replace(R.id.frame_layout_main, HomeFragment())
@@ -486,5 +503,62 @@ class MainActivity : AppCompatActivity(), BeaconConsumer {
         beaconManager.stopMonitoringBeaconsInRegion(region)
         beaconManager.stopRangingBeaconsInRegion(region)
         beaconManager.unbind(this)
+    }
+
+
+
+
+    // ---------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
+    // NFC 관련 함수
+    private fun setNdef(){
+
+        nfcAdapter = NfcAdapter.getDefaultAdapter(this)
+
+        // 포그라운드 기능 설정을 위한 코드
+        val i = Intent(this, MainActivity::class.java)  // mainActivity 자기 자신이 처리하기 때문에 파라미타로 mainA 부여
+        i.flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
+        pIntent = PendingIntent.getActivity(this, 0, i, 0) // 위임을 해주는데 나를 넘겨주겠다
+
+        val ndf_filter = IntentFilter(NfcAdapter.ACTION_NDEF_DISCOVERED)
+        ndf_filter.addDataType("text/plain")
+
+        filters = arrayOf(ndf_filter)
+
+    }
+
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        if (intent!!.action.equals(NfcAdapter.ACTION_NDEF_DISCOVERED)) {
+            Log.d(TAG, "onNewIntent: ")
+            getNFCData(intent = intent)
+        }
+    }
+
+
+    // Tag Data 추출하는 함수
+    private fun getNFCData(intent: Intent) {
+        // Tag가 태깅되었을 때 데이터 추출
+        if(intent.action.equals(NfcAdapter.ACTION_NDEF_DISCOVERED)) {
+            val rawMsgs = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES)
+
+            if(rawMsgs != null) {
+                val message = arrayOfNulls<NdefMessage>(rawMsgs.size)
+                for(i in rawMsgs.indices) {
+                    message[i] = rawMsgs[i] as NdefMessage
+                }
+                // 실제 저장되어 있는 데이터를 추출
+                val record_data = message[0]!!.records[0]
+                val record_type = record_data.type
+                val type = String(record_type)
+                if(type.equals("T")) {
+                    val data = message[0]!!.records[0].payload
+                    orderTable = String(data, 3, data.size - 3)
+                    viewModel.nfcTaggingData = orderTable
+//                    ApplicationClass.sharedPreferencesUtil.addOrderTable(orderTable!!)
+                    Log.d(TAG, "getNFCData: $orderTable")
+                }
+            }
+        }
     }
 }

@@ -63,9 +63,10 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initUserLevel()
+//        initUserLevel()
         initAdapter()
         getData()
+        setUserLevel()
     }
     fun getData() {
         val liveData = OrderService().getLastMonthOrder(ApplicationClass.sharedPreferencesUtil.getUser().id)
@@ -106,36 +107,56 @@ class HomeFragment : Fragment() {
             adapter!!.stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
         }
     }
-    fun initUserLevel(){
 
-        var user = ApplicationClass.sharedPreferencesUtil.getUser()
-        UserService().getUsers(user.id, object : RetrofitCallback<HashMap<String, Any>>{
-            override fun onError(t: Throwable) {
-                Log.d(TAG, "onError: ")
-            }
+//    fun initUserLevel(){
+//
+//        var user = ApplicationClass.sharedPreferencesUtil.getUser()
+//
+//        UserService().getUsers(user.id, object : RetrofitCallback<HashMap<String, Any>>{
+//            override fun onError(t: Throwable) {
+//                Log.d(TAG, "onError: ")
+//            }
+//
+//            override fun onSuccess(code: Int, responseData: HashMap<String, Any>) {
+//                Log.d(TAG, "onSuccess: $responseData")
+//                //val grade = responseData!!["grade"]
+//
+//                val user = Gson().fromJson(responseData["user"].toString(),User::class.java)
+//
+//                Log.d(TAG, "onSuccess: ${user.stamps}")
+//
+//                viewModel.userStamp.value = user.stamps
+//
+//                binding.tvStampCount.text = "${user.stamps} /"
+//
+//                for(i in 0..UserLevel.userInfoList.size-1){
+//                    if(UserLevel.userInfoList.get(i).max <= user.stamps){
+//                        binding.tvUserLevel.text = UserLevel.userInfoList.get(i).title.toString()
+//                    }
+//                }
+//
+//            }
+//
+//            override fun onFailure(code: Int) {
+//                Log.d(TAG, "onFailure: ")
+//            }
+//
+//        })
+//    }
 
-            override fun onSuccess(code: Int, responseData: HashMap<String, Any>) {
-                Log.d(TAG, "onSuccess: $responseData")
-                //val grade = responseData!!["grade"]
+    // set User Level
+    private fun setUserLevel() {
+        viewModel.userStamp.observe(viewLifecycleOwner) {   // owner의 lifecycle을 그대로 따라가겠다
+            binding.tvStampCount.text = "${it.toString()} /"
 
-                val user = Gson().fromJson(responseData["user"].toString(),User::class.java)
-
-                Log.d(TAG, "onSuccess: ${user.stamps}")
-                binding.tvStampCount.text = "${user.stamps} /"
-
-                for(i in 0..UserLevel.userInfoList.size-1){
-                    if(UserLevel.userInfoList.get(i).max <= user.stamps){
-                        binding.tvUserLevel.text = UserLevel.userInfoList.get(i).title.toString()
-                    }
+            for(i in 0..UserLevel.userInfoList.size-1){
+                if(UserLevel.userInfoList.get(i).max <= it){
+                    binding.tvUserLevel.text = UserLevel.userInfoList.get(i).title.toString()
                 }
-
             }
+        }
+//        binding.tvStampCount.text = "${viewModel.userStamp} /"
 
-            override fun onFailure(code: Int) {
-                Log.d(TAG, "onFailure: ")
-            }
-
-        })
     }
     fun getOrderItemsById(orderId: Int) {
         OrderService().getOrderDetails(orderId).observe(viewLifecycleOwner) {
@@ -145,7 +166,7 @@ class HomeFragment : Fragment() {
                 for(i in viewModel.productList!!.indices) {
                     val product = viewModel.productList!![i]
                     if(item.productName.equals(product.name)) {
-                        viewModel.insertShoppingCartItem(ShoppingCart(product.id, product.img, product.name, item.quantity, item.unitPrice,type = ""))
+                        viewModel.insertShoppingCartItem(ShoppingCart(product.id, product.img, product.name, item.quantity, item.unitPrice, item.totalPrice, item.productType, item.syrup, item.shot))
                         break
                     }
                 }
