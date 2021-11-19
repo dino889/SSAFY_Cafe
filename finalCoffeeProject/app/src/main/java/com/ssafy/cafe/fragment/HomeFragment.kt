@@ -145,7 +145,7 @@ class HomeFragment : Fragment() {
                 for(i in viewModel.productList!!.indices) {
                     val product = viewModel.productList!![i]
                     if(item.productName.equals(product.name)) {
-                        viewModel.insertShoppingCartItem(ShoppingCart(product.id, product.img, product.name, item.quantity, item.unitPrice,type = ""))
+                     //   viewModel.insertShoppingCartItem(ShoppingCart( product.id, product.img, product.name, item.quantity, item.unitPrice,))
                         break
                     }
                 }

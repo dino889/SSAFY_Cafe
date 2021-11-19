@@ -105,4 +105,24 @@ class ProductService {
 
         return responseLiveData
     }
+    fun getProductById(id:Int, callback: RetrofitCallback<Product>){
+        RetrofitUtil.productService.getProductById(id).enqueue(object : Callback<Product>{
+            override fun onResponse(call: Call<Product>, response: Response<Product>) {
+                var res = response.body()
+                if(response.code() == 200){
+                    if(res != null){
+                        callback.onSuccess(response.code(),res)
+                    }
+                }
+                else{
+                    callback.onFailure(response.code())
+                }
+            }
+
+            override fun onFailure(call: Call<Product>, t: Throwable) {
+                callback.onError(t)
+            }
+
+        })
+    }
 }

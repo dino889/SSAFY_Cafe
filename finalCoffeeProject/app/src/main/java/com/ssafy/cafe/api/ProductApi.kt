@@ -6,6 +6,7 @@ import com.ssafy.cafe.response.MenuDetailWithCommentResponse
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface ProductApi {
     // 전체 상품의 목록을 반환한다
@@ -25,4 +26,7 @@ interface ProductApi {
 
     @GET("rest/product/bestProduct")
     fun getBestProduct5() : Call<List<BestProductResponse>>
+
+    @GET("rest/product/prod")
+    fun getProductById(@Query("productId")productId: Int): Call<Product>
 }

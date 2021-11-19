@@ -1,10 +1,7 @@
 package com.ssafy.cafe.util
 
 
-import com.ssafy.cafe.api.CommentApi
-import com.ssafy.cafe.api.OrderApi
-import com.ssafy.cafe.api.ProductApi
-import com.ssafy.cafe.api.UserApi
+import com.ssafy.cafe.api.*
 import com.ssafy.cafe.config.ApplicationClass
 
 class RetrofitUtil {
@@ -13,5 +10,7 @@ class RetrofitUtil {
         val orderService = ApplicationClass.retrofit.create(OrderApi::class.java)
         val productService = ApplicationClass.retrofit.create(ProductApi::class.java)
         val userService = ApplicationClass.retrofit.create(UserApi::class.java)
+        val customService = ApplicationClass.retrofit.create(UserCustomApi::class.java)
+
     }
 }
