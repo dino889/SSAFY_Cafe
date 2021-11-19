@@ -1,10 +1,7 @@
 package com.ssafy.cafe.activity
 
 import android.Manifest
-import android.app.Dialog
-import android.app.NotificationChannel
-import android.app.NotificationManager
-import android.app.PendingIntent
+import android.app.*
 import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothManager
 import android.content.*
@@ -27,6 +24,7 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import com.bumptech.glide.Glide
 import com.ssafy.cafe.R
 import com.ssafy.cafe.config.ApplicationClass
@@ -153,6 +151,7 @@ class MainActivity : AppCompatActivity(), BeaconConsumer {
             override fun onShake(count: Int) {
                 //쉐이크 시 프래그먼트 이동시키기
                 //openFragment(11)
+                showShakeNfcDialog()
             }
         })
 
@@ -442,6 +441,20 @@ class MainActivity : AppCompatActivity(), BeaconConsumer {
     //shake nfc dialog
     fun showShakeNfcDialog(){
 
+        var listener = DialogInterface.OnClickListener { _, p1 ->
+            when(p1){
+                DialogInterface.BUTTON_POSITIVE ->{
+
+                }
+                DialogInterface.BUTTON_NEGATIVE -> {
+
+                }
+            }
+        }
+
+        var builder = AlertDialog.Builder(this)
+        builder.setView(R.layout.dialog_nfc_order)
+        builder.show()
     }
 
     override fun onStop() {
