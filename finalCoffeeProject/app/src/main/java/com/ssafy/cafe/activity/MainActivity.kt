@@ -7,14 +7,16 @@ import android.app.NotificationManager
 import android.app.PendingIntent
 import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothManager
-import android.content.Context
-import android.content.Intent
-import android.content.IntentFilter
+import android.content.*
 import android.content.pm.PackageManager
+import android.hardware.Sensor
+import android.hardware.SensorEventListener
+import android.hardware.SensorManager
 import android.nfc.NfcAdapter
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.IBinder
 import android.os.RemoteException
 import android.util.Log
 import android.view.View
@@ -32,11 +34,19 @@ import com.ssafy.cafe.databinding.ActivityMainBinding
 import com.ssafy.cafe.fragment.*
 import com.ssafy.cafe.response.LatestOrderResponse
 import com.ssafy.cafe.service.OrderService
+import com.ssafy.medical.service.ShakeDetector
 import org.altbeacon.beacon.*
 
 class MainActivity : AppCompatActivity(), BeaconConsumer {
     private val TAG = "MainActivity_싸피"
     private lateinit var binding: ActivityMainBinding
+    //----------------------------------------------------------------------------------------------
+    // Shake 관련 변수
+
+    private var accelerometerListener: Sensor? = null
+    private var sensorManager: SensorManager?= null
+    private var sensorEventListener: SensorEventListener?= null
+    private var mShakeDetector: ShakeDetector?= null
 
     // ---------------------------------------------------------------------------------------------
     // Beacon 관련 변수
@@ -135,6 +145,17 @@ class MainActivity : AppCompatActivity(), BeaconConsumer {
         binding.ibMap.setOnClickListener {
             openFragment(4)
         }
+        //shake 기능
+        sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager?
+        accelerometerListener = sensorManager?.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
+        mShakeDetector = ShakeDetector()
+        mShakeDetector!!.setOnShakeListener(object : ShakeDetector.OnShakeListener {
+            override fun onShake(count: Int) {
+                //쉐이크 시 프래그먼트 이동시키기
+                openFragment(11)
+            }
+        })
+
     }
     fun initUserName(){
         var user = ApplicationClass.sharedPreferencesUtil.getUser()
@@ -191,7 +212,7 @@ class MainActivity : AppCompatActivity(), BeaconConsumer {
                 transaction.replace(R.id.fl_tablayout, ReviewFragment.newInstance(key, value))
                     .addToBackStack(null)
             }
-            11 -> {
+            11 -> { //페이프래그먼트
                 transaction.replace(R.id.frame_layout_main, PayFragment())
                     .addToBackStack(null)
             }
@@ -376,18 +397,7 @@ class MainActivity : AppCompatActivity(), BeaconConsumer {
 //        return (beacon.distance <= STORE_DISTANCE)
     }
 
-    override fun onResume() {
-        super.onResume()
-        startScan()
-    }
 
-    // beacon 스캔 중지
-    override fun onPause() {
-        beaconManager.stopMonitoringBeaconsInRegion(region)
-        beaconManager.stopRangingBeaconsInRegion(region)
-        beaconManager.unbind(this)
-        super.onPause()
-    }
 
     private fun showDialog() {
         isDialogCalled = true
@@ -427,5 +437,29 @@ class MainActivity : AppCompatActivity(), BeaconConsumer {
             Log.d(TAG, "getLastOrder: ${it[0]}")
             isLastOrderLoaded = true
         }
+    }
+
+    override fun onStop() {
+        super.onStop()
+    }
+
+    override fun onStart() {
+        super.onStart()
+    }
+    override fun onResume() {
+        super.onResume()
+        startScan()
+        sensorManager?.registerListener(mShakeDetector,accelerometerListener,SensorManager.SENSOR_DELAY_UI)
+    }
+    // beacon 스캔 중지
+    override fun onPause() {
+        sensorManager?.unregisterListener(mShakeDetector)
+
+        beaconManager.stopMonitoringBeaconsInRegion(region)
+        beaconManager.stopRangingBeaconsInRegion(region)
+        beaconManager.unbind(this)
+
+
+        super.onPause()
     }
 }
