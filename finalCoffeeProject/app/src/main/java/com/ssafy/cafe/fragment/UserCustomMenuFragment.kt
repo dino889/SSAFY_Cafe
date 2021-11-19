@@ -15,6 +15,7 @@ import com.ssafy.cafe.adapter.CustomMenuAdapter
 import com.ssafy.cafe.config.ApplicationClass
 import com.ssafy.cafe.databinding.FragmentUserCustomMenuBinding
 import com.ssafy.cafe.dto.Product
+import com.ssafy.cafe.dto.ShoppingCart
 import com.ssafy.cafe.dto.UserCustom
 import com.ssafy.cafe.service.UserCustomService
 import com.ssafy.cafe.util.RetrofitCallback
@@ -69,6 +70,8 @@ class UserCustomMenuFragment : Fragment() {
                     adapter = customMenuAdapter
                     adapter!!.stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
                 }
+
+
             }
 
             override fun onFailure(code: Int) {

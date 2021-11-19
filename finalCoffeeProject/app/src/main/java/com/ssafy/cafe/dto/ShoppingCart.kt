@@ -20,4 +20,5 @@ data class ShoppingCart(
     constructor():this(0, "", "", 0, 0,0, "", 1, null, null){
         id = menuId
     }
+
 }

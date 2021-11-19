@@ -24,6 +24,8 @@ import android.widget.AdapterView
 import android.widget.RadioButton
 
 import android.widget.RadioGroup
+import com.ssafy.cafe.dto.UserCustom
+import com.ssafy.cafe.service.UserCustomService
 
 private const val TAG = "MenuInfoDetailFragment_싸피"
 class MenuInfoDetailFragment : Fragment() {
@@ -101,9 +103,41 @@ class MenuInfoDetailFragment : Fragment() {
             viewModel.insertShoppingCartItem(cart)
             mainActivity.openFragment(1)
         }
+        val user = ApplicationClass.sharedPreferencesUtil.getUser()
+        val userId = user.id
 
+        binding.btnGotoHeart.setOnClickListener {
+            if(shot == null){
+                shot = 0
+            }
+
+            val userCustom = UserCustom(
+                0,
+                product.productId,
+                shot!!.toInt(),
+                syrup.toString(),
+                type,
+                userId
+            )
+            insertUserCustom(userCustom)
+        }
     }
+    private fun insertUserCustom(userCustom:UserCustom){
+        UserCustomService().insertCustomMenu(userCustom, object:RetrofitCallback<Boolean>{
+            override fun onError(t: Throwable) {
+                Log.d(TAG, "onError: ")
+            }
 
+            override fun onSuccess(code: Int, responseData: Boolean) {
+                Toast.makeText(requireContext(),"사용자 메뉴에 등록되었습니다.",Toast.LENGTH_SHORT).show()
+            }
+
+            override fun onFailure(code: Int) {
+                Log.d(TAG, "onFailure: ")
+            }
+
+        })
+    }
     // 화면 set
     private fun initData(menu : MenuDetailWithCommentResponse) {
         binding.tvCafeMenuPrice.text = CommonUtils.makeComma(menu.productPrice)

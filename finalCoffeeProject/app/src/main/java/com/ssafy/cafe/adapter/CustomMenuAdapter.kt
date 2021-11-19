@@ -4,54 +4,44 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.view.isVisible
+import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.ssafy.cafe.R
 import com.ssafy.cafe.config.ApplicationClass
 import com.ssafy.cafe.dto.OrderDetail
 import com.ssafy.cafe.dto.Product
+import com.ssafy.cafe.dto.ShoppingCart
 import com.ssafy.cafe.dto.UserCustom
+import com.ssafy.cafe.fragment.UserCustomMenuFragment
 import com.ssafy.cafe.service.ProductService
 import com.ssafy.cafe.util.CommonUtils
 import com.ssafy.cafe.util.RetrofitCallback
+import com.ssafy.cafe.viewmodel.MainViewModel
 
 private const val TAG = "CustomMenuAdapter"
 class CustomMenuAdapter(var customList:List<UserCustom>) : RecyclerView.Adapter<CustomMenuAdapter.MenuHolder>() {
 
-    private lateinit var pImg:String
-    private lateinit var pName:String
-    private lateinit var pPrice:String
-
     inner class MenuHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-//        val productImage = itemView.findViewById<ImageView>(R.id.iv_productImg)
-//        val productName = itemView.findViewById<TextView>(R.id.tv_productName)
-//        val productPrice = itemView.findViewById<TextView>(R.id.tv_productPrice)
         val menuType = itemView.findViewById<TextView>(R.id.tv_menuType)
         val menuSyrup = itemView.findViewById<TextView>(R.id.tv_menuSyrup)
         val menuShot = itemView.findViewById<TextView>(R.id.tv_menuShot)
 
         fun bindInfo(userCustom: UserCustom) {
             var pId = userCustom.productId
-            var uId = userCustom.userId
-
             ProductService().getProductById(pId, GetProductCallback(itemView))
 
-//            Glide.with(itemView)
-//                .load("${ApplicationClass.MENU_IMGS_URL}${pImg}")
-//                .into(productImage)
-//
-//            productName.text = pName
-//            productPrice.text = CommonUtils.makeComma(pPrice.toInt())
             if(userCustom.type == 1){
                 menuType.text = "|  ICE"
             }else{
                 menuType.text = "|  HOT"
             }
 
-            if(userCustom.syrup == null){
+            if(userCustom.syrup == null || userCustom.syrup.equals("null")){
                 menuSyrup.visibility = View.GONE
             }else{
                 menuSyrup.text = "|  ${userCustom.syrup}"
@@ -63,10 +53,10 @@ class CustomMenuAdapter(var customList:List<UserCustom>) : RecyclerView.Adapter<
                 menuShot.text = "|  ${userCustom.shot}"
             }
 
-
             itemView.setOnClickListener {
                 itemClickListner.onClick(it, layoutPosition,  customList[layoutPosition].id)
             }
+
         }
     }
 
@@ -78,9 +68,9 @@ class CustomMenuAdapter(var customList:List<UserCustom>) : RecyclerView.Adapter<
     override fun onBindViewHolder(holder: MenuHolder, position: Int) {
         holder.apply {
             bindInfo(customList[position])
+
         }
     }
-
     override fun getItemCount(): Int {
         return customList.size
     }
@@ -113,9 +103,6 @@ class CustomMenuAdapter(var customList:List<UserCustom>) : RecyclerView.Adapter<
             productName.text = responseData.name
             productPrice.text = CommonUtils.makeComma(responseData.price)
 
-//            pImg = responseData.img
-//            pName = responseData.name
-//            pPrice = responseData.price.toString()
         }
 
         override fun onFailure(code: Int) {
