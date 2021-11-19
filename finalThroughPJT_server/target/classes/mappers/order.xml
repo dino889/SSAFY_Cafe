@@ -48,7 +48,7 @@
 
 	<select id="selectWithDetail" resultMap="OrderWithDetail">
 		select o.o_id, o.user_id, o.order_table, o.order_time, o.completed,
-		d.d_id, d.order_id, d.product_id, d.quantity
+		d.d_id, d.order_id, d.product_id, d.quantity, d.type, d.syrup, d.shot
 		from t_order o join
 		t_order_detail d on o.o_id = d.order_id
 		where o.o_id=#{id}
@@ -72,11 +72,10 @@
 			resultMap="com.ssafy.cafe.model.dao.OrderDetailDao.OrderDetailBasic" />
 	</resultMap>
 
-	<select id="selectOrderTotalInfo" resultType="map"
-		parameterType="int">
+	<select id="selectOrderTotalInfo" resultType="map" parameterType="int">
 		select o.o_id, o.order_table, o.order_time , d.quantity, p.name, p.price as
 		unitprice, p.img, s.quantity as stamp, d.quantity*p.price as
-		totalprice, d.product_id as p_id
+		totalprice, d.product_id as p_id, d.type as type, d.syrup as syrup, d.shot as shot
 		from t_order o join t_order_detail d on o.o_id = d.order_id
 		join t_product p on d.product_id =p.id
 		join t_stamp s on o.o_id=s.order_id

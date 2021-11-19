@@ -36,5 +36,8 @@ VALUES
 		<result column="order_id" property="orderId"/>
 		<result column="product_id" property="productId"/>
 		<result column="quantity" property="quantity"/>
+		<result column="type" property="type"/>
+		<result column="syrup" property="syrup"/>
+		<result column="shot" property="shot"/>
 	</resultMap>
 </mapper>

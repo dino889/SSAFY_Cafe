@@ -15,5 +15,8 @@ data class OrderDetailResponse(
     @SerializedName("img") val img: String,
     @SerializedName("stamp") val stampCount: Int,
     @SerializedName("totalprice") val totalPrice: Int,
-    @SerializedName("type") val productType: String
+    @SerializedName("type") val productType: String,
+    @SerializedName("syrup") val syrup: String,
+    @SerializedName("shot") val shot: Int,
+
 )
