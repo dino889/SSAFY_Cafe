@@ -23,4 +23,6 @@ interface NotificationApi {
     @GET("rest/notification/{userId}/{category}")
     fun getUserWithNotificationsAndNoti(@Path("userId") userId : String, @Path("category") category : String) : Call<List<Notification>>
 
+    @POST("rest/token")
+    fun uploadToken(@Query("token")token : String):Call<String>
 }

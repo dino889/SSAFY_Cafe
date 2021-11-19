@@ -6,7 +6,7 @@ data class UserLevel(
     var point: Double,
 ){
     companion object{
-        val levelTitleArr = arrayOf("Bronze", "Silver", "Gold", "Platinum", "Diamond")
+        val levelTitleArr = arrayOf("Bronze Level", "Silver Level", "Gold Level", "Platinum Level", "Diamond Level")
 
         var userInfoList = arrayOf(
             UserLevel(levelTitleArr[0], 10,0.01),

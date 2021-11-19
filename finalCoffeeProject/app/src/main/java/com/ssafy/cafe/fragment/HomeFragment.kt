@@ -108,50 +108,29 @@ class HomeFragment : Fragment() {
         }
     }
 
-//    fun initUserLevel(){
-//
-//        var user = ApplicationClass.sharedPreferencesUtil.getUser()
-//
-//        UserService().getUsers(user.id, object : RetrofitCallback<HashMap<String, Any>>{
-//            override fun onError(t: Throwable) {
-//                Log.d(TAG, "onError: ")
-//            }
-//
-//            override fun onSuccess(code: Int, responseData: HashMap<String, Any>) {
-//                Log.d(TAG, "onSuccess: $responseData")
-//                //val grade = responseData!!["grade"]
-//
-//                val user = Gson().fromJson(responseData["user"].toString(),User::class.java)
-//
-//                Log.d(TAG, "onSuccess: ${user.stamps}")
-//
-//                viewModel.userStamp.value = user.stamps
-//
-//                binding.tvStampCount.text = "${user.stamps} /"
-//
-//                for(i in 0..UserLevel.userInfoList.size-1){
-//                    if(UserLevel.userInfoList.get(i).max <= user.stamps){
-//                        binding.tvUserLevel.text = UserLevel.userInfoList.get(i).title.toString()
-//                    }
-//                }
-//
-//            }
-//
-//            override fun onFailure(code: Int) {
-//                Log.d(TAG, "onFailure: ")
-//            }
-//
-//        })
-//    }
+        var user = ApplicationClass.sharedPreferencesUtil.getUser()
+        UserService().getUsers(user.id, object : RetrofitCallback<HashMap<String, Any>>{
+            override fun onError(t: Throwable) {
+                Log.d(TAG, "onError: ")
+            }
 
-    // set User Level
-    private fun setUserLevel() {
-        viewModel.userStamp.observe(viewLifecycleOwner) {   // owner의 lifecycle을 그대로 따라가겠다
-            binding.tvStampCount.text = "${it.toString()} /"
+            override fun onSuccess(code: Int, responseData: HashMap<String, Any>) {
+                Log.d(TAG, "onSuccess: $responseData")
+                //val grade = responseData!!["grade"]
 
-            for(i in 0..UserLevel.userInfoList.size-1){
-                if(UserLevel.userInfoList.get(i).max <= it){
-                    binding.tvUserLevel.text = UserLevel.userInfoList.get(i).title.toString()
+                val user = Gson().fromJson(responseData["user"].toString(),User::class.java)
+
+                Log.d(TAG, "onSuccess: ${user.stamps}")
+                binding.tvStampCount.text = "${user.stamps} /"
+
+
+                for(i in 0..UserLevel.userInfoList.size-1){
+                    if(UserLevel.userInfoList.get(i).max <= user.stamps){
+                        binding.tvUserLevel.text = UserLevel.userInfoList.get(i).title.toString()
+                        binding.tvStampTotal.text = UserLevel.userInfoList.get(i).max.toString()
+                        binding.progressBarStampState.max = UserLevel.userInfoList.get(i).max
+                        binding.progressBarStampState.progress = user.stamps
+                    }
                 }
             }
         }
@@ -166,7 +145,7 @@ class HomeFragment : Fragment() {
                 for(i in viewModel.productList!!.indices) {
                     val product = viewModel.productList!![i]
                     if(item.productName.equals(product.name)) {
-                        viewModel.insertShoppingCartItem(ShoppingCart(product.id, product.img, product.name, item.quantity, item.unitPrice, item.totalPrice, item.productType, item.syrup, item.shot))
+                     //   viewModel.insertShoppingCartItem(ShoppingCart( product.id, product.img, product.name, item.quantity, item.unitPrice,))
                         break
                     }
                 }

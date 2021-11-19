@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+
+import com.ssafy.cafe.model.dto.Comment;
 import com.ssafy.cafe.model.dto.Order;
 import com.ssafy.cafe.model.dto.Product;
 import com.ssafy.cafe.model.dto.User;
@@ -132,7 +134,13 @@ public class UserRestController {
         }
     }
     
-    
+    @PutMapping
+    @Transactional
+    @ApiOperation(value="user 잔액을 수정한다.", response = Boolean.class)
+    public Boolean updateMoney(@RequestBody User user) {
+        uService.updateUserMoney(user);
+        return true;
+    }
     
     
 }
