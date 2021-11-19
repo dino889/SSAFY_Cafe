@@ -12,6 +12,7 @@ import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.ssafy.cafe.R
 import com.ssafy.cafe.activity.MainActivity
 import com.ssafy.cafe.adapter.ShoppingCartAdapter
 import com.ssafy.cafe.config.ApplicationClass
@@ -126,10 +127,11 @@ class BucketFragment : Fragment() {
     private fun showDialogForOrderInShop() {
         Log.d(TAG, "showDialogForOrderInShop: ${viewModel.nfcTaggingData}")
         val builder: AlertDialog.Builder = AlertDialog.Builder(requireContext())
-        builder.setTitle("알림")
-        builder.setMessage(
-            "Table NFC를 찍어주세요.\n"
-        )
+        builder.setTitle("Table Order")
+        builder.setView(R.layout.dialog_nfc_order)
+//        builder.setMessage(
+//            "Table NFC를 찍어주세요.\n"
+//        )
         builder.setCancelable(true)
         builder.setNegativeButton("취소"
         ) { dialog, _ ->

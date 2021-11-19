@@ -517,6 +517,7 @@ class MainActivity : AppCompatActivity(), BeaconConsumer {
         }
 
         var builder = AlertDialog.Builder(this)
+        builder.setTitle("매장주문")
         builder.setView(R.layout.dialog_nfc_order)
         builder.show()
     }
