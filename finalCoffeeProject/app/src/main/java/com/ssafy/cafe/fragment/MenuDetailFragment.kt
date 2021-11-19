@@ -111,6 +111,7 @@ class MenuDetailFragment : Fragment() {
 
 
     fun initTab(){
+//        mainActivity.openFragment(9,"productId", productId)
         binding.menudetailTabLayout.addOnTabSelectedListener(object: TabLayout.OnTabSelectedListener{
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 Log.d(TAG, "onTabSelected: $productId")
