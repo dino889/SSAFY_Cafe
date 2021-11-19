@@ -9,6 +9,7 @@ import android.content.pm.PackageManager
 import android.hardware.Sensor
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
+import android.media.MediaPlayer
 import android.nfc.NfcAdapter
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
@@ -20,13 +21,18 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import com.bumptech.glide.Glide
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.messaging.FirebaseMessaging
 import com.ssafy.cafe.R
+import com.ssafy.cafe.api.NotificationApi
 import com.ssafy.cafe.config.ApplicationClass
 import com.ssafy.cafe.databinding.ActivityMainBinding
 import com.ssafy.cafe.fragment.*
@@ -34,7 +40,11 @@ import com.ssafy.cafe.response.LatestOrderResponse
 import com.ssafy.cafe.service.OrderService
 import com.ssafy.medical.service.ShakeDetector
 import org.altbeacon.beacon.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
+private const val TAG = "MainActivity"
 class MainActivity : AppCompatActivity(), BeaconConsumer {
     private val TAG = "MainActivity_싸피"
     private lateinit var binding: ActivityMainBinding
@@ -80,6 +90,7 @@ class MainActivity : AppCompatActivity(), BeaconConsumer {
     private var isLastOrderLoaded = false
 
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -155,6 +166,27 @@ class MainActivity : AppCompatActivity(), BeaconConsumer {
             }
         })
 
+        // FCM 토큰 수신
+        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
+            if (!task.isSuccessful) {
+                Log.w(TAG, "FCM 토큰 얻기에 실패하였습니다.", task.exception)
+                return@OnCompleteListener
+            }
+            // token log 남기기
+            Log.d(TAG, "token: ${task.result?:"task.result is null"}")
+            uploadToken(task.result!!)
+        })
+        createNotificationChannel(channel_id, "ssafy")
+    }
+    @RequiresApi(Build.VERSION_CODES.O)
+    // Notification 수신을 위한 체널 추가
+    private fun createNotificationChannel(id: String, name: String) {
+        val importance = NotificationManager.IMPORTANCE_DEFAULT
+        val channel = NotificationChannel(id, name, importance)
+
+        val notificationManager: NotificationManager
+                = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        notificationManager.createNotificationChannel(channel)
     }
     fun initUserName(){
         var user = ApplicationClass.sharedPreferencesUtil.getUser()
@@ -486,5 +518,28 @@ class MainActivity : AppCompatActivity(), BeaconConsumer {
         beaconManager.stopMonitoringBeaconsInRegion(region)
         beaconManager.stopRangingBeaconsInRegion(region)
         beaconManager.unbind(this)
+    }
+
+    companion object{
+        // Notification Channel ID
+        const val channel_id = "ssafy_channel"
+        // ratrofit  수업 후 network 에 업로드 할 수 있도록 구성
+        fun uploadToken(token:String){
+            // 새로운 토큰 수신 시 서버로 전송
+            val storeService = ApplicationClass.retrofit.create(NotificationApi::class.java)
+            storeService.uploadToken(token).enqueue(object : Callback<String> {
+                override fun onResponse(call: Call<String>, response: Response<String>) {
+                    if(response.isSuccessful){
+                        val res = response.body()
+                        Log.d(TAG, "onResponse: $res")
+                    } else {
+                        Log.d(TAG, "onResponse: Error Code ${response.code()}")
+                    }
+                }
+                override fun onFailure(call: Call<String>, t: Throwable) {
+                    Log.d(TAG, t.message ?: "토큰 정보 등록 중 통신오류")
+                }
+            })
+        }
     }
 }
