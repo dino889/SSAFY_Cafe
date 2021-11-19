@@ -2,6 +2,8 @@ package com.ssafy.cafe.model.dao;
 
 import java.util.List;
 import java.util.Map;
+
+import com.ssafy.cafe.model.dto.Comment;
 import com.ssafy.cafe.model.dto.User;
 
 public interface UserDao {
@@ -38,5 +40,6 @@ public interface UserDao {
     
     int update(User user);
     
+    int updateMoney(User user);
 
 }

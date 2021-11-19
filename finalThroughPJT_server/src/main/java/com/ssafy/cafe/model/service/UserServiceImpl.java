@@ -3,6 +3,8 @@ package com.ssafy.cafe.model.service;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.ssafy.cafe.model.dao.UserDao;
 import com.ssafy.cafe.model.dto.User;
 
@@ -54,4 +56,9 @@ public class UserServiceImpl implements UserService {
     public boolean isUsedId(String id) {
         return userDao.select(id)!=null;
     }
+
+	@Override
+	public void updateUserMoney(User user) {
+		userDao.updateMoney(user);
+	}
 }
