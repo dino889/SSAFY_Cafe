@@ -40,9 +40,9 @@ class JoinFragment : Fragment() {
 
         setupListeners()
 
-        binding.ibtnIdDupChk.setOnClickListener{
-            validateUserID()
-        }
+//        binding.ibtnIdDupChk.setOnClickListener{
+//            validateUserID()
+//        }
 
         // JOIN 버튼 클릭
         binding.btnJoin.setOnClickListener {
@@ -95,8 +95,18 @@ class JoinFragment : Fragment() {
         }
 
         override fun onSuccess(code: Int, responseData: Boolean) {
-            Log.d(TAG, "onSuccess: $responseData")
-            dupChkId = responseData
+            Log.d(TAG, "onSuccess: $responseData")  // 0 : 중복 X, 사용가능 <-> 1 : 중복되는 ID, 사용불가능
+            if(responseData) {   // DB 내에 중복되는 ID가 없으면
+                binding.userIDtextlayout.error = "이미 존재하는 아이디입니다."
+                binding.etUserID.requestFocus()
+                dupChkId = false
+                binding.ibtnIdDupChk.setColorFilter(Color.BLACK)
+            } else {// DB 내에 중복되는 ID가 있으면
+                binding.userIDtextlayout.error = null
+                dupChkId = true
+                binding.ibtnIdDupChk.setColorFilter(Color.GREEN)
+            }
+//            dupChkId = responseData
         }
 
         override fun onFailure(code: Int) {
@@ -117,17 +127,17 @@ class JoinFragment : Fragment() {
         } else {
             Log.d(TAG, "validateUserID: ${inputUserId}")
             UserService().isUsed(inputUserId, isUsedCallBack())
-            if(!dupChkId) {   // DB 내에 중복되는 ID가 없으면
-                binding.userIDtextlayout.error = null
-                dupChkId = true
-                binding.ibtnIdDupChk.setColorFilter(Color.GREEN)
-            } else {// DB 내에 중복되는 ID가 있으면
-                binding.userIDtextlayout.error = "이미 존재하는 아이디입니다."
-                binding.etUserID.requestFocus()
-                dupChkId = false
-                binding.ibtnIdDupChk.setColorFilter(Color.BLACK)
-
-            }
+//            if(!dupChkId) {   // DB 내에 중복되는 ID가 없으면
+//                binding.userIDtextlayout.error = null
+//                dupChkId = true
+//                binding.ibtnIdDupChk.setColorFilter(Color.GREEN)
+//            } else {// DB 내에 중복되는 ID가 있으면
+//                binding.userIDtextlayout.error = "이미 존재하는 아이디입니다."
+//                binding.etUserID.requestFocus()
+//                dupChkId = false
+//                binding.ibtnIdDupChk.setColorFilter(Color.BLACK)
+//
+//            }
         }
 
         return dupChkId
@@ -197,9 +207,9 @@ class JoinFragment : Fragment() {
 
         override fun afterTextChanged(s: Editable?) {
             when(view.id){
-//                R.id.et_userID -> {
-//                    validateUserID()
-//                }
+                R.id.et_userID -> {
+                    validateUserID()
+                }
                 R.id.et_userName -> {
                     validateUserName()
                 }
