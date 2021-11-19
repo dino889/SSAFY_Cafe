@@ -25,12 +25,6 @@ import android.widget.RadioButton
 
 import android.widget.RadioGroup
 
-
-
-
-
-
-
 private const val TAG = "MenuInfoDetailFragment_싸피"
 class MenuInfoDetailFragment : Fragment() {
     private lateinit var mainActivity : MainActivity
@@ -41,9 +35,9 @@ class MenuInfoDetailFragment : Fragment() {
     private lateinit var productImg : String
     private lateinit var productType : String
 
-    private var type: Boolean = true  // hot - false, ice - true
+    private var type: Int = 1  // hot - false, ice - true
     private var syrup : String? = null
-    private var shot : String? = null
+    private var shot : Int? = null
 
 
     private val viewModel: MainViewModel by activityViewModels()
@@ -84,12 +78,26 @@ class MenuInfoDetailFragment : Fragment() {
         // 장바구니 담기 버튼 클릭
         binding.btnGotoBucket.setOnClickListener {
             var countTmp = binding.tvCafeMenuCnt.text.toString()
-            var count = countTmp.substring(0,countTmp.length-1).toInt()
+            var count = countTmp.substring(0,countTmp.length-1).toInt() // 개수 선택
             var pricetmp = binding.tvCafeMenuPrice.text.toString()
             var priceConvert = pricetmp.substring(0,pricetmp.length-1)
-            var price = priceConvert.replace(",","").trim().toInt()
+            var price = priceConvert.replace(",","").trim().toInt() // 메뉴 가격
 
-            val cart = ShoppingCart(product.productId,productImg,productName,count,price,count*price,productType)
+            var totalPrice = count * price
+
+            if(syrup != null) {
+                if(syrup!!.contains('+')){
+                    syrup = "설탕"
+                } else{
+                    totalPrice += 500
+                }
+            }
+
+            if(shot != null) {
+                totalPrice += (shot!! * 500)
+            }
+
+            val cart = ShoppingCart(product.productId, productImg, productName, count, price, totalPrice, productType, type, syrup, shot)
             viewModel.insertShoppingCartItem(cart)
             mainActivity.openFragment(1)
         }
@@ -109,15 +117,12 @@ class MenuInfoDetailFragment : Fragment() {
 
         when(binding.hoticeGroup.checkedRadioButtonId) {
             binding.hot.id -> {
-                type = true
+                type = 1
             }
             binding.ice.id -> {
-                type = false
+                type = 0
             }
         }
-
-
-//        binding.hoticeGroup.setOnCheckedChangeListener(typeRadioCheck)
     }
 
     // radioBtn Check Listener
@@ -168,23 +173,6 @@ class MenuInfoDetailFragment : Fragment() {
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             binding.spinnerSyrup.adapter = adapter
         }
-        Log.d(TAG, "initSpinner: ${binding.chkBSyrup.isChecked}")
-        if(binding.chkBSyrup.isChecked == true) {
-            binding.spinnerSyrup.visibility = View.VISIBLE
-
-            binding.spinnerSyrup.setOnItemSelectedListener(object : AdapterView.OnItemSelectedListener {
-                override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
-                    syrup = parent.getItemAtPosition(position).toString()
-                    Log.d(TAG, "onItemSelected: $syrup")
-                }
-
-                override fun onNothingSelected(parent: AdapterView<*>?) {}
-            })
-        } else {
-            binding.spinnerSyrup.visibility = View.GONE
-        }
-
-
 
         ArrayAdapter.createFromResource(
             requireContext(),
@@ -195,22 +183,43 @@ class MenuInfoDetailFragment : Fragment() {
             binding.spinnerShot.adapter = adapter
         }
 
-        if(binding.chkBShot.isChecked == true) {
-            binding.spinnerShot.visibility = View.VISIBLE
+        binding.chkBSyrup.setOnCheckedChangeListener { buttonView, isChecked ->
+            if(isChecked) {
+                binding.spinnerSyrup.visibility = View.VISIBLE
 
-            binding.spinnerShot.setOnItemSelectedListener(object : AdapterView.OnItemSelectedListener {
-                override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
-                    shot = parent.getItemAtPosition(position).toString()
-                    Log.d(TAG, "onItemSelected: $shot")
-                }
+                binding.spinnerSyrup.setOnItemSelectedListener(object : AdapterView.OnItemSelectedListener {
+                    override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
+                        syrup = parent.getItemAtPosition(position).toString()
+                        Log.d(TAG, "onItemSelected: $syrup")
+                    }
 
-                override fun onNothingSelected(parent: AdapterView<*>?) {}
-            })
-        } else {
-            binding.spinnerShot.visibility = View.GONE
+                    override fun onNothingSelected(parent: AdapterView<*>?) {}
+                })
+            } else {
+                binding.spinnerSyrup.visibility = View.GONE
+
+            }
         }
 
+        binding.chkBShot.setOnCheckedChangeListener { buttonView, isChecked ->
+            if(isChecked) {
+                binding.spinnerShot.visibility = View.VISIBLE
+
+                binding.spinnerShot.setOnItemSelectedListener(object : AdapterView.OnItemSelectedListener {
+                    override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
+                        shot = parent.getItemAtPosition(position).toString().toInt()
+                        Log.d(TAG, "onItemSelected: $shot")
+                    }
+
+                    override fun onNothingSelected(parent: AdapterView<*>?) {}
+                })
+            } else {
+                binding.spinnerShot.visibility = View.GONE
+
+            }
+        }
     }
+
 
 
     companion object {

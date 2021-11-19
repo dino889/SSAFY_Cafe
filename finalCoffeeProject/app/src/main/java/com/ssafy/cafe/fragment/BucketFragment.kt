@@ -24,6 +24,7 @@ class BucketFragment : Fragment() {
     private lateinit var binding: FragmentBucketBinding
     private lateinit var mainActivity: MainActivity
     private val viewModel: MainViewModel by activityViewModels()
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
         mainActivity = context as MainActivity
@@ -41,10 +42,11 @@ class BucketFragment : Fragment() {
         return binding.root
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
+//    @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //cancleBtn click
+
+        // delete Btn click - 장바구니 리스트에서 삭제
         shoppingListAdapter = ShoppingCartAdapter().apply {
             list = viewModel.liveShoppingCartList.value!!
             cancelListener = object : ShoppingCartAdapter.ItemCancelListener{
@@ -53,6 +55,7 @@ class BucketFragment : Fragment() {
                 }
             }
         }
+
         binding.rvShoppinglist.apply {
             val linearLayoutManager = LinearLayoutManager(context)
             linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
@@ -73,33 +76,8 @@ class BucketFragment : Fragment() {
             }
 
             binding.btnOrder.text = "${totalCnt}개 총 ${CommonUtils.makeComma(totalPrice)}"
-
         }
-
     }
-    fun initAdapter(){
-//        shoppingListRecyclerView.apply {
-//            val linearLayoutManager = LinearLayoutManager(context)
-//            linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
-//            layoutManager = linearLayoutManager
-//            adapter = shoppingListAdapter
-//            //원래의 목록위치로 돌아오게함
-//            adapter!!.stateRestorationPolicy =
-//                RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
-//        }
-//
-//        viewModel.liveShoppingCartList.observe(viewLifecycleOwner) {
-//            shoppingListAdapter!!.notifyDataSetChanged()
-//            var totalPrice = 0
-//            var totalCnt = 0
-//            for(i in it) {
-//                totalCnt += i.menuCnt
-//                totalPrice += i.totalPrice
-//            }
-//
-//            binding.btnOrder.text = "${totalCnt}개 총 ${CommonUtils.makeComma(totalPrice)}원"
-//
-//        }
 
-    }
+
 }
