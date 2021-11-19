@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.ssafy.cafe.model.dto.Product;
 import com.ssafy.cafe.model.service.ProductService;
@@ -42,5 +43,11 @@ public class ProductRestController {
     @ApiOperation(value="주문 내역이 많은 product top 5를 조죄한다.", response = List.class)
     public List<Map<String, Object>> getBestProduct(){
         return pService.selectBestProduct();
+    }
+    
+    @GetMapping("prod")
+    @ApiOperation(value="productId에 해당하는 상품의 정보을 반환한다.", response = Product.class)
+    public Product getProduc(@RequestParam("productId") Integer productId){
+        return pService.selectProduct(productId);
     }
 }
