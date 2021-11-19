@@ -63,14 +63,13 @@ class LoginFragment : Fragment() {
         binding.btnGoogleLogin.setOnClickListener {
             val signInIntent = googleSigninClient?.getSignInIntent()
             startActivityForResult(signInIntent, RC_SIGN_IN)
+
         }
         //login
 
 
         binding.btnLogin.setOnClickListener {
             login(binding.etLoginID.text.toString(), binding.etLoginPW.text.toString())
-//            val intent = Intent(requireContext(), MainActivity::class.java)
-//            startActivity(intent)
         }
         //join
         binding.btnJoin.setOnClickListener {
@@ -120,6 +119,7 @@ class LoginFragment : Fragment() {
         }
     }
     private fun firebaseAuthWithGoogle(idToken: GoogleSignInAccount?) {
+        Log.d(TAG, "firebaseAuthWithGoogle: $idToken")
         val credential = GoogleAuthProvider.getCredential(idToken.toString(), null)
         auth.signInWithCredential(credential)
             .addOnCompleteListener(requireActivity()) {
@@ -127,9 +127,10 @@ class LoginFragment : Fragment() {
                     // Sign in success, update UI with the signed-in user's information
                     val user = auth!!.currentUser
                     Toast.makeText(requireContext(), "Login에 성공하였습니다.", Toast.LENGTH_SHORT).show()
+                    loginActivity.openFragment(1)
+                    
 
                 } else {
-
                     Toast.makeText(requireContext(), "Login에 실패하였습니다. 다시 입력해주세요", Toast.LENGTH_SHORT).show()
                     Log.w(TAG, "signInWithCredential:failure", it.exception)
 

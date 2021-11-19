@@ -29,6 +29,7 @@ import com.ssafy.cafe.config.ApplicationClass
 import com.ssafy.cafe.databinding.FragmentHomeBinding
 import com.ssafy.cafe.dto.ShoppingCart
 import com.ssafy.cafe.dto.User
+import com.ssafy.cafe.dto.UserLevel
 import com.ssafy.cafe.response.BestProductResponse
 import com.ssafy.cafe.response.LatestOrderResponse
 import com.ssafy.cafe.service.OrderService
@@ -106,6 +107,7 @@ class HomeFragment : Fragment() {
         }
     }
     fun initUserLevel(){
+
         var user = ApplicationClass.sharedPreferencesUtil.getUser()
         UserService().getUsers(user.id, object : RetrofitCallback<HashMap<String, Any>>{
             override fun onError(t: Throwable) {
@@ -121,6 +123,11 @@ class HomeFragment : Fragment() {
                 Log.d(TAG, "onSuccess: ${user.stamps}")
                 binding.tvStampCount.text = "${user.stamps} /"
 
+                for(i in 0..UserLevel.userInfoList.size-1){
+                    if(UserLevel.userInfoList.get(i).max <= user.stamps){
+                        binding.tvUserLevel.text = UserLevel.userInfoList.get(i).title.toString()
+                    }
+                }
 
             }
 
