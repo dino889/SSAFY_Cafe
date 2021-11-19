@@ -78,7 +78,7 @@ class UserService {
                 val data = response.body()
                 if(response.code() == 200){
                     if(data!=null){
-                        Log.d(TAG, "onResponse: ${data!!["order"]}")
+                       // Log.d(TAG, "onResponse: ${data!!["order"]}")
                         callback.onSuccess(response.code() , data)
                     }else{
                         callback.onFailure(response.code())

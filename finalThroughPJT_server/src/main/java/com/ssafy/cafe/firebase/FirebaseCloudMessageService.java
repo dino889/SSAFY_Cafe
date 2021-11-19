@@ -36,7 +36,7 @@ public class FirebaseCloudMessageService {
      * @throws IOException
      */
     private String getAccessToken() throws IOException {
-        String firebaseConfigPath = "firebase/firebase_service_key.json";
+        String firebaseConfigPath = "firebase/final-coffee-project-firebase-adminsdk-4oo90-d17bb42466.json";
 
         // GoogleApi를 사용하기 위해 oAuth2를 이용해 인증한 대상을 나타내는객체
         GoogleCredentials googleCredentials = GoogleCredentials

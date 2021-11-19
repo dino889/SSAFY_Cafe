@@ -37,5 +37,6 @@ public class TokenController {
     	logger.info("sendMessageTo : token:{}, title:{}, body:{}", token, title, body);
         service.sendMessageTo(token, title, body);
     }
+    
 }
 

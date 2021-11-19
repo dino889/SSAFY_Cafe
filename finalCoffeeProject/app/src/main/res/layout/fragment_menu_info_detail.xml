@@ -231,13 +231,13 @@
                     android:textColor="@color/black" />
 
                 <Button
-                    android:id="@+id/btn_gotoOrder"
+                    android:id="@+id/btn_gotoHeart"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="4dp"
                     android:layout_weight="1"
                     android:background="@drawable/drawable_button_selector2"
-                    android:text="바로주문"
+                    android:text="찜하기"
                     android:textColor="@color/black" />
             </LinearLayout>
         </LinearLayout>

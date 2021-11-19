@@ -30,7 +30,9 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import com.bumptech.glide.Glide
 import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.FirebaseMessaging
+import com.google.firebase.messaging.ktx.messaging
 import com.ssafy.cafe.R
 import com.ssafy.cafe.api.NotificationApi
 import com.ssafy.cafe.config.ApplicationClass
@@ -177,6 +179,15 @@ class MainActivity : AppCompatActivity(), BeaconConsumer {
             uploadToken(task.result!!)
         })
         createNotificationChannel(channel_id, "ssafy")
+
+//        Firebase.messaging.subscribeToTopic("order").addOnCompleteListener{task ->
+//            var msg = getString(R.string.msg_subscribed)
+//            if(!task.isSuccessful){
+//                msg = getString(R.string.msg_subscribe_failed)
+//            }
+//            Log.d(TAG, "onCreate: ")
+//            Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
+//        }
     }
     @RequiresApi(Build.VERSION_CODES.O)
     // Notification 수신을 위한 체널 추가

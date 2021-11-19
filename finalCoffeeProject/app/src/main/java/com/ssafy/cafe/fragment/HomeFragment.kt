@@ -118,7 +118,7 @@ class HomeFragment : Fragment() {
                 Log.d(TAG, "onSuccess: $responseData")
                 //val grade = responseData!!["grade"]
 
-                val user = Gson().fromJson(responseData["user"].toString(),User::class.java)
+                val user = Gson().fromJson(responseData["user"].toString(), User::class.java)
 
                 Log.d(TAG, "onSuccess: ${user.stamps}")
                 binding.tvStampCount.text = "${user.stamps} /"
