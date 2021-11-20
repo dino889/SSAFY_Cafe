@@ -1,6 +1,8 @@
 package com.ssafy.cafe.model.service;
 
 import java.util.Map;
+
+import com.ssafy.cafe.model.dto.Comment;
 import com.ssafy.cafe.model.dto.User;
 
 
@@ -38,4 +40,5 @@ public interface UserService {
 
     public User getInfo(String id);
 
+    void updateUserMoney(User user);
 }

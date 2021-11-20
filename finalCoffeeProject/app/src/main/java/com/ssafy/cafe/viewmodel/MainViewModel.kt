@@ -1,12 +1,18 @@
 package com.ssafy.cafe.viewmodel
 
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.google.gson.Gson
+import com.ssafy.cafe.config.ApplicationClass
 import com.ssafy.cafe.dto.Product
 import com.ssafy.cafe.dto.ShoppingCart
+import com.ssafy.cafe.dto.User
+import com.ssafy.cafe.dto.UserLevel
 import com.ssafy.cafe.response.MenuDetailWithCommentResponse
 import com.ssafy.cafe.service.ProductService
+import com.ssafy.cafe.service.UserService
 import com.ssafy.cafe.util.RetrofitCallback
 
 private const val TAG = "MainViewModel"
@@ -52,6 +58,16 @@ class MainViewModel : ViewModel() {
 
     val liveProductWithComment = MutableLiveData<List<MenuDetailWithCommentResponse>>().apply {
         value = productWithComment
+    }
+
+
+
+    // NFC 중복 태깅 방지
+    var nfcTaggingData : String? = null
+
+    // stamp 변화
+    var userStamp = MutableLiveData<Int>().apply {
+        value = 0
     }
 
 }

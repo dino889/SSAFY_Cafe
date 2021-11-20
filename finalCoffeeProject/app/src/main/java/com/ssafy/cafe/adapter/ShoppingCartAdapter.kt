@@ -1,16 +1,21 @@
 package com.ssafy.cafe.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.ssafy.cafe.R
 import com.ssafy.cafe.dto.ShoppingCart
 import com.ssafy.cafe.util.CommonUtils
 
+private const val TAG = "ShoppingCartAdapter"
 class ShoppingCartAdapter : RecyclerView.Adapter<ShoppingCartAdapter.ShoppingListHolder>(){
 
     var list = mutableListOf<ShoppingCart>()
@@ -28,6 +33,53 @@ class ShoppingCartAdapter : RecyclerView.Adapter<ShoppingCartAdapter.ShoppingLis
             itemView.findViewById<TextView>(R.id.tv_cafeMenuCnt).text = "${data.menuCnt}개"
             itemView.findViewById<TextView>(R.id.tv_menuPrice).text = "${CommonUtils.makeComma(data.menuPrice)}"
             itemView.findViewById<TextView>(R.id.tv_menuTotalPrice).text = "${CommonUtils.makeComma(data.totalPrice)}"
+
+            Log.d(TAG, "bindInfo: ${data.shot} | ${data.syrup} ")
+            val type = if(data.type == 0){
+                "HOT"
+            }else{
+                "ICE"
+            }
+
+            val syrup = if(data.syrup == null || data.syrup.equals("null")){
+                "없음"
+            }else if(data.syrup.equals("설탕")){
+                "${data.syrup}(+0원)"
+            }else{
+                "${data.syrup}(+500원)"
+            }
+
+            val shot = if(data.shot == 0 || data.shot.toString().equals("null") || data.shot == null){
+                "없음"
+            }else{
+                "${data.shot}개 추가"
+            }
+
+            itemView.findViewById<TextView>(R.id.tv_menuOption).text = "$type | $syrup | 샷(+500원) $shot"
+
+
+
+            var tmp = itemView.findViewById<TextView>(R.id.tv_cafeMenuCnt).text.toString()
+            var menuCnt = tmp[0].toString().toInt()
+            
+            var addBtn = itemView.findViewById<ImageButton>(R.id.ibtn_addCount)
+            addBtn.setOnClickListener {
+                Log.d(TAG, "bindInfo: addBtn")
+                menuCnt++
+                itemView.findViewById<TextView>(R.id.tv_cafeMenuCnt).text = "${menuCnt}개"
+            }
+            
+            var minusBtn = itemView.findViewById<ImageButton>(R.id.ibtn_minusCount)
+            minusBtn.setOnClickListener {
+                Log.d(TAG, "bindInfo: minusBtn")
+                if(menuCnt <= 0) {
+                    menuCnt = 0
+                    itemView.findViewById<TextView>(R.id.tv_cafeMenuCnt).text = "${menuCnt}개"
+                } else {
+                    menuCnt--
+                    itemView.findViewById<TextView>(R.id.tv_cafeMenuCnt).text = "${menuCnt}개"
+                }
+            }
         }
 
     }

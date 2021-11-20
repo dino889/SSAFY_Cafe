@@ -6,6 +6,6 @@ data class OrderDetail(
     val productId: Int,
     val quantity: Int,
     val type: Int,
-    val syrup: String,
-    val shot: Int
+    val syrup: String?,
+    val shot: Int?
 )

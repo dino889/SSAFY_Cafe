@@ -70,7 +70,31 @@
 		    <artifactId>spring-boot-starter-cache</artifactId>
 		</dependency>
 
-		
+
+		<!-- https://mvnrepository.com/artifact/com.google.firebase/firebase-admin -->
+		<dependency>
+			<groupId>com.google.firebase</groupId>
+			<artifactId>firebase-admin</artifactId>
+			<version>8.0.0</version>
+		</dependency>
+		<!--https://mvnrepository.com/artifact/org.json/json-->
+		   <dependency>
+		      <groupId>org.json</groupId>
+		      <artifactId>json</artifactId>
+		      <version>20160810</version>
+		   </dependency>
+		<!--logger-->
+		   <dependency>
+		      <groupId>org.slf4j</groupId>
+		      <artifactId>slf4j-api</artifactId>
+		      <version>1.7.25</version>
+		   </dependency>
+		   	<!-- https://mvnrepository.com/artifact/com.squareup.okhttp3/okhttp -->
+		<dependency>
+			<groupId>com.squareup.okhttp3</groupId>
+			<artifactId>okhttp</artifactId>
+			<version>4.9.1</version>
+		</dependency>
 	</dependencies>
 
 	<build>

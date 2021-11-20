@@ -14,11 +14,27 @@
       },
       "oauth_client": [
         {
+          "client_id": "908521205713-3qg4588p0nfqo2l17ri35557bnm66cmo.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ssafy.cafe",
+            "certificate_hash": "952f7d6e75792df13e120bbc270521a9714978dc"
+          }
+        },
+        {
           "client_id": "908521205713-d2l3vbj19li7sh8abs8arqfge7kip43k.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.ssafy.cafe",
             "certificate_hash": "7911a82fb567fc6b5e399d9fca4acc64ab4bc9ce"
+          }
+        },
+        {
+          "client_id": "908521205713-k1prgf7eenbg1t0ef20u0jotu3qfaunc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ssafy.cafe",
+            "certificate_hash": "292430648c7d83a9ffe2ccfdf62a8e7429d44d82"
           }
         },
         {

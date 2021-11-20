@@ -1,6 +1,7 @@
 package com.ssafy.cafe.service
 
 import android.util.Log
+import com.ssafy.cafe.dto.Comment
 import com.ssafy.cafe.dto.Grade
 import com.ssafy.cafe.dto.User
 import com.ssafy.cafe.util.RetrofitCallback
@@ -78,7 +79,7 @@ class UserService {
                 val data = response.body()
                 if(response.code() == 200){
                     if(data!=null){
-                        Log.d(TAG, "onResponse: ${data!!["order"]}")
+                       // Log.d(TAG, "onResponse: ${data!!["order"]}")
                         callback.onSuccess(response.code() , data)
                     }else{
                         callback.onFailure(response.code())
@@ -94,4 +95,24 @@ class UserService {
 
         })
     }
+
+    fun updateMoney(user: User, callback: RetrofitCallback<User>) {
+        RetrofitUtil.userService.update(user).enqueue(object : Callback<User> {
+            override fun onResponse(call: Call<User>, response: Response<User>) {
+                val res = response.body()
+                if (response.code() == 200) {
+                    if (res != null) {
+                        callback.onSuccess(response.code(), res)
+                    }
+                } else {
+                    callback.onFailure(response.code())
+                }
+            }
+
+            override fun onFailure(call: Call<User>, t: Throwable) {
+                callback.onError(t)
+            }
+        })
+    }
+
 }
