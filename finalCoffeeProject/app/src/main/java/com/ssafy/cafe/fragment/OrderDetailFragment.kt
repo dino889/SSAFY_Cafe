@@ -17,6 +17,7 @@ import com.ssafy.cafe.databinding.FragmentOrderDetailBinding
 import com.ssafy.cafe.dto.Order
 import com.ssafy.cafe.response.OrderDetailResponse
 import com.ssafy.cafe.service.OrderService
+import com.ssafy.cafe.util.CommonUtils
 
 private const val TAG = "OrderDetailFragment"
 class OrderDetailFragment : Fragment() {
@@ -66,7 +67,18 @@ class OrderDetailFragment : Fragment() {
                     adapter!!.stateRestorationPolicy =
                         RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
                 }
-
+                val name = if(list.size == 1) {
+                    list[0].productName
+                } else {
+                    if( list[0].productName.length <=5){
+                        "${list[0].productName} 외 ${list.size - 1}잔"
+                    }else{
+                        "${list[0].productName}외 ..."
+                    }
+                }
+                binding.tvOrderMenuNameShort.text = name
+                binding.tvOrderDate.text = CommonUtils.getFormattedString(list[0].orderDate)
+                binding.tvAllTotalPrice.text = CommonUtils.makeComma(list[0].totalPrice)
             }
         )
     }

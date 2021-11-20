@@ -32,7 +32,7 @@
                 android:text="주문이 완료되었어요." />
 
             <TextView
-                android:id="@+id/textView22"
+                android:id="@+id/tv_orderMenuNameShort"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="아메리카노 외 3건"
@@ -52,7 +52,7 @@
                     android:text="주문일시 :" />
 
                 <TextView
-                    android:id="@+id/textView24"
+                    android:id="@+id/tv_orderDate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingLeft="10dp"
