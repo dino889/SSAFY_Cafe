@@ -67,35 +67,35 @@ INSERT INTO t_comment (user_id, product_id, rating, comment) VALUES ('test', 02,
 INSERT INTO t_comment (user_id, product_id, rating, comment) VALUES ('test', 03, 01, 'test comment 04');
 INSERT INTO t_comment (user_id, product_id, rating, comment) VALUES ('test', 04, 01, 'test comment 05');
 
-INSERT INTO t_comment (user_id, product_id, rating, comment) VALUES ('id 01', 01, 01, 'comment 01');
-INSERT INTO t_comment (user_id, product_id, rating, comment) VALUES ('id 02', 01, 02, 'comment 02');
-INSERT INTO t_comment (user_id, product_id, rating, comment) VALUES ('id 03', 01, 03, 'comment 03');
-INSERT INTO t_comment (user_id, product_id, rating, comment) VALUES ('id 04', 04, 04, 'comment 04');
-INSERT INTO t_comment (user_id, product_id, rating, comment) VALUES ('id 05', 05, 05, 'comment 05');
-INSERT INTO t_comment (user_id, product_id, rating, comment) VALUES ('id 06', 06, 06, 'comment 06');
-INSERT INTO t_comment (user_id, product_id, rating, comment) VALUES ('id 07', 07, 07, 'comment 07');
-INSERT INTO t_comment (user_id, product_id, rating, comment) VALUES ('id 08', 08, 08, 'comment 08');
-INSERT INTO t_comment (user_id, product_id, rating, comment) VALUES ('id 09', 09, 09, 'comment 09');
-INSERT INTO t_comment (user_id, product_id, rating, comment) VALUES ('id 10', 10, 10, 'comment 10');
+INSERT INTO t_comment (user_id, product_id, rating, comment) VALUES ('id01', 01, 01, 'comment 01');
+INSERT INTO t_comment (user_id, product_id, rating, comment) VALUES ('id02', 01, 02, 'comment 02');
+INSERT INTO t_comment (user_id, product_id, rating, comment) VALUES ('id03', 01, 03, 'comment 03');
+INSERT INTO t_comment (user_id, product_id, rating, comment) VALUES ('id04', 04, 04, 'comment 04');
+INSERT INTO t_comment (user_id, product_id, rating, comment) VALUES ('id05', 05, 05, 'comment 05');
+INSERT INTO t_comment (user_id, product_id, rating, comment) VALUES ('id06', 06, 06, 'comment 06');
+INSERT INTO t_comment (user_id, product_id, rating, comment) VALUES ('id07', 07, 07, 'comment 07');
+INSERT INTO t_comment (user_id, product_id, rating, comment) VALUES ('id08', 08, 08, 'comment 08');
+INSERT INTO t_comment (user_id, product_id, rating, comment) VALUES ('id09', 09, 09, 'comment 09');
+INSERT INTO t_comment (user_id, product_id, rating, comment) VALUES ('id10', 10, 10, 'comment 10');
 
 
 -- t_order
-INSERT INTO t_order (user_id, order_table, completed) VALUES ('test', 'order_table 01', 1);
-INSERT INTO t_order (user_id, order_table, completed) VALUES ('test', 'order_table 05', 1);
-INSERT INTO t_order (user_id, order_table, completed) VALUES ('test', 'order_table 03', 1);
-INSERT INTO t_order (user_id, order_table, completed) VALUES ('test', 'order_table 10', 1);
+INSERT INTO t_order (user_id, order_table, completed) VALUES ('test', 'order_table 01', 0);
+INSERT INTO t_order (user_id, order_table, completed) VALUES ('test', 'order_table 05', 0);
+INSERT INTO t_order (user_id, order_table, completed) VALUES ('test', 'order_table 03', 0);
+INSERT INTO t_order (user_id, order_table, completed) VALUES ('test', 'order_table 10', 0);
 INSERT INTO t_order (user_id, order_table, completed) VALUES ('test', 'take-out', 1);
 
-INSERT INTO t_order (user_id, order_table, completed) VALUES ('id 01', 'order_table 01', 1);
-INSERT INTO t_order (user_id, order_table, completed) VALUES ('id 02', 'order_table 02', 1);
-INSERT INTO t_order (user_id, order_table, completed) VALUES ('id 03', 'order_table 03', 1);
-INSERT INTO t_order (user_id, order_table, completed) VALUES ('id 04', 'order_table 04', 1);
-INSERT INTO t_order (user_id, order_table, completed) VALUES ('id 05', 'order_table 05', 1);
-INSERT INTO t_order (user_id, order_table, completed) VALUES ('id 06', 'order_table 06', 1);
-INSERT INTO t_order (user_id, order_table, completed) VALUES ('id 07', 'order_table 07', 1);
-INSERT INTO t_order (user_id, order_table, completed) VALUES ('id 08', 'order_table 08', 1);
-INSERT INTO t_order (user_id, order_table, completed) VALUES ('id 09', 'order_table 09', 1);
-INSERT INTO t_order (user_id, order_table, completed) VALUES ('id 10', 'order_table 10', 1);
+INSERT INTO t_order (user_id, order_table, completed) VALUES ('id01', 'order_table 01', 1);
+INSERT INTO t_order (user_id, order_table, completed) VALUES ('id02', 'order_table 02', 1);
+INSERT INTO t_order (user_id, order_table, completed) VALUES ('id03', 'order_table 03', 1);
+INSERT INTO t_order (user_id, order_table, completed) VALUES ('id04', 'order_table 04', 1);
+INSERT INTO t_order (user_id, order_table, completed) VALUES ('id05', 'order_table 05', 1);
+INSERT INTO t_order (user_id, order_table, completed) VALUES ('id06', 'order_table 06', 1);
+INSERT INTO t_order (user_id, order_table, completed) VALUES ('id07', 'order_table 07', 1);
+INSERT INTO t_order (user_id, order_table, completed) VALUES ('id08', 'order_table 08', 1);
+INSERT INTO t_order (user_id, order_table, completed) VALUES ('id09', 'order_table 09', 1);
+INSERT INTO t_order (user_id, order_table, completed) VALUES ('id10', 'order_table 10', 1);
 
 
 -- t_order_detail
@@ -124,16 +124,16 @@ INSERT INTO t_order_detail (order_id, product_id, quantity) VALUES (10, 10, 10);
 
 -- t_stamp
 INSERT INTO t_stamp (user_id, order_id, quantity) VALUES ('test', 1, 09);
-INSERT INTO t_stamp (user_id, order_id, quantity) VALUES ('id 01', 2, 04);
-INSERT INTO t_stamp (user_id, order_id, quantity) VALUES ('id 02', 3, 01);
-INSERT INTO t_stamp (user_id, order_id, quantity) VALUES ('id 03', 4, 03);
-INSERT INTO t_stamp (user_id, order_id, quantity) VALUES ('id 04', 5, 04);
-INSERT INTO t_stamp (user_id, order_id, quantity) VALUES ('id 05', 6, 05);
-INSERT INTO t_stamp (user_id, order_id, quantity) VALUES ('id 06', 7, 06);
-INSERT INTO t_stamp (user_id, order_id, quantity) VALUES ('id 07', 8, 07);
-INSERT INTO t_stamp (user_id, order_id, quantity) VALUES ('id 08', 9, 08);
-INSERT INTO t_stamp (user_id, order_id, quantity) VALUES ('id 09', 10, 09);
-INSERT INTO t_stamp (user_id, order_id, quantity) VALUES ('id 10', 11, 10);
+INSERT INTO t_stamp (user_id, order_id, quantity) VALUES ('id01', 2, 04);
+INSERT INTO t_stamp (user_id, order_id, quantity) VALUES ('id02', 3, 01);
+INSERT INTO t_stamp (user_id, order_id, quantity) VALUES ('id03', 4, 03);
+INSERT INTO t_stamp (user_id, order_id, quantity) VALUES ('id04', 5, 04);
+INSERT INTO t_stamp (user_id, order_id, quantity) VALUES ('id05', 6, 05);
+INSERT INTO t_stamp (user_id, order_id, quantity) VALUES ('id06', 7, 06);
+INSERT INTO t_stamp (user_id, order_id, quantity) VALUES ('id07', 8, 07);
+INSERT INTO t_stamp (user_id, order_id, quantity) VALUES ('id08', 9, 08);
+INSERT INTO t_stamp (user_id, order_id, quantity) VALUES ('id09', 10, 09);
+INSERT INTO t_stamp (user_id, order_id, quantity) VALUES ('id10', 11, 10);
 
 
 

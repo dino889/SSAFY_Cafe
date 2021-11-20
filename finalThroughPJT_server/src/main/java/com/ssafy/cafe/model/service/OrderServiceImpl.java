@@ -2,6 +2,11 @@ package com.ssafy.cafe.model.service;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,7 +34,9 @@ public class OrderServiceImpl implements OrderService {
     StampDao sDao;
     @Autowired
     UserDao uDao;
-
+  
+    Logger logger = LoggerFactory.getLogger(getClass());
+    
     @Override
     @Transactional
     public void makeOrder(Order order) {
@@ -54,6 +61,7 @@ public class OrderServiceImpl implements OrderService {
         user.setId(order.getUserId());
         user.setStamps(stamp.getQuantity());
         uDao.updateStamp(user);
+        updateOrder(order);
 
     }
 
@@ -66,10 +74,29 @@ public class OrderServiceImpl implements OrderService {
     public List<Order> getOrdreByUser(String userId) {
         return oDao.selectByUser(userId);
     }
-
+    static int count = 1;
     @Override
     public void updateOrder(Order order) {
-        oDao.update(order);
+    	logger.info("updateOrder");
+    	Timer timer = new Timer();
+    	TimerTask task = new TimerTask() {
+			@Override
+			public void run() {
+				logger.info("timer on");
+				logger.info(" 1:" + order.getCompleted());
+				order.setCompleted(order.getCompleted()+1);
+				oDao.update(order);
+				logger.info(order.toString());
+				
+				if(order.getCompleted() >3)
+				{
+					this.cancel();
+				}
+			}
+    		
+    	};
+    	timer.schedule(task, 2000,2000);
+    	
     }
 
     @Override

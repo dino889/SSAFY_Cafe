@@ -25,4 +25,7 @@ interface NotificationApi {
 
     @POST("rest/token")
     fun uploadToken(@Query("token")token : String):Call<String>
+
+    @POST("/sendMessageTo")
+    fun sendMessageTo(@Query("token")token:String, @Query("title")title:String, @Query("body")body:String)
 }
