@@ -2,6 +2,7 @@ package com.ssafy.cafe.fragment
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -17,6 +18,7 @@ import com.ssafy.cafe.dto.Order
 import com.ssafy.cafe.response.OrderDetailResponse
 import com.ssafy.cafe.service.OrderService
 
+private const val TAG = "OrderDetailFragment"
 class OrderDetailFragment : Fragment() {
     private lateinit var mainActivity : MainActivity
     private lateinit var orderDetailAdapter: OrderDetailAdapter
@@ -32,6 +34,7 @@ class OrderDetailFragment : Fragment() {
         mainActivity.hideBottomNav(true)
         arguments?.let {
             orderId = it.getInt("orderId", -1)
+            Log.d(TAG, "onCreate: $orderId")
         }
     }
 
@@ -46,7 +49,6 @@ class OrderDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         initData(orderId)
     }
 
@@ -55,7 +57,6 @@ class OrderDetailFragment : Fragment() {
         orderDetailLiveData.observe(
             viewLifecycleOwner, {
                 list = it
-
                 orderDetailAdapter = OrderDetailAdapter(list)
                 binding.rvOrderDetailList.apply{
                     val linearLayoutManager = LinearLayoutManager(context)
