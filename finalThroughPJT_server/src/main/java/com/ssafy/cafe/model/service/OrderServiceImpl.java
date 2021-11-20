@@ -95,7 +95,7 @@ public class OrderServiceImpl implements OrderService {
 			}
     		
     	};
-    	timer.schedule(task, 2000,2000);
+    	timer.schedule(task, 10000,10000);
     	
     }
 

@@ -2,6 +2,10 @@ package com.ssafy.cafe.model.service;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
+
+import org.springframework.http.HttpEntity;
+import org.springframework.http.ResponseEntity;
 
 import com.ssafy.cafe.model.dto.Notification;
 
@@ -42,4 +46,6 @@ public interface NotificationService {
 //     */
 //    List<Notification> selectByUserCategory(String userId, String category);
     List<Notification> selectByUserAndCategory(HashMap<String, Object> map);
+
+//    ResponseEntity<String> send(HttpEntity<String> entity); 
 }

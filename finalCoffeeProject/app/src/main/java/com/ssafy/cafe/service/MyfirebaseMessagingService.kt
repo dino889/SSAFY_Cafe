@@ -18,6 +18,7 @@ class MyFirebaseMessageService : FirebaseMessagingService() {
         Log.d(TAG, "onNewToken: $token")
         // 새로운 토큰 수신 시 서버로 전송
         MainActivity.uploadToken(token)
+        sendRegisterToServer(token)
     }
 
     // Foreground에서 Push Service를 받기 위해 Notification 설정
@@ -44,6 +45,9 @@ class MyFirebaseMessageService : FirebaseMessagingService() {
             }
         }
     }
+    fun sendRegisterToServer(token:String){
+        //서버로 토큰 보내기.
 
+    }
 
 }

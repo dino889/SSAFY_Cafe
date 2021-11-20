@@ -47,7 +47,7 @@ public class FirebaseCloudMessageService {
         
         googleCredentials.refreshIfExpired();
         String token = googleCredentials.getAccessToken().getTokenValue();
-        
+        logger.info(token.toString());
         return token;
     }
     

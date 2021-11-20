@@ -33,6 +33,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import com.bumptech.glide.Glide
 import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.iid.FirebaseInstanceIdReceiver
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.FirebaseMessaging
 import com.google.firebase.messaging.ktx.messaging
@@ -115,6 +116,8 @@ class MainActivity : AppCompatActivity(), BeaconConsumer {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
+
+        Log.d(TAG, "onCreate: DeviceToken: ")
         setContentView(binding.root)
 
         setNdef()
