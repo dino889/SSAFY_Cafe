@@ -51,7 +51,7 @@ object CommonUtils {
 
         return (curTime - time) > ApplicationClass.ORDER_COMPLETED_TIME
     }
-    fun convertOptionMenu(type:Int, syrup:String, shot:Int) : String{
+    fun convertOptionMenu(type:Int?, syrup:String?, shot:Int?) : String{
         val types = if(type == 0){
             "HOT"
         }else{

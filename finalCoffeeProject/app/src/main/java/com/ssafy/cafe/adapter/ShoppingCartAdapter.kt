@@ -35,8 +35,8 @@ class ShoppingCartAdapter : RecyclerView.Adapter<ShoppingCartAdapter.ShoppingLis
             itemView.findViewById<TextView>(R.id.tv_menuTotalPrice).text = "${CommonUtils.makeComma(data.totalPrice)}"
 
             Log.d(TAG, "bindInfo: ${data.shot} | ${data.syrup} ")
-            
-            itemView.findViewById<TextView>(R.id.tv_menuOption).text = CommonUtils.convertOptionMenu(data.type,data.syrup.toString(),data.shot!!.toInt())
+            Log.d(TAG, "bindInfo: ${data.type}  ${data.syrup}  ${data.shot}")
+            itemView.findViewById<TextView>(R.id.tv_menuOption).text = CommonUtils.convertOptionMenu(data.type,data.syrup.toString(),data.shot)
 
             var tmp = itemView.findViewById<TextView>(R.id.tv_cafeMenuCnt).text.toString()
             var menuCnt = tmp[0].toString().toInt()

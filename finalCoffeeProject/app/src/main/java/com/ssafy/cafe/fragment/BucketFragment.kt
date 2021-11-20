@@ -152,6 +152,7 @@ class BucketFragment : Fragment() {
 //                Log.d(TAG, "showDialogForOrderInShop: ${viewModel.nfcTaggingData}")
                 isChk = true
                 makeOrderDto()
+
             }
             dialog.cancel()
         }
@@ -272,6 +273,8 @@ class BucketFragment : Fragment() {
                     override fun onSuccess(code: Int, responseData: User) {
                         Log.d(TAG, "onSuccess: $responseData")
                         ApplicationClass.sharedPreferencesUtil.addUserPay(responseData.money)
+                        mainActivity.openFragment(2,"orderId",order.id)
+
                     }
 
                     override fun onFailure(code: Int) {

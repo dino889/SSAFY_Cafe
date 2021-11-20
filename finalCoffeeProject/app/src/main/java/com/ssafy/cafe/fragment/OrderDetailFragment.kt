@@ -1,18 +1,38 @@
 package com.ssafy.cafe.fragment
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.ssafy.cafe.R
+import com.ssafy.cafe.activity.MainActivity
+import com.ssafy.cafe.adapter.OrderDetailAdapter
 import com.ssafy.cafe.databinding.FragmentOrderDetailBinding
+import com.ssafy.cafe.dto.Order
+import com.ssafy.cafe.response.OrderDetailResponse
+import com.ssafy.cafe.service.OrderService
 
 class OrderDetailFragment : Fragment() {
-
+    private lateinit var mainActivity : MainActivity
+    private lateinit var orderDetailAdapter: OrderDetailAdapter
+    private lateinit var list:List<OrderDetailResponse>
     private lateinit var binding: FragmentOrderDetailBinding
+    private var orderId = -1
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        mainActivity = context as MainActivity
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        mainActivity.hideBottomNav(true)
+        arguments?.let {
+            orderId = it.getInt("orderId", -1)
+        }
     }
 
     override fun onCreateView(
@@ -26,5 +46,37 @@ class OrderDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        initData(orderId)
+    }
+
+    fun initData(orderId:Int){
+        val orderDetailLiveData = OrderService().getOrderDetails(orderId)
+        orderDetailLiveData.observe(
+            viewLifecycleOwner, {
+                list = it
+
+                orderDetailAdapter = OrderDetailAdapter(list)
+                binding.rvOrderDetailList.apply{
+                    val linearLayoutManager = LinearLayoutManager(context)
+                    linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
+                    layoutManager = linearLayoutManager
+                    adapter = orderDetailAdapter
+                    adapter!!.stateRestorationPolicy =
+                        RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
+                }
+
+            }
+        )
+    }
+
+    companion object {
+        @JvmStatic
+        fun newInstance(key: String, value : Int) =
+            OrderDetailFragment().apply {
+                arguments = Bundle().apply {
+                    putInt(key, value)
+                }
+            }
     }
 }
