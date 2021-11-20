@@ -60,6 +60,8 @@ class MainViewModel : ViewModel() {
         value = productWithComment
     }
 
+
+
     // NFC 중복 태깅 방지
     var nfcTaggingData : String? = null
 

@@ -240,3 +240,4 @@ fabric.properties
 finalCoffeeProject/.idea/misc.xml
 /.metadata/
 finalCoffeeProject/app/src/main/java/com/ssafy/cafe/config/ApplicationClass.kt
+finalThroughPJT_server/target/classes/META-INF/maven/com.ssafy/otocafe/pom.properties

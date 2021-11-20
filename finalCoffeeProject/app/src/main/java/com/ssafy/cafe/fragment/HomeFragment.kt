@@ -134,7 +134,7 @@ class HomeFragment : Fragment() {
                             binding.progressBarStampState.max = Int.MAX_VALUE
                         } else if(i + 1 < tmp - 1) {
                             binding.tvStampTotal.text = UserLevel.userInfoList.get(i + 1).max.toString()
-                            binding.progressBarStampState.max = UserLevel.userInfoList.get(i).max
+                            binding.progressBarStampState.max = UserLevel.userInfoList.get(i + 1).max
                         }
                         binding.progressBarStampState.progress = user.stamps
                     }
@@ -156,7 +156,9 @@ class HomeFragment : Fragment() {
                 for(i in viewModel.productList!!.indices) {
                     val product = viewModel.productList!![i]
                     if(item.productName.equals(product.name)) {
-//                        viewModel.insertShoppingCartItem(ShoppingCart( product.id, product.img, product.name, item.quantity, item.unitPrice,))
+                           viewModel.insertShoppingCartItem(
+                               ShoppingCart(product.id, product.img, product.name, item.quantity, item.unitPrice, item.totalPrice, item.productType, item.syrup, item.shot)
+                           )
                         break
                     }
                 }

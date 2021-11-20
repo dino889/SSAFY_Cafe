@@ -43,6 +43,8 @@ import com.ssafy.cafe.databinding.ActivityMainBinding
 import com.ssafy.cafe.fragment.*
 import com.ssafy.cafe.response.LatestOrderResponse
 import com.ssafy.cafe.service.OrderService
+import com.ssafy.cafe.util.LocationPermissionManager
+import com.ssafy.cafe.util.LocationServiceManager
 import com.ssafy.cafe.viewmodel.MainViewModel
 import com.ssafy.medical.service.ShakeDetector
 import org.altbeacon.beacon.*
@@ -104,6 +106,11 @@ class MainActivity : AppCompatActivity(), BeaconConsumer {
     //    lateinit var orderTable : String
     var orderTable : String? = "x"
 
+    // Location
+    lateinit var locationServiceManager: LocationServiceManager
+    lateinit var locationPermissionManager: LocationPermissionManager
+
+
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -118,7 +125,11 @@ class MainActivity : AppCompatActivity(), BeaconConsumer {
 
         setBeacon()
 
-        checkPermissions()
+//        checkPermissions()
+
+        // Location
+        locationPermissionManager = LocationPermissionManager(this)
+        locationServiceManager = LocationServiceManager(this)
 
         // user 정보 받아오기
 //        viewModel.initUserLevel()
@@ -235,8 +246,8 @@ class MainActivity : AppCompatActivity(), BeaconConsumer {
             1 -> transaction.replace(R.id.frame_layout_main, BucketFragment())
                 .addToBackStack(null)
 //            //주문 상세 보기
-//            2 -> transaction.replace(R.id.frame_layout_main, OrderDetailFragment.newInstance(key, value))
-//                .addToBackStack(null)
+            2 -> transaction.replace(R.id.frame_layout_main, OrderDetailFragment.newInstance(key, value))
+                .addToBackStack(null)
             //메뉴 상세 보기
             3 -> transaction.replace(R.id.frame_layout_main, MenuDetailFragment.newInstance(key, value))
                 .addToBackStack(null)
@@ -517,6 +528,7 @@ class MainActivity : AppCompatActivity(), BeaconConsumer {
         }
 
         var builder = AlertDialog.Builder(this)
+        builder.setTitle("매장주문")
         builder.setView(R.layout.dialog_nfc_order)
         builder.show()
     }

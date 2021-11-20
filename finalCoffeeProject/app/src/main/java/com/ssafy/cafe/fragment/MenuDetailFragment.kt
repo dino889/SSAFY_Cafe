@@ -54,7 +54,7 @@ class MenuDetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         Log.d(TAG, "onViewCreated: ${productId}")
         initData()
-        initTab()
+//        initTab()
 
     }
 
@@ -96,7 +96,9 @@ class MenuDetailFragment : Fragment() {
 
             initScreen(viewModel.liveProductWithComment.value!![0])
 
-            Log.d(TAG, "onSuccess: ${viewModel.liveProductWithComment.value!![0]}")
+            initTab()
+
+//            Log.d(TAG, "onSuccess: ${viewModel.liveProductWithComment.value!![0]}")
         }
 
         override fun onFailure(code: Int) {
@@ -111,6 +113,8 @@ class MenuDetailFragment : Fragment() {
 
 
     fun initTab(){
+        mainActivity.openFragment(9,"productId", productId)
+
         binding.menudetailTabLayout.addOnTabSelectedListener(object: TabLayout.OnTabSelectedListener{
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 Log.d(TAG, "onTabSelected: $productId")

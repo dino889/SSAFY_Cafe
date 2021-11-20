@@ -2,20 +2,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
-
-    <TextView
-        android:id="@+id/tv_orderState"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp"
-        android:gravity="center"
-        android:text="매장주문"
-        android:textColor="@color/black"
-        android:textSize="24sp" />
+    android:orientation="vertical"
+    android:padding="40dp"
+    android:paddingTop="20dp">
 
     <ImageView
         android:id="@+id/imageView7"
@@ -27,37 +18,12 @@
         tools:layout_editor_absoluteX="70dp"
         tools:layout_editor_absoluteY="53dp" />
 
-    <LinearLayout
-        android:id="@+id/ll_orderCheckLayout"
+    <TextView
+        android:id="@+id/textView7"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="20dp">
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="NFC를 찍어주세요"
+        android:textColor="@color/black" />
 
-        <TextView
-            android:id="@+id/tv"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="주문확인"
-            android:textColor="@color/black" />
-
-        <TextView
-            android:id="@+id/tv_orderProductName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            android:paddingLeft="20dp"
-            android:text="아메리카노 외 3건"
-            android:textColor="@color/black" />
-
-        <TextView
-            android:id="@+id/tv_orderTotalPrice"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="총 27,000원"
-            android:textColor="@color/black"
-            android:textSize="16sp" />
-
-    </LinearLayout>
 </LinearLayout>

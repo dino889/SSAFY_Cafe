@@ -24,6 +24,7 @@ import android.widget.AdapterView
 import android.widget.RadioButton
 
 import android.widget.RadioGroup
+import androidx.core.view.isVisible
 import com.ssafy.cafe.dto.UserCustom
 import com.ssafy.cafe.service.UserCustomService
 
@@ -69,7 +70,7 @@ class MenuInfoDetailFragment : Fragment() {
         countProduct()
 //        val product = viewModel.prodWithComment
         val product = viewModel.liveProductWithComment!!.value?.get(0)
-//        Log.d(TAG, "onViewCreated: $productId")
+        Log.d(TAG, "onViewCreated: $product")
 //        ProductService().getProductWithComments(productId, ProductWithCommentInsertCallback())
         initData(product!!)
 
@@ -145,6 +146,10 @@ class MenuInfoDetailFragment : Fragment() {
         productImg = menu.productImg
         productName = menu.productName
         productType = menu.productType.toString()
+        if(productType != "coffee"){
+            binding.llOption.isVisible = false
+        }
+
     }
 
     // Init RadioGroup

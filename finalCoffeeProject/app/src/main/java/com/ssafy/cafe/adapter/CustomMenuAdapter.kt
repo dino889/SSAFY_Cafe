@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.CheckBox
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.view.isVisible
@@ -53,10 +54,14 @@ class CustomMenuAdapter(var customList:List<UserCustom>) : RecyclerView.Adapter<
                 menuShot.text = "|  ${userCustom.shot}"
             }
 
-            itemView.setOnClickListener {
-                itemClickListner.onClick(it, layoutPosition,  customList[layoutPosition].id)
-            }
+//            itemView.setOnClickListener {
+//                itemClickListner.onClick(it, layoutPosition,  customList[layoutPosition].id)
+//            }
+            val check = itemView.findViewById<CheckBox>(R.id.checkBox)
 
+            check.setOnCheckedChangeListener { buttonView, isChecked ->
+                userCustom.isChecked = true
+            }
         }
     }
 
