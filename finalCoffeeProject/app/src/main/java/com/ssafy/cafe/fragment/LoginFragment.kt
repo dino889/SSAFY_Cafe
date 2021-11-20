@@ -219,51 +219,10 @@ class LoginFragment : Fragment() {
                 Log.d(TAG, "onSuccess: ${user.email.toString()} ${user.displayName.toString()} ${user.phoneNumber.toString()}")
                 join(user.email.toString(), user.displayName.toString(), user.phoneNumber.toString(), user.email.toString())
 
-//                UserService().join(User(user.email.toString(), user.displayName.toString(), user.phoneNumber.toString(), user.email.toString()), object : RetrofitCallback<Boolean> {
-//                    override fun onError(t: Throwable) {
-//                        Log.d(TAG, t.message?:"회원가입 통신오류")
-//                    }
-//
-//                    override fun onSuccess(code: Int, responseData: Boolean) {
-//                        Log.d(TAG, "onSuccess 회원가입 리턴 데이터: ${responseData}")
-//
-//                        if(!responseData) {
-//                            val user = User(user.email.toString(), user.displayName.toString())
-//                            Log.d(TAG, "onSuccess: $user")
-//                            ApplicationClass.sharedPreferencesUtil.addUser(user)
-//                            loginActivity.openFragment(1)
-//                        }
-//                    }
-//
-//                    override fun onFailure(code: Int) {
-//                        Log.d(TAG, "onFailure: resCode $code")
-//                    }
-//
-//                })
             } else {
-                // 사용자 id로 비밀번호 받아와서 로그인 시키기.
-                Toast.makeText(requireContext(), "id 중복", Toast.LENGTH_SHORT).show()
+                // id가 중복되면 기존 사용자 -> id pw로 로그인 시키기
+                login(user.email.toString(), user.email.toString())
             }
-//            if(responseData == false) {   // DB 내에 중복되는 ID가 없으면
-//                // join
-//                val passwordHashed = BCrypt.hashpw(user.email, BCrypt.gensalt(20))
-//                Log.d(TAG, "onSuccess: ${user.email}, $passwordHashed")
-////                // 생성된 해쉬를 원래 비밀번호로 검증한다. 맞을 경우 true를 반환한다.
-////                // 주로 회원 로그인 로직에서 사용된다.
-////                val isValidPassword = BCrypt.checkpw(password, passwordHashed)
-//                join(user.uid, user.displayName.toString(), user.phoneNumber.toString(), passwordHashed)
-//
-//            } else {// DB 내에 중복되는 ID가 있으면
-//                // 회원가입 불가능 - 로그인 시키면 됨
-//                Log.d(TAG, "onSuccess: $responseData")
-//                val passwordHashed = BCrypt.hashpw(user.email, BCrypt.gensalt(20))
-//                Log.d(TAG, "onSuccess: ${user.email}, $passwordHashed")
-////                // 생성된 해쉬를 원래 비밀번호로 검증한다. 맞을 경우 true를 반환한다.
-////                // 주로 회원 로그인 로직에서 사용된다.
-////                val isValidPassword = BCrypt.checkpw(password, passwordHashed)
-//                join(user.uid, user.displayName.toString(), user.phoneNumber.toString(), passwordHashed)
-//
-//            }
         }
 
         override fun onFailure(code: Int) {
@@ -281,12 +240,7 @@ class LoginFragment : Fragment() {
             }
 
             override fun onSuccess(code: Int, responseData: Boolean) {
-                val user = User(id, pw)
-                Log.d(TAG, "onSuccess join: $user")
-                ApplicationClass.sharedPreferencesUtil.addUser(User(id, pw))
-                loginActivity.openFragment(1)
-//                makeToast("회원가입이 완료되었습니다. 다시 로그인 해주세요")
-//                (requireActivity() as LoginActivity).onBackPressed()
+                login(id, pw)
             }
 
             override fun onFailure(code: Int) {
