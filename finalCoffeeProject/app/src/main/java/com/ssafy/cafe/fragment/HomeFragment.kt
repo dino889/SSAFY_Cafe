@@ -18,8 +18,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
-import com.google.gson.internal.Streams.parse
-import com.google.gson.reflect.TypeToken
+//import com.google.gson.internal.Streams.parse
+//import com.google.gson.reflect.TypeToken
 import com.ssafy.cafe.R
 import com.ssafy.cafe.activity.LoginActivity
 import com.ssafy.cafe.activity.MainActivity
@@ -125,8 +125,8 @@ class HomeFragment : Fragment() {
                     rawUser.getString("id"),
                     rawUser.getString("name"),
                     rawUser.getString("pass"),
-                    rawUser.getInt("stamps"),
                     rawUser.getString("phone"),
+                    rawUser.getInt("stamps"),
                     rawUser.getInt("money")
                 )
 //                val user = Gson().fromJson(responseData["user"].toString(), User::class.java)

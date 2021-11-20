@@ -27,8 +27,7 @@
         <activity
             android:name="com.ssafy.cafe.activity.LoginActivity"
             android:exported="true"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
-
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name="com.ssafy.cafe.activity.MainActivity"
             android:exported="true"
@@ -59,6 +58,18 @@
         </service>
         <meta-data android:name="com.google.android.geo.API_KEY" android:value="@string/api_key"/>
 
+        <meta-data android:name="com.kakao.sdk.AppKey"
+            android:value="@string/kakao_login_key" />
+
+        <activity android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:host="oauth"
+                    android:scheme="kakao10dd391ec47899a36d7a50ec704eb21b" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

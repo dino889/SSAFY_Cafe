@@ -14,7 +14,7 @@
         <ImageView
             android:id="@+id/imageView6"
             android:layout_width="match_parent"
-            android:layout_height="304dp"
+            android:layout_height="250dp"
             android:src="@drawable/logo" />
 
         <LinearLayout
@@ -42,7 +42,7 @@
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/et_userID"
-                        android:layout_width="270dp"
+                        android:layout_width="320dp"
                         android:layout_height="wrap_content"
                         android:backgroundTint="@color/yellow_500"
                         android:hint="ID"

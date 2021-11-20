@@ -129,4 +129,7 @@ dependencies {
 
     // Hash
     implementation group: 'de.svenkubiak', name: 'jBCrypt', version: '0.4.1'
+
+    // 카카오 모듈 SDK 설정
+    implementation "com.kakao.sdk:v2-user:2.8.3" // 카카오 로그인
 }

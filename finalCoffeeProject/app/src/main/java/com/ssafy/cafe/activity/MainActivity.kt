@@ -38,6 +38,7 @@ import com.google.firebase.iid.FirebaseInstanceIdReceiver
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.FirebaseMessaging
 import com.google.firebase.messaging.ktx.messaging
+import com.kakao.sdk.user.UserApiClient
 import com.ssafy.cafe.R
 import com.ssafy.cafe.api.NotificationApi
 import com.ssafy.cafe.config.ApplicationClass
@@ -311,7 +312,18 @@ class MainActivity : AppCompatActivity(), BeaconConsumer {
     fun logout(){
         //preference 지우기
         ApplicationClass.sharedPreferencesUtil.deleteUser()
+        // google 로그아웃
         FirebaseAuth.getInstance().signOut()
+
+        // kakao 로그아웃
+        UserApiClient.instance.logout { error ->
+            if (error != null) {
+                Log.e(TAG, "로그아웃 실패. SDK에서 토큰 삭제됨", error)
+            }
+            else {
+                Log.i(TAG, "로그아웃 성공. SDK에서 토큰 삭제됨")
+            }
+        }
         //화면이동
         val intent = Intent(this, LoginActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);

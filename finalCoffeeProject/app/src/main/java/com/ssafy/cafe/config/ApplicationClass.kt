@@ -2,6 +2,8 @@ package com.ssafy.cafe.config
 
 import android.Manifest
 import android.app.Application
+import com.kakao.sdk.common.KakaoSdk
+import com.ssafy.cafe.R
 import com.ssafy.cafe.intercepter.AddCookiesInterceptor
 import com.ssafy.cafe.intercepter.ReceivedCookiesInterceptor
 import com.ssafy.cafe.util.SharedPreferencesUtil
@@ -54,6 +56,8 @@ class ApplicationClass : Application() {
             .addConverterFactory(GsonConverterFactory.create())
             .client(okHttpClient)
             .build()
+
+        KakaoSdk.init(this, getString(R.string.kakao_login_key))
     }
 
 }

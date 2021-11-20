@@ -6,7 +6,9 @@ import android.nfc.NfcAdapter
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import com.ssafy.cafe.R
+import com.kakao.sdk.common.util.Utility
 
 class LoadingActivity : AppCompatActivity() {
     private val SPLASH_TIME:Long = 1000 // 4000
@@ -21,6 +23,8 @@ class LoadingActivity : AppCompatActivity() {
             finish()
         }, SPLASH_TIME)
 
+        var keyHash = Utility.getKeyHash(this)
+        Log.v("kakao", keyHash)
     }
 
 }

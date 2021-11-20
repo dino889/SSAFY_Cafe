@@ -21,6 +21,8 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import com.kakao.sdk.auth.model.OAuthToken
+import com.kakao.sdk.user.UserApiClient
 import com.ssafy.cafe.R
 import com.ssafy.cafe.activity.LoginActivity
 import com.ssafy.cafe.activity.MainActivity
@@ -66,8 +68,35 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // 구글 계정으로 로그인
         binding.btnGoogleLogin.setOnClickListener {
             initAuth()
+        }
+
+        binding.btnKakaoLogin.setOnClickListener{
+            // 카카오톡이 설치되어 있으면 카카오톡으로 로그인, 아니면 카카오계정으로 로그인
+            if (UserApiClient.instance.isKakaoTalkLoginAvailable(requireContext())) {
+                UserApiClient.instance.loginWithKakaoTalk(requireContext(), callback = callback)
+            } else {
+                UserApiClient.instance.loginWithKakaoAccount(requireContext(), callback = callback)
+            }
+
+//            UserApiClient.instance.loginWithKakaoTalk(requireContext()) { token, error ->
+//                if (error != null) {
+//                    Log.e(TAG, "로그인 실패", error)
+//                }
+//                else if (token != null) {
+//                    Log.i(TAG, "로그인 성공 ${token.accessToken}")
+//                }
+//            }
+//            // 카카오톡이 설치되어 있으면 카카오톡으로 로그인, 아니면 카카오계정으로 로그인
+//            LoginClient.instance.run {
+//                if (isKakaoTalkLoginAvailable(requestActivity)) {
+//                    loginWithKakaoTalk(requestActivity, callback = callback)
+//                } else {
+//                    loginWithKakaoAccount(requestActivity, callback = callback)
+//                }
+//            }
         }
 
         //login
@@ -165,9 +194,9 @@ class LoginFragment : Fragment() {
                     Log.d(TAG, "signInWithCredential:success")
 //                    Toast.makeText(requireContext(),"로그인되었습니다",Toast.LENGTH_SHORT).show()
                     val user = mAuth.currentUser
-                    Log.d(TAG, "firebaseAuthWithGoogle: ${user?.tenantId}")
                     if(user != null) {
-                        UserService().isUsed(user.email!!, isUsedCallBack(user))
+                        val newUser = User(user.email.toString(), user.displayName.toString(), user.phoneNumber.toString(), user.uid)
+                        UserService().isUsed(user.email!!, isUsedCallBack(newUser))
                     }
                 } else {
                     // If sign in fails, display a message to the user.
@@ -177,8 +206,49 @@ class LoginFragment : Fragment() {
             }
     }
 
+
+    // ---------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
+    // KAKAO 로그인
+    val callback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
+        if (error != null) {
+            Log.e(TAG, "로그인 실패", error)
+        }
+        else if (token != null) {
+            Log.i(TAG, "로그인 성공 ${token.accessToken}")
+            // 사용자 정보 가져오기
+            UserApiClient.instance.me { user, error ->
+                if (error != null) {
+                    Log.e(TAG, "사용자 정보 요청 실패", error)
+                }
+                else if (user != null) {
+
+                    val newUser = User(user.kakaoAccount!!.email.toString(), user.kakaoAccount!!.profile!!.nickname.toString(), user.kakaoAccount!!.phoneNumber.toString(), user.id.toString())
+                    UserService().isUsed(user.kakaoAccount!!.email!!, isUsedCallBack(newUser))
+
+                    Log.i(TAG, "사용자 정보 요청 성공" +
+                            "\n회원번호: ${user.id}" +
+                            "\n이메일: ${user.kakaoAccount?.email}" +
+                            "\n닉네임: ${user.kakaoAccount?.profile?.nickname}" +
+                            "\n프로필사진: ${user.kakaoAccount?.profile?.thumbnailImageUrl}")
+                }
+            }
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
     // 사용자가 입력한 userId를 인자로 받아서 id 중복 체크
-    inner class isUsedCallBack(val user: FirebaseUser) : RetrofitCallback<Boolean> {
+    inner class isUsedCallBack(val user: User) : RetrofitCallback<Boolean> {
         override fun onError(t: Throwable) {
             Log.d(TAG, "onError: ")
         }
@@ -190,13 +260,13 @@ class LoginFragment : Fragment() {
 //            val passwordHashed = BCrypt.hashpw(user.uid, BCrypt.gensalt())
 //                val passwordHashed = BCrypt.hashpw(user.uid, BCrypt.gensalt(10))
 
-                join(user.email.toString(), user.displayName.toString(), user.phoneNumber.toString(), user.uid)
+                join(user.id, user.name, user.phone, user.pass)
 
             } else {
                 // id가 중복되면 기존 사용자 -> id pw로 로그인 시키기
 //                Log.d(TAG, "onSuccess: ${passwordHashed}, uID ${user.uid}")
 //                val isValidPassword = BCrypt.checkpw(user.uid, passwordHashed)
-                login(user.email.toString(), user.uid)
+                login(user.id, user.pass)
 
             }
         }
