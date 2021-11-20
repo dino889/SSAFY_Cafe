@@ -78,7 +78,11 @@ class OrderDetailFragment : Fragment() {
                 }
                 binding.tvOrderMenuNameShort.text = name
                 binding.tvOrderDate.text = CommonUtils.getFormattedString(list[0].orderDate)
-                binding.tvAllTotalPrice.text = CommonUtils.makeComma(list[0].totalPrice)
+                var AllTotalPrice = 0
+                for(i in 0..list.size-1){
+                    AllTotalPrice += list[i].totalPrice
+                }
+                binding.tvAllTotalPrice.text = CommonUtils.makeComma(AllTotalPrice)
             }
         )
     }
