@@ -134,7 +134,7 @@ class HomeFragment : Fragment() {
                             binding.progressBarStampState.max = Int.MAX_VALUE
                         } else if(i + 1 < tmp - 1) {
                             binding.tvStampTotal.text = UserLevel.userInfoList.get(i + 1).max.toString()
-                            binding.progressBarStampState.max = UserLevel.userInfoList.get(i).max
+                            binding.progressBarStampState.max = UserLevel.userInfoList.get(i + 1).max
                         }
                         binding.progressBarStampState.progress = user.stamps
                     }
