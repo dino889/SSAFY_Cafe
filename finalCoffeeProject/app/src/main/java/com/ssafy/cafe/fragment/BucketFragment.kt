@@ -276,7 +276,6 @@ class BucketFragment : Fragment() {
                     override fun onSuccess(code: Int, responseData: User) {
                         Log.d(TAG, "onSuccess: $responseData")
                         ApplicationClass.sharedPreferencesUtil.addUserPay(responseData.money)
-
                     }
 
                     override fun onFailure(code: Int) {
@@ -305,9 +304,14 @@ class BucketFragment : Fragment() {
         mainActivity.nfcAdapter!!.enableForegroundDispatch(mainActivity, mainActivity.pIntent, mainActivity.filters, null)
     }
 
-    override fun onPause() {
-        super.onPause()
+    fun disableNfc() {
+        // NFC 포그라운드 기능 비활성화
         mainActivity.nfcAdapter!!.disableForegroundDispatch(mainActivity)
+    }
+
+    override fun onPause() {
+        disableNfc()
+        super.onPause()
     }
 
     override fun onDestroy() {
