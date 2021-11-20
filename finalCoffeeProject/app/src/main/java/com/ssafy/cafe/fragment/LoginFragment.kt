@@ -1,5 +1,6 @@
 package com.ssafy.cafe.fragment
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -9,6 +10,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -26,9 +29,13 @@ import com.ssafy.cafe.databinding.FragmentLoginBinding
 import com.ssafy.cafe.dto.User
 import com.ssafy.cafe.service.UserService
 import com.ssafy.cafe.util.RetrofitCallback
+import kotlinx.coroutines.CoroutineStart
+import kotlinx.coroutines.async
+import kotlinx.coroutines.runBlocking
+import org.mindrot.jbcrypt.BCrypt
 import java.time.chrono.JapaneseEra.values
 
-private const val TAG = "LoginFragment"
+private const val TAG = "LoginFragment_싸피"
 class LoginFragment : Fragment() {
     private val RC_SIGN_IN = 9001
     private lateinit var auth: FirebaseAuth
@@ -39,6 +46,9 @@ class LoginFragment : Fragment() {
     lateinit var photo:String
     private lateinit var mAuth: FirebaseAuth
     var mGoogleSignInClient: GoogleSignInClient? = null
+
+    var isDupChk = true
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
         loginActivity = context as LoginActivity
@@ -58,13 +68,7 @@ class LoginFragment : Fragment() {
 
         binding.btnGoogleLogin.setOnClickListener {
             initAuth()
-//            loginActivity.openFragment(1,)
-            val intent = Intent(requireContext(), MainActivity::class.java).apply{
-                putExtra("name",name)
-                putExtra("photo",photo)
-            }
-            startActivity(intent)
-//            finish()
+            Log.d(TAG, "onViewCreated: 구글 로그인 버튼 클릭")
         }
 
         //login
@@ -77,7 +81,7 @@ class LoginFragment : Fragment() {
         }
     }
 
-
+    // 기존 사용자 로그인
     fun login(loginId: String, loginPass: String) {
         val user = User(loginId, loginPass)
         UserService().login(user, LoginCallback())
@@ -106,20 +110,54 @@ class LoginFragment : Fragment() {
     }
 
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
+    // google Login
+    // 인증 초기화
+    private fun initAuth() {
+        // Configure Google Sign In
+        // 구글에서 로그인하는 초기 작업
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken("908521205713-bjvpeaaptikbb8h0523300hdtj9p2p33.apps.googleusercontent.com")
+            .requestEmail()
+            .build()
 
-        if(requestCode == RC_SIGN_IN){
+        mGoogleSignInClient = GoogleSignIn.getClient(requireActivity(), gso)
+
+
+        mAuth = FirebaseAuth.getInstance()
+        Log.d(TAG, "initAuth: ${mAuth}")
+        signIn()
+    }
+
+    private fun signIn() {  // 구글 로그인 창을 띄우는 작업
+        val signInIntent = mGoogleSignInClient!!.signInIntent
+        requestActivity.launch(signInIntent)
+        Log.d(TAG, "signIn: ")
+//        startActivityForResult(signInIntent, 100)
+    }
+
+
+    // 구글 인증 결과 획득 후 동작 처리
+    private val requestActivity: ActivityResultLauncher<Intent> = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) {
+        if (it.resultCode == Activity.RESULT_OK) {
+            val data = it.data
+
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
-            try{
+            try {
+                // Google Sign In was successful, authenticate with Firebase
                 val account = task.getResult(ApiException::class.java)!!
+                Log.d(TAG, "firebaseAuthWithGoogle:" + account.id)
                 firebaseAuthWithGoogle(account.idToken!!)
 
-            }catch (e: ApiException){
-                e.printStackTrace()
+            } catch (e: ApiException) {
+                // Google Sign In failed, update UI appropriately
+                Log.w(TAG, "Google sign in failed", e)
             }
         }
     }
+
+    // 구글 인증 결과 성공 여부에 따른 처리
     private fun firebaseAuthWithGoogle(idToken: String?) {
         val credential = GoogleAuthProvider.getCredential(idToken, null)
         mAuth.signInWithCredential(credential)
@@ -128,39 +166,198 @@ class LoginFragment : Fragment() {
                     // Sign in success, update UI with the signed-in user's information
                     Log.d(TAG, "signInWithCredential:success")
                     val user = mAuth.currentUser
-                    updateUI(user)
+                    Log.d(TAG, "firebaseAuthWithGoogle: ${user?.tenantId}")
+                    chkUserId(user)
                 } else {
                     // If sign in fails, display a message to the user.
                     Log.w(TAG, "signInWithCredential:failure", task.exception)
-                    updateUI(null)
+//                    updateUI(null)
                 }
             }
     }
-    private fun updateUI(user: FirebaseUser?) {
+
+
+    // 인증 성공 여부에 따른 화면 처리
+    private fun chkUserId(user: FirebaseUser?) {
         if(user!=null){
-            photo = user.photoUrl.toString()
-            name = user.displayName.toString()
-            Log.d(TAG, "updateUI: $photo, $name")
-            binding.btnGoogleLogin.isEnabled = true
-//            binding.loginBtn.isEnabled = true
+            Log.d(TAG, "chkUserId: user 정보 받아옴")
+            UserService().isUsed(user.email!!, isUsedCallBack(user))
+
+//            val job = async(start = CoroutineStart.LAZY) {
+//                UserService().isUsed(user.uid, isUsedCallBack(user))
+//            }
+//            Log.d(TAG, "chkUserId: before $isDupChk")
+//            job.join()
+//            Log.d(TAG, "chkUserId: after $isDupChk")
+
+//            if(isDupChk == false) { // 중복되는 id가 없으면
+//                val passwordHashed = BCrypt.hashpw(user.email, BCrypt.gensalt(20))
+//                Log.d(TAG, "onSuccess: $isDupChk ${user.email}, $passwordHashed")
+//                join(user.uid, user.displayName.toString(), user.phoneNumber.toString(), passwordHashed)
+//            }
         }else{
-            Toast.makeText(requireContext(),"LoginFailed",Toast.LENGTH_SHORT).show()
+            Log.d(TAG, "chkUserId: 구글 로그인이 필요합니다.")
         }
     }
-    private fun initAuth(){
-//         Configure Google Sign In
-        val gso = GoogleSignInOptions
-            .Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken("908521205713-bjvpeaaptikbb8h0523300hdtj9p2p33.apps.googleusercontent.com")
-            .requestEmail()
-            .build()
 
-        mGoogleSignInClient = GoogleSignIn.getClient(requireActivity(), gso)
-        mAuth = FirebaseAuth.getInstance()
-        signIn()
+    // 사용자가 입력한 userId를 인자로 받아서 id 중복 체크
+    inner class isUsedCallBack(val user: FirebaseUser) : RetrofitCallback<Boolean> {
+        override fun onError(t: Throwable) {
+            Log.d(TAG, "onError: ")
+        }
+
+        override fun onSuccess(code: Int, responseData: Boolean) {
+            Log.d(TAG, "onSuccess IsUsedId: $responseData")  // 0 : 중복 X, 사용가능 <-> 1 : 중복되는 ID, 사용불가능
+            isDupChk = responseData // false 이면 중복되는 아이디가 없음.
+
+            Log.d(TAG, "onSuccess isDupChk: $isDupChk")
+
+            if(responseData == false){
+
+//                val passwordHashed = BCrypt.hashpw(user.uid, BCrypt.gensalt(20))
+//                Log.d(TAG, "onSuccess: $isDupChk ${user.email}, $passwordHashed")
+                Log.d(TAG, "onSuccess: ${user.email.toString()} ${user.displayName.toString()} ${user.phoneNumber.toString()}")
+                join(user.email.toString(), user.displayName.toString(), user.phoneNumber.toString(), user.email.toString())
+
+//                UserService().join(User(user.email.toString(), user.displayName.toString(), user.phoneNumber.toString(), user.email.toString()), object : RetrofitCallback<Boolean> {
+//                    override fun onError(t: Throwable) {
+//                        Log.d(TAG, t.message?:"회원가입 통신오류")
+//                    }
+//
+//                    override fun onSuccess(code: Int, responseData: Boolean) {
+//                        Log.d(TAG, "onSuccess 회원가입 리턴 데이터: ${responseData}")
+//
+//                        if(!responseData) {
+//                            val user = User(user.email.toString(), user.displayName.toString())
+//                            Log.d(TAG, "onSuccess: $user")
+//                            ApplicationClass.sharedPreferencesUtil.addUser(user)
+//                            loginActivity.openFragment(1)
+//                        }
+//                    }
+//
+//                    override fun onFailure(code: Int) {
+//                        Log.d(TAG, "onFailure: resCode $code")
+//                    }
+//
+//                })
+            } else {
+                // 사용자 id로 비밀번호 받아와서 로그인 시키기.
+                Toast.makeText(requireContext(), "id 중복", Toast.LENGTH_SHORT).show()
+            }
+//            if(responseData == false) {   // DB 내에 중복되는 ID가 없으면
+//                // join
+//                val passwordHashed = BCrypt.hashpw(user.email, BCrypt.gensalt(20))
+//                Log.d(TAG, "onSuccess: ${user.email}, $passwordHashed")
+////                // 생성된 해쉬를 원래 비밀번호로 검증한다. 맞을 경우 true를 반환한다.
+////                // 주로 회원 로그인 로직에서 사용된다.
+////                val isValidPassword = BCrypt.checkpw(password, passwordHashed)
+//                join(user.uid, user.displayName.toString(), user.phoneNumber.toString(), passwordHashed)
+//
+//            } else {// DB 내에 중복되는 ID가 있으면
+//                // 회원가입 불가능 - 로그인 시키면 됨
+//                Log.d(TAG, "onSuccess: $responseData")
+//                val passwordHashed = BCrypt.hashpw(user.email, BCrypt.gensalt(20))
+//                Log.d(TAG, "onSuccess: ${user.email}, $passwordHashed")
+////                // 생성된 해쉬를 원래 비밀번호로 검증한다. 맞을 경우 true를 반환한다.
+////                // 주로 회원 로그인 로직에서 사용된다.
+////                val isValidPassword = BCrypt.checkpw(password, passwordHashed)
+//                join(user.uid, user.displayName.toString(), user.phoneNumber.toString(), passwordHashed)
+//
+//            }
+        }
+
+        override fun onFailure(code: Int) {
+            Log.d(TAG, "onFailure: ")
+        }
     }
-    private fun signIn(){
-        val signInIntent = mGoogleSignInClient!!.signInIntent
-        startActivityForResult(signInIntent, 100)
+
+
+
+    // DB에 사용자 추가
+    private fun join(id:String, name:String, tel:String, pw:String){
+        UserService().join(User(id,name,tel,pw), object : RetrofitCallback<Boolean> {
+            override fun onError(t: Throwable) {
+                Log.d(TAG, t.message?:"회원가입 통신오류")
+            }
+
+            override fun onSuccess(code: Int, responseData: Boolean) {
+                val user = User(id, pw)
+                Log.d(TAG, "onSuccess join: $user")
+                ApplicationClass.sharedPreferencesUtil.addUser(User(id, pw))
+                loginActivity.openFragment(1)
+//                makeToast("회원가입이 완료되었습니다. 다시 로그인 해주세요")
+//                (requireActivity() as LoginActivity).onBackPressed()
+            }
+
+            override fun onFailure(code: Int) {
+                Log.d(TAG, "onFailure: resCode $code")
+            }
+
+        })
     }
+
+
+
+
+
+
+
+//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+//        super.onActivityResult(requestCode, resultCode, data)
+//
+//        if(requestCode == RC_SIGN_IN){
+//            val task = GoogleSignIn.getSignedInAccountFromIntent(data)
+//            try{
+//                val account = task.getResult(ApiException::class.java)!!
+//                firebaseAuthWithGoogle(account.idToken!!)
+//
+//            }catch (e: ApiException){
+//                e.printStackTrace()
+//            }
+//        }
+//    }
+//    private fun firebaseAuthWithGoogle(idToken: String?) {
+//        val credential = GoogleAuthProvider.getCredential(idToken, null)
+//        mAuth.signInWithCredential(credential)
+//            .addOnCompleteListener(requireActivity()) { task ->
+//                if (task.isSuccessful) {
+//                    // Sign in success, update UI with the signed-in user's information
+//                    Log.d(TAG, "signInWithCredential:success")
+//                    val user = mAuth.currentUser
+//                    updateUI(user)
+//                } else {
+//                    // If sign in fails, display a message to the user.
+//                    Log.w(TAG, "signInWithCredential:failure", task.exception)
+//                    updateUI(null)
+//                }
+//            }
+//    }
+//    private fun updateUI(user: FirebaseUser?) {
+//        if(user!=null){
+//            photo = user.photoUrl.toString()
+//            name = user.displayName.toString()
+//            Log.d(TAG, "updateUI: $photo, $name")
+//            binding.btnGoogleLogin.isEnabled = true
+////            binding.loginBtn.isEnabled = true
+//        }else{
+//            Toast.makeText(requireContext(),"LoginFailed",Toast.LENGTH_SHORT).show()
+//        }
+//    }
+//    private fun initAuth(){
+////         Configure Google Sign In
+//        val gso = GoogleSignInOptions
+//            .Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+//            .requestIdToken("908521205713-bjvpeaaptikbb8h0523300hdtj9p2p33.apps.googleusercontent.com")
+//            .requestEmail()
+//            .build()
+//
+//        mGoogleSignInClient = GoogleSignIn.getClient(requireActivity(), gso)
+//        mAuth = FirebaseAuth.getInstance()
+//        signIn()
+//    }
+//
+//    private fun signIn(){
+//        val signInIntent = mGoogleSignInClient!!.signInIntent
+//        startActivityForResult(signInIntent, 100)
+//    }
 }

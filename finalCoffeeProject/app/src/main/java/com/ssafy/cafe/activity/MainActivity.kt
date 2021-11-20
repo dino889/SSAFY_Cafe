@@ -228,9 +228,12 @@ class MainActivity : AppCompatActivity(), BeaconConsumer {
         notificationManager.createNotificationChannel(channel)
     }
     fun initUserName(){
+
         var user = ApplicationClass.sharedPreferencesUtil.getUser()
+        Log.d(TAG, "initUserName: ${user.id}, ${user.name}, ${user.pass}, ${user.phone}")
         binding.tvUserName.text = "${user.name}님"
     }
+
     fun openFragment(index:Int, key:String, value:Int){
         moveFragment(index, key, value)
     }

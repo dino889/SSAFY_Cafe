@@ -127,5 +127,6 @@ dependencies {
     //TedPermission
     implementation 'io.github.ParkSangGwon:tedpermission-normal:3.2.3'
 
-
+    // Hash
+    implementation group: 'de.svenkubiak', name: 'jBCrypt', version: '0.4.1'
 }
