@@ -250,7 +250,7 @@ class BucketFragment : Fragment() {
 
             override fun onSuccess(code: Int, responseData: Int) {
 
-                Log.d(TAG, "onSuccess: $responseData")
+//                Log.d(TAG, "onSuccess: $responseData")
                 //(requireContext() as MainActivity).onBackPressed()
 
                 Toast.makeText(context,"주문이 완료되었습니다.", Toast.LENGTH_SHORT).show()
@@ -261,6 +261,9 @@ class BucketFragment : Fragment() {
 
                 isChk = false
                 viewModel.nfcTaggingData = ""
+
+                // OrderFragment 전환
+                mainActivity.openFragment(2,"orderId", responseData)
 
                 // 잔액 업데이트
                 var updateUser = User(ApplicationClass.sharedPreferencesUtil.getUser().id, balance)
@@ -273,7 +276,6 @@ class BucketFragment : Fragment() {
                     override fun onSuccess(code: Int, responseData: User) {
                         Log.d(TAG, "onSuccess: $responseData")
                         ApplicationClass.sharedPreferencesUtil.addUserPay(responseData.money)
-                        mainActivity.openFragment(2,"orderId",order.id)
 
                     }
 
