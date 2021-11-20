@@ -230,6 +230,7 @@ class MainActivity : AppCompatActivity(), BeaconConsumer {
     fun initUserName(){
         var user = ApplicationClass.sharedPreferencesUtil.getUser()
         binding.tvUserName.text = "${user.name}님"
+        Log.d(TAG, "initUserName: $user")
     }
     fun openFragment(index:Int, key:String, value:Int){
         moveFragment(index, key, value)

@@ -35,8 +35,8 @@ class LoginFragment : Fragment() {
 
     private lateinit var loginActivity: LoginActivity
     private lateinit var binding: FragmentLoginBinding
-    lateinit var name:String
-    lateinit var photo:String
+//    lateinit var name:String
+//    lateinit var photo:String
     private lateinit var mAuth: FirebaseAuth
     var mGoogleSignInClient: GoogleSignInClient? = null
     override fun onAttach(context: Context) {
@@ -58,12 +58,12 @@ class LoginFragment : Fragment() {
 
         binding.btnGoogleLogin.setOnClickListener {
             initAuth()
-//            loginActivity.openFragment(1,)
-            val intent = Intent(requireContext(), MainActivity::class.java).apply{
-                putExtra("name",name)
-                putExtra("photo",photo)
-            }
-            startActivity(intent)
+//            loginActivity.openFragment(1)
+//            val intent = Intent(requireContext(), MainActivity::class.java).apply{
+//                putExtra("name",name)
+//                putExtra("photo",photo)
+//            }
+//            startActivity(intent)
 //            finish()
         }
 
@@ -127,6 +127,7 @@ class LoginFragment : Fragment() {
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
                     Log.d(TAG, "signInWithCredential:success")
+                    Toast.makeText(requireContext(),"로그인되었습니다",Toast.LENGTH_SHORT).show()
                     val user = mAuth.currentUser
                     updateUI(user)
                 } else {
@@ -138,9 +139,9 @@ class LoginFragment : Fragment() {
     }
     private fun updateUI(user: FirebaseUser?) {
         if(user!=null){
-            photo = user.photoUrl.toString()
-            name = user.displayName.toString()
-            Log.d(TAG, "updateUI: $photo, $name")
+//            photo = user.photoUrl.toString()
+//            name = user.displayName.toString()
+//            Log.d(TAG, "updateUI: $photo, $name")
             binding.btnGoogleLogin.isEnabled = true
 //            binding.loginBtn.isEnabled = true
         }else{
@@ -154,7 +155,6 @@ class LoginFragment : Fragment() {
             .requestIdToken("908521205713-bjvpeaaptikbb8h0523300hdtj9p2p33.apps.googleusercontent.com")
             .requestEmail()
             .build()
-
         mGoogleSignInClient = GoogleSignIn.getClient(requireActivity(), gso)
         mAuth = FirebaseAuth.getInstance()
         signIn()
