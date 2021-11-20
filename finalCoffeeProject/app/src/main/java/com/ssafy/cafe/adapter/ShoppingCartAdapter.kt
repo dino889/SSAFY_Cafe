@@ -35,29 +35,8 @@ class ShoppingCartAdapter : RecyclerView.Adapter<ShoppingCartAdapter.ShoppingLis
             itemView.findViewById<TextView>(R.id.tv_menuTotalPrice).text = "${CommonUtils.makeComma(data.totalPrice)}"
 
             Log.d(TAG, "bindInfo: ${data.shot} | ${data.syrup} ")
-            val type = if(data.type == 0){
-                "HOT"
-            }else{
-                "ICE"
-            }
-
-            val syrup = if(data.syrup == null || data.syrup.equals("null")){
-                "없음"
-            }else if(data.syrup.equals("설탕")){
-                "${data.syrup}(+0원)"
-            }else{
-                "${data.syrup}(+500원)"
-            }
-
-            val shot = if(data.shot == 0 || data.shot.toString().equals("null") || data.shot == null){
-                "없음"
-            }else{
-                "${data.shot}개 추가"
-            }
-
-            itemView.findViewById<TextView>(R.id.tv_menuOption).text = "$type | $syrup | 샷(+500원) $shot"
-
-
+            
+            itemView.findViewById<TextView>(R.id.tv_menuOption).text = CommonUtils.convertOptionMenu(data.type,data.syrup.toString(),data.shot!!.toInt())
 
             var tmp = itemView.findViewById<TextView>(R.id.tv_cafeMenuCnt).text.toString()
             var menuCnt = tmp[0].toString().toInt()
