@@ -59,7 +59,7 @@ class BucketFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        viewModel.nfcTaggingData = ""
         setHereOrTogo()
 
         // delete Btn click - 장바구니 리스트에서 삭제
@@ -133,13 +133,13 @@ class BucketFragment : Fragment() {
 //            "Table NFC를 찍어주세요.\n"
 //        )
         builder.setCancelable(true)
-        builder.setNegativeButton("취소"
+        builder.setNegativeButton("확인"
         ) { dialog, _ ->
 //            completedOrder()
             if(viewModel.nfcTaggingData.equals("")) {   // NFC 태깅해서 테이블 데이터가 있으면
                 Toast.makeText(requireContext(), "Table NFC를 찍어주세요.", Toast.LENGTH_SHORT).show()
             } else {
-                Log.d(TAG, "showDialogForOrderInShop: ${viewModel.nfcTaggingData}")
+//                Log.d(TAG, "showDialogForOrderInShop: ${viewModel.nfcTaggingData}")
                 isChk = true
                 makeOrderDto()
             }
