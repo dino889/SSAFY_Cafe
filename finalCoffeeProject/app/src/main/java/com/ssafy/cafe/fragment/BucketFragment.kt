@@ -2,6 +2,8 @@ package com.ssafy.cafe.fragment
 
 import android.app.AlertDialog
 import android.content.Context
+import android.location.Location
+import android.location.LocationManager
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -9,9 +11,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.gms.location.LocationCallback
+import com.google.android.gms.location.LocationResult
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
 import com.ssafy.cafe.R
 import com.ssafy.cafe.activity.MainActivity
 import com.ssafy.cafe.adapter.ShoppingCartAdapter
@@ -39,6 +47,8 @@ class BucketFragment : Fragment() {
 
     var totalPrice = 0
 
+
+    private val STORE_LOCATION = LatLng(36.10830144233874, 128.41827450414362)
     override fun onAttach(context: Context) {
         super.onAttach(context)
         mainActivity = context as MainActivity
