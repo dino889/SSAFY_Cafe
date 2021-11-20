@@ -6,5 +6,8 @@ data class UserCustom(
     val shot: Int,
     val syrup: String,
     val type: Int,
-    val userId: String
-)
+    val userId: String,
+
+){
+    var isChecked:Boolean = false
+}

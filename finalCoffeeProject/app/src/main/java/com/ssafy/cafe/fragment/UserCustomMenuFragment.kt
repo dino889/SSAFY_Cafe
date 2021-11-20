@@ -7,8 +7,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
+import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.ssafy.cafe.R
 import com.ssafy.cafe.activity.MainActivity
 import com.ssafy.cafe.adapter.CustomMenuAdapter
@@ -17,8 +21,11 @@ import com.ssafy.cafe.databinding.FragmentUserCustomMenuBinding
 import com.ssafy.cafe.dto.Product
 import com.ssafy.cafe.dto.ShoppingCart
 import com.ssafy.cafe.dto.UserCustom
+import com.ssafy.cafe.service.ProductService
 import com.ssafy.cafe.service.UserCustomService
+import com.ssafy.cafe.util.CommonUtils
 import com.ssafy.cafe.util.RetrofitCallback
+import com.ssafy.cafe.viewmodel.MainViewModel
 
 private const val TAG = "UserCustomMenuFragment"
 class UserCustomMenuFragment : Fragment() {
@@ -26,7 +33,7 @@ class UserCustomMenuFragment : Fragment() {
     private lateinit var binding: FragmentUserCustomMenuBinding
     private lateinit var customMenuAdapter: CustomMenuAdapter
     private lateinit var mainActivity: MainActivity
-
+    private val viewModel: MainViewModel by activityViewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -71,6 +78,13 @@ class UserCustomMenuFragment : Fragment() {
                     adapter!!.stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
                 }
 
+                binding.btnGotoShoppingList.setOnClickListener {
+                    for(i in 0.. responseData.size-1){
+                        if(responseData.get(i).isChecked == true){
+                            ProductService().getProductById(responseData.get(i).productId, GetProductCallback(responseData.get(i)))
+                        }
+                    }
+                }
 
             }
 
@@ -80,5 +94,31 @@ class UserCustomMenuFragment : Fragment() {
 
         })
     }
+    inner class GetProductCallback(val uc: UserCustom): RetrofitCallback<Product>{
+        override fun onError(t: Throwable) {
+            Log.d(TAG, "onError: ")
+        }
 
+        override fun onSuccess(code: Int, responseData: Product) {
+            val cart = ShoppingCart(
+                uc.productId,
+                responseData.img,
+                responseData.name,
+                1,
+                responseData.price,
+                responseData.price,
+                uc.type,
+                uc.syrup,
+                uc.shot
+            )
+            viewModel.insertShoppingCartItem(cart)
+            mainActivity.openFragment(1)
+
+        }
+
+        override fun onFailure(code: Int) {
+            Log.d(TAG, "onFailure: ")
+        }
+
+    }
 }
