@@ -37,28 +37,28 @@ class ShoppingCartAdapter : RecyclerView.Adapter<ShoppingCartAdapter.ShoppingLis
             Log.d(TAG, "bindInfo: ${data.shot} | ${data.syrup} ")
             Log.d(TAG, "bindInfo: ${data.type}  ${data.syrup}  ${data.shot}")
             itemView.findViewById<TextView>(R.id.tv_menuOption).text = CommonUtils.convertOptionMenu(data.type,data.syrup.toString(),data.shot)
-
-            var tmp = itemView.findViewById<TextView>(R.id.tv_cafeMenuCnt).text.toString()
-            var menuCnt = tmp[0].toString().toInt()
-            
-            var addBtn = itemView.findViewById<ImageButton>(R.id.ibtn_addCount)
-            addBtn.setOnClickListener {
-                Log.d(TAG, "bindInfo: addBtn")
-                menuCnt++
-                itemView.findViewById<TextView>(R.id.tv_cafeMenuCnt).text = "${menuCnt}개"
-            }
-            
-            var minusBtn = itemView.findViewById<ImageButton>(R.id.ibtn_minusCount)
-            minusBtn.setOnClickListener {
-                Log.d(TAG, "bindInfo: minusBtn")
-                if(menuCnt <= 0) {
-                    menuCnt = 0
-                    itemView.findViewById<TextView>(R.id.tv_cafeMenuCnt).text = "${menuCnt}개"
-                } else {
-                    menuCnt--
-                    itemView.findViewById<TextView>(R.id.tv_cafeMenuCnt).text = "${menuCnt}개"
-                }
-            }
+//
+//            var tmp = itemView.findViewById<TextView>(R.id.tv_cafeMenuCnt).text.toString()
+//            var menuCnt = tmp[0].toString().toInt()
+//
+//            var addBtn = itemView.findViewById<ImageButton>(R.id.ibtn_addCount)
+//            addBtn.setOnClickListener {
+//                Log.d(TAG, "bindInfo: addBtn")
+//                menuCnt++
+//                itemView.findViewById<TextView>(R.id.tv_cafeMenuCnt).text = "${menuCnt}개"
+//            }
+//
+//            var minusBtn = itemView.findViewById<ImageButton>(R.id.ibtn_minusCount)
+//            minusBtn.setOnClickListener {
+//                Log.d(TAG, "bindInfo: minusBtn")
+//                if(menuCnt <= 0) {
+//                    menuCnt = 0
+//                    itemView.findViewById<TextView>(R.id.tv_cafeMenuCnt).text = "${menuCnt}개"
+//                } else {
+//                    menuCnt--
+//                    itemView.findViewById<TextView>(R.id.tv_cafeMenuCnt).text = "${menuCnt}개"
+//                }
+//            }
         }
 
     }
