@@ -33,6 +33,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import com.bumptech.glide.Glide
 import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.iid.FirebaseInstanceIdReceiver
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.FirebaseMessaging
@@ -310,7 +311,7 @@ class MainActivity : AppCompatActivity(), BeaconConsumer {
     fun logout(){
         //preference 지우기
         ApplicationClass.sharedPreferencesUtil.deleteUser()
-
+        FirebaseAuth.getInstance().signOut()
         //화면이동
         val intent = Intent(this, LoginActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);

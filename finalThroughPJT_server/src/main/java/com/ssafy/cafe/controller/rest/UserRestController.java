@@ -145,5 +145,12 @@ public class UserRestController {
         return updateUser;
     }
     
+    @GetMapping("/chkPw")
+    @ApiOperation(value = "request parameter로 전달된 id의 사용자의 비밀번호가 일치하는지 체크한다."
+    		+ "반환 값이 true이면 해당 사용자의 해시 비밀번호가 일지", response = Boolean.class)
+    public Boolean chkPw(String id, String pw) {
+        return uService.chkPw(id, pw);
+    }
+    
     
 }

@@ -41,4 +41,12 @@ public interface UserService {
     public User getInfo(String id);
 
     void updateUserMoney(User user);
+    
+    /**
+     * 비밀번호 체크
+     * @param id
+     * @param pw
+     * @return
+     */
+    public boolean chkPw(String id, String pw);
 }

@@ -61,4 +61,9 @@ public class UserServiceImpl implements UserService {
 	public void updateUserMoney(User user) {
 		userDao.updateMoney(user);
 	}
+	
+	@Override
+	public boolean chkPw(String id, String pw) {
+		return userDao.select(id).getPass().equals(pw);
+	}
 }

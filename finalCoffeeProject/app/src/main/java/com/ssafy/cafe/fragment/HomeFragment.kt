@@ -37,6 +37,7 @@ import com.ssafy.cafe.service.ProductService
 import com.ssafy.cafe.service.UserService
 import com.ssafy.cafe.util.RetrofitCallback
 import com.ssafy.cafe.viewmodel.MainViewModel
+import org.json.JSONObject
 import java.net.HttpCookie.parse
 import java.util.Locale.LanguageRange.parse
 import java.util.logging.Level.parse
@@ -118,8 +119,17 @@ class HomeFragment : Fragment() {
             override fun onSuccess(code: Int, responseData: HashMap<String, Any>) {
                 Log.d(TAG, "onSuccess: $responseData")
                 //val grade = responseData!!["grade"]
-
-                val user = Gson().fromJson(responseData["user"].toString(), User::class.java)
+                val data = JSONObject(responseData as Map<*, *>)
+                val rawUser = data.getJSONObject("user")
+                val user = User(
+                    rawUser.getString("id"),
+                    rawUser.getString("name"),
+                    rawUser.getString("pass"),
+                    rawUser.getInt("stamps"),
+                    rawUser.getString("phone"),
+                    rawUser.getInt("money")
+                )
+//                val user = Gson().fromJson(responseData["user"].toString(), User::class.java)
 
                 Log.d(TAG, "onSuccess: ${user.stamps}")
                 binding.tvStampCount.text = "${user.stamps} /"
