@@ -42,6 +42,7 @@ import com.google.android.gms.maps.GoogleMap.OnInfoWindowClickListener
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.normal.TedPermission
+import com.ssafy.cafe.config.BaseFragment
 import com.ssafy.cafe.util.LocationPermissionManager
 import com.ssafy.cafe.util.LocationServiceManager
 import java.io.IOException
@@ -49,8 +50,8 @@ import java.util.*
 
 
 private const val TAG = "MapFragment_싸피"
-class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnInfoWindowClickListener{
-    private lateinit var binding: FragmentMapBinding
+class MapFragment : BaseFragment<FragmentMapBinding>(FragmentMapBinding::bind, R.layout.fragment_map), OnMapReadyCallback, GoogleMap.OnInfoWindowClickListener{
+//    private lateinit var binding: FragmentMapBinding
     private lateinit var mainActivity: MainActivity
 
     private val UPDATE_INTERVAL = 1000

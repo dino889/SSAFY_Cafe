@@ -27,6 +27,7 @@ import com.ssafy.cafe.R
 import com.ssafy.cafe.activity.LoginActivity
 import com.ssafy.cafe.activity.MainActivity
 import com.ssafy.cafe.config.ApplicationClass
+import com.ssafy.cafe.config.BaseFragment
 import com.ssafy.cafe.databinding.FragmentLoginBinding
 import com.ssafy.cafe.dto.User
 import com.ssafy.cafe.service.UserService
@@ -38,12 +39,12 @@ import org.mindrot.jbcrypt.BCrypt
 import java.time.chrono.JapaneseEra.values
 
 private const val TAG = "LoginFragment_싸피"
-class LoginFragment : Fragment() {
+class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::bind, R.layout.fragment_login) {
+//    private lateinit var binding: FragmentLoginBinding
     private val RC_SIGN_IN = 9001
     private lateinit var auth: FirebaseAuth
 
     private lateinit var loginActivity: LoginActivity
-    private lateinit var binding: FragmentLoginBinding
 //    lateinit var name:String
 //    lateinit var photo:String
     private lateinit var mAuth: FirebaseAuth
@@ -56,14 +57,14 @@ class LoginFragment : Fragment() {
         loginActivity = context as LoginActivity
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding = FragmentLoginBinding.inflate(inflater,container,false)
-        // Inflate the layout for this fragment
-        return binding.root
-    }
+//    override fun onCreateView(
+//        inflater: LayoutInflater, container: ViewGroup?,
+//        savedInstanceState: Bundle?
+//    ): View? {
+//        binding = FragmentLoginBinding.inflate(inflater,container,false)
+//        // Inflate the layout for this fragment
+//        return binding.root
+//    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

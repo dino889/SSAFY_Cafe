@@ -12,13 +12,15 @@ import com.ssafy.cafe.R
 import com.ssafy.cafe.activity.MainActivity
 import com.ssafy.cafe.adapter.OrderHistoryAdapter
 import com.ssafy.cafe.config.ApplicationClass
+import com.ssafy.cafe.config.BaseFragment
+import com.ssafy.cafe.databinding.FragmentOrderDetailBinding
 import com.ssafy.cafe.databinding.FragmentPayBinding
 import com.ssafy.cafe.response.LatestOrderResponse
 import com.ssafy.cafe.service.OrderService
 import com.ssafy.cafe.util.CommonUtils
 
-class PayFragment : Fragment() {
-    private lateinit var binding: FragmentPayBinding
+class PayFragment : BaseFragment<FragmentPayBinding>(FragmentPayBinding::bind, R.layout.fragment_pay) {
+//    private lateinit var binding: FragmentPayBinding
     private lateinit var historyAdapter: OrderHistoryAdapter
     private lateinit var list : List<LatestOrderResponse>
 
@@ -27,13 +29,13 @@ class PayFragment : Fragment() {
         super.onAttach(context)
         mainActivity = context as MainActivity
     }
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding = FragmentPayBinding.inflate(inflater,container,false)
-        return binding.root
-    }
+//    override fun onCreateView(
+//        inflater: LayoutInflater, container: ViewGroup?,
+//        savedInstanceState: Bundle?
+//    ): View? {
+//        binding = FragmentPayBinding.inflate(inflater,container,false)
+//        return binding.root
+//    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

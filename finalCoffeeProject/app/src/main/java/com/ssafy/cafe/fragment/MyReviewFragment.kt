@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ssafy.cafe.R
 import com.ssafy.cafe.adapter.MyReviewAdapter
 import com.ssafy.cafe.config.ApplicationClass
+import com.ssafy.cafe.config.BaseFragment
 import com.ssafy.cafe.databinding.FragmentMyReviewBinding
 import com.ssafy.cafe.dto.Comment
 import com.ssafy.cafe.service.CommentService
@@ -18,8 +19,8 @@ import com.ssafy.cafe.util.RetrofitCallback
 import com.ssafy.cafe.util.SharedPreferencesUtil
 
 private const val TAG = "MyReviewFragment"
-class MyReviewFragment : Fragment() {
-    private lateinit var binding: FragmentMyReviewBinding
+class MyReviewFragment : BaseFragment<FragmentMyReviewBinding>(FragmentMyReviewBinding::bind, R.layout.fragment_my_review) {
+//    private lateinit var binding: FragmentMyReviewBinding
     private lateinit var myReviewAdapter: MyReviewAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,14 +28,14 @@ class MyReviewFragment : Fragment() {
 
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        binding = FragmentMyReviewBinding.inflate(inflater,container,false)
-        return binding.root
-    }
+//    override fun onCreateView(
+//        inflater: LayoutInflater, container: ViewGroup?,
+//        savedInstanceState: Bundle?
+//    ): View? {
+//        // Inflate the layout for this fragment
+//        binding = FragmentMyReviewBinding.inflate(inflater,container,false)
+//        return binding.root
+//    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

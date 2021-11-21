@@ -13,6 +13,7 @@ import com.ssafy.cafe.R
 import com.ssafy.cafe.activity.MainActivity
 import com.ssafy.cafe.adapter.AllMenuAdapter
 import com.ssafy.cafe.adapter.CategoryAdapter
+import com.ssafy.cafe.config.BaseFragment
 import com.ssafy.cafe.databinding.FragmentAllMenuBinding
 import com.ssafy.cafe.dto.Category
 import com.ssafy.cafe.dto.Product
@@ -20,9 +21,9 @@ import com.ssafy.cafe.service.ProductService
 import com.ssafy.cafe.util.RetrofitCallback
 
 private const val TAG = "AllMenuFragment_싸피"
-class AllMenuFragment : Fragment() {
+class AllMenuFragment : BaseFragment<FragmentAllMenuBinding>(FragmentAllMenuBinding::bind, R.layout.fragment_all_menu) {
+//    private lateinit var binding: FragmentAllMenuBinding
     private lateinit var categoryList:List<Category>
-    private lateinit var binding: FragmentAllMenuBinding
     private lateinit var categoryAdapter:CategoryAdapter
     private lateinit var mainActivity: MainActivity
     private lateinit var allMenuAdapter : AllMenuAdapter
@@ -32,13 +33,13 @@ class AllMenuFragment : Fragment() {
         mainActivity = context as MainActivity
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding = FragmentAllMenuBinding.inflate(layoutInflater,container,false)
-        return binding.root
-    }
+//    override fun onCreateView(
+//        inflater: LayoutInflater, container: ViewGroup?,
+//        savedInstanceState: Bundle?
+//    ): View? {
+//        binding = FragmentAllMenuBinding.inflate(layoutInflater,container,false)
+//        return binding.root
+//    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

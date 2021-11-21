@@ -42,6 +42,7 @@ import com.kakao.sdk.user.UserApiClient
 import com.ssafy.cafe.R
 import com.ssafy.cafe.api.NotificationApi
 import com.ssafy.cafe.config.ApplicationClass
+import com.ssafy.cafe.config.BaseActivity
 import com.ssafy.cafe.databinding.ActivityMainBinding
 import com.ssafy.cafe.fragment.*
 import com.ssafy.cafe.response.LatestOrderResponse
@@ -56,9 +57,9 @@ import retrofit2.Callback
 import retrofit2.Response
 
 private const val TAG = "MainActivity"
-class MainActivity : AppCompatActivity(), BeaconConsumer {
+class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::inflate), BeaconConsumer {
     private val TAG = "MainActivity_싸피"
-    private lateinit var binding: ActivityMainBinding
+//    private lateinit var binding: ActivityMainBinding
     private val viewModel: MainViewModel by viewModels()
 
     //----------------------------------------------------------------------------------------------
@@ -117,10 +118,10 @@ class MainActivity : AppCompatActivity(), BeaconConsumer {
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
+//        binding = ActivityMainBinding.inflate(layoutInflater)
+//        setContentView(binding.root)
 
         Log.d(TAG, "onCreate: DeviceToken: ")
-        setContentView(binding.root)
 
         setNdef()
 

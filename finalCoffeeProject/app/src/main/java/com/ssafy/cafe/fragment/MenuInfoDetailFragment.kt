@@ -25,13 +25,14 @@ import android.widget.RadioButton
 
 import android.widget.RadioGroup
 import androidx.core.view.isVisible
+import com.ssafy.cafe.config.BaseFragment
 import com.ssafy.cafe.dto.UserCustom
 import com.ssafy.cafe.service.UserCustomService
 
 private const val TAG = "MenuInfoDetailFragment_싸피"
-class MenuInfoDetailFragment : Fragment() {
+class MenuInfoDetailFragment : BaseFragment<FragmentMenuInfoDetailBinding>(FragmentMenuInfoDetailBinding::bind, R.layout.fragment_menu_info_detail) {
     private lateinit var mainActivity : MainActivity
-    private lateinit var binding:FragmentMenuInfoDetailBinding
+//    private lateinit var binding:FragmentMenuInfoDetailBinding
 
 //    private var productId = -1
     private lateinit var productName : String
@@ -58,11 +59,11 @@ class MenuInfoDetailFragment : Fragment() {
 //        }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        binding = FragmentMenuInfoDetailBinding.inflate(inflater,container,false)
-        return binding.root
-    }
+//    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+//                              savedInstanceState: Bundle?): View? {
+//        binding = FragmentMenuInfoDetailBinding.inflate(inflater,container,false)
+//        return binding.root
+//    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

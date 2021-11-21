@@ -25,6 +25,7 @@ import com.ssafy.cafe.R
 import com.ssafy.cafe.activity.MainActivity
 import com.ssafy.cafe.adapter.ShoppingCartAdapter
 import com.ssafy.cafe.config.ApplicationClass
+import com.ssafy.cafe.config.BaseFragment
 import com.ssafy.cafe.databinding.FragmentBucketBinding
 import com.ssafy.cafe.dto.Order
 import com.ssafy.cafe.dto.OrderDetail
@@ -40,11 +41,11 @@ import com.ssafy.cafe.viewmodel.MainViewModel
 import java.lang.Math.*
 import java.text.DecimalFormat
 
-class BucketFragment : Fragment() {
+class BucketFragment : BaseFragment<FragmentBucketBinding>(FragmentBucketBinding::bind, R.layout.fragment_bucket) {
     private val TAG = "BucketFragment_싸피"
+//    private lateinit var binding: FragmentBucketBinding
     private lateinit var shoppingListRecyclerView: RecyclerView
     private lateinit var shoppingListAdapter : ShoppingCartAdapter
-    private lateinit var binding: FragmentBucketBinding
     private lateinit var mainActivity: MainActivity
     private val viewModel: MainViewModel by activityViewModels()
     private var hereOrTogo : Boolean = true // table : true, TakeOut : false
@@ -78,13 +79,13 @@ class BucketFragment : Fragment() {
         mainActivity.hideBottomNav(true)
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding = FragmentBucketBinding.inflate(inflater,container,false)
-        return binding.root
-    }
+//    override fun onCreateView(
+//        inflater: LayoutInflater, container: ViewGroup?,
+//        savedInstanceState: Bundle?
+//    ): View? {
+//        binding = FragmentBucketBinding.inflate(inflater,container,false)
+//        return binding.root
+//    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

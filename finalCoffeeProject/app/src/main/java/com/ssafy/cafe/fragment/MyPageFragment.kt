@@ -13,10 +13,11 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
-import com.google.gson.reflect.TypeToken
+//import com.google.gson.reflect.TypeToken
 import com.ssafy.cafe.R
 import com.ssafy.cafe.activity.MainActivity
 import com.ssafy.cafe.config.ApplicationClass
+import com.ssafy.cafe.config.BaseFragment
 import com.ssafy.cafe.databinding.FragmentMyPageBinding
 import com.ssafy.cafe.dto.Comment
 import com.ssafy.cafe.dto.Order
@@ -33,8 +34,8 @@ import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
 
 private const val TAG = "MyPageFragment"
-class MyPageFragment : Fragment() {
-    private lateinit var binding : FragmentMyPageBinding
+class MyPageFragment : BaseFragment<FragmentMyPageBinding>(FragmentMyPageBinding::bind, R.layout.fragment_my_page) {
+//    private lateinit var binding : FragmentMyPageBinding
     private lateinit var mainActivity: MainActivity
     var settingList = arrayListOf<Setting>(
         Setting("headphone","고객센터"),
@@ -46,13 +47,13 @@ class MyPageFragment : Fragment() {
         super.onAttach(context)
         mainActivity = context as MainActivity
     }
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding = FragmentMyPageBinding.inflate(inflater,container,false)
-        return binding.root
-    }
+//    override fun onCreateView(
+//        inflater: LayoutInflater, container: ViewGroup?,
+//        savedInstanceState: Bundle?
+//    ): View? {
+//        binding = FragmentMyPageBinding.inflate(inflater,container,false)
+//        return binding.root
+//    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

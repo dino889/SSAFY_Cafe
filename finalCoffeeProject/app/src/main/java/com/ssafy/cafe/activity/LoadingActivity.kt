@@ -9,22 +9,25 @@ import android.os.Handler
 import android.util.Log
 import com.ssafy.cafe.R
 import com.kakao.sdk.common.util.Utility
+import com.ssafy.cafe.config.BaseActivity
+import com.ssafy.cafe.databinding.ActivityLoadingBinding
+import com.ssafy.cafe.databinding.ActivityMainBinding
 
-class LoadingActivity : AppCompatActivity() {
+class LoadingActivity : BaseActivity<ActivityLoadingBinding>(ActivityLoadingBinding::inflate) {
     private val SPLASH_TIME:Long = 1000 // 4000
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_loading)
+//        setContentView(R.layout.activity_loading)
 
         Handler().postDelayed({
             startActivity(Intent(this, LoginActivity::class.java))
             finish()
         }, SPLASH_TIME)
 
-        var keyHash = Utility.getKeyHash(this)
-        Log.v("kakao", keyHash)
+//        var keyHash = Utility.getKeyHash(this)
+//        Log.v("kakao", keyHash)
     }
 
 }

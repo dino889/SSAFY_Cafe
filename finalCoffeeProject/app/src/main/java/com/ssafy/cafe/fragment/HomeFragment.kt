@@ -26,6 +26,7 @@ import com.ssafy.cafe.activity.MainActivity
 import com.ssafy.cafe.adapter.BestMenuAdapter
 import com.ssafy.cafe.adapter.LastOrderAdapter
 import com.ssafy.cafe.config.ApplicationClass
+import com.ssafy.cafe.config.BaseFragment
 import com.ssafy.cafe.databinding.FragmentHomeBinding
 import com.ssafy.cafe.dto.ShoppingCart
 import com.ssafy.cafe.dto.User
@@ -43,24 +44,26 @@ import java.util.Locale.LanguageRange.parse
 import java.util.logging.Level.parse
 
 private const val TAG = "HomeFragment"
-class HomeFragment : Fragment() {
+class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::bind, R.layout.fragment_home) {
+//    private lateinit var binding:FragmentHomeBinding
     private var lastOrderAdapter : LastOrderAdapter = LastOrderAdapter()
     private var bestMenuAdapter : BestMenuAdapter = BestMenuAdapter()
     private val viewModel: MainViewModel by activityViewModels()
     private lateinit var mainActivity: MainActivity
-    private lateinit var binding:FragmentHomeBinding
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
         mainActivity = context as MainActivity
     }
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        binding = FragmentHomeBinding.inflate(inflater,container,false)
-        return binding.root
-    }
+
+//    override fun onCreateView(
+//        inflater: LayoutInflater, container: ViewGroup?,
+//        savedInstanceState: Bundle?
+//    ): View? {
+//        // Inflate the layout for this fragment
+//        binding = FragmentHomeBinding.inflate(inflater,container,false)
+//        return binding.root
+//    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -68,6 +71,7 @@ class HomeFragment : Fragment() {
         initAdapter()
         getData()
     }
+
     fun getData() {
         val liveData = OrderService().getLastMonthOrder(ApplicationClass.sharedPreferencesUtil.getUser().id)
         liveData.observe(viewLifecycleOwner) {

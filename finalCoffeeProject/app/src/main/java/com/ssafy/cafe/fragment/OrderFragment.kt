@@ -11,11 +11,13 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.ssafy.cafe.R
 import com.ssafy.cafe.activity.MainActivity
 import com.ssafy.cafe.adapter.OrderMenuPagerAdapter
+import com.ssafy.cafe.config.BaseFragment
 import com.ssafy.cafe.databinding.FragmentOrderBinding
+import com.ssafy.cafe.databinding.FragmentOrderDetailBinding
 
-class OrderFragment : Fragment() {
+class OrderFragment : BaseFragment<FragmentOrderBinding>(FragmentOrderBinding::bind, R.layout.fragment_order) {
 
-    private lateinit var binding:FragmentOrderBinding
+//    private lateinit var binding:FragmentOrderBinding
     private lateinit var mainActivity: MainActivity
     private lateinit var pagerAdapter:OrderMenuPagerAdapter
 
@@ -23,14 +25,14 @@ class OrderFragment : Fragment() {
         super.onAttach(context)
         mainActivity = context as MainActivity
     }
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        binding = FragmentOrderBinding.inflate(layoutInflater,container,false)
-        return binding.root
-    }
+//    override fun onCreateView(
+//        inflater: LayoutInflater, container: ViewGroup?,
+//        savedInstanceState: Bundle?
+//    ): View? {
+//        // Inflate the layout for this fragment
+//        binding = FragmentOrderBinding.inflate(layoutInflater,container,false)
+//        return binding.root
+//    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

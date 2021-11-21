@@ -10,9 +10,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import com.bumptech.glide.Glide
 import com.google.android.material.tabs.TabLayout
+import com.ssafy.cafe.R
 import com.ssafy.cafe.activity.MainActivity
 import com.ssafy.cafe.adapter.CommentAdapter
 import com.ssafy.cafe.config.ApplicationClass
+import com.ssafy.cafe.config.BaseFragment
 import com.ssafy.cafe.databinding.FragmentMenuDetailBinding
 import com.ssafy.cafe.response.MenuDetailWithCommentResponse
 import com.ssafy.cafe.service.ProductService
@@ -20,9 +22,9 @@ import com.ssafy.cafe.util.RetrofitCallback
 import com.ssafy.cafe.viewmodel.MainViewModel
 
 private const val TAG = "MenuDetailFragment_싸피"
-class MenuDetailFragment : Fragment() {
+class MenuDetailFragment : BaseFragment<FragmentMenuDetailBinding>(FragmentMenuDetailBinding::bind, R.layout.fragment_menu_detail) {
     private lateinit var mainActivity : MainActivity
-    private lateinit var binding : FragmentMenuDetailBinding
+//    private lateinit var binding : FragmentMenuDetailBinding
     private val viewModel: MainViewModel by activityViewModels()
 
     private var productId = -1
@@ -41,13 +43,13 @@ class MenuDetailFragment : Fragment() {
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding = FragmentMenuDetailBinding.inflate(inflater, container, false)
-        return binding.root
-    }
+//    override fun onCreateView(
+//        inflater: LayoutInflater, container: ViewGroup?,
+//        savedInstanceState: Bundle?
+//    ): View? {
+//        binding = FragmentMenuDetailBinding.inflate(inflater, container, false)
+//        return binding.root
+//    }
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

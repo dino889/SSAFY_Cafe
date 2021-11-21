@@ -15,6 +15,7 @@ import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.ssafy.cafe.R
 import com.ssafy.cafe.activity.LoginActivity
+import com.ssafy.cafe.config.BaseFragment
 import com.ssafy.cafe.databinding.FragmentJoinBinding
 import com.ssafy.cafe.dto.User
 import com.ssafy.cafe.service.UserService
@@ -23,17 +24,17 @@ import retrofit2.Response.error
 import java.util.regex.Pattern
 
 private const val TAG = "JoinFragment_싸피"
-class JoinFragment : Fragment() {
-    lateinit var binding: FragmentJoinBinding
+class JoinFragment : BaseFragment<FragmentJoinBinding>(FragmentJoinBinding::bind, R.layout.fragment_join) {
+//    lateinit var binding: FragmentJoinBinding
     private var dupChkId = false    // Id 중복 확인 여부 체크, true - 중복O, false - 중복X
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding = FragmentJoinBinding.inflate(inflater,container,false)
-        return binding.root
-    }
+//    override fun onCreateView(
+//        inflater: LayoutInflater, container: ViewGroup?,
+//        savedInstanceState: Bundle?
+//    ): View? {
+//        binding = FragmentJoinBinding.inflate(inflater,container,false)
+//        return binding.root
+//    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

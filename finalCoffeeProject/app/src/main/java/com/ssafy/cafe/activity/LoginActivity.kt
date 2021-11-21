@@ -16,19 +16,21 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.ssafy.cafe.R
 import com.ssafy.cafe.config.ApplicationClass.Companion.sharedPreferencesUtil
+import com.ssafy.cafe.config.BaseActivity
+import com.ssafy.cafe.databinding.ActivityLoadingBinding
 import com.ssafy.cafe.databinding.ActivityLoginBinding
 import com.ssafy.cafe.fragment.JoinFragment
 import com.ssafy.cafe.fragment.LoginFragment
 
 private const val TAG = "LoginActivity"
-class LoginActivity : AppCompatActivity() {
+class LoginActivity : BaseActivity<ActivityLoginBinding>(ActivityLoginBinding::inflate) {
 
 
-    private lateinit var binding: ActivityLoginBinding
+//    private lateinit var binding: ActivityLoginBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityLoginBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+//        binding = ActivityLoginBinding.inflate(layoutInflater)
+//        setContentView(binding.root)
 
         var user = sharedPreferencesUtil.getUser()
 

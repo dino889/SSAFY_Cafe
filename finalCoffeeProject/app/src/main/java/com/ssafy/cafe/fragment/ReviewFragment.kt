@@ -20,6 +20,8 @@ import com.ssafy.cafe.R
 import com.ssafy.cafe.activity.MainActivity
 import com.ssafy.cafe.adapter.CommentAdapter
 import com.ssafy.cafe.config.ApplicationClass
+import com.ssafy.cafe.config.BaseFragment
+import com.ssafy.cafe.databinding.FragmentOrderDetailBinding
 import com.ssafy.cafe.databinding.FragmentReviewBinding
 import com.ssafy.cafe.dto.Comment
 import com.ssafy.cafe.response.MenuDetailWithCommentResponse
@@ -31,9 +33,9 @@ import com.ssafy.cafe.viewmodel.MainViewModel
 import kotlin.math.round
 
 private const val TAG = "ReviewFragment_싸피"
-class ReviewFragment : Fragment() {
+class ReviewFragment : BaseFragment<FragmentReviewBinding>(FragmentReviewBinding::bind, R.layout.fragment_review) {
     private lateinit var mainActivity : MainActivity
-    private lateinit var binding : FragmentReviewBinding
+//    private lateinit var binding : FragmentReviewBinding
     private val viewModel: MainViewModel by activityViewModels()
 //    lateinit var prodWithComment: MenuDetailWithCommentResponse
     private var productId = -1
@@ -56,13 +58,13 @@ class ReviewFragment : Fragment() {
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding = FragmentReviewBinding.inflate(inflater, container, false)
-        return binding.root
-    }
+//    override fun onCreateView(
+//        inflater: LayoutInflater, container: ViewGroup?,
+//        savedInstanceState: Bundle?
+//    ): View? {
+//        binding = FragmentReviewBinding.inflate(inflater, container, false)
+//        return binding.root
+//    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

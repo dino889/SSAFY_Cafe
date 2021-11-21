@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ssafy.cafe.R
 import com.ssafy.cafe.activity.MainActivity
 import com.ssafy.cafe.adapter.OrderDetailAdapter
+import com.ssafy.cafe.config.BaseFragment
 import com.ssafy.cafe.databinding.FragmentOrderDetailBinding
 import com.ssafy.cafe.dto.Order
 import com.ssafy.cafe.response.OrderDetailResponse
@@ -20,11 +21,11 @@ import com.ssafy.cafe.service.OrderService
 import com.ssafy.cafe.util.CommonUtils
 
 private const val TAG = "OrderDetailFragment"
-class OrderDetailFragment : Fragment() {
+class OrderDetailFragment : BaseFragment<FragmentOrderDetailBinding>(FragmentOrderDetailBinding::bind, R.layout.fragment_order_detail) {
     private lateinit var mainActivity : MainActivity
     private lateinit var orderDetailAdapter: OrderDetailAdapter
     private lateinit var list:List<OrderDetailResponse>
-    private lateinit var binding: FragmentOrderDetailBinding
+//    private lateinit var binding: FragmentOrderDetailBinding
     private var orderId = -1
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -39,14 +40,14 @@ class OrderDetailFragment : Fragment() {
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        binding = FragmentOrderDetailBinding.inflate(inflater,container,false)
-        return binding.root
-    }
+//    override fun onCreateView(
+//        inflater: LayoutInflater, container: ViewGroup?,
+//        savedInstanceState: Bundle?
+//    ): View? {
+//        // Inflate the layout for this fragment
+//        binding = FragmentOrderDetailBinding.inflate(inflater,container,false)
+//        return binding.root
+//    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

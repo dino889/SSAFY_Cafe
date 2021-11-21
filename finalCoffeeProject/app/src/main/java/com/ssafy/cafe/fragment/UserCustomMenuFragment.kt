@@ -17,6 +17,8 @@ import com.ssafy.cafe.R
 import com.ssafy.cafe.activity.MainActivity
 import com.ssafy.cafe.adapter.CustomMenuAdapter
 import com.ssafy.cafe.config.ApplicationClass
+import com.ssafy.cafe.config.BaseFragment
+import com.ssafy.cafe.databinding.FragmentOrderDetailBinding
 import com.ssafy.cafe.databinding.FragmentUserCustomMenuBinding
 import com.ssafy.cafe.dto.Product
 import com.ssafy.cafe.dto.ShoppingCart
@@ -28,9 +30,9 @@ import com.ssafy.cafe.util.RetrofitCallback
 import com.ssafy.cafe.viewmodel.MainViewModel
 
 private const val TAG = "UserCustomMenuFragment"
-class UserCustomMenuFragment : Fragment() {
+class UserCustomMenuFragment : BaseFragment<FragmentUserCustomMenuBinding>(FragmentUserCustomMenuBinding::bind, R.layout.fragment_user_custom_menu) {
 
-    private lateinit var binding: FragmentUserCustomMenuBinding
+//    private lateinit var binding: FragmentUserCustomMenuBinding
     private lateinit var customMenuAdapter: CustomMenuAdapter
     private lateinit var mainActivity: MainActivity
     private val viewModel: MainViewModel by activityViewModels()
@@ -43,14 +45,14 @@ class UserCustomMenuFragment : Fragment() {
         mainActivity = context as MainActivity
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        binding = FragmentUserCustomMenuBinding.inflate(layoutInflater,container,false)
-        return binding.root
-    }
+//    override fun onCreateView(
+//        inflater: LayoutInflater, container: ViewGroup?,
+//        savedInstanceState: Bundle?
+//    ): View? {
+//        // Inflate the layout for this fragment
+//        binding = FragmentUserCustomMenuBinding.inflate(layoutInflater,container,false)
+//        return binding.root
+//    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
