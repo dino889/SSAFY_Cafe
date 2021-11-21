@@ -1,4 +1,4 @@
-package com.ssafy.cafe.firebase;
+package com.ssafy.cafe.controller.rest;
 
 
 import java.io.IOException;
@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.ssafy.cafe.firebase.FirebaseCloudMessageService;
 
 @RestController
 @CrossOrigin("*")

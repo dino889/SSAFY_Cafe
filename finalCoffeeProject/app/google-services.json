@@ -22,6 +22,14 @@
           }
         },
         {
+          "client_id": "908521205713-9v32kn3puoam86q9s800a4pvh8loaoo5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ssafy.cafe",
+            "certificate_hash": "9d601cbb2c88ec77e8a98a620c499b2bfcfeccf4"
+          }
+        },
+        {
           "client_id": "908521205713-d2l3vbj19li7sh8abs8arqfge7kip43k.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

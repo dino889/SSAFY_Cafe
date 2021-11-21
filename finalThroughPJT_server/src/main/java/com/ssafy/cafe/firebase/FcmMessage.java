@@ -1,5 +1,8 @@
 package com.ssafy.cafe.firebase;
 
+import java.util.Map;
+
+
 public class FcmMessage {
 	 private boolean validate_only;
 	    private Message message;
@@ -41,7 +44,19 @@ public class FcmMessage {
 	        private Notification notification;
 	        private String token;
 	        
-	        public Message() {}
+	        // background에서 보내려면
+	        private Map<String, String> data;
+	        
+	        public Map<String, String> getData() {
+				return data;
+			}
+
+			public void setData(Map<String, String> data) {
+				this.data = data;
+			}
+			//
+
+			public Message() {}
 	        
 			public Message(Notification notification, String token) {
 				super();
@@ -62,6 +77,7 @@ public class FcmMessage {
 			}
 
 	    }
+
 
 		/** Notification
 		 * 

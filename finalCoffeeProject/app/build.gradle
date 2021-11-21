@@ -85,7 +85,7 @@ dependencies {
     implementation 'me.relex:circleindicator:2.1.6'
 
     // FCM 사용 위한 plugins
-    implementation platform('com.google.firebase:firebase-bom:28.1.0')
+    implementation platform('com.google.firebase:firebase-bom:28.2.0')
     implementation 'com.google.firebase:firebase-messaging-ktx'
 
     // Beacon 사용위한 Dependency 추가

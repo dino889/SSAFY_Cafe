@@ -24,24 +24,23 @@ public class FinalThroughPJTProjectApplication {
 		SpringApplication.run(FinalThroughPJTProjectApplication.class, args);
 	}
 	
-	   @Bean
-	    public Docket postsApi() {	       final ApiInfo apiInfo = new ApiInfoBuilder()
-	               .title("SSAFY Cafe Rest API")
-	               .description("<h3>SSAFY Cafe에서 제공되는 Rest api의 문서 제공</h3>")
-	               .contact(new Contact("Jiwoo", "https://edu.ssafy.com", "ji_woo__@naver.com"))
-	               .license("MIT License")
-	               .version("1.0")
-	               .build();
-	       
-	        Docket docket = new Docket(DocumentationType.SWAGGER_2)
-	                .groupName("ssafyVueBookWS")
-	                .apiInfo(apiInfo)
-	                .select()
-	                .apis(RequestHandlerSelectors.basePackage("com.ssafy.cafe.controller.rest"))
+   @Bean
+    public Docket postsApi() {
+	   final ApiInfo apiInfo = new ApiInfoBuilder()
+               .title("SSAFY Cafe Rest API")
+               .description("<h3>SSAFY Cafe에서 제공되는 Rest api의 문서 제공</h3>")
+               .contact(new Contact("Jiwoo", "https://edu.ssafy.com", "ji_woo__@naver.com"))
+               .license("MIT License")
+               .version("1.0")
+               .build();
+       
+        Docket docket = new Docket(DocumentationType.SWAGGER_2)
+                .groupName("ssafyVueBookWS")
+                .apiInfo(apiInfo)
+                .select()
+                .apis(RequestHandlerSelectors.basePackage("com.ssafy.cafe.controller.rest"))
 //	              .paths(PathSelectors.ant("/book/**"))
-	                .build();
-	        return docket;
-	    }
-
-
+                .build();
+        return docket;
+    }
 }

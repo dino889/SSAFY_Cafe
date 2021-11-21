@@ -3,7 +3,10 @@ package com.ssafy.cafe.firebase;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import org.apache.http.HttpHeaders;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,7 +39,7 @@ public class FirebaseCloudMessageService {
      * @throws IOException
      */
     private String getAccessToken() throws IOException {
-        String firebaseConfigPath = "firebase/final-coffee-project-firebase-adminsdk-4oo90-d17bb42466.json";
+        String firebaseConfigPath = "firebase/firebase_service_key.json";
 
         // GoogleApi를 사용하기 위해 oAuth2를 이용해 인증한 대상을 나타내는객체
         GoogleCredentials googleCredentials = GoogleCredentials
@@ -47,7 +50,7 @@ public class FirebaseCloudMessageService {
         
         googleCredentials.refreshIfExpired();
         String token = googleCredentials.getAccessToken().getTokenValue();
-        logger.info(token.toString());
+//        logger.info(token.toString());
         return token;
     }
     
@@ -59,11 +62,18 @@ public class FirebaseCloudMessageService {
      * @return
      * @throws JsonProcessingException
      */
-    
-    private String makeMessage(String targetToken, String title, String body) throws JsonProcessingException{
+    // 누구한테 title, body 보낼건지
+    private String makeMessage(String targetToken, String title, String body) throws JsonProcessingException {
+//        Notification noti = new FcmMessage.Notification(title, body, null);
+//        Message message = new FcmMessage.Message(noti, targetToken);
+    	// 추가 - background 구동
+    	Message message = new FcmMessage.Message(null, targetToken);
+    	Map<String, String> data = new HashMap<>();
+    	data.put("title", title);
+    	data.put("body", body);
     	
-        Notification noti = new FcmMessage.Notification(title, body, null);
-        Message message = new FcmMessage.Message(noti, targetToken);
+    	message.setData(data);
+    	
         FcmMessage fcmMessage = new FcmMessage(false, message);
         
         return objectMapper.writeValueAsString(fcmMessage);
@@ -85,7 +95,7 @@ public class FirebaseCloudMessageService {
         Request request = new Request.Builder()
                 .url(API_URL)
                 .post(requestBody)
-                // 전송 토큰 추가
+                // 전송 토큰 추가 - 서버로 부터 받은 토큰 값
                 .addHeader(HttpHeaders.AUTHORIZATION, "Bearer " + getAccessToken())
                 .addHeader(HttpHeaders.CONTENT_TYPE, "application/json; UTF-8")
                 .build();

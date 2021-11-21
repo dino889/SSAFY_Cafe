@@ -40,6 +40,7 @@ import com.google.firebase.messaging.FirebaseMessaging
 import com.google.firebase.messaging.ktx.messaging
 import com.kakao.sdk.user.UserApiClient
 import com.ssafy.cafe.R
+import com.ssafy.cafe.api.FirebaseTokenService
 import com.ssafy.cafe.api.NotificationApi
 import com.ssafy.cafe.config.ApplicationClass
 import com.ssafy.cafe.config.BaseActivity
@@ -233,6 +234,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
                 = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         notificationManager.createNotificationChannel(channel)
     }
+
     fun initUserName(){
 
         var user = ApplicationClass.sharedPreferencesUtil.getUser()
@@ -645,7 +647,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
         // ratrofit  수업 후 network 에 업로드 할 수 있도록 구성
         fun uploadToken(token:String){
             // 새로운 토큰 수신 시 서버로 전송
-            val storeService = ApplicationClass.retrofit.create(NotificationApi::class.java)
+            val storeService = ApplicationClass.retrofit.create(FirebaseTokenService::class.java)
             storeService.uploadToken(token).enqueue(object : Callback<String> {
                 override fun onResponse(call: Call<String>, response: Response<String>) {
                     if(response.isSuccessful){
