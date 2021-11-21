@@ -1,5 +1,7 @@
 package com.ssafy.cafe.model.dto;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.util.Date;
 import java.util.List;
 
@@ -12,6 +14,8 @@ public class Order {
 
     private Integer completed;	// 1 or 0
     private List<OrderDetail> details ;
+    
+    private PropertyChangeSupport support;
     
     public Order(Integer id, String userId, String orderTable, Date orderTime, Integer complited) {
         this.id = id;
@@ -28,7 +32,17 @@ public class Order {
         this.completed = complited;
     }
     
-    public Order() {}
+    public Order() {
+    	support = new PropertyChangeSupport(this);
+    }
+
+    public void addPropertyChangeListener(PropertyChangeListener pcl) {
+        support.addPropertyChangeListener(pcl);
+    }
+
+    public void removePropertyChangeListener(PropertyChangeListener pcl) {
+        support.removePropertyChangeListener(pcl);
+    }
 
         
 	public Integer getId() {
@@ -68,6 +82,7 @@ public class Order {
 	}
 
 	public void setCompleted(Integer completed) {
+		support.firePropertyChange("orderState", this.completed, completed);
 		this.completed = completed;
 	}
 

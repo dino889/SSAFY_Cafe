@@ -212,6 +212,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
             // token log 남기기
             Log.d(TAG, "token: ${task.result?:"task.result is null"}")
             uploadToken(task.result!!)
+            viewModel.token = task.result!!
         })
         createNotificationChannel(channel_id, "ssafy")
 
@@ -639,6 +640,13 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
             }
         }
     }
+
+
+    override fun onDestroy() {
+        dialog.dismiss()
+        super.onDestroy()
+    }
+
 
 
     companion object{

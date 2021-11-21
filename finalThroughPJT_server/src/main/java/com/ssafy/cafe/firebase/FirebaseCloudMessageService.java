@@ -10,14 +10,19 @@ import java.util.Map;
 import org.apache.http.HttpHeaders;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeansException;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.ssafy.cafe.firebase.*;
 import com.ssafy.cafe.firebase.FcmMessage.Message;
 import com.ssafy.cafe.firebase.FcmMessage.Notification;
+import com.ssafy.cafe.model.service.UserServiceImpl;
+
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -26,9 +31,22 @@ import okhttp3.Response;
 
 
 @Component
+//@Service
 public class FirebaseCloudMessageService {
-	private static final Logger logger = LoggerFactory.getLogger(FirebaseCloudMessageService.class);
 
+    private static FirebaseCloudMessageService instance = new FirebaseCloudMessageService();
+
+    private FirebaseCloudMessageService() {
+		this.objectMapper = new ObjectMapper();
+	}
+
+    public static FirebaseCloudMessageService getInstance() {
+        return instance;
+    }
+    
+	
+   private static final Logger logger = LoggerFactory.getLogger(FirebaseCloudMessageService.class);
+   
     public final ObjectMapper objectMapper;
 
     private final String API_URL = "https://fcm.googleapis.com/v1/projects/final-coffee-project/messages:send";
@@ -66,14 +84,14 @@ public class FirebaseCloudMessageService {
     private String makeMessage(String targetToken, String title, String body) throws JsonProcessingException {
 //        Notification noti = new FcmMessage.Notification(title, body, null);
 //        Message message = new FcmMessage.Message(noti, targetToken);
-    	// 추가 - background 구동
-    	Message message = new FcmMessage.Message(null, targetToken);
-    	Map<String, String> data = new HashMap<>();
-    	data.put("title", title);
-    	data.put("body", body);
-    	
-    	message.setData(data);
-    	
+       // 추가 - background 구동
+       Message message = new FcmMessage.Message(null, targetToken);
+       Map<String, String> data = new HashMap<>();
+       data.put("title", title);
+       data.put("body", body);
+       
+       message.setData(data);
+       
         FcmMessage fcmMessage = new FcmMessage(false, message);
         
         return objectMapper.writeValueAsString(fcmMessage);
@@ -110,7 +128,7 @@ public class FirebaseCloudMessageService {
     private List<String> clientTokens = new ArrayList<>();
     
     public FirebaseCloudMessageService(ObjectMapper objectMapper){
-    	this.objectMapper = objectMapper;
+       this.objectMapper = objectMapper;
     }
 
     
@@ -122,7 +140,7 @@ public class FirebaseCloudMessageService {
     // 등록된 모든 토큰을 이용해서 broadcasting
     public int broadCastMessage(String title, String body) throws IOException {
        for(String token: clientTokens) {
-    	   logger.debug("broadcastmessage : {},{},{}",token, title, body);
+          logger.debug("broadcastmessage : {},{},{}",token, title, body);
            sendMessageTo(token, title, body);
        }
        return clientTokens.size();

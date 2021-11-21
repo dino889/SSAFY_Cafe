@@ -37,6 +37,7 @@ public class OrderServiceImpl implements OrderService {
   
     Logger logger = LoggerFactory.getLogger(getClass());
     
+    
     @Override
     @Transactional
     public void makeOrder(Order order) {
@@ -77,6 +78,19 @@ public class OrderServiceImpl implements OrderService {
     static int count = 1;
     @Override
     public void updateOrder(Order order) {
+//    	Order observable = new Order();
+//        PCLNewsChannel observer = new PCLNewsChannel();
+//
+//        observable.addPropertyChangeListener(observer);
+//
+//        observable.setCompleted(3);
+//    	oDao.update(order);
+    	Order observable = new Order();
+        PCLNewsChannel observer = new PCLNewsChannel();
+
+        observable.addPropertyChangeListener(observer);
+
+        
     	logger.info("updateOrder");
     	Timer timer = new Timer();
     	TimerTask task = new TimerTask() {
@@ -86,6 +100,7 @@ public class OrderServiceImpl implements OrderService {
 				logger.info(" 1:" + order.getCompleted());
 				order.setCompleted(order.getCompleted()+1);
 				oDao.update(order);
+				observable.setCompleted(order.getCompleted());
 				logger.info(order.toString());
 				
 				if(order.getCompleted() >3)

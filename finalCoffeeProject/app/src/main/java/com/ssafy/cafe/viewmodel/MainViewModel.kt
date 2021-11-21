@@ -70,4 +70,6 @@ class MainViewModel : ViewModel() {
         value = 0
     }
 
+    var token : String = ""
+
 }
