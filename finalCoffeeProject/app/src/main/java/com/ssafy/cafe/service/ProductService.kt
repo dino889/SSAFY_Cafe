@@ -125,4 +125,24 @@ class ProductService {
 
         })
     }
+
+    fun selectByName(name:String, callback: RetrofitCallback<List<Product>>){
+        RetrofitUtil.productService.selectByName(name).enqueue(object :Callback<List<Product>>{
+            override fun onResponse(call: Call<List<Product>>, response: Response<List<Product>>) {
+                var res = response.body()
+                if(response.code() == 200){
+                    if(res != null){
+                        callback.onSuccess(response.code(), res)
+                    }
+                }else{
+                    callback.onFailure(response.code())
+                }
+            }
+
+            override fun onFailure(call: Call<List<Product>>, t: Throwable) {
+                callback.onError(t)
+            }
+
+        })
+    }
 }

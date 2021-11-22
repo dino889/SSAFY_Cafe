@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ssafy.cafe.R
@@ -28,33 +29,58 @@ class AllMenuFragment : BaseFragment<FragmentAllMenuBinding>(FragmentAllMenuBind
     private lateinit var mainActivity: MainActivity
     private lateinit var allMenuAdapter : AllMenuAdapter
 
+    private var clicked = false
     override fun onAttach(context: Context) {
         super.onAttach(context)
         mainActivity = context as MainActivity
     }
 
-//    override fun onCreateView(
-//        inflater: LayoutInflater, container: ViewGroup?,
-//        savedInstanceState: Bundle?
-//    ): View? {
-//        binding = FragmentAllMenuBinding.inflate(layoutInflater,container,false)
-//        return binding.root
-//    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         initCategoryAdapter()
-    }
 
+    }
+    fun initSearch(search:String){
+        ProductService().selectByName(search, object : RetrofitCallback<List<Product>>{
+            override fun onError(t: Throwable) {
+                Log.d(TAG, "onError: ")
+            }
+
+            override fun onSuccess(code: Int, responseData: List<Product>) {
+                clicked = true
+                responseData.let{
+                    allMenuAdapter = AllMenuAdapter(responseData)
+                }
+                binding.rvCafeMenuList.apply{
+                    val linearLayoutManager = LinearLayoutManager(context)
+                    linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
+                    layoutManager = linearLayoutManager
+                    adapter = allMenuAdapter
+                    adapter!!.stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
+                }
+            }
+
+            override fun onFailure(code: Int) {
+                Log.d(TAG, "onFailure: ")
+            }
+
+        })
+
+    }
     private fun initData() {
-        ProductService().getProductWithTypeList("coffee", ProductCallback())
+
+//        ProductService().getProductWithTypeList("coffee", ProductCallback())
+
+        ProductService().getProductList(ProductCallback())
     }
 
     private fun initCategoryAdapter(){
         initData()  // default : coffee
 
         categoryList = arrayListOf(
+            Category(0,"All"),
             Category(1,"coffee"),
             Category(2,"frappuccino"),
             Category(3,"ade"),
@@ -66,7 +92,18 @@ class AllMenuFragment : BaseFragment<FragmentAllMenuBinding>(FragmentAllMenuBind
         categoryAdapter.setItemClickListener(object : CategoryAdapter.ItemClickListener {
             override fun onClick(view: View, position: Int, categoryId: Int) {
                 val category = categoryList[position]
-                ProductService().getProductWithTypeList(category.category, ProductCallback())
+                if(position == 0){
+                    ProductService().getProductList(ProductCallback())
+                    binding.llSearchlayout.isVisible = true
+                    binding.ibtnSerach.setOnClickListener {
+                        initSearch(binding.etSearchText.text.toString());
+                    }
+                }else{
+                    binding.llSearchlayout.isVisible = false
+                    ProductService().getProductWithTypeList(category.category, ProductCallback())
+
+                }
+
             }
         })
 
@@ -115,8 +152,43 @@ class AllMenuFragment : BaseFragment<FragmentAllMenuBinding>(FragmentAllMenuBind
             Log.d(TAG, "onResponse: Error Code $code")
         }
     }
-    
-    
+
+    inner class SearchCallback: RetrofitCallback<List<Product>> {
+        override fun onSuccess( code: Int, productWithSearch: List<Product>) {
+
+            Log.d(TAG, "ProductCallback: $productWithSearch")
+
+            productWithSearch.let {
+                allMenuAdapter = AllMenuAdapter(productWithSearch)
+
+                allMenuAdapter.setItemClickListener(object : AllMenuAdapter.ItemClickListener {
+                    override fun onClick(view: View, position: Int, productId:Int) {
+                        Log.d(TAG, "onClick: $productId")
+                        mainActivity.openFragment(3, "productId", productId)
+                    }
+                })
+            }
+
+            binding.rvCafeMenuList.apply {
+                val linearLayoutManager = LinearLayoutManager(context)
+                linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
+                layoutManager = linearLayoutManager
+                adapter = allMenuAdapter
+                //원래의 목록위치로 돌아오게함
+                adapter!!.stateRestorationPolicy =
+                    RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
+            }
+
+        }
+
+        override fun onError(t: Throwable) {
+            Log.d(TAG, t.message ?: "상품 정보 불러오는 중 통신오류")
+        }
+
+        override fun onFailure(code: Int) {
+            Log.d(TAG, "onResponse: Error Code $code")
+        }
+    }
     
     
     

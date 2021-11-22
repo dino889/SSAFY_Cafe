@@ -23,4 +23,6 @@ public interface ProductDao {
     
     // Top 5 메뉴
     List<Map<String, Object>> selectBestProduct();
+    
+    List<Product> selectByName(String name);
 }

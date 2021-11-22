@@ -43,4 +43,9 @@ public class ProductServiceImpl implements ProductService{
 		return pDao.select(productId);
 	}
 
+	@Override
+	public List<Product> selectByName(String name) {
+		return pDao.selectByName(name);
+	}
+
 }

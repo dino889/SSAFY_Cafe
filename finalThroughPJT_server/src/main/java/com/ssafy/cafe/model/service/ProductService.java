@@ -30,4 +30,6 @@ public interface ProductService {
      */
     Product selectProduct(Integer productId);
     
+    List<Product> selectByName(String name);
+    
 }
