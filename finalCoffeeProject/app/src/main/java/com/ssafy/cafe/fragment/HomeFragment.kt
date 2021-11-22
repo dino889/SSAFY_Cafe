@@ -131,7 +131,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::bind
                     rawUser.getString("pass"),
                     rawUser.getString("phone"),
                     rawUser.getInt("stamps"),
-                    rawUser.getInt("money")
+                    rawUser.getInt("money"),
+                    rawUser.getString("token")
                 )
 //                val user = Gson().fromJson(responseData["user"].toString(), User::class.java)
 
