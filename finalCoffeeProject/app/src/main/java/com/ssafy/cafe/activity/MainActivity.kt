@@ -271,7 +271,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
             7 -> {
                 //전체메뉴보기
                 transaction.replace(R.id.tabFrameLayout, AllMenuFragment.newInstance(key, value))
-                    .addToBackStack(null)
             }
             8 -> {
                 //사용자메뉴보기
@@ -281,12 +280,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
             9->{
                 //메뉴상세정보보기
                 transaction.replace(R.id.fl_tablayout, MenuInfoDetailFragment.newInstance(key,value))
-                    .addToBackStack(null)
             }
             10->{
                 //메뉴 리뷰보기
                 transaction.replace(R.id.fl_tablayout, ReviewFragment.newInstance(key, value))
-                    .addToBackStack(null)
             }
             11 -> { //페이프래그먼트
                 transaction.replace(R.id.frame_layout_main, PayFragment())

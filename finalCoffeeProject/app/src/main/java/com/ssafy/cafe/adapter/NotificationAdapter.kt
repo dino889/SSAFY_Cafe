@@ -20,8 +20,6 @@ private const val TAG = "NotificationAdapter"
 class NotificationAdapter(val list:List<Notification>, val kFunction1:() -> Unit) :
     RecyclerView.Adapter<NotificationAdapter.NotiHolder>(){
 
-    lateinit var context: MainActivity
-
     inner class NotiHolder(itemView: View):RecyclerView.ViewHolder(itemView){
         val notiCotent = itemView.findViewById<TextView>(R.id.tv_notificationContent)
         val deleteBtn = itemView.findViewById<ImageButton>(R.id.ibtn_delete)
@@ -39,7 +37,6 @@ class NotificationAdapter(val list:List<Notification>, val kFunction1:() -> Unit
 
             override fun onSuccess(code: Int, responseData: Boolean) {
                 if(responseData){
-                    Toast.makeText(context, "삭제되었습니다.",Toast.LENGTH_SHORT).show()
                     kFunction1()
                 }
             }

@@ -32,8 +32,6 @@ class NotificationFragment : BaseFragment<FragmentNotificationBinding>(FragmentN
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-
         initData()
     }
     fun initData(){
