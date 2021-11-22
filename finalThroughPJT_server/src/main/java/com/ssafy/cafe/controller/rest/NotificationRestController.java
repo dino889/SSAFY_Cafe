@@ -25,7 +25,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ssafy.cafe.firebase.AndroidPushPeriodNotifications;
 import com.ssafy.cafe.model.dto.Notification;
 import com.ssafy.cafe.model.service.NotificationService;
 
