@@ -293,6 +293,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
                 transaction.replace(R.id.frame_layout_main, MyReviewFragment())
                     .addToBackStack(null)
             }
+            13 ->{
+                transaction.replace(R.id.frame_layout_main, MyOrderHistoryFragment())
+                    .addToBackStack(null)
+            }
 
         }
         transaction.commit()
