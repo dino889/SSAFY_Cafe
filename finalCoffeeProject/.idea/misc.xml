@@ -74,8 +74,10 @@
         <entry key="..\:/ssafy/workspace/finalProject/finalCoffeeProject/app/src/main/res/layout/fragment_join.xml" value="0.25364583333333335" />
         <entry key="..\:/ssafy/workspace/finalProject/finalCoffeeProject/app/src/main/res/layout/fragment_menu_detail.xml" value="0.2" />
         <entry key="..\:/ssafy/workspace/finalProject/finalCoffeeProject/app/src/main/res/layout/fragment_menu_info_detail.xml" value="0.2" />
+        <entry key="..\:/ssafy/workspace/finalProject/finalCoffeeProject/app/src/main/res/layout/fragment_my_order_history.xml" value="0.264" />
         <entry key="..\:/ssafy/workspace/finalProject/finalCoffeeProject/app/src/main/res/layout/fragment_my_page.xml" value="0.264" />
-        <entry key="..\:/ssafy/workspace/finalProject/finalCoffeeProject/app/src/main/res/layout/fragment_notification.xml" value="0.4" />
+        <entry key="..\:/ssafy/workspace/finalProject/finalCoffeeProject/app/src/main/res/layout/fragment_my_review.xml" value="0.264" />
+        <entry key="..\:/ssafy/workspace/finalProject/finalCoffeeProject/app/src/main/res/layout/fragment_notification.xml" value="0.38945578231292516" />
         <entry key="..\:/ssafy/workspace/finalProject/finalCoffeeProject/app/src/main/res/layout/fragment_order.xml" value="0.264" />
         <entry key="..\:/ssafy/workspace/finalProject/finalCoffeeProject/app/src/main/res/layout/fragment_pay.xml" value="0.1" />
         <entry key="..\:/ssafy/workspace/finalProject/finalCoffeeProject/app/src/main/res/layout/fragment_review.xml" value="0.176" />
@@ -84,9 +86,10 @@
         <entry key="..\:/ssafy/workspace/finalProject/finalCoffeeProject/app/src/main/res/layout/recyclervie_order_history_list_item.xml" value="0.25364583333333335" />
         <entry key="..\:/ssafy/workspace/finalProject/finalCoffeeProject/app/src/main/res/layout/recyclerview_menu_category_list_item.xml" value="0.1816123188405797" />
         <entry key="..\:/ssafy/workspace/finalProject/finalCoffeeProject/app/src/main/res/layout/recyclerview_menu_list_item.xml" value="0.264" />
-        <entry key="..\:/ssafy/workspace/finalProject/finalCoffeeProject/app/src/main/res/layout/recyclerview_notification_list_item.xml" value="0.176" />
+        <entry key="..\:/ssafy/workspace/finalProject/finalCoffeeProject/app/src/main/res/layout/recyclerview_notification_list_item.xml" value="0.4" />
         <entry key="..\:/ssafy/workspace/finalProject/finalCoffeeProject/app/src/main/res/layout/recyclerview_review_list_item.xml" value="0.264" />
         <entry key="..\:/ssafy/workspace/finalProject/finalCoffeeProject/app/src/main/res/layout/recyclerview_shoppingcart_list_item.xml" value="0.4" />
+        <entry key="..\:/ssafy/workspace/finalProject/finalCoffeeProject/app/src/main/res/layout/recyclerview_user_custom_menu_list_item.xml" value="0.12291666666666666" />
         <entry key="..\:/ssafy/workspace/finalProject/finalCoffeeProject/app/src/main/res/menu/bottom_nav.xml" value="0.25364583333333335" />
       </map>
     </option>

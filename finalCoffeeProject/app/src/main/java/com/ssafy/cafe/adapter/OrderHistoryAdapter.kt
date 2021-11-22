@@ -25,6 +25,10 @@ class OrderHistoryAdapter(val list:List<LatestOrderResponse>) : RecyclerView.Ada
             }
             itemView.findViewById<TextView>(R.id.tv_orderDetailMenu).text = name
             itemView.findViewById<TextView>(R.id.tv_orderDetailDate).text = CommonUtils.getFormattedString(data.orderDate)
+
+            itemView.setOnClickListener{
+                itemClickListner.onClick(it, layoutPosition, list[layoutPosition].orderId)
+            }
         }
     }
 
@@ -45,5 +49,16 @@ class OrderHistoryAdapter(val list:List<LatestOrderResponse>) : RecyclerView.Ada
     }
     interface ItemCancelListener {
         fun onClick(position: Int)
+    }
+
+    //클릭 인터페이스 정의 사용하는 곳에서 만들어준다.
+    interface ItemClickListener {
+        fun onClick(view: View,  position: Int, orderId:Int)
+    }
+    //클릭리스너 선언
+    private lateinit var itemClickListner: ItemClickListener
+    //클릭리스너 등록 매소드
+    fun setItemClickListener(itemClickListener: ItemClickListener) {
+        this.itemClickListner = itemClickListener
     }
 }

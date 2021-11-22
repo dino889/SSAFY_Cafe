@@ -65,6 +65,9 @@ class MyPageFragment : Fragment() {
         binding.btnMyreview.setOnClickListener {
             mainActivity.openFragment(12)
         }
+        binding.btnOrderHistory.setOnClickListener {
+            mainActivity.openFragment(13)
+        }
     }
 
     fun initUserInfo(){
