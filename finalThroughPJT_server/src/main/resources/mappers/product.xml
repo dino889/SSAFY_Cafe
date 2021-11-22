@@ -83,4 +83,10 @@
 		limit 5;
 	</select>
 	
+	<!-- 9. 상품명으로 상품조회 -->
+	<select id="selectByName" parameterType="String" resultType="Product" >
+		select *
+		from t_product
+		where name like CONCAT('%',#{name},'%');
+	</select>
 </mapper>

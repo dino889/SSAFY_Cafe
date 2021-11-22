@@ -50,4 +50,10 @@ public class ProductRestController {
     public Product getProduc(@RequestParam("productId") Integer productId){
         return pService.selectProduct(productId);
     }
+    
+    @GetMapping("/{name}")
+    @ApiOperation(value = "productName으로 필터링하여 상품의 정보를 반환한다.", response = List.class)
+    public List<Product> selectByName(@RequestParam("name") String name) {
+    	return pService.selectByName(name);
+    }
 }
