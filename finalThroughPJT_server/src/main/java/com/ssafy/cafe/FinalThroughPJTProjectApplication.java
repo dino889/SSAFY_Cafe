@@ -5,6 +5,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
 import com.ssafy.cafe.model.dao.OrderDao;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -17,12 +21,15 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableCaching
 @SpringBootApplication
 @EnableSwagger2
+@EnableWebSecurity
 @MapperScan(basePackageClasses = OrderDao.class)
 public class FinalThroughPJTProjectApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(FinalThroughPJTProjectApplication.class, args);
 	}
+	
+	
 	
    @Bean
     public Docket postsApi() {
@@ -43,4 +50,6 @@ public class FinalThroughPJTProjectApplication {
                 .build();
         return docket;
     }
+   
+   
 }

@@ -1,8 +1,11 @@
 package com.ssafy.cafe.fragment
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.hardware.biometrics.BiometricPrompt
+import android.media.MediaDrm
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -23,6 +26,8 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.user.UserApiClient
+import com.nhn.android.naverlogin.OAuthLogin
+import com.nhn.android.naverlogin.OAuthLoginHandler
 import com.ssafy.cafe.R
 import com.ssafy.cafe.activity.LoginActivity
 import com.ssafy.cafe.activity.MainActivity
@@ -37,18 +42,30 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.runBlocking
 import org.mindrot.jbcrypt.BCrypt
 import java.time.chrono.JapaneseEra.values
+import org.json.JSONException
+
+import org.json.JSONObject
+
+import android.os.AsyncTask
+import androidx.fragment.app.activityViewModels
+import com.ssafy.cafe.viewmodel.MainViewModel
+import java.security.CryptoPrimitive
+import java.security.MessageDigest
+
 
 private const val TAG = "LoginFragment_싸피"
 class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::bind, R.layout.fragment_login) {
 //    private lateinit var binding: FragmentLoginBinding
     private val RC_SIGN_IN = 9001
     private lateinit var auth: FirebaseAuth
+    private val viewModel: MainViewModel by activityViewModels()
 
     private lateinit var loginActivity: LoginActivity
 //    lateinit var name:String
 //    lateinit var photo:String
     private lateinit var mAuth: FirebaseAuth
     var mGoogleSignInClient: GoogleSignInClient? = null
+    lateinit var mOAuthLoginInstance : OAuthLogin
 
     var isDupChk = true
 
@@ -74,6 +91,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::b
             initAuth()
         }
 
+        // 카카오 계정으로 로그인
         binding.btnKakaoLogin.setOnClickListener{
             // 카카오톡이 설치되어 있으면 카카오톡으로 로그인, 아니면 카카오계정으로 로그인
             if (UserApiClient.instance.isKakaoTalkLoginAvailable(requireContext())) {
@@ -81,24 +99,12 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::b
             } else {
                 UserApiClient.instance.loginWithKakaoAccount(requireContext(), callback = callback)
             }
-
-//            UserApiClient.instance.loginWithKakaoTalk(requireContext()) { token, error ->
-//                if (error != null) {
-//                    Log.e(TAG, "로그인 실패", error)
-//                }
-//                else if (token != null) {
-//                    Log.i(TAG, "로그인 성공 ${token.accessToken}")
-//                }
-//            }
-//            // 카카오톡이 설치되어 있으면 카카오톡으로 로그인, 아니면 카카오계정으로 로그인
-//            LoginClient.instance.run {
-//                if (isKakaoTalkLoginAvailable(requestActivity)) {
-//                    loginWithKakaoTalk(requestActivity, callback = callback)
-//                } else {
-//                    loginWithKakaoAccount(requestActivity, callback = callback)
-//                }
-//            }
         }
+
+        // 네이버 계정으로 로그인
+        mOAuthLoginInstance = OAuthLogin.getInstance()
+        mOAuthLoginInstance.init(requireContext(), getString(R.string.naver_client_id), getString(R.string.naver_client_secret), getString(R.string.naver_client_name))
+        binding.btnNaverLogin.setOAuthLoginHandler(mOAuthLoginHandler)
 
         //login
         binding.btnLogin.setOnClickListener {
@@ -112,6 +118,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::b
 
     // 기존 사용자 로그인
     fun login(loginId: String, loginPass: String) {
+
         val user = User(loginId, loginPass)
         UserService().login(user, LoginCallback())
     }
@@ -123,6 +130,9 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::b
                 Toast.makeText(context,"로그인 되었습니다.", Toast.LENGTH_SHORT).show()
                 // 로그인 시 user정보 sp에 저장
                 ApplicationClass.sharedPreferencesUtil.addUser(user)
+
+                viewModel.userInfo.value = user
+
                 loginActivity.openFragment(1)
             }else{
                 Toast.makeText(context,"ID 또는 패스워드를 확인해 주세요.", Toast.LENGTH_SHORT).show()
@@ -225,7 +235,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::b
                 else if (user != null) {
 
                     val newUser = User(user.kakaoAccount!!.email.toString(), user.kakaoAccount!!.profile!!.nickname.toString(), user.kakaoAccount!!.phoneNumber.toString(), user.id.toString())
-                    UserService().isUsed(user.kakaoAccount!!.email!!, isUsedCallBack(newUser))
+                    UserService().isUsed(user.kakaoAccount!!.email!!,isUsedCallBack(newUser))
 
                     Log.i(TAG, "사용자 정보 요청 성공" +
                             "\n회원번호: ${user.id}" +
@@ -237,18 +247,61 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::b
         }
     }
 
+    // ---------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
+    // NAVER 로그인
+    @SuppressLint("HandlerLeak")
+    val mOAuthLoginHandler: OAuthLoginHandler = object : OAuthLoginHandler() {
+        override fun run(success: Boolean) {
+            if (success) {
+                val accessToken: String = mOAuthLoginInstance.getAccessToken(requireContext())
+//                val refreshToken: String = mOAuthLoginInstance.getRefreshToken(requireContext())
+//                val expiresAt: Long = mOAuthLoginInstance.getExpiresAt(requireContext())
+//                val tokenType: String = mOAuthLoginInstance.getTokenType(requireContext())
+                Log.d(TAG, "run: $accessToken")
+                RequestApiTask(requireContext(), mOAuthLoginInstance).execute()
+            } else {
+                val errorCode: String = mOAuthLoginInstance.getLastErrorCode(requireContext()).code
+                val errorDesc = mOAuthLoginInstance.getLastErrorDesc(requireContext())
+                Log.d(TAG, "run: errorCode:" + errorCode + ", errorDesc:" + errorDesc)
 
 
+            }
+        }
+    }
 
 
+    inner class RequestApiTask(private val mContext: Context, private val mOAuthLoginModule: OAuthLogin) :
+        AsyncTask<Void?, Void?, String>() {
+        override fun onPreExecute() {}
+
+        override fun onPostExecute(content: String) {
+            try {
+                val loginResult = JSONObject(content)
+                if (loginResult.getString("resultcode") == "00") {
+                    val response = loginResult.getJSONObject("response")
+                    val id = response.getString("id")
+                    val email = response.getString("email")
+                    val mobile = response.getString("mobile")
+                    val nickname = response.getString("nickname")
+                    Log.d(TAG, "onPostExecute: $id")
+                    val newUser = User(email, nickname, mobile, id)
+                    UserService().isUsed(email, isUsedCallBack(newUser))
+                }
+            } catch (e: JSONException) {
+                e.printStackTrace()
+            }
+        }
+
+        override fun doInBackground(vararg params: Void?): String {
+            val url = "https://openapi.naver.com/v1/nid/me"
+            val at = mOAuthLoginModule.getAccessToken(mContext)
+            return mOAuthLoginModule.requestApi(mContext, at, url)
+        }
+    }
 
 
-
-
-
-
-
-    // 사용자가 입력한 userId를 인자로 받아서 id 중복 체크
+    // 사용자가 입력한 userId를 인자아서 id 중복 체크
     inner class isUsedCallBack(val user: User) : RetrofitCallback<Boolean> {
         override fun onError(t: Throwable) {
             Log.d(TAG, "onError: ")
@@ -258,6 +311,10 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::b
             Log.d(TAG, "onSuccess IsUsedId: $responseData")  // 0 : 중복 X, 사용가능 <-> 1 : 중복되는 ID, 사용불가능
             if(responseData == false){
                 // 비밀번호 해시값으로 변경
+//                    val pwHash = BCrypt.hashpw(user.pass, BCrypt.gensalt())
+//                val isVaildPw = BCrypt.checkpw(user.pass, pwHash);
+//                Log.d(TAG, "onSuccess-Hash: $pwHash  $isVaildPw")
+
 //            val passwordHashed = BCrypt.hashpw(user.uid, BCrypt.gensalt())
 //                val passwordHashed = BCrypt.hashpw(user.uid, BCrypt.gensalt(10))
 

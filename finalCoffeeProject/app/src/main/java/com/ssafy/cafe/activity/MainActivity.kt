@@ -56,6 +56,12 @@ import org.altbeacon.beacon.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import com.nhn.android.naverlogin.OAuthLogin
+
+import android.os.AsyncTask
+
+
+
 
 private const val TAG = "MainActivity"
 class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main), BeaconConsumer {
@@ -116,12 +122,17 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main), 
     lateinit var locationServiceManager: LocationServiceManager
     lateinit var locationPermissionManager: LocationPermissionManager
 
+    lateinit var mOAuthLoginInstance : OAuthLogin
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 //        binding = ActivityMainBinding.inflate(layoutInflater)
 //        setContentView(binding.root)
+
+        // 네이버 계정으로 로그인
+        mOAuthLoginInstance = OAuthLogin.getInstance()
+        mOAuthLoginInstance.init(this, getString(R.string.naver_client_id), getString(R.string.naver_client_secret), getString(R.string.naver_client_name))
 
         Log.d(TAG, "onCreate: DeviceToken: ")
 
@@ -323,6 +334,14 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main), 
                 Log.i(TAG, "로그아웃 성공. SDK에서 토큰 삭제됨")
             }
         }
+
+        // 네이버 로그아웃
+        if (mOAuthLoginInstance != null) {
+            mOAuthLoginInstance.logout(this)
+            showCustomToast("로그아웃 하셨습니다.")
+            DeleteTokenTask(this, mOAuthLoginInstance).execute()
+        }
+
         //화면이동
         val intent = Intent(this, LoginActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -649,9 +668,28 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main), 
         }
     }
 
+    inner class DeleteTokenTask(
+        private val mContext: Context,
+        private val mOAuthLoginModule: OAuthLogin
+    ) :
+        AsyncTask<Void?, Void?, Boolean>() {
+        override fun onPostExecute(isSuccessDeleteToken: Boolean) {}
+        override fun doInBackground(vararg params: Void?): Boolean {
+            val isSuccessDeleteToken = mOAuthLoginModule.logoutAndDeleteToken(mContext)
+            if (!isSuccessDeleteToken) {
+                // 서버에서 토큰 삭제에 실패했어도 클라이언트에 있는 토큰은 삭제되어 로그아웃된 상태입니다.
+                // 클라이언트에 토큰 정보가 없기 때문에 추가로 처리할 수 있는 작업은 없습니다.
+                Log.d(TAG, "errorCode:" + mOAuthLoginModule.getLastErrorCode(mContext))
+                Log.d(TAG, "errorDesc:" + mOAuthLoginModule.getLastErrorDesc(mContext))
+            }
+            return isSuccessDeleteToken
+        }
+    }
 
     override fun onDestroy() {
-        dialog.dismiss()
+        if(dialog.isShowing) {
+            dialog.dismiss()
+        }
         super.onDestroy()
     }
 
