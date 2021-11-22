@@ -34,7 +34,8 @@ public class OrderServiceImpl implements OrderService {
     StampDao sDao;
     @Autowired
     UserDao uDao;
-  
+    @Autowired
+    OrderStateChangeService observer;
     Logger logger = LoggerFactory.getLogger(getClass());
     
     
@@ -86,7 +87,7 @@ public class OrderServiceImpl implements OrderService {
 //        observable.setCompleted(3);
 //    	oDao.update(order);
     	Order observable = new Order();
-        PCLNewsChannel observer = new PCLNewsChannel();
+//        PCLNewsChannel observer = new PCLNewsChannel();
 
         observable.addPropertyChangeListener(observer);
 

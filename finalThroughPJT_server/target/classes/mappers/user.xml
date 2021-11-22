@@ -74,4 +74,11 @@
 		    token = #{token}
 		WHERE id = #{id}
 	</update>
+	
+	<!-- 10. token으로 사용자 id 조회 -->
+	<select id="selectUserId" parameterType="String" resultType="String">
+		SELECT id
+		FROM t_user
+		WHERE token = #{token};
+	</select>
 </mapper>

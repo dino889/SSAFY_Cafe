@@ -6,14 +6,14 @@ import org.junit.jupiter.api.Test;
 
 import com.ssafy.cafe.controller.rest.OrderStatus;
 import com.ssafy.cafe.model.dto.Order;
-import com.ssafy.cafe.model.service.PCLNewsChannel;
+import com.ssafy.cafe.model.service.OrderStateChangeService;
 
 public class ObserverIntegrationTest {
 	@Test
     public void whenChangingPCLNewsAgencyState_thenONewsChannelNotified() {
 
         Order observable = new Order();
-        PCLNewsChannel observer = new PCLNewsChannel();
+        OrderStateChangeService observer = new OrderStateChangeService();
 
         observable.addPropertyChangeListener(observer);
 
