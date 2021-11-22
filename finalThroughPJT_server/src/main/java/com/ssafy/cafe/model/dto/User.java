@@ -11,7 +11,10 @@ public class User {
     private Integer stamps;
     private String phone;
     private Integer money;
-    private List<Stamp> stampList = new ArrayList<>();
+    private String token;
+
+
+	private List<Stamp> stampList = new ArrayList<>();
 
     public User() {}
     
@@ -82,6 +85,13 @@ public class User {
 		this.money = money;
 	}
 
+    public String getToken() {
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
+	}
 
 	@Override
 	public String toString() {

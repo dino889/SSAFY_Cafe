@@ -39,34 +39,11 @@ public class PCLNewsChannel implements PropertyChangeListener {
     public void propertyChange(PropertyChangeEvent evt) {
         this.setCompleted((Integer) evt.getNewValue());
         logger.info("message : {}", evt.getNewValue());
-        
-        
-        
-        
+
         Integer state = (Integer) evt.getNewValue();
         
-        String userToken = "eZbzN9zNQT26t0TsQ6DrRG:APA91bH5-hOF3BrZi4Zo-FTvdsXoJLetMSuZ-jtyoAl3VG4BqWcQj9wuVwVLjkezNcA299AbWn4c9rOJx1E-EpFj74ujVaClojUDJGQd88d87SkBa5M81SR6ir7ESqjoa0PoXPFj2ZFs";
-//        try {
-//			fcmService.broadCastMessage(state.toString(), "dddd");
-//		} catch (IOException e1) {
-//			// TODO Auto-generated catch block
-//			e1.printStackTrace();
-//		}
-//        
-//        try {
-//        	if(state == 0) {
-//        		tokenC.sendMessageTo("fuwi-tnmQZ-LiZKppdkkrL:APA91bG3ZYcde-fSLMXVcO0xatlrWscbVkx_QT56LPUmWnwVEugDx5rYG912zve9AtQI6arGQqrq0ZBLHLmhKtjsh0yIb3EqMk8iwd3MbcFZl-hIIQZVwcejvIkVrL-J3KL-Bj4cWxEH", "Order", "주문이 완료되었습니다.");        	
-//        	} else if(state == 1) {
-//        		tokenC.sendMessageTo(userToken, "Order", "주문 접수가 완료되었습니다."); 
-//	        } else if(state == 2) {
-//	        	tokenC.sendMessageTo(userToken, "Order", "주문하신 음료 제조가 완료되었습니다."); 
-//	        } else if(state == 3) {
-//	        	tokenC.sendMessageTo(userToken, "Order", "픽업 완료");
-//	        }
-//        } catch(Exception e){
-//        	e.printStackTrace();
-//        }
-
+        String userToken = "fuwi-tnmQZ-LiZKppdkkrL:APA91bG3ZYcde-fSLMXVcO0xatlrWscbVkx_QT56LPUmWnwVEugDx5rYG912zve9AtQI6arGQqrq0ZBLHLmhKtjsh0yIb3EqMk8iwd3MbcFZl-hIIQZVwcejvIkVrL-J3KL-Bj4cWxEH";
+        
         try {
         	if(state == 0) {
         		fcmService.sendMessageTo(userToken, "Order", "주문이 완료되었습니다.");
