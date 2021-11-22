@@ -189,30 +189,6 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(FragmentReviewBinding
     }
 
 
-//    inner class ProductWithCommentInsertCallback :
-//        RetrofitCallback<List<MenuDetailWithCommentResponse>> {
-//        override fun onError(t: Throwable) {
-//            Log.d(TAG, t.message ?: "물품 정보를 받아오는 중 통신오류")
-//        }
-//
-//        override fun onSuccess(code: Int, responseData: List<MenuDetailWithCommentResponse>) {
-//            commentAdapter = if(responseData.size == 1 && responseData[0].userId == null) {
-//                CommentAdapter(mutableListOf(), this@ReviewFragment::initData)
-//            } else {
-//                CommentAdapter(responseData, this@ReviewFragment::initData)
-//            }
-//            liveData.value = responseData
-//
-//            viewModel.prodWithComment = responseData[0]
-////            binding.ratingBar.rating = responseData[0].productRatingAvg.toFloat()
-//        }
-//
-//        override fun onFailure(code: Int) {
-//            Log.d(TAG, "onFailure: Error Code $code")
-//        }
-//    }
-
-
     companion object {
         @JvmStatic
         fun newInstance(key: String, value : Int) =

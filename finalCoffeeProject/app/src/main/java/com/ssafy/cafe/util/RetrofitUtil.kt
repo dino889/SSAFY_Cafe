@@ -11,6 +11,6 @@ class RetrofitUtil {
         val productService = ApplicationClass.retrofit.create(ProductApi::class.java)
         val userService = ApplicationClass.retrofit.create(UserApi::class.java)
         val customService = ApplicationClass.retrofit.create(UserCustomApi::class.java)
-
+        val notificationService = ApplicationClass.retrofit.create(NotificationApi::class.java)
     }
 }
