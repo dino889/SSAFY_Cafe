@@ -64,8 +64,7 @@ import android.os.AsyncTask
 
 
 private const val TAG = "MainActivity"
-class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main), BeaconConsumer {
-
+class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::inflate), BeaconConsumer {
     private val TAG = "MainActivity_싸피"
 //    private lateinit var binding: ActivityMainBinding
     private val viewModel: MainViewModel by viewModels()

@@ -23,7 +23,7 @@ import com.ssafy.cafe.fragment.JoinFragment
 import com.ssafy.cafe.fragment.LoginFragment
 
 private const val TAG = "LoginActivity"
-class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login) {
+class LoginActivity : BaseActivity<ActivityLoginBinding>(ActivityLoginBinding::inflate) {
 
 
 //    private lateinit var binding: ActivityLoginBinding

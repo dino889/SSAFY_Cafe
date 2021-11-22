@@ -11,10 +11,11 @@ import com.ssafy.cafe.R
 import com.kakao.sdk.common.util.Utility
 import com.ssafy.cafe.config.BaseActivity
 import com.ssafy.cafe.databinding.ActivityLoadingBinding
+import com.ssafy.cafe.databinding.ActivityMainBinding
 
-
-class LoadingActivity : BaseActivity<ActivityLoadingBinding>(R.layout.activity_loading) {
+class LoadingActivity : BaseActivity<ActivityLoadingBinding>(ActivityLoadingBinding::inflate) {
     private val SPLASH_TIME:Long = 1000 // 4000
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
