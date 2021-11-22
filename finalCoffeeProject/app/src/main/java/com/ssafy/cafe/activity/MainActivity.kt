@@ -58,7 +58,8 @@ import retrofit2.Callback
 import retrofit2.Response
 
 private const val TAG = "MainActivity"
-class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::inflate), BeaconConsumer {
+class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main), BeaconConsumer {
+
     private val TAG = "MainActivity_싸피"
 //    private lateinit var binding: ActivityMainBinding
     private val viewModel: MainViewModel by viewModels()
