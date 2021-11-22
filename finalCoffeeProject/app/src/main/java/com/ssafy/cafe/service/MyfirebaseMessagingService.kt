@@ -49,6 +49,9 @@ class MyFirebaseMessageService : FirebaseMessagingService() {
             NotificationManagerCompat.from(this).apply {
                 notify(101, builder1.build())
             }
+
+            val intent = Intent("com.ssafy.cafe")
+            sendBroadcast(intent)
         }
 
         // Check if message contains a notification payload.

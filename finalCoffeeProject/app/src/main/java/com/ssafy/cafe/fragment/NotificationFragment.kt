@@ -1,6 +1,9 @@
 package com.ssafy.cafe.fragment
 
+import android.content.BroadcastReceiver
 import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -33,7 +36,20 @@ class NotificationFragment : BaseFragment<FragmentNotificationBinding>(FragmentN
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initData()
+
+        val intentFilter = IntentFilter("com.ssafy.cafe")
+        val receiver = object: BroadcastReceiver() {
+            override fun onReceive(context: Context?, intent: Intent?) {
+                val action = intent!!.action
+                Log.d(TAG, "receive : $action")
+                initData()
+            }
+        }
+        mainActivity.registerReceiver(receiver, intentFilter)
+
+//        initData()
     }
+
     fun initData(){
         val user = ApplicationClass.sharedPreferencesUtil.getUser();
         val userid = user.id

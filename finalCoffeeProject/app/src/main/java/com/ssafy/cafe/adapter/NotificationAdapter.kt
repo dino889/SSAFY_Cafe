@@ -13,6 +13,7 @@ import com.ssafy.cafe.activity.MainActivity
 import com.ssafy.cafe.config.ApplicationClass
 import com.ssafy.cafe.dto.Notification
 import com.ssafy.cafe.service.NotificationService
+import com.ssafy.cafe.util.CommonUtils
 import com.ssafy.cafe.util.RetrofitCallback
 import kotlin.reflect.KFunction1
 
@@ -22,9 +23,11 @@ class NotificationAdapter(val list:List<Notification>, val kFunction1:() -> Unit
 
     inner class NotiHolder(itemView: View):RecyclerView.ViewHolder(itemView){
         val notiCotent = itemView.findViewById<TextView>(R.id.tv_notificationContent)
+        val notiDate = itemView.findViewById<TextView>(R.id.tv_notificatonDate)
         val deleteBtn = itemView.findViewById<ImageButton>(R.id.ibtn_delete)
         fun bindInfo(notification: Notification){
             notiCotent.text = notification.content
+            notiDate.text =  CommonUtils.getFormattedString(notification.date)
 
             deleteBtn.setOnClickListener {
                 NotificationService().deleteNoti(notification.id, DeleteCallback())

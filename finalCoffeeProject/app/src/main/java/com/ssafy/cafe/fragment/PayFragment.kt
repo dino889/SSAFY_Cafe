@@ -192,7 +192,6 @@ class PayFragment : BaseFragment<FragmentPayBinding>(FragmentPayBinding::bind, R
             }
 
             override fun onSuccess(code: Int, responseData: Int) {
-                MainActivity.Companion.uploadToken(token = viewModel.token)
 
                 Toast.makeText(context,"주문이 완료되었습니다.", Toast.LENGTH_SHORT).show()
 //                viewModel.shoppingCartList.clear()  // 장바구니 비우기
