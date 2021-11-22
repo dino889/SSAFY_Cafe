@@ -19,7 +19,7 @@ public interface NotificationService {
     
     /**
      * id에 해당하는 Notification을 삭제한다.
-     * @param id
+     * @param id                                                                       
      */
     void removeNotification(Integer id);
 

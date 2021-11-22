@@ -15,7 +15,6 @@ public class Notification {
     }
 
     public Notification(Integer id, String userId, String category, String content) {
-		super();
 		this.id = id;
 		this.userId = userId;
 		this.category = category;

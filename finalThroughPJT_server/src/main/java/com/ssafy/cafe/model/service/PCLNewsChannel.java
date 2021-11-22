@@ -18,6 +18,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ssafy.cafe.controller.rest.TokenController;
 import com.ssafy.cafe.firebase.FirebaseCloudMessageService;
 import com.ssafy.cafe.model.dao.NotificationDao;
+import com.ssafy.cafe.model.dao.UserDao;
+import com.ssafy.cafe.model.dto.Notification;
 
 //@Service
 //@Configurable
@@ -33,8 +35,7 @@ public class PCLNewsChannel implements PropertyChangeListener {
 //	TokenController tokenC = new TokenController();
 	
     private Integer c;
-    
-    
+
     public void propertyChange(PropertyChangeEvent evt) {
         this.setCompleted((Integer) evt.getNewValue());
         logger.info("message : {}", evt.getNewValue());
@@ -44,7 +45,7 @@ public class PCLNewsChannel implements PropertyChangeListener {
         
         Integer state = (Integer) evt.getNewValue();
         
-        String userToken = "fuwi-tnmQZ-LiZKppdkkrL:APA91bG3ZYcde-fSLMXVcO0xatlrWscbVkx_QT56LPUmWnwVEugDx5rYG912zve9AtQI6arGQqrq0ZBLHLmhKtjsh0yIb3EqMk8iwd3MbcFZl-hIIQZVwcejvIkVrL-J3KL-Bj4cWxEH";
+        String userToken = "eZbzN9zNQT26t0TsQ6DrRG:APA91bH5-hOF3BrZi4Zo-FTvdsXoJLetMSuZ-jtyoAl3VG4BqWcQj9wuVwVLjkezNcA299AbWn4c9rOJx1E-EpFj74ujVaClojUDJGQd88d87SkBa5M81SR6ir7ESqjoa0PoXPFj2ZFs";
 //        try {
 //			fcmService.broadCastMessage(state.toString(), "dddd");
 //		} catch (IOException e1) {
@@ -66,7 +67,6 @@ public class PCLNewsChannel implements PropertyChangeListener {
 //        	e.printStackTrace();
 //        }
 
-        
         try {
         	if(state == 0) {
         		fcmService.sendMessageTo(userToken, "Order", "주문이 완료되었습니다.");

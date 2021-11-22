@@ -11,6 +11,7 @@ import org.apache.http.HttpHeaders;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
@@ -20,8 +21,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.ssafy.cafe.firebase.*;
 import com.ssafy.cafe.firebase.FcmMessage.Message;
-import com.ssafy.cafe.firebase.FcmMessage.Notification;
+import com.ssafy.cafe.model.dao.NotificationDao;
+import com.ssafy.cafe.model.dao.UserDao;
+import com.ssafy.cafe.model.dto.Notification;
+import com.ssafy.cafe.model.service.NotificationService;
+import com.ssafy.cafe.model.service.UserService;
 import com.ssafy.cafe.model.service.UserServiceImpl;
+
 
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
@@ -44,7 +50,18 @@ public class FirebaseCloudMessageService {
         return instance;
     }
     
-	
+    @Autowired
+    NotificationService nService;
+    
+    @Autowired
+    UserService uService;
+    
+    @Autowired
+    NotificationDao nDao;
+    
+    @Autowired
+    UserDao uDao;
+    
    private static final Logger logger = LoggerFactory.getLogger(FirebaseCloudMessageService.class);
    
     public final ObjectMapper objectMapper;
@@ -93,7 +110,7 @@ public class FirebaseCloudMessageService {
        message.setData(data);
        
         FcmMessage fcmMessage = new FcmMessage(false, message);
-        
+
         return objectMapper.writeValueAsString(fcmMessage);
     }
     
@@ -119,7 +136,9 @@ public class FirebaseCloudMessageService {
                 .build();
 
         Response response = client.newCall(request).execute();
-
+        
+        String userid = uDao.selectUserId(targetToken);
+        logger.info("userid = "+userid);
         System.out.println(response.body().string());
 //        logger.info("message : {}", message);
     }

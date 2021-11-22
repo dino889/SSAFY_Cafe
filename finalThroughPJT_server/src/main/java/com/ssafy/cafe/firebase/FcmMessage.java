@@ -41,7 +41,7 @@ public class FcmMessage {
 		 *
 		 */
 		public static class Message {
-	        private Notification notification;
+	        private Notifications notification;
 	        private String token;
 	        
 	        // background에서 보내려면
@@ -58,15 +58,15 @@ public class FcmMessage {
 
 			public Message() {}
 	        
-			public Message(Notification notification, String token) {
+			public Message(Notifications notification, String token) {
 				super();
 				this.notification = notification;
 				this.token = token;
 			}
-			public Notification getNotification() {
+			public Notifications getNotification() {
 				return notification;
 			}
-			public void setNotification(Notification notification) {
+			public void setNotification(Notifications notification) {
 				this.notification = notification;
 			}
 			public String getToken() {
@@ -84,14 +84,13 @@ public class FcmMessage {
 		 * @author USER1
 		 *
 		 */
-	    public static class Notification {
+	    public static class Notifications {
 	        private String title;
 	        private String body;
 	        private String image;
 	        
-	        public Notification() {}
-	        
-			public Notification(String title, String body, String image) {
+	      	        
+			public Notifications(String title, String body, String image) {
 				super();
 				this.title = title;
 				this.body = body;
