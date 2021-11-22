@@ -3,9 +3,12 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/SSAFY/GIT/finalcoffeeproject/finalCoffeeProject/app/src/main/res/layout/activity_login.xml" value="0.20729166666666668" />
         <entry key="..\:/SSAFY/GIT/finalcoffeeproject/finalCoffeeProject/app/src/main/res/layout/dialog_add_comment.xml" value="0.1" />
         <entry key="..\:/SSAFY/GIT/finalcoffeeproject/finalCoffeeProject/app/src/main/res/layout/fragment_all_menu.xml" value="0.25364583333333335" />
+        <entry key="..\:/SSAFY/GIT/finalcoffeeproject/finalCoffeeProject/app/src/main/res/layout/fragment_home.xml" value="0.20729166666666668" />
         <entry key="..\:/SSAFY/GIT/finalcoffeeproject/finalCoffeeProject/app/src/main/res/layout/fragment_join.xml" value="0.264" />
+        <entry key="..\:/SSAFY/GIT/finalcoffeeproject/finalCoffeeProject/app/src/main/res/layout/fragment_login.xml" value="0.4" />
         <entry key="..\:/SSAFY/GIT/finalcoffeeproject/finalCoffeeProject/app/src/main/res/layout/fragment_review.xml" value="0.2" />
         <entry key="..\:/SSAFY/GIT/finalcoffeeproject/finalCoffeeProject/app/src/main/res/layout/recyclervie_order_history_list_item.xml" value="0.25364583333333335" />
         <entry key="..\:/SSAFY/GIT/finalcoffeeproject/finalCoffeeProject/app/src/main/res/layout/recyclerview_allmenu_list_item.xml" value="0.29675425038639874" />
@@ -84,7 +87,7 @@
         <entry key="..\:/ssafy/workspace/finalProject/finalCoffeeProject/app/src/main/res/layout/fragment_my_page.xml" value="0.264" />
         <entry key="..\:/ssafy/workspace/finalProject/finalCoffeeProject/app/src/main/res/layout/fragment_notification.xml" value="0.4" />
         <entry key="..\:/ssafy/workspace/finalProject/finalCoffeeProject/app/src/main/res/layout/fragment_order.xml" value="0.264" />
-        <entry key="..\:/ssafy/workspace/finalProject/finalCoffeeProject/app/src/main/res/layout/fragment_pay.xml" value="0.4" />
+        <entry key="..\:/ssafy/workspace/finalProject/finalCoffeeProject/app/src/main/res/layout/fragment_pay.xml" value="0.1" />
         <entry key="..\:/ssafy/workspace/finalProject/finalCoffeeProject/app/src/main/res/layout/fragment_review.xml" value="0.176" />
         <entry key="..\:/ssafy/workspace/finalProject/finalCoffeeProject/app/src/main/res/layout/fragment_user_custom_menu.xml" value="0.10925925925925926" />
         <entry key="..\:/ssafy/workspace/finalProject/finalCoffeeProject/app/src/main/res/layout/listview_mypage_list_item.xml" value="0.536" />

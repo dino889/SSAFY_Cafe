@@ -92,25 +92,26 @@
 
         <com.google.android.gms.common.SignInButton
             android:id="@+id/btn_googleLogin"
-            android:layout_width="320dp"
+            android:layout_width="240dp"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp" >
-
+            android:layout_margin="5dp" >
         </com.google.android.gms.common.SignInButton>
 
         <ImageButton
             android:id="@+id/btn_kakaoLogin"
-            android:layout_width="wrap_content"
+            android:layout_width="260dp"
             android:layout_height="wrap_content"
             android:src="@drawable/kakao_login_medium_wide"
-            android:backgroundTint="@android:color/transparent"/>
+            android:backgroundTint="@android:color/transparent"
+            android:scaleType="fitXY"
+            android:layout_margin="5dp"/>
 
-        <ImageButton
+        <com.nhn.android.naverlogin.ui.view.OAuthLoginButton
             android:id="@+id/btn_naverLogin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/kakao_login_medium_wide"
-            android:backgroundTint="@android:color/transparent"/>
+            android:layout_width="match_parent"
+            android:layout_height = "50dp" />
+
+
 
         <!--    <Button-->
         <!--        android:id="@+id/btn_googleLogin"-->
