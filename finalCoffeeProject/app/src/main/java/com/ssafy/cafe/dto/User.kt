@@ -4,7 +4,7 @@ data class User(
     val id: String,
     val name: String,
     val pass: String,
-    val phone: String,
+    var phone: String,
     val stamps: Int,
     val money: Int,
     val token: String,

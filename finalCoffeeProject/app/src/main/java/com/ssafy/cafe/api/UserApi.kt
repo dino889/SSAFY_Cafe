@@ -26,7 +26,7 @@ interface UserApi {
     @PUT("rest/user")
     fun update(@Body user: User): Call<User>
 
-    // user token 값을 수정한다.
-    @PUT("rest/user/token")
-    fun updateToken(@Body user:User) : Call<Boolean>
+//    // user token 값을 수정한다.
+//    @PUT("rest/user/token")
+//    fun updateToken(@Body user:User) : Call<Boolean>
 }

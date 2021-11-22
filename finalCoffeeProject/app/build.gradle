@@ -70,6 +70,7 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'com.google.firebase:firebase-auth-ktx:21.0.1'
     implementation 'com.google.android.gms:play-services-auth:16.0.0'
+
     //implementation 'com.google.firebas:firebase-auth:16.0.3'
 
     testImplementation 'junit:junit:4.13.1'
@@ -132,4 +133,14 @@ dependencies {
 
     // 카카오 모듈 SDK 설정
     implementation "com.kakao.sdk:v2-user:2.8.3" // 카카오 로그인
+
+    // 네이버 아이디로 로그인
+    implementation 'com.naver.nid:naveridlogin-android-sdk:4.2.6'
+//    implementation files('libs\\naveridlogin_android_sdk_4.2.6.aar')
+//    implementation 'com.android.support:appcompat-v7:25.3.1'
+//    implementation 'com.android.support:support-core-utils:25.3.1'
+//    implementation 'com.android.support:customtabs:25.3.1'
+//    implementation 'com.android.support:support-v4:25.3.1'
+
+
 }
