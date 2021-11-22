@@ -39,16 +39,6 @@ import okhttp3.Response;
 @Component
 //@Service
 public class FirebaseCloudMessageService {
-
-//    private static FirebaseCloudMessageService instance = new FirebaseCloudMessageService();
-//
-//    private FirebaseCloudMessageService() {
-//		this.objectMapper = new ObjectMapper();
-//	}
-//
-//    public static FirebaseCloudMessageService getInstance() {
-//        return instance;
-//    }
     
     @Autowired
     NotificationService nService;
@@ -109,7 +99,7 @@ public class FirebaseCloudMessageService {
        
        message.setData(data);
        
-        FcmMessage fcmMessage = new FcmMessage(false, message);
+       FcmMessage fcmMessage = new FcmMessage(false, message);
 
         return objectMapper.writeValueAsString(fcmMessage);
     }
@@ -138,7 +128,10 @@ public class FirebaseCloudMessageService {
         Response response = client.newCall(request).execute();
         
         String userid = uDao.selectUserId(targetToken);
-        logger.info("userid = "+userid);
+        logger.info("NotiUserID" + userid);
+        Notification notification = new Notification(0,userid,title,body);
+        nDao.insert(notification);
+
         System.out.println(response.body().string());
 //        logger.info("message : {}", message);
     }

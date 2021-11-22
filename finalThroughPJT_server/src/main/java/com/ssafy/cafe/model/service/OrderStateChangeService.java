@@ -28,16 +28,6 @@ public class OrderStateChangeService implements PropertyChangeListener {
 	@Autowired
 	FirebaseCloudMessageService fcmService;
 	
-//	@Autowired
-	
-//	public PCLNewsChannel(FirebaseCloudMessageService fcmService) {
-//		logger.debug("fcmService: "+ fcmService);
-//		this.fcmService = fcmService;
-//	}
-//	FirebaseCloudMessageService fcmService = FirebaseCloudMessageService.getInstance();
-    
-//	TokenController tokenC = new TokenController();
-	
     private Integer c;
 
     public void propertyChange(PropertyChangeEvent evt) {
@@ -46,7 +36,7 @@ public class OrderStateChangeService implements PropertyChangeListener {
 
         Integer state = (Integer) evt.getNewValue();
         
-        String userToken = "fuwi-tnmQZ-LiZKppdkkrL:APA91bG3ZYcde-fSLMXVcO0xatlrWscbVkx_QT56LPUmWnwVEugDx5rYG912zve9AtQI6arGQqrq0ZBLHLmhKtjsh0yIb3EqMk8iwd3MbcFZl-hIIQZVwcejvIkVrL-J3KL-Bj4cWxEH";
+        String userToken = "eZbzN9zNQT26t0TsQ6DrRG:APA91bH5-hOF3BrZi4Zo-FTvdsXoJLetMSuZ-jtyoAl3VG4BqWcQj9wuVwVLjkezNcA299AbWn4c9rOJx1E-EpFj74ujVaClojUDJGQd88d87SkBa5M81SR6ir7ESqjoa0PoXPFj2ZFs";
         
         try {
         	if(state == 0) {

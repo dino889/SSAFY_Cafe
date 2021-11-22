@@ -31,9 +31,9 @@ class BestMenuAdapter : RecyclerView.Adapter<BestMenuAdapter.BestMenuHolder>(){
     override fun onBindViewHolder(holder: BestMenuAdapter.BestMenuHolder, position: Int) {
         holder.apply {
             bindInfo(list[position])
-            itemView.setOnClickListener{
-                itemClickListner.onClick(it,position)
-            }
+//            itemView.setOnClickListener{
+//                itemClickListner.onClick(it,position)
+//            }
         }
     }
 
