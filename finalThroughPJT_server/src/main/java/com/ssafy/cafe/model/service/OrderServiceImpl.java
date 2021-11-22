@@ -96,11 +96,12 @@ public class OrderServiceImpl implements OrderService {
     	TimerTask task = new TimerTask() {
 			@Override
 			public void run() {
+				observable.setCompleted(order.getCompleted());
+				
 				logger.info("timer on");
 				logger.info(" 1:" + order.getCompleted());
 				order.setCompleted(order.getCompleted()+1);
 				oDao.update(order);
-				observable.setCompleted(order.getCompleted());
 				logger.info(order.toString());
 				
 				if(order.getCompleted() >3)
