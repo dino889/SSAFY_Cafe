@@ -1,4 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable
+            name="dto"
+            type="com.ssafy.cafe.dto.OrderDetail" />
+        <variable
+            name="fragment"
+            type="com.ssafy.cafe.fragment.BucketFragment" />
+    </data>
+
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -84,7 +94,10 @@
                 android:background="@drawable/drawable_join_login_btn_shape_item"
                 android:text="5개 6,5000원 주문하기"
                 android:textColor="@color/white" />
+
+
         </LinearLayout>
     </LinearLayout>
 
 </FrameLayout>
+</layout>

@@ -1,12 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable
+            name="user"
+            type="com.ssafy.cafe.dto.User" />
+        <variable
+            name="userlevel"
+            type="com.ssafy.cafe.dto.UserLevel" />
+        <variable
+            name="fragment"
+            type="com.ssafy.cafe.fragment.HomeFragment" />
+    </data>
+
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    android:orientation="vertical"
-    tools:context=".fragment.HomeFragment">
+    android:orientation="vertical">
 
 
     <LinearLayout
@@ -30,19 +43,19 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="right"
-                android:text="6 /"
                 android:textColor="@color/white"
                 android:textSize="20sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                app:setInt="@{user.stamps}" />
 
             <TextView
                 android:id="@+id/tv_stampTotal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
-                android:text="20"
                 android:textColor="@color/yellow_700"
-                android:textSize="15sp" />
+                android:textSize="15sp"
+                app:setInt="@{userlevel.max}"/>
 
             <TextView
                 android:id="@+id/tv_userLevel"
@@ -50,7 +63,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="right"
-                android:text="goldLevel"
+                tools:text="@{userlevel.title}"
                 android:textColor="@color/white" />
         </LinearLayout>
 
@@ -59,8 +72,8 @@
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:max="20"
-            android:progress="6"
+            tools:max="@{userlevel.max}"
+            tools:progress="@{user.stamps}"
             android:progressDrawable="@drawable/drawable_progressbar_stampstate" />
 
     </LinearLayout>
@@ -134,3 +147,5 @@
 
 
 </LinearLayout>
+
+</layout>
