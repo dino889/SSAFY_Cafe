@@ -30,6 +30,6 @@ interface ProductApi {
     @GET("rest/product/prod")
     fun getProductById(@Query("productId")productId: Int): Call<Product>
 
-    @GET("rest/product/{name}")
+    @GET("rest/product/search/{name}")
     fun selectByName(@Path("name") name:String) : Call<List<Product>>
 }

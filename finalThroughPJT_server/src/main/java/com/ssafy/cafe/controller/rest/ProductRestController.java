@@ -51,9 +51,9 @@ public class ProductRestController {
         return pService.selectProduct(productId);
     }
     
-    @GetMapping("/{name}")
+    @GetMapping("/search/{name}")
     @ApiOperation(value = "productName으로 필터링하여 상품의 정보를 반환한다.", response = List.class)
-    public List<Product> selectByName(@RequestParam("name") String name) {
+    public List<Product> selectByName(@PathVariable("name") String name) {
     	return pService.selectByName(name);
     }
 }

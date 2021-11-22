@@ -23,6 +23,7 @@
         </androidx.recyclerview.widget.RecyclerView>
 
         <LinearLayout
+            android:id="@+id/ll_searchlayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -36,8 +37,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
-                android:inputType="textPersonName"
-                android:text="Name" />
+                android:inputType="textPersonName" />
 
             <ImageButton
                 android:id="@+id/ibtn_serach"
