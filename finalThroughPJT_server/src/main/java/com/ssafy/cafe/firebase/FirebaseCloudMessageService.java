@@ -40,15 +40,15 @@ import okhttp3.Response;
 //@Service
 public class FirebaseCloudMessageService {
 
-    private static FirebaseCloudMessageService instance = new FirebaseCloudMessageService();
-
-    private FirebaseCloudMessageService() {
-		this.objectMapper = new ObjectMapper();
-	}
-
-    public static FirebaseCloudMessageService getInstance() {
-        return instance;
-    }
+//    private static FirebaseCloudMessageService instance = new FirebaseCloudMessageService();
+//
+//    private FirebaseCloudMessageService() {
+//		this.objectMapper = new ObjectMapper();
+//	}
+//
+//    public static FirebaseCloudMessageService getInstance() {
+//        return instance;
+//    }
     
     @Autowired
     NotificationService nService;

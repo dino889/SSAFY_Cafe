@@ -21,16 +21,20 @@ import com.ssafy.cafe.model.dao.NotificationDao;
 import com.ssafy.cafe.model.dao.UserDao;
 import com.ssafy.cafe.model.dto.Notification;
 
-//@Service
-//@Configurable
-//@Component
-public class PCLNewsChannel implements PropertyChangeListener {
-	private static final Logger logger = LoggerFactory.getLogger(PCLNewsChannel.class);
+@Component
+public class OrderStateChangeService implements PropertyChangeListener {
+	private static final Logger logger = LoggerFactory.getLogger(OrderStateChangeService.class);
 
-//	@Autowired
-//	FirebaseCloudMessageService fcmService;
+	@Autowired
+	FirebaseCloudMessageService fcmService;
 	
-	FirebaseCloudMessageService fcmService = FirebaseCloudMessageService.getInstance();
+//	@Autowired
+	
+//	public PCLNewsChannel(FirebaseCloudMessageService fcmService) {
+//		logger.debug("fcmService: "+ fcmService);
+//		this.fcmService = fcmService;
+//	}
+//	FirebaseCloudMessageService fcmService = FirebaseCloudMessageService.getInstance();
     
 //	TokenController tokenC = new TokenController();
 	
