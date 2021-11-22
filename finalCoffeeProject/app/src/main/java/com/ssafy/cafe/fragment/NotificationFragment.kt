@@ -7,13 +7,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.ssafy.cafe.adapter.NotificationAdapter
-import com.ssafy.cafe.config.ApplicationClass
-import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ssafy.cafe.R
 import com.ssafy.cafe.activity.MainActivity
+import com.ssafy.cafe.adapter.NotificationAdapter
+import com.ssafy.cafe.config.ApplicationClass
 import com.ssafy.cafe.config.BaseFragment
 import com.ssafy.cafe.databinding.FragmentNotificationBinding
 import com.ssafy.cafe.dto.Notification
@@ -24,12 +23,8 @@ private const val TAG = "NotificationFragment"
 class NotificationFragment : BaseFragment<FragmentNotificationBinding>(FragmentNotificationBinding::bind, R.layout.fragment_notification) {
 
     private lateinit var mainActivity: MainActivity
-
     private lateinit var nAdapter:NotificationAdapter
-
     private lateinit var list:List<Notification>
-
-
     override fun onAttach(context: Context) {
         super.onAttach(context)
         mainActivity = context as MainActivity

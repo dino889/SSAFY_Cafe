@@ -97,11 +97,11 @@ public class OrderServiceImpl implements OrderService {
 			@Override
 			public void run() {
 				observable.setCompleted(order.getCompleted());
+				
 				logger.info("timer on");
 				logger.info(" 1:" + order.getCompleted());
 				order.setCompleted(order.getCompleted()+1);
 				oDao.update(order);
-				
 				logger.info(order.toString());
 				
 				if(order.getCompleted() >3)

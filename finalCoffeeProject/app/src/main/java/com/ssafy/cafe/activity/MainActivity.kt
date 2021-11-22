@@ -216,15 +216,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
         })
         createNotificationChannel(channel_id, "ssafy")
 
-//        Firebase.messaging.subscribeToTopic("order").addOnCompleteListener{task ->
-//            var msg = getString(R.string.msg_subscribed)
-//            if(!task.isSuccessful){
-//                msg = getString(R.string.msg_subscribe_failed)
-//            }
-//            Log.d(TAG, "onCreate: ")
-//            Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
-//        }
     }
+
     @RequiresApi(Build.VERSION_CODES.O)
     // Notification 수신을 위한 체널 추가
     private fun createNotificationChannel(id: String, name: String) {

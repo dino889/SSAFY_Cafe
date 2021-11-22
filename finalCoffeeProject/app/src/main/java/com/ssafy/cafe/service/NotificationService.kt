@@ -13,7 +13,6 @@ import retrofit2.Retrofit
 
 private const val TAG = "NotificationService"
 class NotificationService {
-
     fun getUserWithNotification(userid:String): LiveData<List<Notification>>{
         val responseLiveData : MutableLiveData<List<Notification>> = MutableLiveData()
         val notificationRequest: Call<List<Notification>> = RetrofitUtil.notificationService.getUserWithNotifications(userid)
