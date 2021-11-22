@@ -266,7 +266,9 @@ class BucketFragment : BaseFragment<FragmentBucketBinding>(FragmentBucketBinding
             }
 
             override fun onSuccess(code: Int, responseData: Int) {
-                MainActivity.Companion.uploadToken(token = viewModel.token)
+//                MainActivity.Companion.uploadToken(token = viewModel.token)
+//                Log.d(TAG, "onSuccess: $responseData")
+                //(requireContext() as MainActivity).onBackPressed()
 
                 Toast.makeText(context,"주문이 완료되었습니다.", Toast.LENGTH_SHORT).show()
 //                viewModel.shoppingCartList.clear()  // 장바구니 비우기

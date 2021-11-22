@@ -4,6 +4,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.IOException;
 import java.util.List;
+import java.util.Random;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,39 +29,62 @@ public class OrderStateChangeService implements PropertyChangeListener {
 	@Autowired
 	FirebaseCloudMessageService fcmService;
 	
-    private Integer c;
+	
+	@Autowired
+	UserService uService;
+	
 
-    public void propertyChange(PropertyChangeEvent evt) {
+    private Integer orderState;
+    
+    private String userId;
+    
+    
+    
+
+	public void propertyChange(PropertyChangeEvent evt) {
         this.setCompleted((Integer) evt.getNewValue());
         logger.info("message : {}", evt.getNewValue());
 
-        Integer state = (Integer) evt.getNewValue();
         
-        String userToken = "eZbzN9zNQT26t0TsQ6DrRG:APA91bH5-hOF3BrZi4Zo-FTvdsXoJLetMSuZ-jtyoAl3VG4BqWcQj9wuVwVLjkezNcA299AbWn4c9rOJx1E-EpFj74ujVaClojUDJGQd88d87SkBa5M81SR6ir7ESqjoa0PoXPFj2ZFs";
+        logger.debug("userId : " + this.userId);
+        
+        String userToken = uService.selectUserToken(userId);
+//        String userToken = "fuwi-tnmQZ-LiZKppdkkrL:APA91bG3ZYcde-fSLMXVcO0xatlrWscbVkx_QT56LPUmWnwVEugDx5rYG912zve9AtQI6arGQqrq0ZBLHLmhKtjsh0yIb3EqMk8iwd3MbcFZl-hIIQZVwcejvIkVrL-J3KL-Bj4cWxEH";
+        Random random = new Random();
         
         try {
-        	if(state == 0) {
-        		fcmService.sendMessageTo(userToken, "Order", "주문이 완료되었습니다.");
-        		} else if(state == 1) {
-        		fcmService.sendMessageTo(userToken, "Order", "주문 접수가 완료되었습니다."); 
-	        } else if(state == 2) {
-	        	fcmService.sendMessageTo(userToken, "Order", "주문하신 음료 제조가 완료되었습니다."); 
-	        } else if(state == 3) {
-	        	fcmService.sendMessageTo(userToken, "Order", "픽업 완료");
-	        }
+        	switch(orderState) {
+        		case 0:
+        			fcmService.sendMessageTo(userToken, "Order", "주문이 완료되었습니다.");
+        			break;
+        		case 1:
+        			fcmService.sendMessageTo(userToken, "Order", "주문 접수가 완료되었습니다. \n" + (random.nextInt(50) + 1) + "번째 메뉴로 준비중입니다.");
+        			break;
+        		case 2:
+        			fcmService.sendMessageTo(userToken, "Order", "메뉴가 모두 준비되었어요.\n 픽업대에서 메뉴를 픽업해주세요!");
+        			break;
+        		case 3:
+        			fcmService.sendMessageTo(userToken, "Order", "픽업이 완료 되었습니다.");
+        			break;
+        	}
         } catch(Exception e){
         	e.printStackTrace();
         }
-        
-        
-
     }
 
     public Integer getCompleted() {
-        return c;
+        return orderState;
     }
 
-    public void setCompleted(Integer c) {
-        this.c = c;
+    public void setCompleted(Integer orderState) {
+        this.orderState = orderState;
     }
+    
+    public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
 }

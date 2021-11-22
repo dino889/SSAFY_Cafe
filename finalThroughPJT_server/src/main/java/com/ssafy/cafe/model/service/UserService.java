@@ -1,5 +1,6 @@
 package com.ssafy.cafe.model.service;
 
+import java.util.List;
 import java.util.Map;
 
 import com.ssafy.cafe.model.dto.Comment;
@@ -57,6 +58,10 @@ public interface UserService {
     void updateUserToken(User user);
     
     String selectUserId(String token);
+    
+    String selectUserToken(String id);
+    
+    public List<String> selectTokens();
     
 
 }

@@ -19,14 +19,20 @@ public class User {
     public User() {}
     
 
-	public User(String id, String name, String pass, Integer stamps, String phone, Integer money) {
+	public User(String id, String name, String pass, Integer stamps, String phone, Integer money, String token) {
         this.id = id;
         this.name = name;
         this.pass = pass;
         this.stamps = stamps;
         this.phone = phone;
         this.money = money;
+        this.token = token;
     }
+	
+	public User(String id, String token) {
+		this.id = id;
+		this.token = token;
+	}
     
 
 	public String getId() {

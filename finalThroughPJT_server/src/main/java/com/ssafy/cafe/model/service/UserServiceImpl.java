@@ -1,5 +1,6 @@
 package com.ssafy.cafe.model.service;
 
+import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,10 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.ssafy.cafe.model.dao.UserDao;
 import com.ssafy.cafe.model.dto.User;
 
-/**
- * @author itsmeyjc
- * @since 2021. 6. 23.
- */
+
 @Service
 public class UserServiceImpl implements UserService {
     
@@ -76,5 +74,15 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public String selectUserId(String token) {
 		return userDao.selectUserId(token);
+	}
+	
+	@Override
+	public String selectUserToken(String id) {
+		return userDao.selectUserToken(id);
+	}
+
+	@Override
+	public List<String> selectTokens() {
+		return userDao.selectAllUserToken();
 	}
 }

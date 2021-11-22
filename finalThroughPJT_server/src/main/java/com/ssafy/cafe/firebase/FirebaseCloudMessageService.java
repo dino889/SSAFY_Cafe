@@ -21,8 +21,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.ssafy.cafe.firebase.*;
 import com.ssafy.cafe.firebase.FcmMessage.Message;
-import com.ssafy.cafe.model.dao.NotificationDao;
-import com.ssafy.cafe.model.dao.UserDao;
+import com.ssafy.cafe.model.dto.User;
 import com.ssafy.cafe.model.dto.Notification;
 import com.ssafy.cafe.model.service.NotificationService;
 import com.ssafy.cafe.model.service.UserService;
@@ -37,27 +36,22 @@ import okhttp3.Response;
 
 
 @Component
-//@Service
 public class FirebaseCloudMessageService {
-    
-    @Autowired
-    NotificationService nService;
-    
-    @Autowired
-    UserService uService;
-    
-    @Autowired
-    NotificationDao nDao;
-    
-    @Autowired
-    UserDao uDao;
+
     
    private static final Logger logger = LoggerFactory.getLogger(FirebaseCloudMessageService.class);
    
     public final ObjectMapper objectMapper;
 
     private final String API_URL = "https://fcm.googleapis.com/v1/projects/final-coffee-project/messages:send";
-     
+    
+    
+    @Autowired
+    UserService uService;
+
+    @Autowired
+    NotificationService notiService;
+    
     /**
      * FCM에 push 요청을 보낼 때 인증을 위해 Header에 포함시킬 AccessToken 생성
      * @return
@@ -127,13 +121,11 @@ public class FirebaseCloudMessageService {
 
         Response response = client.newCall(request).execute();
         
-        String userid = uDao.selectUserId(targetToken);
-        logger.info("NotiUserID" + userid);
-        Notification notification = new Notification(0,userid,title,body);
-        nDao.insert(notification);
 
-        System.out.println(response.body().string());
-//        logger.info("message : {}", message);
+        if(response.isSuccessful()) {
+        	String userId = uService.selectUserId(targetToken);
+        	notiService.addNotification(new Notification(userId, title, body));
+        }
     }
 
 
@@ -145,18 +137,23 @@ public class FirebaseCloudMessageService {
 
     
     // 클라이언트 토큰 관리
-    public void addToken(String token) {
-        clientTokens.add(token);
+    public void addToken(String token, String userId) {	// userI랑 token을 파라미타로 받아서 t_user의 token 값 저장
+//        clientTokens.add(token);
+    	User user = new User();
+    	user.setId(userId);
+    	user.setToken(token);
+        uService.updateUserToken(user);
     }
     
     // 등록된 모든 토큰을 이용해서 broadcasting
-    public int broadCastMessage(String title, String body) throws IOException {
-       for(String token: clientTokens) {
+    public int broadCastMessage(String title, String body) throws IOException {	// select token from t_user -> 모든 사용자에게 noti 전송
+       List<String> tokens = uService.selectTokens();
+       
+    	for(String token: tokens) {
           logger.debug("broadcastmessage : {},{},{}",token, title, body);
            sendMessageTo(token, title, body);
        }
-       return clientTokens.size();
+       return tokens.size();
     }
-
 
 }

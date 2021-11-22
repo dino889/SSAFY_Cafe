@@ -56,4 +56,17 @@ public interface UserDao {
      * @return
      */
     String selectUserId(String token);
+    
+    /**
+     * 사용자 id로 token을 가져온다.
+     * @param id
+     * @return
+     */
+    String selectUserToken(String id);
+    
+    /**
+     * 모든 사용자의 토큰 값을 조회한다.
+     * @return
+     */
+    List<String> selectAllUserToken();
 }
