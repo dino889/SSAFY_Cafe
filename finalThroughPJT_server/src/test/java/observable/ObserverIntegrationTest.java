@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
-import com.ssafy.cafe.controller.rest.OrderStatus;
 import com.ssafy.cafe.model.dto.Order;
 import com.ssafy.cafe.model.service.OrderStateChangeService;
 

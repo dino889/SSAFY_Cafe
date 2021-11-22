@@ -7,9 +7,9 @@
 	<!-- 1. 사용자 추가 -->
 	<insert id="insert" parameterType="User">
 		INSERT INTO t_user
-		    (id, name, pass, phone, money, token)
+		    (id, name, pass, phone, money)
 		VALUES
-		    (#{id}, #{name}, #{pass}, #{phone}, #{money}, #{token})
+		    (#{id}, #{name}, #{pass}, #{phone}, #{money})
 	</insert>
 	
 	<!-- 2. id 기준으로 이름, 비밀번호 수정 -->

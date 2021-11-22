@@ -3,6 +3,7 @@ package com.ssafy.cafe.model.service;
 import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,8 +25,13 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserDao userDao;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+    
     @Override
     public void join(User user) {
+    	String encodePassword = passwordEncoder.encode(user.getPass());
+    	user.setPass(encodePassword);
         userDao.insert(user);
 
     }
@@ -33,11 +39,13 @@ public class UserServiceImpl implements UserService {
     @Override
     public User login(String id, String pass) {
         User user = userDao.select(id);
-        if (user != null && user.getPass().equals(pass)) {
-            return user;
+        
+        if(user != null && passwordEncoder.matches(pass, user.getPass())) {
+        	return user;
         } else {
-            return null;
+        	return null;
         }
+        
     }
 
     @Override

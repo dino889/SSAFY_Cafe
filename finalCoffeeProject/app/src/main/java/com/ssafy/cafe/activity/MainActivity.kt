@@ -682,8 +682,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
     }
 
     override fun onDestroy() {
-        dismissLoadingDialog()
-        dialog.dismiss()
+        if(dialog.isShowing) {
+            dialog.dismiss()
+        }
         super.onDestroy()
     }
 

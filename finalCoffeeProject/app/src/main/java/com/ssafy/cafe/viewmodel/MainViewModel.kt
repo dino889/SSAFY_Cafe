@@ -72,4 +72,8 @@ class MainViewModel : ViewModel() {
 
     var token : String = ""
 
+    val userInfo = MutableLiveData<User>().apply {
+        value = User()
+    }
+
 }
