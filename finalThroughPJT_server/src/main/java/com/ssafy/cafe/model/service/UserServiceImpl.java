@@ -66,4 +66,15 @@ public class UserServiceImpl implements UserService {
 	public boolean chkPw(String id, String pw) {
 		return userDao.select(id).getPass().equals(pw);
 	}
+
+	@Override
+	public void updateUserToken(User user) {
+		userDao.updateToken(user);
+		
+	}
+
+	@Override
+	public String selectUserId(String token) {
+		return userDao.selectUserId(token);
+	}
 }

@@ -49,4 +49,14 @@ public interface UserService {
      * @return
      */
     public boolean chkPw(String id, String pw);
+ 
+    /**
+     *  사용자 Token이 없데이트되면 DB에도 수정한다.
+     * @param user
+     */
+    void updateUserToken(User user);
+    
+    String selectUserId(String token);
+    
+
 }

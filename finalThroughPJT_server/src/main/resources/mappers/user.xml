@@ -73,4 +73,13 @@
 	<select id="selectAll" resultType="User">
 		SELECT * FROM t_user
 	</select>
+	
+	
+	<!-- 9. id로 사용자 토큰 update -->
+	<update id="updateToken" parameterType="User">
+		UPDATE t_user
+		SET
+		    token = #{token}
+		WHERE id = #{id}
+	</update>
 </mapper>

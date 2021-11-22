@@ -152,5 +152,11 @@ public class UserRestController {
         return uService.chkPw(id, pw);
     }
     
-    
+    @PutMapping("/token")
+    @Transactional
+    @ApiOperation(value="user token을 수정한다.", response = Boolean.class)
+    public Boolean updateToken(@RequestBody User user) {
+        uService.updateUserToken(user);
+        return true;
+    }
 }

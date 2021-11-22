@@ -42,4 +42,18 @@ public interface UserDao {
     
     int updateMoney(User user);
 
+    
+    /**
+     *  사용자 토큰을 수정한다.
+     * @param user
+     * @return
+     */
+    int updateToken(User user);
+    
+    /**
+     * 
+     * @param token
+     * @return
+     */
+    String selectUserId(String token);
 }
