@@ -211,7 +211,7 @@ class BucketFragment : BaseFragment<FragmentBucketBinding>(FragmentBucketBinding
             ApplicationClass.sharedPreferencesUtil.getUser().id,
             "",
             System.currentTimeMillis().toString(),
-            1,
+            0,
             orderDetailList
         )
 
@@ -276,7 +276,7 @@ class BucketFragment : BaseFragment<FragmentBucketBinding>(FragmentBucketBinding
             }
 
             override fun onSuccess(code: Int, responseData: Int) {
-                MainActivity.Companion.uploadToken(token = viewModel.token)
+//                MainActivity.Companion.uploadToken(token = viewModel.token)
 //                Log.d(TAG, "onSuccess: $responseData")
                 //(requireContext() as MainActivity).onBackPressed()
 

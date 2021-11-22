@@ -81,4 +81,17 @@
 		FROM t_user
 		WHERE token = #{token};
 	</select>
+	
+	<!-- 11. 사용자 id로 token 조회 -->
+	<select id="selectUserToken" parameterType="String" resultType="String">
+		SELECT token
+		FROM t_user
+		WHERE id = #{id};
+	</select>
+	
+	<!-- 12. 모든 사용자 토큰 조회 -->
+	<select id="selectAllUserToken" resultType="String">
+		SELECT token
+		FROM t_user
+	</select>
 </mapper>

@@ -23,9 +23,9 @@ public class TokenController {
     FirebaseCloudMessageService service;
     
     @PostMapping("/token")
-    public String registToken(String token) {
-    	logger.info("registToken : token:{}", token);
-        service.addToken(token);
+    public String registToken(String token, String userId) {
+    	logger.info("registToken : token:{} {}", token, userId);
+        service.addToken(token, userId);
         return token;
     }
     

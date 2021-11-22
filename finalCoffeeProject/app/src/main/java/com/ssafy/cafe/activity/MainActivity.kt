@@ -211,7 +211,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
             }
             // token log 남기기
             Log.d(TAG, "token: ${task.result?:"task.result is null"}")
-            uploadToken(task.result!!)
+            uploadToken(task.result!!, ApplicationClass.sharedPreferencesUtil.getUser().id)
             viewModel.token = task.result!!
         })
         createNotificationChannel(channel_id, "ssafy")
@@ -646,10 +646,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
         // Notification Channel ID
         const val channel_id = "ssafy_channel"
         // ratrofit  수업 후 network 에 업로드 할 수 있도록 구성
-        fun uploadToken(token:String){
+        fun uploadToken(token:String, userId: String){
             // 새로운 토큰 수신 시 서버로 전송
             val storeService = ApplicationClass.retrofit.create(FirebaseTokenService::class.java)
-            storeService.uploadToken(token).enqueue(object : Callback<String> {
+            storeService.uploadToken(token, userId).enqueue(object : Callback<String> {
                 override fun onResponse(call: Call<String>, response: Response<String>) {
                     if(response.isSuccessful){
                         val res = response.body()

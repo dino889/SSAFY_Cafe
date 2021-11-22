@@ -2,6 +2,7 @@ package com.ssafy.cafe.model.service;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -28,14 +29,19 @@ public class OrderServiceImpl implements OrderService {
 
     @Autowired
     OrderDao oDao;
+    
     @Autowired
     OrderDetailDao dDao;
+    
     @Autowired
     StampDao sDao;
+    
     @Autowired
     UserDao uDao;
+    
     @Autowired
     OrderStateChangeService observer;
+    
     Logger logger = LoggerFactory.getLogger(getClass());
     
     
@@ -77,44 +83,67 @@ public class OrderServiceImpl implements OrderService {
         return oDao.selectByUser(userId);
     }
     static int count = 1;
+    
+    
     @Override
     public void updateOrder(Order order) {
-//    	Order observable = new Order();
-//        PCLNewsChannel observer = new PCLNewsChannel();
-//
-//        observable.addPropertyChangeListener(observer);
-//
-//        observable.setCompleted(3);
-//    	oDao.update(order);
-    	Order observable = new Order();
-//        PCLNewsChannel observer = new PCLNewsChannel();
 
+    	Order observable = new Order();
         observable.addPropertyChangeListener(observer);
 
-        
-    	logger.info("updateOrder");
+    	logger.info("updateOrder" + order.getUserId());
+    	observer.setUserId(order.getUserId());
+    	
+    	Random random = new Random();
+    	
     	Timer timer = new Timer();
     	TimerTask task = new TimerTask() {
 			@Override
 			public void run() {
-				observable.setCompleted(order.getCompleted());
+				observable.setCompleted(order.getCompleted());	// 주문 상태 변경 감지
 				
 				logger.info("timer on");
 				logger.info(" 1:" + order.getCompleted());
-				order.setCompleted(order.getCompleted()+1);
+				order.setCompleted(order.getCompleted() + 1);
 				oDao.update(order);
+				
 				logger.info(order.toString());
 				
-				if(order.getCompleted() >3)
+				if(order.getCompleted() > 3)
 				{
 					this.cancel();
 				}
 			}
     		
     	};
-    	timer.schedule(task, 10000,10000);
+    	timer.schedule(task, 1000, random.nextInt(30000) + 5000);	// 5초 ~ 30초 사이 랜덤
     	
     }
+    
+//    public void selectOrderState(Integer orderId) {	// 픽업 완료까지 주기적으로 주문 상태를 select
+//    	Order state = oDao.select(orderId);
+//    	
+//    	Order observable = new Order();
+//        observable.addPropertyChangeListener(observer);
+//        
+//        Timer timer = new Timer();
+//    	TimerTask task = new TimerTask() {
+//			@Override
+//			public void run() {
+//				observable.setCompleted(state.getCompleted());
+//				observer.setUserId(state.getUserId());
+//				
+//				logger.info(state.toString());
+//				
+//				if(state.getCompleted() >= 4)
+//				{
+//					this.cancel();
+//				}
+//			}
+//    		
+//    	};
+//    	timer.schedule(task, 0, 10000);
+//    }
 
     @Override
     public List<Map> selectOrderTotalInfo(int id) {
