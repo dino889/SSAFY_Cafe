@@ -25,6 +25,7 @@ import com.ssafy.cafe.dto.User
 import com.ssafy.cafe.service.CommentService
 import com.ssafy.cafe.service.OrderService
 import com.ssafy.cafe.service.UserService
+import com.ssafy.cafe.util.CommonUtils
 import com.ssafy.cafe.util.RetrofitCallback
 import org.json.JSONException
 import org.json.JSONObject
@@ -105,11 +106,20 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(FragmentMyPageBinding
             override fun onSuccess(code: Int, responseData: HashMap<String, Any>) {
                 //Log.d(TAG, "onSuccess: $responseData")
                 //val grade = responseData!!["grade"]
-
-                val user = Gson().fromJson(responseData["user"].toString(), User::class.java)
+                val data = JSONObject(responseData as Map<*, *>)
+                val rawUser = data.getJSONObject("user")
+                val user = User(
+                    rawUser.getString("id"),
+                    rawUser.getString("name"),
+                    rawUser.getString("pass"),
+                    rawUser.getString("phone"),
+                    rawUser.getInt("stamps"),
+                    rawUser.getInt("money"),
+                    rawUser.getString("token")
+                )
 
                 var pay = user.money
-                binding.tvMyPayMoney.text = "$pay 원"
+                binding.tvMyPayMoney.text = CommonUtils.makeComma(pay)
 //                binding.tvOrderHistoryCnt.text = "${arr.length()}"
                 ApplicationClass.sharedPreferencesUtil.addUserPay(pay)
             }
