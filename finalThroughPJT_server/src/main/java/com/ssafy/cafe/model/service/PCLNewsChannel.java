@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ssafy.cafe.controller.rest.TokenController;
 import com.ssafy.cafe.firebase.FirebaseCloudMessageService;
+import com.ssafy.cafe.model.dao.NotificationDao;
 
 //@Service
 //@Configurable
@@ -64,11 +65,12 @@ public class PCLNewsChannel implements PropertyChangeListener {
 //        } catch(Exception e){
 //        	e.printStackTrace();
 //        }
+
         
         try {
         	if(state == 0) {
-        		fcmService.sendMessageTo(userToken, "Order", "주문이 완료되었습니다.");        	
-        	} else if(state == 1) {
+        		fcmService.sendMessageTo(userToken, "Order", "주문이 완료되었습니다.");
+        		} else if(state == 1) {
         		fcmService.sendMessageTo(userToken, "Order", "주문 접수가 완료되었습니다."); 
 	        } else if(state == 2) {
 	        	fcmService.sendMessageTo(userToken, "Order", "주문하신 음료 제조가 완료되었습니다."); 
