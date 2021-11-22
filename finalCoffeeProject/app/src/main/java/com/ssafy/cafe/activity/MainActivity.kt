@@ -110,7 +110,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
     lateinit var filters: Array<IntentFilter>
     //    lateinit var orderTable : String
     var orderTable : String? = "x"
-
+    var orderDetail : String?= "y"
     // Location
     lateinit var locationServiceManager: LocationServiceManager
     lateinit var locationPermissionManager: LocationPermissionManager
@@ -622,10 +622,23 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
                 val type = String(record_type)
                 if (type.equals("T")) {
                     val data = message[0]!!.records[0].payload
-                    orderTable = String(data, 3, data.size - 3)
-                    viewModel.nfcTaggingData = orderTable
+                    Log.d(TAG, "getNFCData: ${String(data)}")
+                    val type_data = String(data,1,2)
+                    Log.d(TAG, "getNFCData type: $type_data")
+                    if(type_data.equals("en")){
+                        Log.d(TAG, "getNFCData: $data")
+                        orderTable = String(data, 3, data.size - 3)
+                        viewModel.nfcTaggingData = orderTable
 //                    ApplicationClass.sharedPreferencesUtil.addOrderTable(orderTable!!)
-                    Log.d(TAG, "getNFCData: $orderTable")
+                        Log.d(TAG, "getNFCData: $orderTable")
+                    }
+                    else if(type_data.equals("kr")){
+
+                        orderDetail = String(data,3,data.size-3)
+                        Log.d(TAG, "getNFCData_kr: $orderDetail")
+                        viewModel.nfcTaggingData = orderDetail
+                    }
+
                 }
             }
         }
