@@ -13,6 +13,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.ssafy.cafe.firebase.FirebaseCloudMessageService;
 import com.ssafy.cafe.model.dao.OrderDao;
 import com.ssafy.cafe.model.dao.OrderDetailDao;
 import com.ssafy.cafe.model.dao.StampDao;
@@ -42,6 +44,12 @@ public class OrderServiceImpl implements OrderService {
     UserDao uDao;
     
     @Autowired
+    UserService uService;
+    
+    @Autowired
+    FirebaseCloudMessageService fcmService;
+    
+    @Autowired
     OrderStateChangeService observer;
     
     Logger logger = LoggerFactory.getLogger(getClass());
@@ -52,6 +60,7 @@ public class OrderServiceImpl implements OrderService {
     public void makeOrder(Order order) {
         // 주문 및 주문 상세 테이블 저장
         oDao.insert(order);
+
         List<OrderDetail> details = order.getDetails();
         int quantitySum = 0;
         for(OrderDetail detail: details) {
@@ -105,10 +114,9 @@ public class OrderServiceImpl implements OrderService {
 				logger.info(" 1:" + order.getCompleted());
 				order.setCompleted(order.getCompleted() + 1);
 				oDao.update(order);
-				
 				logger.info(order.toString());
 				
-				if(order.getCompleted() > 3)
+				if(order.getCompleted() > 4)
 				{
 					this.cancel();
 				}

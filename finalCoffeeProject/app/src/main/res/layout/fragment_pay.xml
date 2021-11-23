@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable
+            name="dto"
+            type="com.ssafy.cafe.dto.User" />
+    </data>
+
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -84,7 +91,7 @@
                 android:fontFamily="@font/nanumsquare_acr"
                 android:gravity="right"
                 android:paddingRight="15dp"
-                android:text="5000 원"
+                android:text="@{dto.money}"
                 android:textColor="@color/black"
                 android:textSize="20sp" />
         </LinearLayout>
@@ -124,3 +131,4 @@
 
     </LinearLayout>
 </FrameLayout>
+</layout>

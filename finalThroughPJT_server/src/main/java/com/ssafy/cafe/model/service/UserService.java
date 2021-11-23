@@ -8,7 +8,9 @@ import com.ssafy.cafe.model.dto.User;
 
 
 public interface UserService {
-    /**
+    String firstId = null;
+
+	/**
      * 사용자 정보를 DB에 저장한다.
      * 
      * @param user
@@ -63,5 +65,5 @@ public interface UserService {
     
     public List<String> selectTokens();
     
-
+//    public static final String firstId = "";
 }
