@@ -121,9 +121,10 @@ public class FirebaseCloudMessageService {
 
         Response response = client.newCall(request).execute();
         
-
+        logger.info("service"+targetToken);
         if(response.isSuccessful()) {
         	String userId = uService.selectUserId(targetToken);
+        	logger.info("USERID  "+userId);
         	notiService.addNotification(new Notification(userId, title, body));
         }
     }

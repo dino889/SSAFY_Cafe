@@ -21,6 +21,8 @@ import com.ssafy.cafe.firebase.FirebaseCloudMessageService;
 import com.ssafy.cafe.model.dao.NotificationDao;
 import com.ssafy.cafe.model.dao.UserDao;
 import com.ssafy.cafe.model.dto.Notification;
+import com.ssafy.cafe.model.dto.Order;
+import com.ssafy.cafe.model.dto.User;
 
 @Component
 public class OrderStateChangeService implements PropertyChangeListener {
@@ -39,6 +41,9 @@ public class OrderStateChangeService implements PropertyChangeListener {
     private String userId;
     
     private Integer orderId;
+    
+    @Autowired
+    OrderService oService;
     
     
 	public void propertyChange(PropertyChangeEvent evt) {
@@ -63,7 +68,24 @@ public class OrderStateChangeService implements PropertyChangeListener {
         		case 3:
         			fcmService.sendMessageTo(userToken, "Order", "접수번호 : " + orderId + "\n픽업이 완료 되었습니다.");
         			break;
+        		case 4:
+        			List<Order> oList = oService.getOrdreByUser(userId);
+        			
+        			if(oList.size() == 1) {
+        				logger.info("isEmpty");
+            			fcmService.sendMessageTo(userToken, "User", "첫 주문이네요 ! \n 환영합니다 적립금 1000원을 선물로 드릴게요^^\n 많은 이용 부탁드릴게요~");
+            			User user = uService.getInfo(userId);
+            			int money = user.getMoney()+1000;
+            			user.setMoney(money);
+            			uService.updateUserMoney(user);
+            			
+            			
+            			break;
+        			}else {
+        				break;
+        			}
         	}
+        	
         } catch(Exception e){
         	e.printStackTrace();
         }

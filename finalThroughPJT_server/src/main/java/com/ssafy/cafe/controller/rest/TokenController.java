@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.cafe.firebase.FirebaseCloudMessageService;
+import com.ssafy.cafe.model.service.UserService;
 
 @RestController
 @CrossOrigin("*")
@@ -27,6 +28,7 @@ public class TokenController {
     	logger.info("registToken : token:{} {}", token, userId);
         service.addToken(token, userId);
         return token;
+    
     }
     
     @PostMapping("/broadcast")

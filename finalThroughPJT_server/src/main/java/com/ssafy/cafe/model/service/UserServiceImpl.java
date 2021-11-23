@@ -1,5 +1,6 @@
 package com.ssafy.cafe.model.service;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.ssafy.cafe.firebase.FirebaseCloudMessageService;
 import com.ssafy.cafe.model.dao.UserDao;
 import com.ssafy.cafe.model.dto.User;
 
@@ -16,8 +18,13 @@ public class UserServiceImpl implements UserService {
     
     private static UserServiceImpl instance = new UserServiceImpl();
 
+	@Autowired
+	FirebaseCloudMessageService fcmService;
+    
     private UserServiceImpl() {}
-
+    
+    public static String firstId = "";
+    
     public static UserServiceImpl getInstance() {
         return instance;
     }
@@ -33,7 +40,7 @@ public class UserServiceImpl implements UserService {
     	String encodePassword = passwordEncoder.encode(user.getPass());
     	user.setPass(encodePassword);
         userDao.insert(user);
-
+        firstId = user.getId().toString();
     }
 
     @Override
@@ -42,6 +49,7 @@ public class UserServiceImpl implements UserService {
         
         if(user != null && passwordEncoder.matches(pass, user.getPass())) {
         	return user;
+        	
         } else {
         	return null;
         }
@@ -75,6 +83,14 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public void updateUserToken(User user) {
+//		try {
+//			if(user.getId().equals(firstId)) {
+//				fcmService.sendMessageTo(user.getToken(), "User", "저희 어플을 이용해주셔서 감사합니다. 좋은 하루 되세요^^");
+//			}
+//		}catch(Exception e) {
+//			e.printStackTrace();
+//		}
+
 		userDao.updateToken(user);
 		
 	}
@@ -86,6 +102,7 @@ public class UserServiceImpl implements UserService {
 	
 	@Override
 	public String selectUserToken(String id) {
+		
 		return userDao.selectUserToken(id);
 	}
 

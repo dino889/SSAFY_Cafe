@@ -539,8 +539,13 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
         confirm.setOnClickListener {
             dialog.dismiss()
         }
-
-        dialog.show()
+        if(!this.isFinishing){
+            dialog.show()
+        }
+        if(isFinishing){
+            dialog.show()
+        }
+//        dialog.show()
     }
 
 
