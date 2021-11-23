@@ -1,5 +1,6 @@
 package com.ssafy.cafe.service
 
+import android.annotation.SuppressLint
 import android.app.Application
 import android.app.Notification
 import android.app.PendingIntent
@@ -53,18 +54,14 @@ class MyFirebaseMessageService : FirebaseMessagingService() {
 //            )
 //
 //            mBuilder.setStyle(style)
-            val defaultSoundUri= RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
 
             val builder1 = NotificationCompat.Builder(this, MainActivity.channel_id)
-                .setSmallIcon(R.drawable.ic_noti)
+                .setSmallIcon(R.drawable.notification_alert_bell_icon)
                 .setContentTitle(messageTitle)
                 .setContentText(messageContent)
                 .setStyle(NotificationCompat.BigTextStyle().bigText(messageContent))
                 .setAutoCancel(true)
-                .setSound(defaultSoundUri)
-//                .setVibrate(vibrate)
-//                .setNumber(count)
-                .setColor(Color.YELLOW)
+                .setColor(Color.blue(700))
                 .setContentIntent(mainPendingIntent)
 
             NotificationManagerCompat.from(this).apply {

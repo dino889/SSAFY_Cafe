@@ -73,20 +73,6 @@ class MenuDetailFragment : BaseFragment<FragmentMenuDetailBinding>(FragmentMenuD
 
 
 
-//    inner class ProductWithCommentInsertCallback : RetrofitCallback<List<MenuDetailWithCommentResponse>> {
-//        override fun onError(t: Throwable) {
-//            Log.d(TAG, t.message ?: "물품 정보를 받아오는 중 통신오류")
-//        }
-//
-//        override fun onSuccess(code: Int, responseData: List<MenuDetailWithCommentResponse>) {
-//            viewModel.prodWithComment = responseData[0]
-////            initScreen(responseData[0])
-//        }
-//
-//        override fun onFailure(code: Int) {
-//            Log.d(TAG, "onFailure: Error Code $code")
-//        }
-//    }
     inner class ProductWithCommentInsertCallback :
         RetrofitCallback<List<MenuDetailWithCommentResponse>> {
         override fun onError(t: Throwable) {

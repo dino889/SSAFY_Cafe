@@ -10,6 +10,7 @@ import com.ssafy.cafe.dto.Product
 import com.ssafy.cafe.dto.ShoppingCart
 import com.ssafy.cafe.dto.User
 import com.ssafy.cafe.dto.UserLevel
+import com.ssafy.cafe.fragment.MenuDetailFragment
 import com.ssafy.cafe.response.MenuDetailWithCommentResponse
 import com.ssafy.cafe.service.ProductService
 import com.ssafy.cafe.service.UserService
@@ -40,7 +41,6 @@ class MainViewModel : ViewModel() {
         }
     })
 
-    var distance = Double.MAX_VALUE
 
     fun removeShoppingCartItem(position: Int) {
         shoppingCartList.removeAt(position)
@@ -65,28 +65,16 @@ class MainViewModel : ViewModel() {
     }
 
 
-
     // NFC 중복 태깅 방지
     var nfcTaggingData : String? = null
 
-//    // stamp 변화
-//    var userStamp = MutableLiveData<Int>().apply {
-//        value = 0
-//    }
-
-    var token : String = ""
-
-//    val userInfo = MutableLiveData<User>().apply {
-//        value = null
-//    }
 
     private val _user = MutableLiveData<User>()
     val user = _user
 
     fun getUserInfo(userId:String) {
-        val user = ApplicationClass.sharedPreferencesUtil.getUser()
         CoroutineScope(Dispatchers.IO).launch {
-            UserService().getUsers(user.id, object : RetrofitCallback<HashMap<String, Any>>{
+            UserService().getUsers(userId, object : RetrofitCallback<HashMap<String, Any>>{
                 override fun onError(t: Throwable) {
                     Log.d(TAG, "onError: ")
                 }
@@ -110,11 +98,8 @@ class MainViewModel : ViewModel() {
                 override fun onFailure(code: Int) {
                     Log.d(TAG, "onFailure: ")
                 }
-
             })
-
         }
-
     }
 
 }

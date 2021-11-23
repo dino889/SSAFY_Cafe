@@ -71,7 +71,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::bind
         super.onViewCreated(view, savedInstanceState)
 //        initUserLevel()
 //        getUserInfo()
-        viewModel.getUserInfo(ApplicationClass.sharedPreferencesUtil.getUser().id)
+//        viewModel.getUserInfo(ApplicationClass.sharedPreferencesUtil.getUser().id)
         viewModel.user.observe(viewLifecycleOwner) {
             setUserLevel(it.stamps)
         }

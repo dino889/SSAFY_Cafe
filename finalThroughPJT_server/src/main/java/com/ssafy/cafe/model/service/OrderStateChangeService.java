@@ -58,10 +58,10 @@ public class OrderStateChangeService implements PropertyChangeListener {
         			fcmService.sendMessageTo(userToken, "Order", "주문이 완료되었습니다.");
         			break;
         		case 1:
-        			fcmService.sendMessageTo(userToken, "Order", "주문 접수가 완료되었습니다. \n" + (random.nextInt(50) + 1) + "번째 메뉴로 준비중입니다.");
+        			fcmService.sendMessageTo(userToken, "Order", "주문 접수가 완료되었습니다.\n" + (random.nextInt(50) + 1) + "번째 메뉴로 준비중입니다.");
         			break;
         		case 2:
-        			fcmService.sendMessageTo(userToken, "Order", "메뉴가 모두 준비되었어요.\n 픽업대에서 메뉴를 픽업해주세요!");
+        			fcmService.sendMessageTo(userToken, "Order", "메뉴가 모두 준비되었어요.\n픽업대에서 메뉴를 픽업해주세요!");
         			break;
         		case 3:
         			fcmService.sendMessageTo(userToken, "Order", "픽업이 완료 되었습니다.");

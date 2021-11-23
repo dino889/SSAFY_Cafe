@@ -78,9 +78,6 @@
             </intent-filter>
         </activity>
 
-        <meta-data
-            android:name="com.onesignal.NotificationAccentColor.DEFAULT"
-            android:value="FF4D56B3" />
     </application>
 
 </manifest>

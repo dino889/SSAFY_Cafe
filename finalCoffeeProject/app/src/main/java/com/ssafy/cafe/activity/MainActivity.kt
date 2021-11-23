@@ -225,7 +225,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
             // token log 남기기
             Log.d(TAG, "token: ${task.result?:"task.result is null"}")
             uploadToken(task.result!!, ApplicationClass.sharedPreferencesUtil.getUser().id)
-            viewModel.token = task.result!!
+//            viewModel.token = task.result!!
         })
         createNotificationChannel(channel_id, "ssafy")
 
