@@ -65,9 +65,8 @@ import com.ssafy.cafe.service.UserService
 import com.ssafy.cafe.util.RetrofitCallback
 
 
-private const val TAG = "MainActivity"
+private const val TAG = "MainActivity_싸피"
 class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::inflate), BeaconConsumer {
-    private val TAG = "MainActivity_싸피"
 //    private lateinit var binding: ActivityMainBinding
     private val viewModel: MainViewModel by viewModels()
     var isChk = false
@@ -206,6 +205,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
         binding.ibMap.setOnClickListener {
             openFragment(4)
         }
+
         //shake 기능
         sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager?
         accelerometerListener = sensorManager?.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
@@ -230,6 +230,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
 //            viewModel.token = task.result!!
         })
         createNotificationChannel(channel_id, "ssafy")
+
+        // knell - notification Icon animation
+        knell()
 
     }
 
@@ -827,6 +830,20 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
             return isSuccessDeleteToken
         }
     }
+
+
+    private fun knell() {
+        val intentFilter = IntentFilter("com.ssafy.cafe")
+        val receiver = object: BroadcastReceiver() {
+            override fun onReceive(context: Context?, intent: Intent?) {
+                val action = intent!!.action
+                binding.ibtnNotificaton.playAnimation()
+            }
+        }
+        this.registerReceiver(receiver, intentFilter)
+    }
+
+
 
     override fun onDestroy() {
         if(dialog.isShowing) {

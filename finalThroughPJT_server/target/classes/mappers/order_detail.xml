@@ -33,4 +33,18 @@
 		<result column="syrup" property="syrup"/>
 		<result column="shot" property="shot"/>
 	</resultMap>
+	
+	<!-- 리뷰 작성하려는 상품의 주문내역이 있는지, 리뷰가 작성되었는지 체크 제일 최근 내역 1개-->
+	<select id="selectDup" parameterType="int" resultType="int">
+		select d_id
+		from t_order_detail
+		where commentdupchk = 0 and product_id = #{productId} and order_id IN #{orderId}
+	</select>
+	
+	<!-- 리뷰 작성되면 true로 변경해서 작성 못하도록 하깅'ㅅ' -->
+	<update id="updateCommChk" parameterType="int">
+		update t_order_detail
+		set commentdupchk = 1
+		where d_id = #{dId}
+	</update>
 </mapper>

@@ -66,6 +66,7 @@ class CommentService {
             }
         })
     }
+
     fun selectCommentByUser(id: String, callback: RetrofitCallback<List<Comment>>){
         RetrofitUtil.commentService.selectCommentByUser(id).enqueue(object: Callback<List<Comment>>{
             override fun onResponse(call: Call<List<Comment>>, response: Response<List<Comment>>) {
@@ -85,5 +86,49 @@ class CommentService {
 
         })
     }
+
+    fun notWrittenComm(userId : String, productId: Int, callback: RetrofitCallback<Int>) {
+        RetrofitUtil.commentService.notWrittenComm(userId, productId).enqueue(object: Callback<Int> {
+            override fun onResponse(call: Call<Int>, response: Response<Int>) {
+                val res = response.body()
+                if(response.code() == 200){
+                    if (res != null) {
+                        callback.onSuccess(response.code(), res)
+                    }
+                }else {
+                    callback.onFailure(response.code())
+                }
+            }
+
+            override fun onFailure(call: Call<Int>, t: Throwable) {
+                callback.onError(t)
+            }
+
+        })
+    }
+
+
+    fun updateDupChk(dId: Int, callback: RetrofitCallback<Boolean>) {
+        RetrofitUtil.commentService.updateDupChk(dId).enqueue(object : Callback<Boolean> {
+            override fun onResponse(call: Call<Boolean>, response: Response<Boolean>) {
+                val res = response.body()
+                if(response.code() == 200){
+                    if (res != null) {
+                        callback.onSuccess(response.code(), res)
+                    }
+                }else {
+                    callback.onFailure(response.code())
+                }
+            }
+
+            override fun onFailure(call: Call<Boolean>, t: Throwable) {
+                callback.onError(t)
+            }
+
+        })
+    }
+
+
+
 
 }

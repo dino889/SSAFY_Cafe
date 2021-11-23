@@ -90,5 +90,24 @@
                join t_product p on d.product_id = p.id
 		where user_id=#{id} and order_time > date_add(now(), interval -1 month)
 		order by o.o_id desc, d.d_id desc
-</select>
+	</select>
+	
+	<!-- 사용자의 일주일 간 주문에 대한 주문 번호 조회 -->
+	<select id="selectOrderId" parameterType="string" resultType="int">
+		select o_id
+		from t_order
+		where user_id=#{userId} and order_time BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK ) AND NOW()
+		order by o_id desc
+	</select>
+	
+	
+	<select id="selectdupchk" parameterType="map" resultType="int">
+		select ot.d_id
+		from t_order o
+		join t_order_detail ot
+		on o.o_id = ot.order_id
+		where ot.commentdupchk = 0 and product_id = #{productId} and user_id = #{userId} and completed = 4 and o.order_time BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK ) AND NOW()
+		order by ot.d_id desc
+		limit 1
+	</select>
 </mapper>

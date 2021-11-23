@@ -1,8 +1,10 @@
 package com.ssafy.cafe.model.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import com.ssafy.cafe.model.dto.Order;
+import com.ssafy.cafe.model.dto.OrderDetail;
 
 public interface OrderService {
     /**
@@ -53,6 +55,21 @@ public interface OrderService {
      * @return
      */
     List<Map<String, Object>> getLastMonthOrder(String id);
+    
+    /**
+     * User의 최근 7일 간 주문 내역 중 comment가 작성되어 있지 않은 상품 최근 1건 조회 -> 없으면 리뷰 작성 ㄴㄴ
+     * @param userId
+     * @return 
+     */
+//    public Integer getDupChk(String userId, Integer productId);
+    
+    
+//    public OrderDetail getDupChk(Integer productId, Integer orderId);
+    
+    public Integer selectDupChk(HashMap<String, Object> map);
+    
+    
+    public void updateDupChk(Integer odId);
     
     
 }

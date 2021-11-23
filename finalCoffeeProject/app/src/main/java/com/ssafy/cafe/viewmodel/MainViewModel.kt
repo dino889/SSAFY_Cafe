@@ -66,7 +66,7 @@ class MainViewModel : ViewModel() {
 
 
     // NFC 중복 태깅 방지
-    var nfcTaggingData : String? = null
+    var nfcTaggingData : String? = ""
 
 
     private val _user = MutableLiveData<User>()

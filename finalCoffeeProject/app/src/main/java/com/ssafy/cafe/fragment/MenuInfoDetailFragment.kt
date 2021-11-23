@@ -54,16 +54,8 @@ class MenuInfoDetailFragment : BaseFragment<FragmentMenuInfoDetailBinding>(Fragm
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mainActivity.hideBottomNav(true)
-//        arguments?.let {
-//            productId = it.getInt("productId", -1)
-//        }
-    }
 
-//    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-//                              savedInstanceState: Bundle?): View? {
-//        binding = FragmentMenuInfoDetailBinding.inflate(inflater,container,false)
-//        return binding.root
-//    }
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -125,6 +117,7 @@ class MenuInfoDetailFragment : BaseFragment<FragmentMenuInfoDetailBinding>(Fragm
             insertUserCustom(userCustom)
         }
     }
+    // 사용자 커스텀 메뉴
     private fun insertUserCustom(userCustom:UserCustom){
         UserCustomService().insertCustomMenu(userCustom, object:RetrofitCallback<Boolean>{
             override fun onError(t: Throwable) {
@@ -132,7 +125,7 @@ class MenuInfoDetailFragment : BaseFragment<FragmentMenuInfoDetailBinding>(Fragm
             }
 
             override fun onSuccess(code: Int, responseData: Boolean) {
-                Toast.makeText(requireContext(),"사용자 메뉴에 등록되었습니다.",Toast.LENGTH_SHORT).show()
+                showCustomToast("사용자 메뉴에 등록되었습니다.")
             }
 
             override fun onFailure(code: Int) {
@@ -148,7 +141,11 @@ class MenuInfoDetailFragment : BaseFragment<FragmentMenuInfoDetailBinding>(Fragm
         productName = menu.productName
         productType = menu.productType.toString()
         if(productType != "coffee"){
-            binding.llOption.isVisible = false
+            binding.llOptionAdd.isVisible = false
+        }
+        if(productType == "frappuccino" || productType == "dessert") {
+            binding.llOptionAdd.isVisible = false
+            binding.llOptionType.isVisible = false
         }
 
     }

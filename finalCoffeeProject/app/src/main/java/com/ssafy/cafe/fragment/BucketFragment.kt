@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CompoundButton
 import android.widget.Toast
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.activityViewModels
@@ -49,7 +50,7 @@ class BucketFragment : BaseFragment<FragmentBucketBinding>(FragmentBucketBinding
     private lateinit var shoppingListAdapter : ShoppingCartAdapter
     private lateinit var mainActivity: MainActivity
 //    private val viewModel: MainViewModel by activityViewModels()
-    private var hereOrTogo : Boolean = true // table : true, TakeOut : false
+    private var hereOrTogo : Boolean = false // table : true, TakeOut : false
     var isChk = false   // Nfc 태그 데이터 chk
 
     var totalPrice = 0
@@ -126,7 +127,10 @@ class BucketFragment : BaseFragment<FragmentBucketBinding>(FragmentBucketBinding
 
     // 매장 vs TakeOut 선택 여부 set
     private fun setHereOrTogo() {
-        hereOrTogo = binding.toggleButton.isChecked == true
+
+        binding.toggleButton.setOnCheckedChangeListener { buttonView, isChecked ->
+            hereOrTogo = isChecked == true
+        }
     }
 
     // 주문 버튼 클릭

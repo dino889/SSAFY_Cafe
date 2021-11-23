@@ -1,7 +1,10 @@
 package com.ssafy.cafe.model.dao;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import com.ssafy.cafe.model.dto.Notification;
 import com.ssafy.cafe.model.dto.Order;
 
 public interface OrderDao {
@@ -28,4 +31,9 @@ public interface OrderDao {
      * @return
      */
     List<Map<String, Object>> getLastMonthOrder(String id);
+    
+//    List<Integer> selectOrderId(String userId);
+    
+    Integer selectdupchk(HashMap<String, Object> map);
+    
 }

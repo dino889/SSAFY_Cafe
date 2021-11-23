@@ -104,13 +104,31 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(FragmentReviewBinding
 
     private fun initListener() {
         binding.btnInsertComment.setOnClickListener {
-            Log.d(TAG, "onViewCreated: ")
-            showDialogRatingStar()
+
+            CommentService().notWrittenComm(viewModel.user.value!!.id, productId , object : RetrofitCallback<Int> {
+                override fun onError(t: Throwable) {
+                    Log.d(TAG, "onError: $t")
+                    showCustomToast("최근 7일 내 주문 내역이 없어 \n리뷰를 작성하실 수 없습니다.")
+                }
+
+                override fun onSuccess(code: Int, responseData: Int) {
+                    if(responseData >= 1) {
+                        showDialogRatingStar(responseData)
+                    } else {
+                        Log.d(TAG, "onSuccess: $responseData")
+                    }
+                }
+
+                override fun onFailure(code: Int) {
+                    Log.d(TAG, "onFailure: $code")
+                }
+
+            })
+
         }
     }
 
-    private fun showDialogRatingStar(){
-        Log.d(TAG, "showDialogRatingStar: 왜 안되냐")
+    private fun showDialogRatingStar(detailId : Int){
         val view = layoutInflater.inflate(R.layout.dialog_add_comment, null)
         val dialog = AlertDialog.Builder(requireContext()).apply {
 //            setTitle("별점선택")
@@ -130,6 +148,23 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(FragmentReviewBinding
                     user.id
                 )
                 CommentService().insert(newComment, CommentAddCallback())
+
+                CommentService().updateDupChk(detailId, object : RetrofitCallback<Boolean> {
+                    override fun onError(t: Throwable) {
+                        Log.d(TAG, "onError: $t")
+                    }
+
+                    override fun onSuccess(code: Int, responseData: Boolean) {
+                        if(responseData) {
+                            Log.d(TAG, "onSuccess: ")
+                        }
+                    }
+
+                    override fun onFailure(code: Int) {
+                        Log.d(TAG, "onFailure: $code")
+                    }
+
+                })
             }
             setNegativeButton("취소") { dialog, which ->
                 dialog.cancel()
@@ -151,10 +186,8 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(FragmentReviewBinding
 
                 // comment 가 없을 경우 -> 들어온 response가 1개이고 해당 userId 가 null일 경우 빈 배열 Adapter 연결
                 if (responseData.size == 1 && responseData[0].userId == null) {
-                    Log.d(TAG, "onSuccess: 111")
                     commentAdapter = CommentAdapter(mutableListOf(), this@ReviewFragment::initData)
                 } else {
-                    Log.d(TAG, "onSuccess: 222${responseData}")
                     commentAdapter = CommentAdapter(responseData, this@ReviewFragment::initData)
                 }
                 liveData.value = responseData
@@ -172,6 +205,7 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(FragmentReviewBinding
             Log.d(TAG, "onResponse: Error Code $code")
         }
     }
+
     inner class CommentAddCallback : RetrofitCallback<Boolean> {
         override fun onError(t: Throwable) {
             Log.d(TAG, "onError: ")

@@ -38,33 +38,30 @@ public class OrderStateChangeService implements PropertyChangeListener {
     
     private String userId;
     
+    private Integer orderId;
     
     
-
 	public void propertyChange(PropertyChangeEvent evt) {
         this.setCompleted((Integer) evt.getNewValue());
-        logger.info("message : {}", evt.getNewValue());
-
-        
-        logger.debug("userId : " + this.userId);
+//        logger.info("message : {}", evt.getNewValue());
         
         String userToken = uService.selectUserToken(userId);
+        
 //        String userToken = "fuwi-tnmQZ-LiZKppdkkrL:APA91bG3ZYcde-fSLMXVcO0xatlrWscbVkx_QT56LPUmWnwVEugDx5rYG912zve9AtQI6arGQqrq0ZBLHLmhKtjsh0yIb3EqMk8iwd3MbcFZl-hIIQZVwcejvIkVrL-J3KL-Bj4cWxEH";
         Random random = new Random();
-        
         try {
         	switch(orderState) {
         		case 0:
         			fcmService.sendMessageTo(userToken, "Order", "주문이 완료되었습니다.");
         			break;
         		case 1:
-        			fcmService.sendMessageTo(userToken, "Order", "주문 접수가 완료되었습니다.\n" + (random.nextInt(50) + 1) + "번째 메뉴로 준비중입니다.");
+        			fcmService.sendMessageTo(userToken, "Order", "접수번호 : " + orderId + "\n주문 접수가 완료되었습니다.\n" + (random.nextInt(50) + 1) + "번째 메뉴로 준비중입니다.");
         			break;
         		case 2:
-        			fcmService.sendMessageTo(userToken, "Order", "메뉴가 모두 준비되었어요.\n픽업대에서 메뉴를 픽업해주세요!");
+        			fcmService.sendMessageTo(userToken, "Order", "접수번호 : " + orderId + "\n메뉴가 모두 준비되었어요.\n픽업대에서 메뉴를 픽업해주세요!");
         			break;
         		case 3:
-        			fcmService.sendMessageTo(userToken, "Order", "픽업이 완료 되었습니다.");
+        			fcmService.sendMessageTo(userToken, "Order", "접수번호 : " + orderId + "\n픽업이 완료 되었습니다.");
         			break;
         	}
         } catch(Exception e){
@@ -87,4 +84,13 @@ public class OrderStateChangeService implements PropertyChangeListener {
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
+	
+	public Integer getOrderId() {
+		return orderId;
+	}
+
+	public void setOrderId(Integer orderId) {
+		this.orderId = orderId;
+	}
+
 }
