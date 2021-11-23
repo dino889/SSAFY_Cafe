@@ -32,4 +32,6 @@ public interface ProductService {
     
     List<Product> selectByName(String name);
     
+    List<Product> getWeekBest();
+    
 }

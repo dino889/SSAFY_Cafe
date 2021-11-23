@@ -32,4 +32,9 @@ interface ProductApi {
 
     @GET("rest/product/search/{name}")
     fun selectByName(@Path("name") name:String) : Call<List<Product>>
+
+    // 일주일 간 주문 내역이 많은 상품 조회
+    @GET("rest/product/weekBest")
+    fun getWeekBestProduct() : Call<List<Product>>
+
 }

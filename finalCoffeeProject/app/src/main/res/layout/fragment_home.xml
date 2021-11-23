@@ -130,6 +130,32 @@
                     android:layout_height="match_parent"
                     tools:listitem="@layout/recyclerview_menu_list_item" />
             </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_weekBest"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="20dp"
+                android:background="@color/nocolor"
+                android:baselineAligned="false"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textView6"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:fontFamily="@font/nanumsquare_aceb"
+                    android:text="WEEK BEST"
+                    android:textColor="@color/black"
+                    android:textSize="20sp" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_weekBestMenuList"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    tools:listitem="@layout/recyclerview_menu_list_item" />
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 

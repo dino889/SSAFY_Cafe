@@ -78,7 +78,7 @@ class ProductService {
         })
     }
 
-    fun getBestProduct() : LiveData<List<BestProductResponse>>{
+    fun getBestProduct() : LiveData<List<BestProductResponse>> {
         val responseLiveData : MutableLiveData<List<BestProductResponse>> = MutableLiveData()
         val bestProductRequest: Call<List<BestProductResponse>> = RetrofitUtil.productService.getBestProduct5()
         
@@ -144,5 +144,29 @@ class ProductService {
             }
 
         })
+    }
+
+    fun getWeekBest() : LiveData<List<Product>> {
+        val responseLiveData : MutableLiveData<List<Product>> = MutableLiveData()
+        val weekBestProductRequest: Call<List<Product>> = RetrofitUtil.productService.getWeekBestProduct()
+
+        weekBestProductRequest.enqueue(object : Callback<List<Product>>{
+            override fun onResponse(call: Call<List<Product>>, response: Response<List<Product>>) {
+                val res = response.body()
+                if(response.code() == 200){
+                    if(res != null){
+                        responseLiveData.value = res
+                    }
+                }else{
+                    Log.d(TAG, "onResponse: ")
+                }
+            }
+
+            override fun onFailure(call: Call<List<Product>>, t: Throwable) {
+                Log.d(TAG, "onFailure: ")
+            }
+
+        })
+        return responseLiveData
     }
 }

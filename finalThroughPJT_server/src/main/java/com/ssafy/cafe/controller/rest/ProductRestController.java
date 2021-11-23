@@ -56,4 +56,10 @@ public class ProductRestController {
     public List<Product> selectByName(@PathVariable("name") String name) {
     	return pService.selectByName(name);
     }
+    
+    @GetMapping("/weekBest")
+    @ApiOperation(value="주문 내역이 많은 product top 5를 조죄한다.", response = List.class)
+    public List<Product> getWeekBestProduct(){
+        return pService.getWeekBest();
+    }
 }
