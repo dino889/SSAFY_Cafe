@@ -3,6 +3,7 @@ package com.ssafy.cafe.util
 
 
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.ssafy.cafe.config.ApplicationClass
@@ -16,4 +17,10 @@ object BindingAdapter {
             .load("${ApplicationClass.MENU_IMGS_URL}${resName}")
             .into(view)
     }
+
+//    @JvmStatic
+//    @BindingAdapter("setText")
+//    fun setText(view:TextView, input:Int?) {
+//        view.text = input?.toString()
+//    }
 }

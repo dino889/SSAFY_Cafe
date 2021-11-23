@@ -151,6 +151,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
 
         // user 정보 받아오기
 //        viewModel.initUserLevel()
+        viewModel.getUserInfo(ApplicationClass.sharedPreferencesUtil.getUser().id)
+
 
         supportFragmentManager.beginTransaction()
             .replace(R.id.frame_layout_main, HomeFragment())

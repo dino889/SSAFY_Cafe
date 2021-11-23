@@ -58,7 +58,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::b
 //    private lateinit var binding: FragmentLoginBinding
     private val RC_SIGN_IN = 9001
     private lateinit var auth: FirebaseAuth
-    private val viewModel: MainViewModel by activityViewModels()
+//    private val viewModel: MainViewModel by activityViewModels()
 
     private lateinit var loginActivity: LoginActivity
 //    lateinit var name:String
@@ -131,7 +131,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::b
                 // 로그인 시 user정보 sp에 저장
                 ApplicationClass.sharedPreferencesUtil.addUser(user)
 
-                viewModel.userInfo.value = user
+//                viewModel.userInfo.value = user
 
                 loginActivity.openFragment(1)
             }else{

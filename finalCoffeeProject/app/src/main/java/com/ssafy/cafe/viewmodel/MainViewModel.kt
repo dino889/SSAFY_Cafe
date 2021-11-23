@@ -14,6 +14,10 @@ import com.ssafy.cafe.response.MenuDetailWithCommentResponse
 import com.ssafy.cafe.service.ProductService
 import com.ssafy.cafe.service.UserService
 import com.ssafy.cafe.util.RetrofitCallback
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import org.json.JSONObject
 
 private const val TAG = "MainViewModel"
 class MainViewModel : ViewModel() {
@@ -65,15 +69,52 @@ class MainViewModel : ViewModel() {
     // NFC 중복 태깅 방지
     var nfcTaggingData : String? = null
 
-    // stamp 변화
-    var userStamp = MutableLiveData<Int>().apply {
-        value = 0
-    }
+//    // stamp 변화
+//    var userStamp = MutableLiveData<Int>().apply {
+//        value = 0
+//    }
 
     var token : String = ""
 
-    val userInfo = MutableLiveData<User>().apply {
-        value = User()
+//    val userInfo = MutableLiveData<User>().apply {
+//        value = null
+//    }
+
+    private val _user = MutableLiveData<User>()
+    val user = _user
+
+    fun getUserInfo(userId:String) {
+        val user = ApplicationClass.sharedPreferencesUtil.getUser()
+        CoroutineScope(Dispatchers.IO).launch {
+            UserService().getUsers(user.id, object : RetrofitCallback<HashMap<String, Any>>{
+                override fun onError(t: Throwable) {
+                    Log.d(TAG, "onError: ")
+                }
+
+                override fun onSuccess(code: Int, responseData: HashMap<String, Any>) {
+//                val user = Gson().fromJson(responseData["user"].toString(), User::class.java)
+                    val data = JSONObject(responseData as Map<*, *>)
+                    val rawUser = data.getJSONObject("user")
+                    val user = User(
+                        rawUser.getString("id"),
+                        rawUser.getString("name"),
+                        rawUser.getString("pass"),
+                        rawUser.getString("phone"),
+                        rawUser.getInt("stamps"),
+                        rawUser.getInt("money"),
+                        rawUser.getString("token")
+                    )
+                    _user.postValue(user)
+                }
+
+                override fun onFailure(code: Int) {
+                    Log.d(TAG, "onFailure: ")
+                }
+
+            })
+
+        }
+
     }
 
 }

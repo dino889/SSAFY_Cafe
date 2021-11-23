@@ -101,7 +101,6 @@ class AllMenuFragment : BaseFragment<FragmentAllMenuBinding>(FragmentAllMenuBind
                 }else{
                     binding.llSearchlayout.isVisible = false
                     ProductService().getProductWithTypeList(category.category, ProductCallback())
-
                 }
 
             }

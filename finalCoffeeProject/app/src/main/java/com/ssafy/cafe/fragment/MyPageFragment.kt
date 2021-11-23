@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 //import com.google.gson.reflect.TypeToken
@@ -22,6 +23,7 @@ import com.ssafy.cafe.databinding.FragmentMyPageBinding
 import com.ssafy.cafe.dto.Comment
 import com.ssafy.cafe.dto.Order
 import com.ssafy.cafe.dto.User
+import com.ssafy.cafe.dto.UserLevel
 import com.ssafy.cafe.service.CommentService
 import com.ssafy.cafe.service.OrderService
 import com.ssafy.cafe.service.UserService
@@ -38,6 +40,7 @@ private const val TAG = "MyPageFragment"
 class MyPageFragment : BaseFragment<FragmentMyPageBinding>(FragmentMyPageBinding::bind, R.layout.fragment_my_page) {
 //    private lateinit var binding : FragmentMyPageBinding
     private lateinit var mainActivity: MainActivity
+
     var settingList = arrayListOf<Setting>(
         Setting("headphone","고객센터"),
         Setting("note","공지사항"),
@@ -75,7 +78,8 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(FragmentMyPageBinding
     fun initUserInfo(){
         var users = ApplicationClass.sharedPreferencesUtil.getUser()
         binding.tvUserProfilName.text = "${users.name}님"
-        getUsers(users.id)
+//        getUsers(users.id)
+        setUserPay()
         getCommentByUsers(users.id)
         getOrderbyUser(users.id)
 
@@ -84,6 +88,7 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(FragmentMyPageBinding
         val settingAdapter = settingListViewAdapter(requireContext(), settingList)
         binding.lvSetting.adapter = settingAdapter
     }
+
     fun getCommentByUsers(id:String){
 
         CommentService().selectCommentByUser(id, object : RetrofitCallback<List<Comment>> {
@@ -100,39 +105,47 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(FragmentMyPageBinding
             }
         })
     }
-    fun getUsers(id:String){
-        UserService().getUsers(id, object : RetrofitCallback<HashMap<String, Any>> {
-            override fun onError(t: Throwable) {
-                Log.d(TAG, "onError: ")
-            }
+    private fun setUserPay() {
 
-            override fun onSuccess(code: Int, responseData: HashMap<String, Any>) {
-                //Log.d(TAG, "onSuccess: $responseData")
-                //val grade = responseData!!["grade"]
-                val data = JSONObject(responseData as Map<*, *>)
-                val rawUser = data.getJSONObject("user")
-                val user = User(
-                    rawUser.getString("id"),
-                    rawUser.getString("name"),
-                    rawUser.getString("pass"),
-                    rawUser.getString("phone"),
-                    rawUser.getInt("stamps"),
-                    rawUser.getInt("money"),
-                    rawUser.getString("token")
-                )
+        viewModel.user.observe(viewLifecycleOwner) {
+            binding.tvMyPayMoney.text = CommonUtils.makeComma(it.money)
+        }
 
-                var pay = user.money
-                binding.tvMyPayMoney.text = CommonUtils.makeComma(pay)
-//                binding.tvOrderHistoryCnt.text = "${arr.length()}"
-                ApplicationClass.sharedPreferencesUtil.addUserPay(pay)
-            }
-
-            override fun onFailure(code: Int) {
-                Log.d(TAG, "onFailure: ")
-            }
-
-        })
     }
+
+//    fun getUsers(id:String){
+//        UserService().getUsers(id, object : RetrofitCallback<HashMap<String, Any>> {
+//            override fun onError(t: Throwable) {
+//                Log.d(TAG, "onError: ")
+//            }
+//
+//            override fun onSuccess(code: Int, responseData: HashMap<String, Any>) {
+//                //Log.d(TAG, "onSuccess: $responseData")
+//                //val grade = responseData!!["grade"]
+//                val data = JSONObject(responseData as Map<*, *>)
+//                val rawUser = data.getJSONObject("user")
+//                val user = User(
+//                    rawUser.getString("id"),
+//                    rawUser.getString("name"),
+//                    rawUser.getString("pass"),
+//                    rawUser.getString("phone"),
+//                    rawUser.getInt("stamps"),
+//                    rawUser.getInt("money"),
+//                    rawUser.getString("token")
+//                )
+//
+//                var pay = user.money
+//                binding.tvMyPayMoney.text = CommonUtils.makeComma(pay)
+////                binding.tvOrderHistoryCnt.text = "${arr.length()}"
+//                ApplicationClass.sharedPreferencesUtil.addUserPay(pay)
+//            }
+//
+//            override fun onFailure(code: Int) {
+//                Log.d(TAG, "onFailure: ")
+//            }
+//
+//        })
+//    }
     fun getOrderbyUser(id:String){
         OrderService().getOrderbyUser(id, object : RetrofitCallback<List<Order>>{
             override fun onError(t: Throwable) {

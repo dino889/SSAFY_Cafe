@@ -25,7 +25,7 @@ private const val TAG = "MenuDetailFragment_싸피"
 class MenuDetailFragment : BaseFragment<FragmentMenuDetailBinding>(FragmentMenuDetailBinding::bind, R.layout.fragment_menu_detail) {
     private lateinit var mainActivity : MainActivity
 //    private lateinit var binding : FragmentMenuDetailBinding
-    private val viewModel: MainViewModel by activityViewModels()
+//    private val viewModel: MainViewModel by activityViewModels()
 
     private var productId = -1
 

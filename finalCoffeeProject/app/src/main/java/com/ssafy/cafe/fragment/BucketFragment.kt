@@ -38,6 +38,7 @@ import com.ssafy.cafe.util.LocationPermissionManager
 import com.ssafy.cafe.util.LocationServiceManager
 import com.ssafy.cafe.util.RetrofitCallback
 import com.ssafy.cafe.viewmodel.MainViewModel
+import org.json.JSONObject
 import java.lang.Math.*
 import java.text.DecimalFormat
 
@@ -47,7 +48,7 @@ class BucketFragment : BaseFragment<FragmentBucketBinding>(FragmentBucketBinding
     private lateinit var shoppingListRecyclerView: RecyclerView
     private lateinit var shoppingListAdapter : ShoppingCartAdapter
     private lateinit var mainActivity: MainActivity
-    private val viewModel: MainViewModel by activityViewModels()
+//    private val viewModel: MainViewModel by activityViewModels()
     private var hereOrTogo : Boolean = true // table : true, TakeOut : false
     var isChk = false   // Nfc 태그 데이터 chk
 
@@ -228,21 +229,33 @@ class BucketFragment : BaseFragment<FragmentBucketBinding>(FragmentBucketBinding
 
 
         var point = 0
-        val userPay = ApplicationClass.sharedPreferencesUtil.getUserPay()
+        viewModel.user.observe(viewLifecycleOwner) {
 
-        // 등급 계산
-        for(i in 0..UserLevel.userInfoList.size-1) {
-            if (UserLevel.userInfoList.get(i).max <= viewModel.userStamp.value!!) {
-                point = (totalPrice * UserLevel.userInfoList.get(i).point * 0.01).toInt()   // 등급에 따른 포인트 부여(총 금액 * 등급별 퍼센트)
+
+            val userPay = it.money
+            val userStamp = it.stamps
+
+            // 등급 계산
+            val levelList = UserLevel.userInfoList
+            val listSize = levelList.size
+
+
+            for (i in 0 until listSize) {
+                if (userStamp <= levelList[i].max) {
+                    point = (totalPrice * levelList[i].point * 0.01).toInt()
+                    break
+                }
             }
+
+            if (userPay - totalPrice >= 0) {  // 현재 잔액 - 주문 금액이 0보다 크면 주문 가능
+                val balance = (userPay - totalPrice) + point  // 현재 잔액 - 주문 금액
+                completedOrder(order, balance)
+            } else{
+                showCustomToast("현재 잔액이 부족합니다. 매장에서 잔액을 충전해주세요.")
+            }
+
         }
 
-        if (userPay!! - totalPrice >= 0) {  // 현재 잔액 - 주문 금액이 0보다 크면 주문 가능
-            val balance = (userPay!! - totalPrice) + point  // 현재 잔액 - 주문 금액
-            completedOrder(order, balance)
-        } else{
-            Toast.makeText(requireContext(), "현재 잔액이 부족합니다. 매장에서 잔액을 충전해주세요.", Toast.LENGTH_LONG).show()
-        }
 
 
 //        completedOrder(order)
