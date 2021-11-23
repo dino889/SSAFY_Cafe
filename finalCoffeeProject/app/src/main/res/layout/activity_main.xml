@@ -18,6 +18,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:gravity="center"
             android:orientation="horizontal">
 
             <TextView
@@ -25,7 +26,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:fontFamily="@font/nanumsquare_acb"
+                android:fontFamily="@font/nanumsquare_acr"
                 android:text="KIMSSAFY님"
                 android:textColor="#FFFFFF"
                 android:textSize="20sp" />
@@ -88,8 +89,8 @@
         android:id="@+id/frame_layout_main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/ll_profileStateShort"
-        android:layout_above="@id/tab_layout_bottom_navigation" />
+        android:layout_above="@id/tab_layout_bottom_navigation"
+        android:layout_below="@id/ll_profileStateShort" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/tab_layout_bottom_navigation"

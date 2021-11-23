@@ -35,6 +35,7 @@
                 android:layout_gravity="center|right"
                 android:layout_marginRight="20dp"
                 android:background="@color/yellow_700"
+                android:fontFamily="@font/cafe24_ssurround"
                 android:text="ToggleButton"
                 android:textColor="@color/white"
                 android:textOff="TOGO"

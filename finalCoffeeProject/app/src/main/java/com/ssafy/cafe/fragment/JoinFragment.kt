@@ -101,11 +101,9 @@ class JoinFragment : BaseFragment<FragmentJoinBinding>(FragmentJoinBinding::bind
                 binding.userIDtextlayout.error = "이미 존재하는 아이디입니다."
                 binding.etUserID.requestFocus()
                 dupChkId = false
-                binding.ibtnIdDupChk.setColorFilter(Color.BLACK)
             } else {// DB 내에 중복되는 ID가 있으면
                 binding.userIDtextlayout.error = null
                 dupChkId = true
-                binding.ibtnIdDupChk.setColorFilter(Color.GREEN)
             }
 //            dupChkId = responseData
         }
@@ -122,7 +120,6 @@ class JoinFragment : BaseFragment<FragmentJoinBinding>(FragmentJoinBinding::bind
 
         if(inputUserId.trim().isEmpty()){   // 값이 비어있으면 error
             binding.userIDtextlayout.error = "Required Field"
-            binding.ibtnIdDupChk.setColorFilter(Color.BLACK)
             binding.etUserID.requestFocus()
 //                    return false
         } else {

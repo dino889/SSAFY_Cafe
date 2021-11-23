@@ -19,12 +19,30 @@
             android:orientation="vertical"
             android:padding="20dp">
 
-            <Button
-                android:id="@+id/btn_stroeOrder"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:text="매장결제" />
+                android:gravity="right"
+                android:orientation="horizontal">
+
+                <com.airbnb.lottie.LottieAnimationView
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    app:lottie_autoPlay="true"
+                    app:lottie_fileName="store.json"
+                    app:lottie_loop="true" />
+
+                <Button
+                    android:id="@+id/btn_stroeOrder"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center|right"
+                    android:background="@color/nocolor"
+                    android:fontFamily="@font/nanumsquare_acl"
+                    android:gravity="center"
+                    android:text="매장결제"
+                    android:textColor="@color/black" />
+            </LinearLayout>
 
             <ImageButton
                 android:id="@+id/imageButton6"
@@ -47,6 +65,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:fontFamily="@font/nanumsquare_acr"
                 android:paddingLeft="15dp"
                 android:text="잔액"
                 android:textColor="@color/black"
@@ -57,6 +76,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:fontFamily="@font/nanumsquare_acr"
                 android:gravity="right"
                 android:paddingRight="15dp"
                 android:text="5000 원"
@@ -68,7 +88,6 @@
             android:id="@+id/ll_historyView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#A1A1A9FF"
             android:orientation="vertical"
             android:padding="10dp">
 
@@ -78,6 +97,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
+                android:fontFamily="@font/nanumsquare_acr"
                 android:paddingLeft="15dp"
                 android:text="주문 HISTORY"
                 android:textColor="@color/black"

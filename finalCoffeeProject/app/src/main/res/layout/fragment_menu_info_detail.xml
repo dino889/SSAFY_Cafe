@@ -50,8 +50,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:gravity="center"
                         android:fontFamily="@font/nanumsquare_acl"
+                        android:gravity="center"
                         android:text="1개"
                         android:textColor="@color/black"
                         android:textSize="16sp" />
@@ -184,8 +184,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginRight="4dp"
                     android:layout_weight="1"
-                    android:fontFamily="@font/nanumsquare_acl"
                     android:background="@drawable/drawable_button_selector2"
+                    android:fontFamily="@font/nanumsquare_acl"
                     android:text="장바구니"
                     android:textColor="@color/black" />
 
@@ -195,8 +195,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="4dp"
                     android:layout_weight="1"
-                    android:fontFamily="@font/nanumsquare_acl"
                     android:background="@drawable/drawable_button_selector2"
+                    android:fontFamily="@font/nanumsquare_acl"
                     android:text="찜하기"
                     android:textColor="@color/black" />
             </LinearLayout>
