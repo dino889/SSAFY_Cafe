@@ -13,7 +13,7 @@
         android:id="@+id/ll_profileState"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/blue_700"
+        android:background="@color/maingreen"
         android:orientation="vertical"
         android:paddingLeft="30dp"
         android:paddingRight="30dp"
@@ -72,11 +72,12 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:padding="10dp">
+            android:padding="30dp">
 
             <LinearLayout
                 android:id="@+id/ll_bestMenu"
@@ -91,7 +92,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
-                    android:fontFamily="@font/cafe24_ssurround_air"
+                    android:fontFamily="@font/nanumsquare_aceb"
                     android:text="BEST MENU"
                     android:textColor="@color/black"
                     android:textSize="20sp" />
@@ -100,7 +101,7 @@
                     android:id="@+id/rv_bestMenuList"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    tools:listitem="@layout/recyclerview_menu_list_item"/>
+                    tools:listitem="@layout/recyclerview_menu_list_item" />
 
             </LinearLayout>
 
@@ -118,7 +119,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
-                    android:fontFamily="@font/cafe24_ssurround_air"
+                    android:fontFamily="@font/nanumsquare_aceb"
                     android:text="LAST ORDER MENU"
                     android:textColor="@color/black"
                     android:textSize="20sp" />
@@ -127,7 +128,7 @@
                     android:id="@+id/rv_lastOrderMenuList"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    tools:listitem="@layout/recyclerview_menu_list_item"/>
+                    tools:listitem="@layout/recyclerview_menu_list_item" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

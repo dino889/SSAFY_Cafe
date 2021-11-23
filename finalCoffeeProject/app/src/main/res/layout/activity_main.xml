@@ -11,7 +11,7 @@
         android:id="@+id/ll_profileStateShort"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/blue_700"
+        android:background="@color/maingreen"
         android:orientation="vertical"
         android:padding="30dp">
 
@@ -26,7 +26,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:fontFamily="@font/nanumsquare_acr"
+                android:fontFamily="@font/nanumsquare_aceb"
                 android:text="KIMSSAFY님"
                 android:textColor="#FFFFFF"
                 android:textSize="20sp" />
@@ -97,7 +97,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="@color/blue_700"
+        android:background="@color/maingreen"
         app:menu="@menu/bottom_nav" />
 
 </RelativeLayout>

@@ -65,12 +65,15 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(FragmentMyPageBinding
         initAdapter()
 
         binding.btnPay.setOnClickListener {
+            binding.btnPay.playAnimation()
             mainActivity.openFragment(11)
         }
         binding.btnMyreview.setOnClickListener {
+            binding.btnMyreview.playAnimation()
             mainActivity.openFragment(12)
         }
         binding.btnOrderHistory.setOnClickListener {
+            binding.btnOrderHistory.playAnimation()
             mainActivity.openFragment(13)
         }
     }

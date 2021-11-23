@@ -14,7 +14,7 @@ import com.ssafy.cafe.databinding.ActivityLoadingBinding
 import com.ssafy.cafe.databinding.ActivityMainBinding
 
 class LoadingActivity : BaseActivity<ActivityLoadingBinding>(ActivityLoadingBinding::inflate) {
-    private val SPLASH_TIME:Long = 1000 // 4000
+    private val SPLASH_TIME:Long = 4000 // 4000
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,8 +26,6 @@ class LoadingActivity : BaseActivity<ActivityLoadingBinding>(ActivityLoadingBind
             finish()
         }, SPLASH_TIME)
 
-//        var keyHash = Utility.getKeyHash(this)
-//        Log.v("kakao", keyHash)
     }
 
 }

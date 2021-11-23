@@ -124,6 +124,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:fontFamily="@font/nanumsquare_acb"
                     android:text="총 결제금액"
                     android:textSize="15dp"
                     android:textStyle="bold" />
@@ -132,6 +133,7 @@
                     android:id="@+id/tv_AllTotalPrice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/nanumsquare_acb"
                     android:text="22,000원"
                     android:textSize="15dp"
                     android:textStyle="bold" />
