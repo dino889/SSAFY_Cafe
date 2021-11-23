@@ -44,7 +44,7 @@
                 android:layout_weight="0.5"
                 android:fontFamily="@font/nanumsquare_acb"
                 android:text="10"
-                android:textColor="@color/yellow_700"
+                android:textColor="@color/yellow_200"
                 android:textSize="15sp" />
 
             <TextView

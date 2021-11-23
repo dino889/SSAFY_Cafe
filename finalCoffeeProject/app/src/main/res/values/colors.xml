@@ -16,7 +16,8 @@
 
     <color name="green">#3E543C</color>
     <color name="maingreen">#2c4c32</color>
-
+    <color name="green_300">#689971</color>
     <color name="nocolor">#00FFFFFF</color>
     <color name="colorAccent">#889dfe</color>
+    <color name="other">#997751</color>
 </resources>
