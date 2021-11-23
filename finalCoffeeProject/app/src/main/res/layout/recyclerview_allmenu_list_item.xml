@@ -26,7 +26,7 @@
             android:id="@+id/tv_productName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/NanumSquare_acL"
+            android:fontFamily="@font/nanumsquare_acl"
             android:paddingTop="10dp"
             android:text="아인슈페너"
             android:textColor="@color/black"
@@ -36,7 +36,7 @@
             android:id="@+id/tv_productPrice"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/NanumSquare_acL"
+            android:fontFamily="@font/nanumsquare_acl"
             android:paddingTop="10dp"
             android:text="5,600원"
             android:textColor="@color/black" />

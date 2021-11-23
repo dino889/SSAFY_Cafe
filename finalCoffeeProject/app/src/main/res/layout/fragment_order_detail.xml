@@ -26,13 +26,14 @@
                 app:lottie_autoPlay="true"
                 app:lottie_fileName="coffee.json"
                 app:lottie_loop="true" />
+
             <TextView
                 android:id="@+id/textView5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="1"
-                android:fontFamily="@font/NanumSquare_acL"
+                android:fontFamily="@font/nanumsquare_acl"
                 android:padding="15dp"
                 android:text="주문이 완료되었습니다"
                 android:textColor="@color/black"
@@ -51,7 +52,7 @@
                 android:id="@+id/tv_orderMenuNameShort"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/nanumsquare_acR"
+                android:fontFamily="@font/nanumsquare_acr"
                 android:text="아메리카노 외 3건"
                 android:textColor="@color/black"
                 android:textSize="24sp"
@@ -67,14 +68,14 @@
                     android:id="@+id/textView23"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/NanumSquare_acL"
+                    android:fontFamily="@font/nanumsquare_acl"
                     android:text="주문일시 :" />
 
                 <TextView
                     android:id="@+id/tv_orderDate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/NanumSquare_acL"
+                    android:fontFamily="@font/nanumsquare_acl"
                     android:paddingLeft="10dp"
                     android:text="20121-11-20 11:16" />
             </LinearLayout>

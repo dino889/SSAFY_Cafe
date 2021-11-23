@@ -33,7 +33,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:fontFamily="@font/nanumsquare_acR"
+                    android:fontFamily="@font/nanumsquare_acr"
                     android:gravity="center"
                     android:text="KIMSSAFY님"
                     android:textColor="@color/black"
@@ -75,7 +75,7 @@
                         android:id="@+id/tv_paymoney"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/NanumSquare_acL"
+                        android:fontFamily="@font/nanumsquare_acl"
                         android:text="잔액" />
 
                     <TextView
@@ -84,7 +84,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="15dp"
                         android:layout_weight="1"
-                        android:fontFamily="@font/NanumSquare_acL"
+                        android:fontFamily="@font/nanumsquare_acl"
                         android:text="5000원" />
                 </LinearLayout>
 
@@ -116,7 +116,7 @@
                         android:id="@+id/tv_orderhistoryView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/NanumSquare_acL"
+                        android:fontFamily="@font/nanumsquare_acl"
                         android:text="주문내역" />
 
                     <TextView
@@ -125,7 +125,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="15dp"
                         android:layout_weight="1"
-                        android:fontFamily="@font/NanumSquare_acL"
+                        android:fontFamily="@font/nanumsquare_acl"
                         android:text="17" />
                 </LinearLayout>
 
@@ -155,7 +155,7 @@
                         android:id="@+id/tv_myReviewView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/NanumSquare_acL"
+                        android:fontFamily="@font/nanumsquare_acl"
                         android:text="MY리뷰" />
 
                     <TextView
@@ -164,7 +164,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="15dp"
                         android:layout_weight="1"
-                        android:fontFamily="@font/NanumSquare_acL"
+                        android:fontFamily="@font/nanumsquare_acl"
                         android:text="3" />
                 </LinearLayout>
 

@@ -16,7 +16,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:fontFamily="@font/NanumSquare_acL"
+            android:fontFamily="@font/nanumsquare_acl"
             android:text="아메리카노 2개"
             android:textColor="@color/black"
             android:textSize="16sp" />
@@ -26,7 +26,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:fontFamily="@font/NanumSquare_acL"
+            android:fontFamily="@font/nanumsquare_acl"
             android:gravity="right"
             android:text="1,000원"
             android:textColor="@color/black"
@@ -43,7 +43,7 @@
             android:id="@+id/textView26"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/NanumSquare_acL"
+            android:fontFamily="@font/nanumsquare_acl"
             android:text="메뉴선택 :" />
 
         <TextView
@@ -51,7 +51,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:fontFamily="@font/NanumSquare_acL"
+            android:fontFamily="@font/nanumsquare_acl"
             android:paddingLeft="10dp"
             android:text="Ice | 바닐라시럽 | 샷2개추가" />
     </LinearLayout>

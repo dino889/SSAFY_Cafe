@@ -7,6 +7,8 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
         android:orientation="vertical"
         android:padding="10dp">
 
@@ -37,7 +39,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:fontFamily="@font/nanumsquare_acR"
+                android:fontFamily="@font/nanumsquare_acr"
                 android:gravity="center"
                 android:text="이용 알림"
                 android:textColor="@color/black"
@@ -49,17 +51,19 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginBottom="20dp"
-            android:fontFamily="@font/NanumSquare_acL"
+            android:fontFamily="@font/nanumsquare_acl"
             android:gravity="center"
             android:text="1. 매장내 이용시 테이블의 NFC를 태그하면 해당 테이블로 음료를 가져다드립니다."
             android:textAlignment="viewStart"
             android:textColor="@color/black"
-            android:textSize="20dp" />
+            android:textSize="14sp" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/nanumsquare_acR"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:fontFamily="@font/nanumsquare_acr"
             android:text="주문하신 음료"
             android:textColor="@color/black"
             android:textSize="24sp" />
@@ -79,6 +83,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
+            android:gravity="center"
             android:orientation="horizontal">
 
             <ImageView
@@ -103,7 +108,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_margin="10dp"
-                    android:fontFamily="@font/NanumSquare_acL"
+                    android:fontFamily="@font/nanumsquare_acl"
                     android:text="TextView"
                     android:textColor="@color/black"
                     android:textSize="26sp" />
@@ -114,7 +119,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_margin="10dp"
-                    android:fontFamily="@font/NanumSquare_acL"
+                    android:fontFamily="@font/nanumsquare_acl"
                     android:text="TextView"
                     android:textColor="@color/black"
                     android:textSize="26sp" />
@@ -127,7 +132,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
-            android:fontFamily="@font/NanumSquare_acL"
+            android:layout_marginRight="10dp"
+            android:fontFamily="@font/nanumsquare_acl"
             android:text="확인"
             android:textColor="@color/black"
             android:textSize="20sp" />
