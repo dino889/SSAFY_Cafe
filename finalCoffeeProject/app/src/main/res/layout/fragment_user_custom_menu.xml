@@ -32,22 +32,15 @@
             </LinearLayout>
         </ScrollView>
 
-        <com.airbnb.lottie.LottieAnimationView
+
+                <Button
             android:id="@+id/btn_gotoShoppingList"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            app:lottie_autoPlay="true"
-            app:lottie_fileName="addtoshop.json"
-            app:lottie_loop="true" />
-<!--        <Button-->
-<!--            android:id="@+id/btn_gotoShoppingList"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:background="@drawable/drawable_button_unclick_item2"-->
-<!--            android:fontFamily="@font/nanumsquare_acr"-->
-<!--            android:text="장바구니담기"-->
-<!--            android:textColor="@color/black" />-->
+            android:background="@drawable/drawable_button_unclick_item2"
+            android:fontFamily="@font/nanumsquare_acr"
+            android:text="장바구니담기"
+            android:textColor="@color/black" />
 
     </LinearLayout>
 

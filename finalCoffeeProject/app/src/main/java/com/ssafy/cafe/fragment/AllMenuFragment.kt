@@ -41,6 +41,12 @@ class AllMenuFragment : BaseFragment<FragmentAllMenuBinding>(FragmentAllMenuBind
 
         initCategoryAdapter()
 
+        binding.searchBtn.setOnClickListener {
+
+            binding.searchBtn.playAnimation()
+            initSearch(binding.etSearchText.text.toString());
+        }
+
     }
     fun initSearch(search:String){
         ProductService().selectByName(search, object : RetrofitCallback<List<Product>>{
@@ -94,17 +100,12 @@ class AllMenuFragment : BaseFragment<FragmentAllMenuBinding>(FragmentAllMenuBind
                 val category = categoryList[position]
                 if(position == 0){
                     ProductService().getProductList(ProductCallback())
-
-
-                    binding.searchBtn.setOnClickListener {
-                        binding.llSearchlayout.isVisible = true
-                        binding.searchBtn.playAnimation()
-                        initSearch(binding.etSearchText.text.toString());
-                    }
+                    binding.llSearchlayout.isVisible = true
                 }else{
                     binding.llSearchlayout.isVisible = false
                     ProductService().getProductWithTypeList(category.category, ProductCallback())
                 }
+
 
             }
         })

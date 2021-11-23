@@ -59,8 +59,10 @@ import retrofit2.Response
 import com.nhn.android.naverlogin.OAuthLogin
 
 import android.os.AsyncTask
-
-
+import com.ssafy.cafe.dto.*
+import com.ssafy.cafe.service.ProductService
+import com.ssafy.cafe.service.UserService
+import com.ssafy.cafe.util.RetrofitCallback
 
 
 private const val TAG = "MainActivity"
@@ -68,7 +70,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
     private val TAG = "MainActivity_싸피"
 //    private lateinit var binding: ActivityMainBinding
     private val viewModel: MainViewModel by viewModels()
-
+    var isChk = false
     //----------------------------------------------------------------------------------------------
     // Shake 관련 변수
     private var accelerometerListener: Sensor? = null
@@ -266,7 +268,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
                 .addToBackStack(null)
 //            //주문 상세 보기
             2 -> transaction.replace(R.id.frame_layout_main, OrderDetailFragment.newInstance(key, value))
-                .addToBackStack(null)
+
             //메뉴 상세 보기
             3 -> transaction.replace(R.id.frame_layout_main, MenuDetailFragment.newInstance(key, value))
                 .addToBackStack(null)
@@ -558,10 +560,18 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
         var listener = DialogInterface.OnClickListener { _, p1 ->
             when(p1){
                 DialogInterface.BUTTON_POSITIVE ->{
+                    if(viewModel.nfcTaggingData.equals("")) {   // NFC 태깅해서 테이블 데이터가 있으면
+                        Toast.makeText(this, "Table NFC를 찍어주세요.", Toast.LENGTH_SHORT).show()
+                    } else {
+                        isChk = true
+                        makeOrderDto()
+                        dialog.cancel()
 
+                    }
                 }
                 DialogInterface.BUTTON_NEGATIVE -> {
-
+                    dialog.cancel()
+                    disableNfc()
                 }
             }
         }
@@ -569,9 +579,139 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
         var builder = AlertDialog.Builder(this)
         builder.setTitle("매장주문")
         builder.setView(R.layout.dialog_nfc_order)
+        builder.setPositiveButton("주문",listener)
+        builder.setNegativeButton("취소",listener)
         builder.show()
+        enableNfc()
+    }
+    fun enableNfc() {
+        // NFC 포그라운드 기능 활성화
+        nfcAdapter!!.enableForegroundDispatch(this, pIntent, filters, null)
     }
 
+    fun disableNfc() {
+        // NFC 포그라운드 기능 비활성화
+        nfcAdapter!!.disableForegroundDispatch(this)
+    }
+    fun makeOrderDto(){
+        var orderDetailList:ArrayList<OrderDetail> = arrayListOf()
+
+        var order = Order(
+            0,
+            ApplicationClass.sharedPreferencesUtil.getUser().id,
+            "",
+            System.currentTimeMillis().toString(),
+            0,
+            orderDetailList
+        )
+        val ood = viewModel.nfcTaggingData.toString()
+        Log.d(TAG, "makeOrderDto: $ood")
+        val dataStr = ood.split("/")
+        Log.d(TAG, "makeOrderDto: $dataStr")
+
+
+        orderDetailList.add(
+            OrderDetail(
+                0,
+                order.id,
+                dataStr.get(2).toInt(), //productId
+                dataStr.get(3).toInt(), //quantity
+                dataStr.get(4).toInt(), //type(hot,ice)
+                dataStr.get(5).toString(),  //syrup
+                dataStr.get(6).toInt()  //shot
+            )
+        )
+
+
+        ProductService().getProductById(dataStr.get(2).toInt(), GetProductCallback(dataStr.get(3).toInt(),order))
+    }
+    inner class GetProductCallback(val quanty: Int, val order:Order): RetrofitCallback<Product> {
+        override fun onError(t: Throwable) {
+            Log.d(TAG, "onError: ")
+        }
+
+        override fun onSuccess(code: Int, responseData: Product) {
+            val totalPrice = responseData.price * quanty
+            var point = 0
+
+            viewModel.user.observe(this@MainActivity) {
+                val userPay = it.money
+                val userStamp = it.stamps
+
+                // 등급 계산
+                val levelList = UserLevel.userInfoList
+                val listSize = levelList.size
+
+
+                for (i in 0 until listSize) {
+                    if (userStamp <= levelList[i].max) {
+                        point = (totalPrice * levelList[i].point * 0.01).toInt()
+                        break
+                    }
+                }
+
+                if (userPay - totalPrice >= 0) {  // 현재 잔액 - 주문 금액이 0보다 크면 주문 가능
+                    val balance = (userPay - totalPrice) + point  // 현재 잔액 - 주문 금액
+                    completedOrder(order, balance)
+                } else{
+                    showCustomToast("현재 잔액이 부족합니다. 매장에서 잔액을 충전해주세요.")
+                }
+
+            }
+
+        }
+
+        override fun onFailure(code: Int) {
+            Log.d(TAG, "onFailure: ")
+        }
+    }
+    private fun completedOrder(order: Order, balance:Int){
+
+        order.orderTable = "take-out"
+
+        OrderService().insertOrder(order ,object : RetrofitCallback<Int> {
+            override fun onError(t: Throwable) {
+                Log.d(TAG, "onError: ")
+            }
+
+            override fun onSuccess(code: Int, responseData: Int) {
+                Toast.makeText(this@MainActivity, "주문이 완료되었습니다.",Toast.LENGTH_SHORT).show()
+
+//                viewModel.shoppingCartList.clear()  // 장바구니 비우기
+
+                isChk = false
+                viewModel.nfcTaggingData = ""
+
+                // OrderFragment 전환
+                openFragment(2,"orderId", responseData)
+
+                // 잔액 업데이트
+                var updateUser = User(ApplicationClass.sharedPreferencesUtil.getUser().id, balance)
+
+                UserService().updateMoney(updateUser , object : RetrofitCallback<User> {
+                    override fun onError(t: Throwable) {
+                        Log.d(TAG, "onError: ")
+                    }
+
+                    override fun onSuccess(code: Int, responseData: User) {
+                        Log.d(TAG, "onSuccess: $responseData")
+                        ApplicationClass.sharedPreferencesUtil.addUserPay(responseData.money)
+                    }
+
+                    override fun onFailure(code: Int) {
+                        Log.d(TAG, "onFailure: ")
+                    }
+
+                })
+
+            }
+
+            override fun onFailure(code: Int) {
+                Log.d(TAG, "onFailure: ")
+            }
+
+        })
+    }
     override fun onStop() {
         super.onStop()
     }
@@ -587,6 +727,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
 
     override fun onPause() {
         sensorManager?.unregisterListener(mShakeDetector)
+        disableNfc()
 
         beaconScanStop()
         super.onPause()
