@@ -45,15 +45,6 @@ class MyFirebaseMessageService : FirebaseMessagingService() {
 
             val mainPendingIntent: PendingIntent = PendingIntent.getActivity(this, 0, mainIntent, 0)
 
-//            val style: Notification.BigTextStyle = Notification.BigTextStyle(mBuilder)
-//            style.setSummaryText("and More +")
-//            style.setBigContentTitle("BigText Expanded Title")
-//            style.bigText(
-//                "Mir's IT Blog adress is \"itmir.tistory.com\"," +
-//                        "Welcome to the Mir's Blog!! Nice to Meet you, this is Example JellyBean Notification"
-//            )
-//
-//            mBuilder.setStyle(style)
 
             val builder1 = NotificationCompat.Builder(this, MainActivity.channel_id)
                 .setSmallIcon(R.drawable.notification_alert_bell_icon)
@@ -61,7 +52,7 @@ class MyFirebaseMessageService : FirebaseMessagingService() {
                 .setContentText(messageContent)
                 .setStyle(NotificationCompat.BigTextStyle().bigText(messageContent))
                 .setAutoCancel(true)
-                .setColor(Color.blue(700))
+                .setColor(Color.argb(0,0, 155, 92))
                 .setContentIntent(mainPendingIntent)
 
             NotificationManagerCompat.from(this).apply {

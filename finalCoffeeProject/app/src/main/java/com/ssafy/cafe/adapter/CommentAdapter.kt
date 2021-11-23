@@ -64,15 +64,15 @@ class CommentAdapter(val list: List<MenuDetailWithCommentResponse>, val kFunctio
 
         fun bindInfo(data: MenuDetailWithCommentResponse, index: Int) {
             Log.d(TAG, "bindInfo: $data")
-//            if(data.userId.) {
-//                userId.visibility = View.GONE
-//                rating.visibility = View.GONE
-//                comment.text = "상품에 대한 리뷰가 존재하지 않습니다."
-//            }
-//            else {
-                userId.visibility = View.VISIBLE
-                rating.visibility = View.VISIBLE
-
+            if(data.userId == null) {
+                userId.visibility = View.GONE
+                itemView.findViewById<LinearLayout>(R.id.linearL).visibility = View.GONE
+                comment.text = "상품에 대한 리뷰가 존재하지 않습니다."
+            }
+            else {
+//                userId.visibility = View.VISIBLE
+//                itemView.findViewById<LinearLayout>(R.id.linearL).visibility = View.VISIBLE
+//
                 userId.text = "${data.userId} 님"
                 comment.text = data.commentContent
                 rating.text = "${data.productRating} 점"
@@ -99,7 +99,9 @@ class CommentAdapter(val list: List<MenuDetailWithCommentResponse>, val kFunctio
                     }
 
                     delete.setOnClickListener {
-                        CommentService().delete(newComment.id, DeleteCallback())
+                        CommentService().delete(newComment.id,
+                            DeleteCallback()
+                        )
                         visibleMainButton()
                         visibleModifiedButton(false)
                     }
@@ -124,7 +126,7 @@ class CommentAdapter(val list: List<MenuDetailWithCommentResponse>, val kFunctio
                 } else {
                     visibleMainButton(false)
                 }
-//            }
+            }
 
 
         }
@@ -165,12 +167,12 @@ class CommentAdapter(val list: List<MenuDetailWithCommentResponse>, val kFunctio
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CommentAdapter.CommentHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CommentHolder {
         context = parent.context as MainActivity
-        val view =
-            LayoutInflater.from(parent.context).inflate(R.layout.recyclerview_review_list_item, parent, false)
-        return CommentAdapter.CommentHolder(view)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.recyclerview_review_list_item, parent, false)
+        return CommentHolder(view)
     }
+
 
     override fun onBindViewHolder(holder: CommentHolder, position: Int) {
         holder.bindInfo(list[position], position)
