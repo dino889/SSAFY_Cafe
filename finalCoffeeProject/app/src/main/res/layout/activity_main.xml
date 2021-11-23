@@ -25,47 +25,62 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:fontFamily="@font/nanumsquare_acb"
                 android:text="KIMSSAFY님"
                 android:textColor="#FFFFFF"
                 android:textSize="20sp" />
 
-            <ImageButton
-                android:id="@+id/ibtn_notificaton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:layout_marginLeft="8dp"
-                android:background="#00FFFFFF"
-                android:scaleType="fitEnd"
-                android:src="@drawable/notification_alert_bell_icon" />
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/ibtn_Notificaton"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                app:lottie_autoPlay="false"
+                app:lottie_fileName="noty.json"
+                app:lottie_loop="false" />
 
-            <ImageButton
+            <com.airbnb.lottie.LottieAnimationView
                 android:id="@+id/ib_Map"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:background="#00FFFFFF"
-                android:scaleType="centerInside"
-                android:tint="@color/white"
-                app:srcCompat="@drawable/direction_gps_location_map_maps_navigation_pin_icon_123198" />
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                app:lottie_autoPlay="false"
+                app:lottie_fileName="map.json"
+                app:lottie_loop="false" />
 
             <ImageButton
                 android:id="@+id/btn_logout"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginLeft="8dp"
-                android:background="#00FFFFFF"
-                android:backgroundTint="@color/white"
+                android:background="@drawable/drawable_progressbar_stampstate"
                 android:scaleType="centerInside"
-                android:tint="@color/white"
                 app:srcCompat="@drawable/logout" />
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="환영합니다"
-            android:textColor="#FFFFFF" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/nanumsquare_acl"
+                android:gravity="center"
+                android:paddingLeft="10dp"
+                android:text="환영합니다"
+                android:textColor="#FFFFFF" />
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginLeft="15dp"
+                app:lottie_autoPlay="true"
+                app:lottie_fileName="emoji.json"
+                app:lottie_loop="true" />
+        </LinearLayout>
 
     </LinearLayout>
 

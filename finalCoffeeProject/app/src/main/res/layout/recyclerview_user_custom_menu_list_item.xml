@@ -33,6 +33,7 @@
             android:id="@+id/tv_productName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/font_regular"
             android:paddingTop="10dp"
             android:text="아인슈페너"
             android:textColor="@color/black"
@@ -42,9 +43,11 @@
             android:id="@+id/tv_productPrice"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/font_regular"
             android:paddingTop="10dp"
             android:text="5,600원"
             android:textColor="@color/black" />
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -55,6 +58,7 @@
                 android:id="@+id/tv_menuType"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/font_regular"
                 android:paddingRight="5dp"
                 android:text="|  ICE"
                 android:textColor="@color/black" />
@@ -63,6 +67,7 @@
                 android:id="@+id/tv_menuSyrup"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/font_regular"
                 android:paddingRight="5dp"
                 android:text="|  바닐라시럽(+1)"
                 android:textColor="@color/black" />
@@ -71,6 +76,7 @@
                 android:id="@+id/tv_menuShot"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/font_regular"
                 android:text="|  Shot(+2)"
                 android:textColor="@color/black" />
         </LinearLayout>

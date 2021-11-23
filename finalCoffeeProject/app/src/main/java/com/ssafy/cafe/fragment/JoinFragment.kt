@@ -25,7 +25,7 @@ import java.util.regex.Pattern
 
 private const val TAG = "JoinFragment_싸피"
 class JoinFragment : BaseFragment<FragmentJoinBinding>(FragmentJoinBinding::bind, R.layout.fragment_join) {
-//    lateinit var binding: FragmentJoinBinding
+    //    lateinit var binding: FragmentJoinBinding
     private var dupChkId = false    // Id 중복 확인 여부 체크, true - 중복O, false - 중복X
 
 //    override fun onCreateView(

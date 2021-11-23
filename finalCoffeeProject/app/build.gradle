@@ -145,6 +145,9 @@ dependencies {
     //LiveData, ViewModel
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
 
+    // loti
+    implementation 'com.airbnb.android:lottie:3.4.0'
+
     // ViewModel
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1'
 }

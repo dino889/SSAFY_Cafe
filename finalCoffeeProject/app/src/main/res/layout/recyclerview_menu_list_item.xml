@@ -12,18 +12,17 @@
     <androidx.cardview.widget.CardView
         android:layout_width="100dp"
         android:layout_height="100dp"
+        android:background="@drawable/drawable_menu_background"
         app:cardCornerRadius="20dp"
         app:cardElevation="0dp"
-        android:layout_marginTop="20dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:background="@drawable/drawable_cafemenu_list_item_background">
+        app:layout_constraintTop_toTopOf="parent">
 
         <ImageButton
             android:id="@+id/ib_cafeImg"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:background="@drawable/drawable_cafemenu_list_item_background"
+            android:background="@drawable/drawable_menu_background"
             android:backgroundTint="#00FFFFFF"
             android:scaleType="centerInside"
             tools:srcCompat="@drawable/ainsupeno" />
@@ -32,9 +31,11 @@
 
     <TextView
         android:id="@+id/tv_listItemCafeMenuName"
-        android:layout_width="100dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_marginTop="5dp"
+        android:fontFamily="@font/nanumsquare_acl"
         android:gravity="center"
         android:text="아인슈페너"
         android:textColor="@color/black" />

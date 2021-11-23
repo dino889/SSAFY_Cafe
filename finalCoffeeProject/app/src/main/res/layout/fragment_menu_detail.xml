@@ -20,7 +20,7 @@
                 <ImageView
                     android:id="@+id/iv_cafeMenuImg"
                     android:layout_width="match_parent"
-                    android:layout_height="275dp"
+                    android:layout_height="253dp"
                     android:scaleType="centerInside"
                     android:src="@drawable/cafelatte" />
 
@@ -36,6 +36,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="10dp"
+                        android:fontFamily="@font/nanumsquare_acr"
                         android:text="카라멜 마끼야또"
                         android:textColor="@color/black"
                         android:textSize="25sp"
@@ -49,6 +50,8 @@
                     <com.google.android.material.tabs.TabLayout
                         android:id="@+id/menudetailTabLayout"
                         android:layout_width="match_parent"
+                        app:tabIndicatorColor="@color/blue_300"
+                        app:tabTextColor="@color/black"
                         android:layout_height="wrap_content">
 
                         <com.google.android.material.tabs.TabItem

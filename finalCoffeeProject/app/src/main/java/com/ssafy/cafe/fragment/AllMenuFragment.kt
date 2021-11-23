@@ -95,7 +95,7 @@ class AllMenuFragment : BaseFragment<FragmentAllMenuBinding>(FragmentAllMenuBind
                 if(position == 0){
                     ProductService().getProductList(ProductCallback())
                     binding.llSearchlayout.isVisible = true
-                    binding.ibtnSerach.setOnClickListener {
+                    binding.searchBtn.setOnClickListener {
                         initSearch(binding.etSearchText.text.toString());
                     }
                 }else{
