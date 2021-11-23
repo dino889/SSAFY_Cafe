@@ -125,12 +125,7 @@ class BucketFragment : BaseFragment<FragmentBucketBinding>(FragmentBucketBinding
 
     // 매장 vs TakeOut 선택 여부 set
     private fun setHereOrTogo() {
-        binding.btnTakehere.setOnClickListener {
-            hereOrTogo = true
-        }
-        binding.btnTakeout.setOnClickListener {
-            hereOrTogo = false
-        }
+        hereOrTogo = binding.toggleButton.isChecked == true
     }
 
     // 주문 버튼 클릭

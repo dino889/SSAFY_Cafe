@@ -14,11 +14,12 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_categoryMenu"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:background="#C4C4C4"
+            android:layout_marginTop="5dp"
+            android:background="@color/white"
             android:padding="10dp"
-            tools:listitem="@layout/recyclerview_menu_category_list_item" >
+            tools:listitem="@layout/recyclerview_menu_category_list_item">
 
         </androidx.recyclerview.widget.RecyclerView>
 
@@ -39,15 +40,15 @@
                 android:ems="10"
                 android:inputType="textPersonName" />
 
-            <ImageButton
-                android:id="@+id/ibtn_serach"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginRight="10dp"
-                android:background="@color/nocolor"
-                android:backgroundTint="#504141"
-                android:scaleType="centerInside"
-                android:src="@android:drawable/ic_search_category_default" />
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/searchBtn"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_marginRight="20dp"
+                app:lottie_autoPlay="false"
+                app:lottie_fileName="search.json"
+                app:lottie_loop="false" />
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
