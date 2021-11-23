@@ -50,9 +50,9 @@
                     <com.google.android.material.tabs.TabLayout
                         android:id="@+id/menudetailTabLayout"
                         android:layout_width="match_parent"
-                        app:tabIndicatorColor="@color/blue_300"
-                        app:tabTextColor="@color/black"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        app:tabIndicatorColor="@color/green"
+                        app:tabTextColor="@color/black">
 
                         <com.google.android.material.tabs.TabItem
                             android:layout_width="wrap_content"

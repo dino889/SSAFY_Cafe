@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -31,19 +32,19 @@
 
             <RatingBar
                 android:id="@+id/ratingBar"
+                style="@style/Widget.AppCompat.RatingBar.Indicator"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:isIndicator="true"/>
+                android:isIndicator="true" />
 <!--                style="?android:attr/ratingBarStyleSmall"/>-->
-
-            <Button
+            <com.airbnb.lottie.LottieAnimationView
                 android:id="@+id/btn_insertComment"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/drawable_button_selector"
-                android:fontFamily="@font/nanumsquare_acl"
-                android:text="작성"
-                android:textColor="@color/black" />
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                app:lottie_autoPlay="true"
+                app:lottie_fileName="write.json"
+                app:lottie_loop="true" />
+
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView

@@ -94,8 +94,11 @@ class AllMenuFragment : BaseFragment<FragmentAllMenuBinding>(FragmentAllMenuBind
                 val category = categoryList[position]
                 if(position == 0){
                     ProductService().getProductList(ProductCallback())
-                    binding.llSearchlayout.isVisible = true
+
+
                     binding.searchBtn.setOnClickListener {
+                        binding.llSearchlayout.isVisible = true
+                        binding.searchBtn.playAnimation()
                         initSearch(binding.etSearchText.text.toString());
                     }
                 }else{
