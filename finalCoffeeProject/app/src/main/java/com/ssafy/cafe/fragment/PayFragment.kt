@@ -34,7 +34,6 @@ class PayFragment : BaseFragment<FragmentPayBinding>(FragmentPayBinding::bind, R
 
     private lateinit var historyAdapter: OrderHistoryAdapter
     private lateinit var list : List<LatestOrderResponse>
-//    private val viewModel: MainViewModel by activityViewModels()
     var isChk = false
 
 
@@ -55,16 +54,15 @@ class PayFragment : BaseFragment<FragmentPayBinding>(FragmentPayBinding::bind, R
         binding.btnStroeOrder.setOnClickListener {
             makeOrder()
         }
-
-
     }
-    fun initPay(){
+
+    private fun initPay(){
         viewModel.user.observe(viewLifecycleOwner) {
             binding.tvUserPay.text = CommonUtils.makeComma(it.money)
         }
     }
 
-    fun initData(id:String){
+    private fun initData(id:String){
         val userOrderHistoryLiveData = OrderService().getLastMonthOrder(id)
         userOrderHistoryLiveData.observe(
             viewLifecycleOwner,{
@@ -84,10 +82,11 @@ class PayFragment : BaseFragment<FragmentPayBinding>(FragmentPayBinding::bind, R
         )
     }
 
-    fun makeOrder(){
+    private fun makeOrder(){
         enableNfc()
         showDialogForOrderInShop()
     }
+
     private fun showDialogForOrderInShop() {
         Log.d(TAG, "showDialogForOrderInShop: ${viewModel.nfcTaggingData}")
         val builder: AlertDialog.Builder = AlertDialog.Builder(requireContext())
@@ -109,7 +108,7 @@ class PayFragment : BaseFragment<FragmentPayBinding>(FragmentPayBinding::bind, R
         builder.create().show()
     }
 
-    fun makeOrderDto(){
+    private fun makeOrderDto(){
         var orderDetailList:ArrayList<OrderDetail> = arrayListOf()
 
         var order = Order(
@@ -136,23 +135,24 @@ class PayFragment : BaseFragment<FragmentPayBinding>(FragmentPayBinding::bind, R
                 dataStr.get(6).toInt()  //shot
             )
         )
-
-
         ProductService().getProductById(dataStr.get(2).toInt(), GetProductCallback(dataStr.get(3).toInt(),order))
     }
 
-    fun enableNfc() {
+    private fun enableNfc() {
         // NFC 포그라운드 기능 활성화
         mainActivity.nfcAdapter!!.enableForegroundDispatch(mainActivity, mainActivity.pIntent, mainActivity.filters, null)
     }
-    override fun onPause() {
-        disableNfc()
-        super.onPause()
-    }
+
     fun disableNfc() {
         // NFC 포그라운드 기능 비활성화
         mainActivity.nfcAdapter!!.disableForegroundDispatch(mainActivity)
     }
+
+    override fun onPause() {
+        disableNfc()
+        super.onPause()
+    }
+
     inner class GetProductCallback(val quanty: Int, val order:Order): RetrofitCallback<Product>{
         override fun onError(t: Throwable) {
             Log.d(TAG, "onError: ")

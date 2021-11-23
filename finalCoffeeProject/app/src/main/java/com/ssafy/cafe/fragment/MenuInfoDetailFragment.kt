@@ -32,9 +32,6 @@ import com.ssafy.cafe.service.UserCustomService
 private const val TAG = "MenuInfoDetailFragment_싸피"
 class MenuInfoDetailFragment : BaseFragment<FragmentMenuInfoDetailBinding>(FragmentMenuInfoDetailBinding::bind, R.layout.fragment_menu_info_detail) {
     private lateinit var mainActivity : MainActivity
-//    private lateinit var binding:FragmentMenuInfoDetailBinding
-
-//    private var productId = -1
     private lateinit var productName : String
     private lateinit var productImg : String
     private lateinit var productType : String
@@ -43,8 +40,6 @@ class MenuInfoDetailFragment : BaseFragment<FragmentMenuInfoDetailBinding>(Fragm
     private var syrup : String? = null
     private var shot : Int? = null
 
-
-//    private val viewModel: MainViewModel by activityViewModels()
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -61,10 +56,9 @@ class MenuInfoDetailFragment : BaseFragment<FragmentMenuInfoDetailBinding>(Fragm
         super.onViewCreated(view, savedInstanceState)
 
         countProduct()
-//        val product = viewModel.prodWithComment
+
         val product = viewModel.liveProductWithComment!!.value?.get(0)
-        Log.d(TAG, "onViewCreated: $product")
-//        ProductService().getProductWithComments(productId, ProductWithCommentInsertCallback())
+
         initData(product!!)
 
         initRadioGroup()
@@ -93,7 +87,6 @@ class MenuInfoDetailFragment : BaseFragment<FragmentMenuInfoDetailBinding>(Fragm
                 totalPrice += (shot!! * 500)
             }
 
-//            val cart = ShoppingCart(product.productId, productImg, productName, count, price, totalPrice, productType, type, syrup, shot)
             val cart = ShoppingCart(product.productId, productImg, productName, count, price, totalPrice, type, syrup, shot)
             viewModel.insertShoppingCartItem(cart)
             mainActivity.openFragment(1)
@@ -117,6 +110,7 @@ class MenuInfoDetailFragment : BaseFragment<FragmentMenuInfoDetailBinding>(Fragm
             insertUserCustom(userCustom)
         }
     }
+
     // 사용자 커스텀 메뉴
     private fun insertUserCustom(userCustom:UserCustom){
         UserCustomService().insertCustomMenu(userCustom, object:RetrofitCallback<Boolean>{
@@ -134,6 +128,7 @@ class MenuInfoDetailFragment : BaseFragment<FragmentMenuInfoDetailBinding>(Fragm
 
         })
     }
+
     // 화면 set
     private fun initData(menu : MenuDetailWithCommentResponse) {
         binding.tvCafeMenuPrice.text = CommonUtils.makeComma(menu.productPrice)
@@ -175,7 +170,7 @@ class MenuInfoDetailFragment : BaseFragment<FragmentMenuInfoDetailBinding>(Fragm
 
         binding.ibtnMinusCount.setOnClickListener {
             if(menuCnt <= 0) {
-                Toast.makeText(requireContext(), "수량을 입력해주세요.", Toast.LENGTH_SHORT).show()
+                showCustomToast("수량을 입력해주세요.")
                 menuCnt = 0
                 binding.tvCafeMenuCnt.text = "${menuCnt}개"
             } else {
@@ -186,7 +181,7 @@ class MenuInfoDetailFragment : BaseFragment<FragmentMenuInfoDetailBinding>(Fragm
     }
 
     // spinner
-    fun initSpinner(){
+    private fun initSpinner(){
 
         ArrayAdapter.createFromResource(
             requireContext(),

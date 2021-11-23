@@ -25,25 +25,13 @@ import java.util.regex.Pattern
 
 private const val TAG = "JoinFragment_싸피"
 class JoinFragment : BaseFragment<FragmentJoinBinding>(FragmentJoinBinding::bind, R.layout.fragment_join) {
-    //    lateinit var binding: FragmentJoinBinding
     private var dupChkId = false    // Id 중복 확인 여부 체크, true - 중복O, false - 중복X
 
-//    override fun onCreateView(
-//        inflater: LayoutInflater, container: ViewGroup?,
-//        savedInstanceState: Bundle?
-//    ): View? {
-//        binding = FragmentJoinBinding.inflate(inflater,container,false)
-//        return binding.root
-//    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         setupListeners()
-
-//        binding.ibtnIdDupChk.setOnClickListener{
-//            validateUserID()
-//        }
 
         // JOIN 버튼 클릭
         binding.btnJoin.setOnClickListener {
@@ -51,11 +39,6 @@ class JoinFragment : BaseFragment<FragmentJoinBinding>(FragmentJoinBinding::bind
                 join(binding.etUserID.text.toString(),binding.etUserName.text.toString(), binding.etUserTel.text.toString(), binding.etUserPw.text.toString())
             }
         }
-    }
-
-    //
-    fun makeToast(msg: String) {
-        Toast.makeText(requireActivity(), msg, Toast.LENGTH_SHORT).show()
     }
 
     // TextInputEditText listener 등록
@@ -78,7 +61,7 @@ class JoinFragment : BaseFragment<FragmentJoinBinding>(FragmentJoinBinding::bind
             }
 
             override fun onSuccess(code: Int, responseData: Boolean) {
-                makeToast("회원가입이 완료되었습니다. 다시 로그인 해주세요")
+                showCustomToast("회원가입이 완료되었습니다. 다시 로그인 해주세요")
                 (requireActivity() as LoginActivity).onBackPressed()
             }
 
@@ -121,21 +104,9 @@ class JoinFragment : BaseFragment<FragmentJoinBinding>(FragmentJoinBinding::bind
         if(inputUserId.trim().isEmpty()){   // 값이 비어있으면 error
             binding.userIDtextlayout.error = "Required Field"
             binding.etUserID.requestFocus()
-//                    return false
         } else {
             Log.d(TAG, "validateUserID: ${inputUserId}")
             UserService().isUsed(inputUserId, isUsedCallBack())
-//            if(!dupChkId) {   // DB 내에 중복되는 ID가 없으면
-//                binding.userIDtextlayout.error = null
-//                dupChkId = true
-//                binding.ibtnIdDupChk.setColorFilter(Color.GREEN)
-//            } else {// DB 내에 중복되는 ID가 있으면
-//                binding.userIDtextlayout.error = "이미 존재하는 아이디입니다."
-//                binding.etUserID.requestFocus()
-//                dupChkId = false
-//                binding.ibtnIdDupChk.setColorFilter(Color.BLACK)
-//
-//            }
         }
 
         return dupChkId
@@ -145,7 +116,6 @@ class JoinFragment : BaseFragment<FragmentJoinBinding>(FragmentJoinBinding::bind
     private fun validateUserPW() : Boolean{
         val inputUserPw = binding.etUserPw.text.toString()
 
-//        ^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[$@$!%*#?&]).{8,15}.$
         if(inputUserPw.trim().isEmpty()){   // 값이 비어있으면
             binding.userPWtextlayout.error = "Required Field"
             binding.etUserPw.requestFocus()
@@ -175,8 +145,6 @@ class JoinFragment : BaseFragment<FragmentJoinBinding>(FragmentJoinBinding::bind
             return false
         }
         else {
-//            binding.userTeltextlayout.isErrorEnabled = false
-
             binding.userTeltextlayout.error = null
         }
         return true

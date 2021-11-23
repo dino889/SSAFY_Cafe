@@ -1,23 +1,10 @@
 package com.ssafy.cafe.activity
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.widget.Toast
-import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount
-import com.google.android.gms.auth.api.signin.GoogleSignInClient
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.google.android.gms.common.api.ApiException
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.GoogleAuthProvider
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
 import com.ssafy.cafe.R
 import com.ssafy.cafe.config.ApplicationClass.Companion.sharedPreferencesUtil
 import com.ssafy.cafe.config.BaseActivity
-import com.ssafy.cafe.databinding.ActivityLoadingBinding
 import com.ssafy.cafe.databinding.ActivityLoginBinding
 import com.ssafy.cafe.fragment.JoinFragment
 import com.ssafy.cafe.fragment.LoginFragment
@@ -25,12 +12,8 @@ import com.ssafy.cafe.fragment.LoginFragment
 private const val TAG = "LoginActivity"
 class LoginActivity : BaseActivity<ActivityLoginBinding>(ActivityLoginBinding::inflate) {
 
-
-//    private lateinit var binding: ActivityLoginBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        binding = ActivityLoginBinding.inflate(layoutInflater)
-//        setContentView(binding.root)
 
         var user = sharedPreferencesUtil.getUser()
 

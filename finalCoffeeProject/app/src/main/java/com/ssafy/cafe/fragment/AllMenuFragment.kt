@@ -67,18 +67,13 @@ class AllMenuFragment : BaseFragment<FragmentAllMenuBinding>(FragmentAllMenuBind
                     adapter!!.stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
                 }
             }
-
             override fun onFailure(code: Int) {
                 Log.d(TAG, "onFailure: ")
             }
-
         })
-
     }
+
     private fun initData() {
-
-//        ProductService().getProductWithTypeList("coffee", ProductCallback())
-
         ProductService().getProductList(ProductCallback())
     }
 

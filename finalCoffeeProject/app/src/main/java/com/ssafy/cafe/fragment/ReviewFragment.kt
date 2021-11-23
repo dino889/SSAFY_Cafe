@@ -4,24 +4,18 @@ import android.app.AlertDialog
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.RatingBar
 import android.widget.TextView
-import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.google.android.material.textfield.TextInputEditText
 import com.ssafy.cafe.R
 import com.ssafy.cafe.activity.MainActivity
 import com.ssafy.cafe.adapter.CommentAdapter
 import com.ssafy.cafe.config.ApplicationClass
 import com.ssafy.cafe.config.BaseFragment
-import com.ssafy.cafe.databinding.FragmentOrderDetailBinding
 import com.ssafy.cafe.databinding.FragmentReviewBinding
 import com.ssafy.cafe.dto.Comment
 import com.ssafy.cafe.response.MenuDetailWithCommentResponse
@@ -29,15 +23,10 @@ import com.ssafy.cafe.service.CommentService
 import com.ssafy.cafe.service.ProductService
 import com.ssafy.cafe.util.CommonUtils
 import com.ssafy.cafe.util.RetrofitCallback
-import com.ssafy.cafe.viewmodel.MainViewModel
-import kotlin.math.round
 
 private const val TAG = "ReviewFragment_싸피"
 class ReviewFragment : BaseFragment<FragmentReviewBinding>(FragmentReviewBinding::bind, R.layout.fragment_review) {
     private lateinit var mainActivity : MainActivity
-//    private lateinit var binding : FragmentReviewBinding
-//    private val viewModel: MainViewModel by activityViewModels()
-//    lateinit var prodWithComment: MenuDetailWithCommentResponse
     private var productId = -1
 
     val liveData = MutableLiveData<List<MenuDetailWithCommentResponse>>()
@@ -58,19 +47,10 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(FragmentReviewBinding
         }
     }
 
-//    override fun onCreateView(
-//        inflater: LayoutInflater, container: ViewGroup?,
-//        savedInstanceState: Bundle?
-//    ): View? {
-//        binding = FragmentReviewBinding.inflate(inflater, container, false)
-//        return binding.root
-//    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initData()
         initListener()
-//        setScreen(liveData.value!![0])
     }
 
     // 초기 화면 설정
@@ -81,7 +61,6 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(FragmentReviewBinding
 
     private fun initData() {
         liveData.observe(requireActivity(), {
-//            Log.d(TAG, "livaData changed ${liveData.value}")
             binding.rvReview.adapter = liveData.value?.let { it1 ->
                 CommentAdapter(
                     it1,
@@ -131,11 +110,9 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(FragmentReviewBinding
     private fun showDialogRatingStar(detailId : Int){
         val view = layoutInflater.inflate(R.layout.dialog_add_comment, null)
         val dialog = AlertDialog.Builder(requireContext()).apply {
-//            setTitle("별점선택")
             setView(view)
             val prodName = view.findViewById<TextView>(R.id.tv_productNameContent)
             prodName.text = CommonUtils.dialogProductComent(liveData.value!!.get(0).productName)
-//            Log.d(TAG, "showDialogRatingStar: ${view.findViewById<TextInputEditText>(R.id.et_comment).text.toString()}")
 
             setPositiveButton("확인") { dialog, which ->
 
@@ -170,7 +147,6 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(FragmentReviewBinding
                 dialog.cancel()
             }
         }.show()
-        //return dialog.create()
     }
 
 

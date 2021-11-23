@@ -47,11 +47,9 @@ import java.util.logging.Level.parse
 
 private const val TAG = "HomeFragment"
 class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::bind, R.layout.fragment_home) {
-//    private lateinit var binding:FragmentHomeBinding
     private var lastOrderAdapter : LastOrderAdapter = LastOrderAdapter()
     private var bestMenuAdapter : BestMenuAdapter = BestMenuAdapter()
     private var weekBestMenuAdapter : WeekBestMenuAdapter = WeekBestMenuAdapter()
-//    private val viewModel: MainViewModel by activityViewModels()
     private lateinit var mainActivity: MainActivity
 
 
@@ -61,20 +59,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::bind
         viewModel.getUserInfo(ApplicationClass.sharedPreferencesUtil.getUser().id)
     }
 
-//    override fun onCreateView(
-//        inflater: LayoutInflater, container: ViewGroup?,
-//        savedInstanceState: Bundle?
-//    ): View? {
-//        // Inflate the layout for this fragment
-//        binding = FragmentHomeBinding.inflate(inflater,container,false)
-//        return binding.root
-//    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        initUserLevel()
-//        getUserInfo()
-//        viewModel.getUserInfo(ApplicationClass.sharedPreferencesUtil.getUser().id)
+
         viewModel.user.observe(viewLifecycleOwner) {
             setUserLevel(it.stamps)
         }
@@ -175,7 +163,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::bind
         binding.progressBarStampState.progress = stamp
         binding.progressBarStampState.max = progressMax
     }
-
 
     // 주문 상세 내역 조회
     fun getOrderItemsById(orderId: Int) {

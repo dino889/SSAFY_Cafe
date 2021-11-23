@@ -10,12 +10,9 @@ import android.hardware.Sensor
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import android.nfc.NdefMessage
-import android.media.MediaPlayer
 import android.nfc.NfcAdapter
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.IBinder
 import android.os.RemoteException
 import android.util.Log
 import android.view.View
@@ -29,19 +26,13 @@ import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.core.view.isVisible
-import androidx.fragment.app.activityViewModels
 import com.bumptech.glide.Glide
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.iid.FirebaseInstanceIdReceiver
-import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.FirebaseMessaging
-import com.google.firebase.messaging.ktx.messaging
 import com.kakao.sdk.user.UserApiClient
 import com.ssafy.cafe.R
 import com.ssafy.cafe.api.FirebaseTokenService
-import com.ssafy.cafe.api.NotificationApi
 import com.ssafy.cafe.config.ApplicationClass
 import com.ssafy.cafe.config.BaseActivity
 import com.ssafy.cafe.databinding.ActivityMainBinding
@@ -67,7 +58,6 @@ import com.ssafy.cafe.util.RetrofitCallback
 
 private const val TAG = "MainActivity_싸피"
 class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::inflate), BeaconConsumer {
-//    private lateinit var binding: ActivityMainBinding
     private val viewModel: MainViewModel by viewModels()
     var isChk = false
     //----------------------------------------------------------------------------------------------
@@ -266,56 +256,58 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
     private fun moveFragment(index:Int, key:String, value:Int){
         val transaction = supportFragmentManager.beginTransaction()
         when(index){
-//            //장바구니
+            // 장바구니
             1 -> transaction.replace(R.id.frame_layout_main, BucketFragment())
                 .addToBackStack(null)
-//            //주문 상세 보기
+            // 주문 상세 보기
             2 -> transaction.replace(R.id.frame_layout_main, OrderDetailFragment.newInstance(key, value))
-
-            //메뉴 상세 보기
+            // 메뉴 상세 보기
             3 -> transaction.replace(R.id.frame_layout_main, MenuDetailFragment.newInstance(key, value))
                 .addToBackStack(null)
-//            //map으로 가기
+            // map으로 가기
             4 -> transaction.replace(R.id.frame_layout_main, MapFragment())
                 .addToBackStack(null)
-//            //logout
+            // logout
             5 -> {
                 logout()
             }
-            6->{ // 알람페이지이동
+            // 알람 페이지
+            6->{
                 transaction.replace(R.id.frame_layout_main, NotificationFragment())
                     .addToBackStack(null)
             }
+            // 전체 메뉴 리스트
             7 -> {
-                //전체메뉴보기
                 transaction.replace(R.id.tabFrameLayout, AllMenuFragment.newInstance(key, value))
             }
+            // 사용자 커스텀 메뉴
             8 -> {
-                //사용자메뉴보기
                 transaction.replace(R.id.tabFrameLayout, UserCustomMenuFragment())
                     .addToBackStack(null)
             }
+            // 메뉴 상세 정보
             9->{
-                //메뉴상세정보보기
                 transaction.replace(R.id.fl_tablayout, MenuInfoDetailFragment.newInstance(key,value))
             }
+            // 메뉴 리뷰 정보
             10->{
-                //메뉴 리뷰보기
                 transaction.replace(R.id.fl_tablayout, ReviewFragment.newInstance(key, value))
             }
-            11 -> { //페이프래그먼트
+            // 사용자 결제 정보
+            11 -> {
                 transaction.replace(R.id.frame_layout_main, PayFragment())
                     .addToBackStack(null)
             }
+            // 사용자가 작성한 리뷰 정보
             12 -> {
                 transaction.replace(R.id.frame_layout_main, MyReviewFragment())
                     .addToBackStack(null)
             }
+            // 사용자 전체 주문 내역
             13 ->{
                 transaction.replace(R.id.frame_layout_main, MyOrderHistoryFragment())
                     .addToBackStack(null)
             }
-
         }
         transaction.commit()
     }
@@ -328,6 +320,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
     fun logout(){
         //preference 지우기
         ApplicationClass.sharedPreferencesUtil.deleteUser()
+
         // google 로그아웃
         FirebaseAuth.getInstance().signOut()
 
@@ -501,19 +494,18 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
         }
     }
 
-    // 찾고자 하는 Beacon이 맞는지, 정해둔 거리 내부인지 확인
+    // ssafyCafe 매장 Beacon이 맞는지, 정해둔 거리 내부인지 확인
     private fun isYourBeacon(beacon: Beacon): Boolean {
-
         Log.d(TAG, "isYourBeacon: ")
         return (beacon.id2.toString() == BEACON_MAJOR &&
                 beacon.id3.toString() == BEACON_MINOR &&
                 beacon.distance <= STORE_DISTANCE   // 1M안 비콘들을 모두 찾으시오.
                 )
-//        return (beacon.distance <= STORE_DISTANCE)
     }
 
 
-
+    // ---------------------------------------------------------------------------------------------
+    // beacon 감지 시 매장 안내 정보와 가장 최근 주문 내역을 다이얼로그로 보여주는 함수
     private fun showDialog() {
         isDialogCalled = true
 
@@ -523,8 +515,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
         var menuName = dialog.findViewById<TextView>(R.id.dialog_menuName)
         var menuPrice = dialog.findViewById<TextView>(R.id.dialog_menuPrice)
         var confirm = dialog.findViewById<TextView>(R.id.dialog_confirm)
-
-//        dialog.findViewById<LinearLayout>(R.id.dialog_lastOrder).visibility = View.VISIBLE
 
         if(lastOrder != null) {
             dialog.findViewById<LinearLayout>(R.id.dialog_lastOrder).visibility = View.VISIBLE
@@ -545,9 +535,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
         if(isFinishing){
             dialog.show()
         }
-//        dialog.show()
     }
-
 
     fun getLastOrder() {
         val live = OrderService().getLastMonthOrder(ApplicationClass.sharedPreferencesUtil.getUser().id)
@@ -562,14 +550,89 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
         }
     }
 
-    //shake nfc dialog
+    // beacon 스캔 중지
+    private fun beaconScanStop() {
+        beaconManager.stopMonitoringBeaconsInRegion(region)
+        beaconManager.stopRangingBeaconsInRegion(region)
+        beaconManager.unbind(this)
+    }
+
+
+    // ---------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
+    // NFC 관련 함수
+    private fun setNdef(){
+
+        nfcAdapter = NfcAdapter.getDefaultAdapter(this)
+
+        // 포그라운드 기능 설정을 위한 코드
+        val i = Intent(this, MainActivity::class.java)  // mainActivity 자기 자신이 처리하기 때문에 파라미타로 mainA 부여
+        i.flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
+        pIntent = PendingIntent.getActivity(this, 0, i, 0) // 위임을 해주는데 나를 넘겨주겠다
+
+        val ndf_filter = IntentFilter(NfcAdapter.ACTION_NDEF_DISCOVERED)
+        ndf_filter.addDataType("text/plain")
+
+        filters = arrayOf(ndf_filter)
+
+    }
+
+    // NFC 감지
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        if (intent!!.action.equals(NfcAdapter.ACTION_NDEF_DISCOVERED)) {
+            Log.d(TAG, "onNewIntent: ")
+            getNFCData(intent = intent)
+        }
+    }
+
+
+    // Tag Data 추출하는 함수
+    private fun getNFCData(intent: Intent) {
+        // Tag가 태깅되었을 때 데이터 추출
+        if (intent.action.equals(NfcAdapter.ACTION_NDEF_DISCOVERED)) {
+            val rawMsgs = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES)
+
+            if (rawMsgs != null) {
+                val message = arrayOfNulls<NdefMessage>(rawMsgs.size)
+                for (i in rawMsgs.indices) {
+                    message[i] = rawMsgs[i] as NdefMessage
+                }
+                // 실제 저장되어 있는 데이터를 추출
+                val record_data = message[0]!!.records[0]
+                val record_type = record_data.type
+                val type = String(record_type)
+                if (type.equals("T")) {
+                    val data = message[0]!!.records[0].payload
+                    Log.d(TAG, "getNFCData: ${String(data)}")
+                    val type_data = String(data,1,2)
+                    Log.d(TAG, "getNFCData type: $type_data")
+                    if(type_data.equals("en")){ // 테이블 번호
+                        Log.d(TAG, "getNFCData: $data")
+                        orderTable = String(data, 3, data.size - 3)
+                        viewModel.nfcTaggingData = orderTable
+                        Log.d(TAG, "getNFCData: $orderTable")
+                    }
+                    else if(type_data.equals("kr")){    // 매장 결제
+                        orderDetail = String(data,3,data.size-3)
+                        Log.d(TAG, "getNFCData_kr: $orderDetail")
+                        viewModel.nfcTaggingData = orderDetail
+                    }
+
+                }
+            }
+        }
+    }
+
+    // ---------------------------------------------------------------------------------------------
+    // shake nfc dialog -> 매장에서 빠르게 nfc 태깅 결제를 할 수 있도록 shake 기능 추가
     fun showShakeNfcDialog(){
 
         var listener = DialogInterface.OnClickListener { _, p1 ->
             when(p1){
                 DialogInterface.BUTTON_POSITIVE ->{
                     if(viewModel.nfcTaggingData.equals("")) {   // NFC 태깅해서 테이블 데이터가 있으면
-                        Toast.makeText(this, "Table NFC를 찍어주세요.", Toast.LENGTH_SHORT).show()
+                        showCustomToast("Table NFC를 찍어주세요.")
                     } else {
                         isChk = true
                         makeOrderDto()
@@ -592,15 +655,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
         builder.show()
         enableNfc()
     }
-    fun enableNfc() {
-        // NFC 포그라운드 기능 활성화
-        nfcAdapter!!.enableForegroundDispatch(this, pIntent, filters, null)
-    }
 
-    fun disableNfc() {
-        // NFC 포그라운드 기능 비활성화
-        nfcAdapter!!.disableForegroundDispatch(this)
-    }
+    // 주문 객체 생성
     fun makeOrderDto(){
         var orderDetailList:ArrayList<OrderDetail> = arrayListOf()
 
@@ -630,9 +686,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
             )
         )
 
-
         ProductService().getProductById(dataStr.get(2).toInt(), GetProductCallback(dataStr.get(3).toInt(),order))
     }
+
     inner class GetProductCallback(val quanty: Int, val order:Order): RetrofitCallback<Product> {
         override fun onError(t: Throwable) {
             Log.d(TAG, "onError: ")
@@ -673,6 +729,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
             Log.d(TAG, "onFailure: ")
         }
     }
+
     private fun completedOrder(order: Order, balance:Int){
 
         order.orderTable = "take-out"
@@ -683,9 +740,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
             }
 
             override fun onSuccess(code: Int, responseData: Int) {
-                Toast.makeText(this@MainActivity, "주문이 완료되었습니다.",Toast.LENGTH_SHORT).show()
-
-//                viewModel.shoppingCartList.clear()  // 장바구니 비우기
+                showCustomToast("주문이 완료되었습니다.")
 
                 isChk = false
                 viewModel.nfcTaggingData = ""
@@ -709,24 +764,61 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
                     override fun onFailure(code: Int) {
                         Log.d(TAG, "onFailure: ")
                     }
-
                 })
-
             }
-
             override fun onFailure(code: Int) {
                 Log.d(TAG, "onFailure: ")
             }
-
         })
     }
-    override fun onStop() {
-        super.onStop()
+
+    fun enableNfc() {
+        // NFC 포그라운드 기능 활성화
+        nfcAdapter!!.enableForegroundDispatch(this, pIntent, filters, null)
     }
 
-    override fun onStart() {
-        super.onStart()
+    fun disableNfc() {
+        // NFC 포그라운드 기능 비활성화
+        nfcAdapter!!.disableForegroundDispatch(this)
     }
+
+    // ---------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
+    // 네이버 로그아웃 토큰 삭제
+    inner class DeleteTokenTask(
+        private val mContext: Context,
+        private val mOAuthLoginModule: OAuthLogin
+    ) :
+        AsyncTask<Void?, Void?, Boolean>() {
+        override fun onPostExecute(isSuccessDeleteToken: Boolean) {}
+        override fun doInBackground(vararg params: Void?): Boolean {
+            val isSuccessDeleteToken = mOAuthLoginModule.logoutAndDeleteToken(mContext)
+            if (!isSuccessDeleteToken) {
+                Log.d(TAG, "errorCode:" + mOAuthLoginModule.getLastErrorCode(mContext))
+                Log.d(TAG, "errorDesc:" + mOAuthLoginModule.getLastErrorDesc(mContext))
+            }
+            return isSuccessDeleteToken
+        }
+    }
+
+    // ---------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
+    // notification 수신 시 noti icon animation play
+    private fun knell() {
+        val intentFilter = IntentFilter("com.ssafy.cafe")
+        val receiver = object: BroadcastReceiver() {
+            override fun onReceive(context: Context?, intent: Intent?) {
+                val action = intent!!.action
+                binding.ibtnNotificaton.playAnimation()
+            }
+        }
+        this.registerReceiver(receiver, intentFilter)
+    }
+
+
+
+
+
     override fun onResume() {
         super.onResume()
         startScan()
@@ -741,115 +833,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
         super.onPause()
     }
 
-    // beacon 스캔 중지
-    private fun beaconScanStop() {
-        beaconManager.stopMonitoringBeaconsInRegion(region)
-        beaconManager.stopRangingBeaconsInRegion(region)
-        beaconManager.unbind(this)
-    }
-
-
-
-
-    // ---------------------------------------------------------------------------------------------
-    // ---------------------------------------------------------------------------------------------
-    // NFC 관련 함수
-    private fun setNdef(){
-
-        nfcAdapter = NfcAdapter.getDefaultAdapter(this)
-
-        // 포그라운드 기능 설정을 위한 코드
-        val i = Intent(this, MainActivity::class.java)  // mainActivity 자기 자신이 처리하기 때문에 파라미타로 mainA 부여
-        i.flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
-        pIntent = PendingIntent.getActivity(this, 0, i, 0) // 위임을 해주는데 나를 넘겨주겠다
-
-        val ndf_filter = IntentFilter(NfcAdapter.ACTION_NDEF_DISCOVERED)
-        ndf_filter.addDataType("text/plain")
-
-        filters = arrayOf(ndf_filter)
-
-    }
-
-    override fun onNewIntent(intent: Intent?) {
-        super.onNewIntent(intent)
-        if (intent!!.action.equals(NfcAdapter.ACTION_NDEF_DISCOVERED)) {
-            Log.d(TAG, "onNewIntent: ")
-            getNFCData(intent = intent)
-        }
-    }
-
-
-    // Tag Data 추출하는 함수
-    private fun getNFCData(intent: Intent) {
-        // Tag가 태깅되었을 때 데이터 추출
-        if (intent.action.equals(NfcAdapter.ACTION_NDEF_DISCOVERED)) {
-            val rawMsgs = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES)
-
-            if (rawMsgs != null) {
-                val message = arrayOfNulls<NdefMessage>(rawMsgs.size)
-                for (i in rawMsgs.indices) {
-                    message[i] = rawMsgs[i] as NdefMessage
-                }
-                // 실제 저장되어 있는 데이터를 추출
-                val record_data = message[0]!!.records[0]
-                val record_type = record_data.type
-                val type = String(record_type)
-                if (type.equals("T")) {
-                    val data = message[0]!!.records[0].payload
-                    Log.d(TAG, "getNFCData: ${String(data)}")
-                    val type_data = String(data,1,2)
-                    Log.d(TAG, "getNFCData type: $type_data")
-                    if(type_data.equals("en")){
-                        Log.d(TAG, "getNFCData: $data")
-                        orderTable = String(data, 3, data.size - 3)
-                        viewModel.nfcTaggingData = orderTable
-//                    ApplicationClass.sharedPreferencesUtil.addOrderTable(orderTable!!)
-                        Log.d(TAG, "getNFCData: $orderTable")
-                    }
-                    else if(type_data.equals("kr")){
-
-                        orderDetail = String(data,3,data.size-3)
-                        Log.d(TAG, "getNFCData_kr: $orderDetail")
-                        viewModel.nfcTaggingData = orderDetail
-                    }
-
-                }
-            }
-        }
-    }
-
-    inner class DeleteTokenTask(
-        private val mContext: Context,
-        private val mOAuthLoginModule: OAuthLogin
-    ) :
-        AsyncTask<Void?, Void?, Boolean>() {
-        override fun onPostExecute(isSuccessDeleteToken: Boolean) {}
-        override fun doInBackground(vararg params: Void?): Boolean {
-            val isSuccessDeleteToken = mOAuthLoginModule.logoutAndDeleteToken(mContext)
-            if (!isSuccessDeleteToken) {
-                // 서버에서 토큰 삭제에 실패했어도 클라이언트에 있는 토큰은 삭제되어 로그아웃된 상태입니다.
-                // 클라이언트에 토큰 정보가 없기 때문에 추가로 처리할 수 있는 작업은 없습니다.
-                Log.d(TAG, "errorCode:" + mOAuthLoginModule.getLastErrorCode(mContext))
-                Log.d(TAG, "errorDesc:" + mOAuthLoginModule.getLastErrorDesc(mContext))
-            }
-            return isSuccessDeleteToken
-        }
-    }
-
-
-    private fun knell() {
-        val intentFilter = IntentFilter("com.ssafy.cafe")
-        val receiver = object: BroadcastReceiver() {
-            override fun onReceive(context: Context?, intent: Intent?) {
-                val action = intent!!.action
-                binding.ibtnNotificaton.playAnimation()
-            }
-        }
-        this.registerReceiver(receiver, intentFilter)
-    }
-
-
-
     override fun onDestroy() {
         if(dialog.isShowing) {
             dialog.dismiss()
@@ -857,14 +840,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
         super.onDestroy()
     }
 
-
-
     companion object{
-        // Notification Channel ID
         const val channel_id = "ssafy_channel"
-        // ratrofit  수업 후 network 에 업로드 할 수 있도록 구성
         fun uploadToken(token:String, userId: String){
-            // 새로운 토큰 수신 시 서버로 전송
             val storeService = ApplicationClass.retrofit.create(FirebaseTokenService::class.java)
             storeService.uploadToken(token, userId).enqueue(object : Callback<String> {
                 override fun onResponse(call: Call<String>, response: Response<String>) {

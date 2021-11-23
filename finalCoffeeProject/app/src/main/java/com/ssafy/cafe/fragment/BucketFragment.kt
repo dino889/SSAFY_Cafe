@@ -49,11 +49,8 @@ import com.google.maps.android.SphericalUtil
 
 class BucketFragment : BaseFragment<FragmentBucketBinding>(FragmentBucketBinding::bind, R.layout.fragment_bucket) {
     private val TAG = "BucketFragment_싸피"
-//    private lateinit var binding: FragmentBucketBinding
-    private lateinit var shoppingListRecyclerView: RecyclerView
     private lateinit var shoppingListAdapter : ShoppingCartAdapter
     private lateinit var mainActivity: MainActivity
-//    private val viewModel: MainViewModel by activityViewModels()
     private var hereOrTogo : Boolean = false // table : true, TakeOut : false
     var isChk = false   // Nfc 태그 데이터 chk
 
@@ -150,7 +147,7 @@ class BucketFragment : BaseFragment<FragmentBucketBinding>(FragmentBucketBinding
                 if(distance > 0.2 ) { // 0.2km = 200m
                     showDialogForOrderTakeoutOver200m()
                 } else if(distance == Double.MAX_VALUE){
-                    Toast.makeText(requireContext(), "매장까지의 거리를 구할 수 없어 주문이 불가능합니다.", Toast.LENGTH_SHORT).show()
+                    showCustomToast("매장까지의 거리를 구할 수 없어 주문이 불가능합니다.")
                 } else{
                     makeOrderDto()
                 }
@@ -163,17 +160,12 @@ class BucketFragment : BaseFragment<FragmentBucketBinding>(FragmentBucketBinding
         val builder: AlertDialog.Builder = AlertDialog.Builder(requireContext())
         builder.setTitle("Table Order")
         builder.setView(R.layout.dialog_nfc_order)
-//        builder.setMessage(
-//            "Table NFC를 찍어주세요.\n"
-//        )
         builder.setCancelable(true)
         builder.setNegativeButton("확인"
         ) { dialog, _ ->
-//            completedOrder()
             if(viewModel.nfcTaggingData.equals("")) {   // NFC 태깅해서 테이블 데이터가 있으면
-                Toast.makeText(requireContext(), "Table NFC를 찍어주세요.", Toast.LENGTH_SHORT).show()
+                showCustomToast("Table NFC를 찍어주세요.")
             } else {
-//                Log.d(TAG, "showDialogForOrderInShop: ${viewModel.nfcTaggingData}")
                 isChk = true
                 makeOrderDto()
 
@@ -285,7 +277,7 @@ class BucketFragment : BaseFragment<FragmentBucketBinding>(FragmentBucketBinding
             val orderTable = viewModel.nfcTaggingData
 //            Log.d(TAG, "completedOrder: $orderTable")
             order.orderTable = orderTable!!
-            Toast.makeText(context, "${orderTable.substring(orderTable.length - 2, orderTable.length)}번 테이블 번호가 등록되었습니다.", Toast.LENGTH_SHORT).show()
+            showCustomToast("${orderTable.substring(orderTable.length - 2, orderTable.length)}번 테이블 번호가 등록되었습니다.")
         } else {
             order.orderTable = "take-out"
         }
@@ -296,12 +288,7 @@ class BucketFragment : BaseFragment<FragmentBucketBinding>(FragmentBucketBinding
             }
 
             override fun onSuccess(code: Int, responseData: Int) {
-//                MainActivity.Companion.uploadToken(token = viewModel.token)
-//                Log.d(TAG, "onSuccess: $responseData")
-                //(requireContext() as MainActivity).onBackPressed()
-
-                Toast.makeText(context,"주문이 완료되었습니다.", Toast.LENGTH_SHORT).show()
-//                viewModel.shoppingCartList.clear()  // 장바구니 비우기
+                showCustomToast("주문이 완료되었습니다.")
                 viewModel.removeAllShoppingCart()
 
                 isChk = false
@@ -353,7 +340,7 @@ class BucketFragment : BaseFragment<FragmentBucketBinding>(FragmentBucketBinding
                 }
 
                 override fun onPermissionDenied(deniedPermissions: MutableList<String>?) {
-                    Toast.makeText(mainActivity, "위치 권한이 필요합니다.", Toast.LENGTH_SHORT).show()
+                    showCustomToast("위치 권한이 필요합니다.")
                     locationPermissionManager.goToDetail()
                 }
 
@@ -364,20 +351,13 @@ class BucketFragment : BaseFragment<FragmentBucketBinding>(FragmentBucketBinding
     fun getDistance(a: LatLng, b: LatLng):Double {
 //        val value = SphericalUtil.computeDistanceBetween(a, b)
 
-
         val theta = abs(a.longitude - b.longitude)
         var dist = sin(deg2rad(a.latitude)) * sin(deg2rad(b.latitude)) + cos(deg2rad(a.latitude)) * cos(deg2rad(b.latitude)) * cos(deg2rad(theta))
-        var unit = "m"
 
         dist = acos(dist)
         dist = rad2deg(dist)
         dist *= 60 * 1.1515
         var value = dist * 1609.344
-
-//        if(value > 1000) {
-//            unit = "km"
-//            value = dist * 1.609344
-//        }
 
         return value
     }

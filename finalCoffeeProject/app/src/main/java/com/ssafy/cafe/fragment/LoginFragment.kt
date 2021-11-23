@@ -55,33 +55,16 @@ import java.security.MessageDigest
 
 private const val TAG = "LoginFragment_싸피"
 class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::bind, R.layout.fragment_login) {
-//    private lateinit var binding: FragmentLoginBinding
-    private val RC_SIGN_IN = 9001
-    private lateinit var auth: FirebaseAuth
-//    private val viewModel: MainViewModel by activityViewModels()
-
     private lateinit var loginActivity: LoginActivity
-//    lateinit var name:String
-//    lateinit var photo:String
     private lateinit var mAuth: FirebaseAuth
     var mGoogleSignInClient: GoogleSignInClient? = null
     lateinit var mOAuthLoginInstance : OAuthLogin
 
-    var isDupChk = true
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
         loginActivity = context as LoginActivity
     }
-
-//    override fun onCreateView(
-//        inflater: LayoutInflater, container: ViewGroup?,
-//        savedInstanceState: Bundle?
-//    ): View? {
-//        binding = FragmentLoginBinding.inflate(inflater,container,false)
-//        // Inflate the layout for this fragment
-//        return binding.root
-//    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -127,15 +110,14 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::b
         override fun onSuccess( code: Int, user: User) {
 
             if (user.id != null) {
-                Toast.makeText(context,"로그인 되었습니다.", Toast.LENGTH_SHORT).show()
-                // 로그인 시 user정보 sp에 저장
-                ApplicationClass.sharedPreferencesUtil.addUser(user)
+                showCustomToast("로그인 되었습니다.")
 
-//                viewModel.userInfo.value = user
+                // 로그인 시 user 정보 sp에 저장
+                ApplicationClass.sharedPreferencesUtil.addUser(user)
 
                 loginActivity.openFragment(1)
             }else{
-                Toast.makeText(context,"ID 또는 패스워드를 확인해 주세요.", Toast.LENGTH_SHORT).show()
+                showCustomToast("ID 또는 패스워드를 확인해 주세요.")
             }
         }
 
@@ -152,8 +134,6 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::b
     // google Login
     // 인증 초기화
     private fun initAuth() {
-        // Configure Google Sign In
-        // 구글에서 로그인하는 초기 작업
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.google_login_key))
             .requestEmail()
@@ -166,11 +146,10 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::b
         signIn()
     }
 
-    private fun signIn() {  // 구글 로그인 창을 띄우는 작업
+    // 구글 로그인 창을 띄우는 작업
+    private fun signIn() {
         val signInIntent = mGoogleSignInClient!!.signInIntent
         requestActivity.launch(signInIntent)
-        Log.d(TAG, "signIn: ")
-//        startActivityForResult(signInIntent, 100)
     }
 
 
@@ -201,18 +180,14 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::b
         mAuth.signInWithCredential(credential)
             .addOnCompleteListener(requireActivity()) { task ->
                 if (task.isSuccessful) {
-                    // Sign in success, update UI with the signed-in user's information
                     Log.d(TAG, "signInWithCredential:success")
-//                    Toast.makeText(requireContext(),"로그인되었습니다",Toast.LENGTH_SHORT).show()
                     val user = mAuth.currentUser
                     if(user != null) {
                         val newUser = User(user.email.toString(), user.displayName.toString(), user.phoneNumber.toString(), user.uid)
                         UserService().isUsed(user.email!!, isUsedCallBack(newUser))
                     }
                 } else {
-                    // If sign in fails, display a message to the user.
                     Log.w(TAG, "signInWithCredential:failure", task.exception)
-//                    updateUI(null)
                 }
             }
     }
@@ -255,9 +230,6 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::b
         override fun run(success: Boolean) {
             if (success) {
                 val accessToken: String = mOAuthLoginInstance.getAccessToken(requireContext())
-//                val refreshToken: String = mOAuthLoginInstance.getRefreshToken(requireContext())
-//                val expiresAt: Long = mOAuthLoginInstance.getExpiresAt(requireContext())
-//                val tokenType: String = mOAuthLoginInstance.getTokenType(requireContext())
                 Log.d(TAG, "run: $accessToken")
                 RequestApiTask(requireContext(), mOAuthLoginInstance).execute()
             } else {
@@ -310,22 +282,10 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::b
         override fun onSuccess(code: Int, responseData: Boolean) {
             Log.d(TAG, "onSuccess IsUsedId: $responseData")  // 0 : 중복 X, 사용가능 <-> 1 : 중복되는 ID, 사용불가능
             if(responseData == false){
-                // 비밀번호 해시값으로 변경
-//                    val pwHash = BCrypt.hashpw(user.pass, BCrypt.gensalt())
-//                val isVaildPw = BCrypt.checkpw(user.pass, pwHash);
-//                Log.d(TAG, "onSuccess-Hash: $pwHash  $isVaildPw")
-
-//            val passwordHashed = BCrypt.hashpw(user.uid, BCrypt.gensalt())
-//                val passwordHashed = BCrypt.hashpw(user.uid, BCrypt.gensalt(10))
-
                 join(user.id, user.name, user.phone, user.pass)
 
             } else {
-                // id가 중복되면 기존 사용자 -> id pw로 로그인 시키기
-//                Log.d(TAG, "onSuccess: ${passwordHashed}, uID ${user.uid}")
-//                val isValidPassword = BCrypt.checkpw(user.uid, passwordHashed)
                 login(user.id, user.pass)
-
             }
         }
 

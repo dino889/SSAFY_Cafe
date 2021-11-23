@@ -3,11 +3,7 @@ package com.ssafy.cafe.fragment
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import android.widget.LinearLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ssafy.cafe.R
@@ -15,22 +11,22 @@ import com.ssafy.cafe.activity.MainActivity
 import com.ssafy.cafe.adapter.OrderDetailAdapter
 import com.ssafy.cafe.config.BaseFragment
 import com.ssafy.cafe.databinding.FragmentOrderDetailBinding
-import com.ssafy.cafe.dto.Order
 import com.ssafy.cafe.response.OrderDetailResponse
 import com.ssafy.cafe.service.OrderService
 import com.ssafy.cafe.util.CommonUtils
 
-private const val TAG = "OrderDetailFragment"
+private const val TAG = "OrderDetailFragment_싸피"
 class OrderDetailFragment : BaseFragment<FragmentOrderDetailBinding>(FragmentOrderDetailBinding::bind, R.layout.fragment_order_detail) {
     private lateinit var mainActivity : MainActivity
     private lateinit var orderDetailAdapter: OrderDetailAdapter
     private lateinit var list:List<OrderDetailResponse>
-//    private lateinit var binding: FragmentOrderDetailBinding
     private var orderId = -1
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
         mainActivity = context as MainActivity
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mainActivity.hideBottomNav(true)
@@ -42,10 +38,11 @@ class OrderDetailFragment : BaseFragment<FragmentOrderDetailBinding>(FragmentOrd
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         initData(orderId)
     }
 
-    fun initData(orderId:Int){
+    private fun initData(orderId:Int){
         val orderDetailLiveData = OrderService().getOrderDetails(orderId)
         orderDetailLiveData.observe(
             viewLifecycleOwner, {

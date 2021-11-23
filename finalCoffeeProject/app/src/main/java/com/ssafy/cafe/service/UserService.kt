@@ -1,15 +1,11 @@
 package com.ssafy.cafe.service
 
-import android.util.Log
-import com.ssafy.cafe.dto.Comment
-import com.ssafy.cafe.dto.Grade
 import com.ssafy.cafe.dto.User
 import com.ssafy.cafe.util.RetrofitCallback
 import com.ssafy.cafe.util.RetrofitUtil
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.Retrofit
 
 private const val TAG = "UserService"
 class UserService {

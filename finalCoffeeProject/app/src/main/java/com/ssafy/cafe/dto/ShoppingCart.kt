@@ -17,8 +17,4 @@ data class ShoppingCart(
         this.totalPrice = this.menuCnt * this.menuPrice
     }
     var id = 0
-//    constructor() : this(0, "", "", 0, 0)
-//    constructor():this(0, "", "", 0, 0,0, "", 1, null, null){
-//        id = menuId
-//    }
 }

@@ -6,10 +6,7 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -22,9 +19,8 @@ import com.ssafy.cafe.config.BaseFragment
 import com.ssafy.cafe.databinding.FragmentNotificationBinding
 import com.ssafy.cafe.dto.Notification
 import com.ssafy.cafe.service.NotificationService
-import com.ssafy.cafe.util.RetrofitCallback
 
-private const val TAG = "NotificationFragment"
+private const val TAG = "NotificationFragment_싸피"
 class NotificationFragment : BaseFragment<FragmentNotificationBinding>(FragmentNotificationBinding::bind, R.layout.fragment_notification) {
 
     private lateinit var mainActivity: MainActivity
@@ -40,6 +36,7 @@ class NotificationFragment : BaseFragment<FragmentNotificationBinding>(FragmentN
         setSpinner()
         initData()
 
+        // notification 수신
         val intentFilter = IntentFilter("com.ssafy.cafe")
         val receiver = object: BroadcastReceiver() {
             override fun onReceive(context: Context?, intent: Intent?) {
@@ -50,7 +47,6 @@ class NotificationFragment : BaseFragment<FragmentNotificationBinding>(FragmentN
         }
         mainActivity.registerReceiver(receiver, intentFilter)
 
-//        initData()
     }
 
     private fun initData(){
@@ -104,9 +100,7 @@ class NotificationFragment : BaseFragment<FragmentNotificationBinding>(FragmentN
                                     RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
                             }
                         }
-
                     }
-
                     override fun onNothingSelected(parent: AdapterView<*>?) {}
                 })
             }
