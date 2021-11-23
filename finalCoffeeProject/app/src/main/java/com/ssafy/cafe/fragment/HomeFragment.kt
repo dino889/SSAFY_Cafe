@@ -25,9 +25,11 @@ import com.ssafy.cafe.activity.LoginActivity
 import com.ssafy.cafe.activity.MainActivity
 import com.ssafy.cafe.adapter.BestMenuAdapter
 import com.ssafy.cafe.adapter.LastOrderAdapter
+import com.ssafy.cafe.adapter.WeekBestMenuAdapter
 import com.ssafy.cafe.config.ApplicationClass
 import com.ssafy.cafe.config.BaseFragment
 import com.ssafy.cafe.databinding.FragmentHomeBinding
+import com.ssafy.cafe.dto.Product
 import com.ssafy.cafe.dto.ShoppingCart
 import com.ssafy.cafe.dto.User
 import com.ssafy.cafe.dto.UserLevel
@@ -48,6 +50,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::bind
 //    private lateinit var binding:FragmentHomeBinding
     private var lastOrderAdapter : LastOrderAdapter = LastOrderAdapter()
     private var bestMenuAdapter : BestMenuAdapter = BestMenuAdapter()
+    private var weekBestMenuAdapter : WeekBestMenuAdapter = WeekBestMenuAdapter()
 //    private val viewModel: MainViewModel by activityViewModels()
     private lateinit var mainActivity: MainActivity
 
@@ -95,6 +98,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::bind
             bestMenuAdapter.list = it as MutableList<BestProductResponse>
             bestMenuAdapter.notifyDataSetChanged()
         }
+
+        val weekBestLiveData = ProductService().getWeekBest()
+        weekBestLiveData.observe(viewLifecycleOwner) {
+            weekBestMenuAdapter.list = it as MutableList<Product>
+            weekBestMenuAdapter.notifyDataSetChanged()
+        }
     }
 
 
@@ -123,12 +132,26 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::bind
                 }
             }
         })
-
         binding.rvLastOrderMenuList.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL,false)
             adapter = lastOrderAdapter
             adapter!!.stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
         }
+
+        // 주간 베스트 메뉴
+        weekBestMenuAdapter = WeekBestMenuAdapter()
+        weekBestMenuAdapter.setItemClickListener(object: WeekBestMenuAdapter.ItemClickListener{
+            override fun onClick(view: View, position: Int, productId : Int) {
+                mainActivity.openFragment(3, "productId", productId)
+            }
+        })
+        binding.rvWeekBestMenuList.apply {
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL,false)
+            adapter = weekBestMenuAdapter
+            adapter!!.stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
+        }
+
+
     }
 
     private fun setUserLevel(stamp: Int){

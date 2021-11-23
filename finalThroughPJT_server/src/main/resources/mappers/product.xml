@@ -6,34 +6,21 @@
 
 	<!-- 1. 상품 추가 (type : 1 ~ 5)-->
 	<insert id="insert" parameterType="Product">
-		INSERT INTO t_product
-		(name,
-		type,
-		price,
-		img)
-		VALUES
-		(#{name},
-		#{type},
-		#{price},
-		#{img})
+		INSERT INTO t_product(name, type, price, img)
+		VALUES(#{name}, #{type}, #{price}, #{img})
 	</insert>
 
 	<!-- 2. 상품 수정 -->
 	<update id="update" parameterType="Product">
 		UPDATE t_product
-		SET
-		name = #{name},
-		type = #{type},
-		price = #{price},
-		img = #{img}
+		SET name = #{name}, type = #{type}, price = #{price}, img = #{img}
 		WHERE id = #{id}
 	</update>
 	
 	<!-- 3. 상품 삭제 -->
 	<delete id="delete" parameterType="int">
 		DELETE FROM t_product
-		WHERE id
-		= #{id}
+		WHERE id = #{id}
 	</delete>
 	
 	<!-- 4. id로 상품 조회 -->
@@ -60,16 +47,16 @@
 	<!-- 7. id 기준 상품에 대한 comment 조회 -->
 	<!-- backend  관통 과정에서 추가됨 -->
 	<select id="selectWithComment" resultType="map" parameterType="int">
-	select p.name, p.price, p.img, c.id as commentId, c.user_id, c.rating, c.comment, p.id as product_id, p.type as product_type,
-		(select name from t_user where id=c.user_Id	) userName,
-	    (select count(rating)  from t_comment where product_id=p.id) as commentCnt,
-	    (select avg(rating)  from t_comment where product_id=p.id) as avg,
-	    (select sum(quantity) from t_order_detail where product_id=p.id) as sells
-	from (select p.id, pt.type_name as type, p.name, p.price, p.img from t_product as p join t_product_type as pt on p.type = pt.id) as p
-	left join  t_comment c 
-	on p.id=c.product_id
-	where p.id = #{id}
-	order by c.id desc;
+		select p.name, p.price, p.img, c.id as commentId, c.user_id, c.rating, c.comment, p.id as product_id, p.type as product_type,
+			(select name from t_user where id=c.user_Id	) userName,
+		    (select count(rating)  from t_comment where product_id=p.id) as commentCnt,
+		    (select avg(rating)  from t_comment where product_id=p.id) as avg,
+		    (select sum(quantity) from t_order_detail where product_id=p.id) as sells
+		from (select p.id, pt.type_name as type, p.name, p.price, p.img from t_product as p join t_product_type as pt on p.type = pt.id) as p
+		left join  t_comment c 
+		on p.id=c.product_id
+		where p.id = #{id}
+		order by c.id desc;
 	</select>
 	
 	<!-- 8. 주문 베스트 메뉴 top 5 -->
@@ -88,5 +75,19 @@
 		select *
 		from t_product
 		where name like CONCAT('%',#{name},'%');
+	</select>
+	
+	<!-- 10. 주간 판매량 높은 상품 조회 -->
+	<select id="selectWeekBest" resultType="Product">
+		select p.id, p.name, p.type, p.price, p.img
+		from t_product as p
+		join (select ot.product_id as p_id, count(ot.d_id) as cnt
+				from t_order o
+				join t_order_detail ot
+				on o.o_id = ot.order_id
+				where o.order_time BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK ) AND NOW()
+				group by ot.product_id
+				order by cnt desc) as o
+		on p.id = o.p_id;
 	</select>
 </mapper>

@@ -42,6 +42,10 @@ import com.ssafy.cafe.viewmodel.MainViewModel
 import org.json.JSONObject
 import java.lang.Math.*
 import java.text.DecimalFormat
+import com.google.maps.android.SphericalUtil
+
+
+
 
 class BucketFragment : BaseFragment<FragmentBucketBinding>(FragmentBucketBinding::bind, R.layout.fragment_bucket) {
     private val TAG = "BucketFragment_싸피"
@@ -143,7 +147,7 @@ class BucketFragment : BaseFragment<FragmentBucketBinding>(FragmentBucketBinding
             else {
                 Log.d(TAG, "makeOrder: ${distance}")
                 //거리가 200m이상이라면
-                if(distance > 0.2) { // 0.2km = 200m
+                if(distance > 0.2 ) { // 0.2km = 200m
                     showDialogForOrderTakeoutOver200m()
                 } else if(distance == Double.MAX_VALUE){
                     Toast.makeText(requireContext(), "매장까지의 거리를 구할 수 없어 주문이 불가능합니다.", Toast.LENGTH_SHORT).show()
@@ -182,10 +186,24 @@ class BucketFragment : BaseFragment<FragmentBucketBinding>(FragmentBucketBinding
 
     // 매장까지의 거리가 200이상일 때 확인 다이얼로그 띄우기
     private fun showDialogForOrderTakeoutOver200m() {
+        var unit = "m"
+        if(distance > 1000) {
+            unit = "km"
+            distance *= 0.001
+        }
+        val value = if(unit == "m") {
+            round(distance)
+            distance.toString() + unit
+        } else {
+            val format = DecimalFormat("#.#")
+            format.format(distance) + unit
+        }
+
+
         val builder: AlertDialog.Builder = AlertDialog.Builder(requireContext())
         builder.setTitle("알림")
         builder.setMessage(
-            "현재 고객님의 위치가 매장과 200m 이상 떨어져 있습니다.\n정말 주문하시겠습니까?"
+            "현재 고객님의 위치가 매장에서 \n${value} 떨어져 있습니다.\n정말 주문하시겠습니까?"
         )
         builder.setCancelable(true)
         builder.setPositiveButton("확인") { _, _ ->
@@ -344,6 +362,9 @@ class BucketFragment : BaseFragment<FragmentBucketBinding>(FragmentBucketBinding
     }
 
     fun getDistance(a: LatLng, b: LatLng):Double {
+//        val value = SphericalUtil.computeDistanceBetween(a, b)
+
+
         val theta = abs(a.longitude - b.longitude)
         var dist = sin(deg2rad(a.latitude)) * sin(deg2rad(b.latitude)) + cos(deg2rad(a.latitude)) * cos(deg2rad(b.latitude)) * cos(deg2rad(theta))
         var unit = "m"
@@ -353,10 +374,10 @@ class BucketFragment : BaseFragment<FragmentBucketBinding>(FragmentBucketBinding
         dist *= 60 * 1.1515
         var value = dist * 1609.344
 
-        if(value > 1000) {
-            unit = "km"
-            value = dist * 1.609344
-        }
+//        if(value > 1000) {
+//            unit = "km"
+//            value = dist * 1.609344
+//        }
 
         return value
     }

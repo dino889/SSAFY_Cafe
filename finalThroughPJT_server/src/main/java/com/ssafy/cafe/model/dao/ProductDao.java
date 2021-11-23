@@ -25,4 +25,7 @@ public interface ProductDao {
     List<Map<String, Object>> selectBestProduct();
     
     List<Product> selectByName(String name);
+    
+    // 주간 베스트 메뉴
+    List<Product> selectWeekBest();
 }

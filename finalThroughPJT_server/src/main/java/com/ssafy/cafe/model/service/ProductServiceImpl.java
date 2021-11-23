@@ -48,4 +48,9 @@ public class ProductServiceImpl implements ProductService{
 		return pDao.selectByName(name);
 	}
 
+	@Override
+	public List<Product> getWeekBest() {
+		return pDao.selectWeekBest();
+	}
+
 }
