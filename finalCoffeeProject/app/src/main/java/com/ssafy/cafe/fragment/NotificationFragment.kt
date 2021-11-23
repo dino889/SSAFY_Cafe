@@ -10,6 +10,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ssafy.cafe.R
@@ -35,6 +37,7 @@ class NotificationFragment : BaseFragment<FragmentNotificationBinding>(FragmentN
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setSpinner()
         initData()
 
         val intentFilter = IntentFilter("com.ssafy.cafe")
@@ -50,7 +53,7 @@ class NotificationFragment : BaseFragment<FragmentNotificationBinding>(FragmentN
 //        initData()
     }
 
-    fun initData(){
+    private fun initData(){
         val user = ApplicationClass.sharedPreferencesUtil.getUser();
         val userid = user.id
 
@@ -68,8 +71,56 @@ class NotificationFragment : BaseFragment<FragmentNotificationBinding>(FragmentN
                     adapter!!.stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
 
                 }
+
+                var category: String
+                binding.spinnerNotiCategory.setOnItemSelectedListener(object : AdapterView.OnItemSelectedListener {
+                    override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
+                        category = parent.getItemAtPosition(position).toString()
+                        if(category == "All") {
+                            nAdapter = NotificationAdapter(list, this@NotificationFragment::initData)
+                            binding.rvNotify.apply {
+                                val linearLayoutManager = LinearLayoutManager(context)
+                                linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
+                                layoutManager = linearLayoutManager
+                                adapter = nAdapter
+                                adapter!!.stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
+
+                            }
+                        } else {
+                            val newList: MutableList<Notification> = mutableListOf()
+                            for (i in list.indices) {
+                                if (list[i].category == category) {
+                                    newList.add(list[i])
+                                }
+                            }
+                            nAdapter =
+                                NotificationAdapter(newList, this@NotificationFragment::initData)
+                            binding.rvNotify.apply {
+                                val linearLayoutManager = LinearLayoutManager(context)
+                                linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
+                                layoutManager = linearLayoutManager
+                                adapter = nAdapter
+                                adapter!!.stateRestorationPolicy =
+                                    RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
+                            }
+                        }
+
+                    }
+
+                    override fun onNothingSelected(parent: AdapterView<*>?) {}
+                })
             }
         )
+    }
 
+    private fun setSpinner() {
+        ArrayAdapter.createFromResource(
+            requireContext(),
+            R.array.notiCategory_array,
+            android.R.layout.simple_spinner_item
+        ).also { adapter ->
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            binding.spinnerNotiCategory.adapter = adapter
+        }
     }
 }

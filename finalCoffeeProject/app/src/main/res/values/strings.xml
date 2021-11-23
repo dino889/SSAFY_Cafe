@@ -18,6 +18,13 @@
         <item>4</item>
     </string-array>
 
+    <string-array name="notiCategory_array">
+        <item>All</item>
+        <item>Notice</item>
+        <item>User</item>
+        <item>Order</item>
+    </string-array>
+
     <string name="api_key">AIzaSyADymDXKUEN8dp9Hf7bVUY9EB25IHer6Xg</string>
     <string name="google_login_key">908521205713-bjvpeaaptikbb8h0523300hdtj9p2p33.apps.googleusercontent.com</string>
     <string name="kakao_login_key">10dd391ec47899a36d7a50ec704eb21b</string>

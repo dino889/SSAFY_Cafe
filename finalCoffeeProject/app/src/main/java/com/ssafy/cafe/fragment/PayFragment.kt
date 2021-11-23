@@ -59,8 +59,9 @@ class PayFragment : BaseFragment<FragmentPayBinding>(FragmentPayBinding::bind, R
 
     }
     fun initPay(){
-        val pay = ApplicationClass.sharedPreferencesUtil.getUserPay()
-        binding.tvUserPay.text = "${CommonUtils.makeComma(pay!!.toInt())}"
+        viewModel.user.observe(viewLifecycleOwner) {
+            binding.tvUserPay.text = CommonUtils.makeComma(it.money)
+        }
     }
 
     fun initData(id:String){

@@ -32,12 +32,21 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_weight="1"
                 android:fontFamily="@font/nanumsquare_aceb"
                 android:padding="15dp"
                 android:text="NOTIFICATION"
+                android:layout_weight="1"
                 android:textColor="@color/black"
                 android:textSize="20sp" />
+
+            <Spinner
+                android:id="@+id/spinner_notiCategory"
+                android:layout_width="80dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:gravity="right"
+                android:layout_weight="0.8"
+                android:fontFamily="@font/nanumsquare_aceb"/>
 
         </LinearLayout>
 
