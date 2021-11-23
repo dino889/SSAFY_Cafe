@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -10,14 +11,35 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/blue_300"
-            android:minHeight="?attr/actionBarSize"
-            android:theme="?attr/actionBarTheme" />
+            android:background="@color/white"
+            android:orientation="horizontal">
 
+            <com.airbnb.lottie.LottieAnimationView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                app:lottie_autoPlay="true"
+                app:lottie_fileName="coffee.json"
+                app:lottie_loop="true" />
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:fontFamily="@font/NanumSquare_acL"
+                android:padding="15dp"
+                android:text="주문이 완료되었습니다"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
+
+
+        </LinearLayout>
         <LinearLayout
             android:id="@+id/ll_orderShot"
             android:layout_width="match_parent"
@@ -26,16 +48,12 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/tv_orderState"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="주문이 완료되었어요." />
-
-            <TextView
                 android:id="@+id/tv_orderMenuNameShort"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/nanumsquare_acR"
                 android:text="아메리카노 외 3건"
+                android:textColor="@color/black"
                 android:textSize="24sp"
                 android:textStyle="bold" />
 
@@ -49,12 +67,14 @@
                     android:id="@+id/textView23"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/NanumSquare_acL"
                     android:text="주문일시 :" />
 
                 <TextView
                     android:id="@+id/tv_orderDate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/NanumSquare_acL"
                     android:paddingLeft="10dp"
                     android:text="20121-11-20 11:16" />
             </LinearLayout>

@@ -38,6 +38,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
+                android:fontFamily="@font/NanumSquare_acL"
                 android:inputType="textPersonName" />
 
             <com.airbnb.lottie.LottieAnimationView

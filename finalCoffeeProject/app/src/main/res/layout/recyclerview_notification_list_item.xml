@@ -10,8 +10,8 @@
 
     <ImageButton
         android:id="@+id/ibtn_delete"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
         android:layout_gravity="right"
         android:background="#00FFFFFF"
         app:srcCompat="@android:drawable/ic_menu_close_clear_cancel" />
@@ -20,7 +20,9 @@
         android:id="@+id/tv_notificationContent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
         android:layout_marginBottom="20dp"
+        android:fontFamily="@font/NanumSquare_acL"
         android:text="메뉴가 모두 준비되었습니다. 픽업대에서 메뉴를 픽업해주세요! 매장 방문시 마스크를 꼭 착용해주세요"
         android:textColor="@color/black" />
 
@@ -28,5 +30,6 @@
         android:id="@+id/tv_notificatonDate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/NanumSquare_acL"
         android:text="2021.11.08 23:06:30" />
 </LinearLayout>

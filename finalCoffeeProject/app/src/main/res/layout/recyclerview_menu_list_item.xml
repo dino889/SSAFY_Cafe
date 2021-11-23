@@ -35,7 +35,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="5dp"
-        android:fontFamily="@font/nanumsquare_acl"
+        android:fontFamily="@font/NanumSquare_acL"
         android:gravity="center"
         android:text="아인슈페너"
         android:textColor="@color/black" />
