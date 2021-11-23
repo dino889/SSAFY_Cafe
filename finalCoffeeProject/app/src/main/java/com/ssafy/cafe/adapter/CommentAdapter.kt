@@ -63,58 +63,69 @@ class CommentAdapter(val list: List<MenuDetailWithCommentResponse>, val kFunctio
 
 
         fun bindInfo(data: MenuDetailWithCommentResponse, index: Int) {
+            Log.d(TAG, "bindInfo: $data")
+//            if(data.userId.) {
+//                userId.visibility = View.GONE
+//                rating.visibility = View.GONE
+//                comment.text = "상품에 대한 리뷰가 존재하지 않습니다."
+//            }
+//            else {
+                userId.visibility = View.VISIBLE
+                rating.visibility = View.VISIBLE
 
-            userId.text = "${data.userId} 님"
-            comment.text = data.commentContent
-            rating.text = "${data.productRating} 점"
+                userId.text = "${data.userId} 님"
+                comment.text = data.commentContent
+                rating.text = "${data.productRating} 점"
 
-            val newComment = Comment(
-                data.commentContent ?: "content X",
-                data.commentId,
-                data.productId,
-                data.productRating.toFloat(),
-                user.id
-            )
+                val newComment = Comment(
+                    data.commentContent ?: "content X",
+                    data.commentId,
+                    data.productId,
+                    data.productRating.toFloat(),
+                    user.id
+                )
 
-            visibleModifiedButton(false)
+                visibleModifiedButton(false)
 
-            if (data.userId == user.id) {   // 작성자와 현재 로그인한 사용자가 같으면
-                visibleMainButton() // 수정, 삭제 버튼 보여줌.
+                if (data.userId == user.id) {   // 작성자와 현재 로그인한 사용자가 같으면
+                    visibleMainButton() // 수정, 삭제 버튼 보여줌.
 
-                modify.setOnClickListener {
-                    comment.visibility = View.GONE
-                    modifyComment.setText(data.commentContent.toString())
+                    modify.setOnClickListener {
+                        comment.visibility = View.GONE
+                        modifyComment.setText(data.commentContent.toString())
 
-                    visibleModifiedButton()
+                        visibleModifiedButton()
+                        visibleMainButton(false)
+                    }
+
+                    delete.setOnClickListener {
+                        CommentService().delete(newComment.id, DeleteCallback())
+                        visibleMainButton()
+                        visibleModifiedButton(false)
+                    }
+
+                    cancel.setOnClickListener {
+                        comment.visibility = View.VISIBLE
+
+                        visibleMainButton()
+                        visibleModifiedButton(false)
+                    }
+
+                    confirm.setOnClickListener {
+                        comment.visibility = View.VISIBLE
+
+                        newComment.comment = modifyComment.text.toString()
+                        modifyComment.text!!.clear()
+                        CommentService().modify(newComment, ModifyCallback())
+                        visibleMainButton()
+                        visibleModifiedButton(false)
+                    }
+
+                } else {
                     visibleMainButton(false)
                 }
+//            }
 
-                delete.setOnClickListener {
-                    CommentService().delete(newComment.id, DeleteCallback())
-                    visibleMainButton()
-                    visibleModifiedButton(false)
-                }
-
-                cancel.setOnClickListener {
-                    comment.visibility = View.VISIBLE
-
-                    visibleMainButton()
-                    visibleModifiedButton(false)
-                }
-
-                confirm.setOnClickListener {
-                    comment.visibility = View.VISIBLE
-
-                    newComment.comment = modifyComment.text.toString()
-                    modifyComment.text!!.clear()
-                    CommentService().modify(newComment, ModifyCallback())
-                    visibleMainButton()
-                    visibleModifiedButton(false)
-                }
-
-            } else {
-                visibleMainButton(false)
-            }
 
         }
 
@@ -154,11 +165,11 @@ class CommentAdapter(val list: List<MenuDetailWithCommentResponse>, val kFunctio
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CommentHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CommentAdapter.CommentHolder {
         context = parent.context as MainActivity
         val view =
             LayoutInflater.from(parent.context).inflate(R.layout.recyclerview_review_list_item, parent, false)
-        return CommentHolder(view)
+        return CommentAdapter.CommentHolder(view)
     }
 
     override fun onBindViewHolder(holder: CommentHolder, position: Int) {

@@ -93,6 +93,7 @@ public class OrderServiceImpl implements OrderService {
 
     	logger.info("updateOrder" + order.getUserId());
     	observer.setUserId(order.getUserId());
+    	observer.setOrderId(order.getId());
     	
     	Random random = new Random();
     	

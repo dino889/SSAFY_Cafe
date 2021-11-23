@@ -151,10 +151,8 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(FragmentReviewBinding
 
                 // comment 가 없을 경우 -> 들어온 response가 1개이고 해당 userId 가 null일 경우 빈 배열 Adapter 연결
                 if (responseData.size == 1 && responseData[0].userId == null) {
-                    Log.d(TAG, "onSuccess: 111")
                     commentAdapter = CommentAdapter(mutableListOf(), this@ReviewFragment::initData)
                 } else {
-                    Log.d(TAG, "onSuccess: 222${responseData}")
                     commentAdapter = CommentAdapter(responseData, this@ReviewFragment::initData)
                 }
                 liveData.value = responseData

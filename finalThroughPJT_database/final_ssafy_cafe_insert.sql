@@ -2,18 +2,18 @@ use ssafy_cafe;
 	
 
 -- t_user
-INSERT INTO t_user (id, name, pass, stamps, phone, money, token) VALUES ('test', 'testUser', 'test', 50, '010-8019-4628', 200000, "fuwi-tnmQZ-LiZKppdkkrL:APA91bG3ZYcde-fSLMXVcO0xatlrWscbVkx_QT56LPUmWnwVEugDx5rYG912zve9AtQI6arGQqrq0ZBLHLmhKtjsh0yIb3EqMk8iwd3MbcFZl-hIIQZVwcejvIkVrL-J3KL-Bj4cWxEH");
-INSERT INTO t_user (id, name, pass, stamps, phone, money, token) VALUES ('admin', 'admin', 'admin', 100, '010-6242-7712', 1000000, "eZbzN9zNQT26t0TsQ6DrRG:APA91bH5-hOF3BrZi4Zo-FTvdsXoJLetMSuZ-jtyoAl3VG4BqWcQj9wuVwVLjkezNcA299AbWn4c9rOJx1E-EpFj74ujVaClojUDJGQd88d87SkBa5M81SR6ir7ESqjoa0PoXPFj2ZFs");
-INSERT INTO t_user (id, name, pass, stamps, phone, money, token) VALUES ('id01', 'name01', 'pass01', 4, '010-0001-0001', 0, "1234");
-INSERT INTO t_user (id, name, pass, stamps, phone, money, token) VALUES ('id02', 'name02', 'pass02', 1, '010-0002-0002', 10000, "1235");
-INSERT INTO t_user (id, name, pass, stamps, phone, money, token) VALUES ('id03', 'name03', 'pass03', 0, '010-0003-0003', 20000, "1236");
-INSERT INTO t_user (id, name, pass, stamps, phone, money, token) VALUES ('id04', 'name04', 'pass04', 0, '010-0004-0004', 300, "1237");
-INSERT INTO t_user (id, name, pass, stamps, phone, money, token) VALUES ('id05', 'name05', 'pass05', 0, '010-0005-0005', 4000, "1238");
-INSERT INTO t_user (id, name, pass, stamps, phone, money, token) VALUES ('id06', 'name06', 'pass06', 0, '010-0006-0006', 0, "1239");
-INSERT INTO t_user (id, name, pass, stamps, phone, money, token) VALUES ('id07', 'name07', 'pass07', 0, '010-0007-0007', 0, "1240");
-INSERT INTO t_user (id, name, pass, stamps, phone, money, token) VALUES ('id08', 'name08', 'pass08', 0, '010-0008-0008', 0, "1241");
-INSERT INTO t_user (id, name, pass, stamps, phone, money, token) VALUES ('id09', 'name09', 'pass09', 0, '010-0009-0009', 0, "1242");
-INSERT INTO t_user (id, name, pass, stamps, phone, money, token) VALUES ('id10', 'name10', 'pass10', 0, '010-0010-0010', 0, "1243");
+-- INSERT INTO t_user (id, name, pass, stamps, phone, money, token) VALUES ('test', 'testUser', 'test', 50, '010-8019-4628', 200000, "fuwi-tnmQZ-LiZKppdkkrL:APA91bG3ZYcde-fSLMXVcO0xatlrWscbVkx_QT56LPUmWnwVEugDx5rYG912zve9AtQI6arGQqrq0ZBLHLmhKtjsh0yIb3EqMk8iwd3MbcFZl-hIIQZVwcejvIkVrL-J3KL-Bj4cWxEH");
+-- INSERT INTO t_user (id, name, pass, stamps, phone, money, token) VALUES ('admin', 'admin', 'admin', 100, '010-6242-7712', 1000000, "eZbzN9zNQT26t0TsQ6DrRG:APA91bH5-hOF3BrZi4Zo-FTvdsXoJLetMSuZ-jtyoAl3VG4BqWcQj9wuVwVLjkezNcA299AbWn4c9rOJx1E-EpFj74ujVaClojUDJGQd88d87SkBa5M81SR6ir7ESqjoa0PoXPFj2ZFs");
+-- INSERT INTO t_user (id, name, pass, stamps, phone, money, token) VALUES ('id01', 'name01', 'pass01', 4, '010-0001-0001', 0, "1234");
+-- INSERT INTO t_user (id, name, pass, stamps, phone, money, token) VALUES ('id02', 'name02', 'pass02', 1, '010-0002-0002', 10000, "1235");
+-- INSERT INTO t_user (id, name, pass, stamps, phone, money, token) VALUES ('id03', 'name03', 'pass03', 0, '010-0003-0003', 20000, "1236");
+-- INSERT INTO t_user (id, name, pass, stamps, phone, money, token) VALUES ('id04', 'name04', 'pass04', 0, '010-0004-0004', 300, "1237");
+-- INSERT INTO t_user (id, name, pass, stamps, phone, money, token) VALUES ('id05', 'name05', 'pass05', 0, '010-0005-0005', 4000, "1238");
+-- INSERT INTO t_user (id, name, pass, stamps, phone, money, token) VALUES ('id06', 'name06', 'pass06', 0, '010-0006-0006', 0, "1239");
+-- INSERT INTO t_user (id, name, pass, stamps, phone, money, token) VALUES ('id07', 'name07', 'pass07', 0, '010-0007-0007', 0, "1240");
+-- INSERT INTO t_user (id, name, pass, stamps, phone, money, token) VALUES ('id08', 'name08', 'pass08', 0, '010-0008-0008', 0, "1241");
+-- INSERT INTO t_user (id, name, pass, stamps, phone, money, token) VALUES ('id09', 'name09', 'pass09', 0, '010-0009-0009', 0, "1242");
+-- INSERT INTO t_user (id, name, pass, stamps, phone, money, token) VALUES ('id10', 'name10', 'pass10', 0, '010-0010-0010', 0, "1243");
 
 
 -- t_product_type
@@ -47,7 +47,7 @@ INSERT INTO t_product (name, type, price, img) VALUES ('레몬 셔벗 에이드'
 INSERT INTO t_product (name, type, price, img) VALUES ('오렌지 에이드', 3, 5500, 'orangeade.png');
 
 -- type : 4(frappuccino)
-INSERT INTO t_product (name, type, price, img) VALUES ('딸기 프라푸치노', 4, 6300, 'stroberyfrapp.png');
+INSERT INTO t_product (name, type, price, img) VALUES ('딸기 프라푸치노', 4, 6300, 'strawberryyogurtfrap.png');
 INSERT INTO t_product (name, type, price, img) VALUES ('오레오 프라푸치노', 4, 6100, 'oreofrapp.png');
 INSERT INTO t_product (name, type, price, img) VALUES ('자바 칩 프라푸치노', 4, 6100, 'javachipfrapp.png');
 INSERT INTO t_product (name, type, price, img) VALUES ('초콜릿 크림 칩 프라푸치노', 4, 5700, 'chocolatecreamchipfrappuccino.png');
