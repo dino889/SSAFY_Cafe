@@ -20,7 +20,7 @@ object CommonUtils {
     }
 
     fun getFormattedString(date:Date): String {
-        val dateFormat = SimpleDateFormat("yyyy.MM.dd HH시 mm분")
+        val dateFormat = SimpleDateFormat("yyyy.MM.dd HH시 mm분 ss초")
         dateFormat.timeZone = TimeZone.getTimeZone("Seoul/Asia")
 
         return dateFormat.format(date)

@@ -151,6 +151,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
 
         // user 정보 받아오기
 //        viewModel.initUserLevel()
+        viewModel.getUserInfo(ApplicationClass.sharedPreferencesUtil.getUser().id)
+
 
         supportFragmentManager.beginTransaction()
             .replace(R.id.frame_layout_main, HomeFragment())
@@ -223,7 +225,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
             // token log 남기기
             Log.d(TAG, "token: ${task.result?:"task.result is null"}")
             uploadToken(task.result!!, ApplicationClass.sharedPreferencesUtil.getUser().id)
-            viewModel.token = task.result!!
+//            viewModel.token = task.result!!
         })
         createNotificationChannel(channel_id, "ssafy")
 

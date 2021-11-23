@@ -35,7 +35,7 @@ class UserCustomMenuFragment : BaseFragment<FragmentUserCustomMenuBinding>(Fragm
 //    private lateinit var binding: FragmentUserCustomMenuBinding
     private lateinit var customMenuAdapter: CustomMenuAdapter
     private lateinit var mainActivity: MainActivity
-    private val viewModel: MainViewModel by activityViewModels()
+//    private val viewModel: MainViewModel by activityViewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 

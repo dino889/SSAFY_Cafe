@@ -36,7 +36,7 @@ private const val TAG = "ReviewFragment_싸피"
 class ReviewFragment : BaseFragment<FragmentReviewBinding>(FragmentReviewBinding::bind, R.layout.fragment_review) {
     private lateinit var mainActivity : MainActivity
 //    private lateinit var binding : FragmentReviewBinding
-    private val viewModel: MainViewModel by activityViewModels()
+//    private val viewModel: MainViewModel by activityViewModels()
 //    lateinit var prodWithComment: MenuDetailWithCommentResponse
     private var productId = -1
 

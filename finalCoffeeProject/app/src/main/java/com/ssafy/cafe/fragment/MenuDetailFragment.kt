@@ -25,7 +25,7 @@ private const val TAG = "MenuDetailFragment_싸피"
 class MenuDetailFragment : BaseFragment<FragmentMenuDetailBinding>(FragmentMenuDetailBinding::bind, R.layout.fragment_menu_detail) {
     private lateinit var mainActivity : MainActivity
 //    private lateinit var binding : FragmentMenuDetailBinding
-    private val viewModel: MainViewModel by activityViewModels()
+//    private val viewModel: MainViewModel by activityViewModels()
 
     private var productId = -1
 
@@ -73,20 +73,6 @@ class MenuDetailFragment : BaseFragment<FragmentMenuDetailBinding>(FragmentMenuD
 
 
 
-//    inner class ProductWithCommentInsertCallback : RetrofitCallback<List<MenuDetailWithCommentResponse>> {
-//        override fun onError(t: Throwable) {
-//            Log.d(TAG, t.message ?: "물품 정보를 받아오는 중 통신오류")
-//        }
-//
-//        override fun onSuccess(code: Int, responseData: List<MenuDetailWithCommentResponse>) {
-//            viewModel.prodWithComment = responseData[0]
-////            initScreen(responseData[0])
-//        }
-//
-//        override fun onFailure(code: Int) {
-//            Log.d(TAG, "onFailure: Error Code $code")
-//        }
-//    }
     inner class ProductWithCommentInsertCallback :
         RetrofitCallback<List<MenuDetailWithCommentResponse>> {
         override fun onError(t: Throwable) {

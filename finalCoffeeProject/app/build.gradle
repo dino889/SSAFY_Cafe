@@ -142,6 +142,12 @@ dependencies {
 //    implementation 'com.android.support:customtabs:25.3.1'
 //    implementation 'com.android.support:support-v4:25.3.1'
 
+    //LiveData, ViewModel
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
+
+    // loti
     implementation 'com.airbnb.android:lottie:3.4.0'
 
+    // ViewModel
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1'
 }

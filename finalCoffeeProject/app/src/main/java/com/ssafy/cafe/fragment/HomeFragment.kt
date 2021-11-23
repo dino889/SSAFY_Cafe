@@ -48,12 +48,14 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::bind
 //    private lateinit var binding:FragmentHomeBinding
     private var lastOrderAdapter : LastOrderAdapter = LastOrderAdapter()
     private var bestMenuAdapter : BestMenuAdapter = BestMenuAdapter()
-    private val viewModel: MainViewModel by activityViewModels()
+//    private val viewModel: MainViewModel by activityViewModels()
     private lateinit var mainActivity: MainActivity
+
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
         mainActivity = context as MainActivity
+        viewModel.getUserInfo(ApplicationClass.sharedPreferencesUtil.getUser().id)
     }
 
 //    override fun onCreateView(
@@ -67,12 +69,21 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::bind
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initUserLevel()
+//        initUserLevel()
+//        getUserInfo()
+//        viewModel.getUserInfo(ApplicationClass.sharedPreferencesUtil.getUser().id)
+        viewModel.user.observe(viewLifecycleOwner) {
+            setUserLevel(it.stamps)
+        }
+
         initAdapter()
         getData()
     }
 
+
+
     fun getData() {
+
         val liveData = OrderService().getLastMonthOrder(ApplicationClass.sharedPreferencesUtil.getUser().id)
         liveData.observe(viewLifecycleOwner) {
             lastOrderAdapter.list = it as MutableList<LatestOrderResponse>
@@ -85,20 +96,28 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::bind
             bestMenuAdapter.notifyDataSetChanged()
         }
     }
-    fun initAdapter(){
+
+
+    private fun initAdapter(){
+        // BestMenu
         bestMenuAdapter = BestMenuAdapter()
+        bestMenuAdapter.setItemClickListener(object: BestMenuAdapter.ItemClickListener {
+            override fun onClick(view: View, position: Int, productId: Int) {
+                mainActivity.openFragment(3, "productId", productId)
+            }
+        })
         binding.rvBestMenuList.apply{
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             adapter = bestMenuAdapter
             adapter!!.stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
         }
 
+        // 최근 주문 내역
         lastOrderAdapter = LastOrderAdapter()
-
         lastOrderAdapter.setItemClickListener(object: LastOrderAdapter.ItemClickListener{
             override fun onClick(view: View, position: Int) {
                 if(viewModel.productList == null) {
-                    Toast.makeText(requireActivity(), "아직 물품목록이 로딩되지 않았습니다.", Toast.LENGTH_SHORT).show()
+                    showCustomToast("아직 물품 목록이 로딩되지 않았습니다.")
                 } else {
                     getOrderItemsById(lastOrderAdapter.list[position].orderId)
                 }
@@ -112,60 +131,32 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::bind
         }
     }
 
-    fun initUserLevel(){
+    private fun setUserLevel(stamp: Int){
+        val levelList = UserLevel.userInfoList
+        val listSize = levelList.size
 
-        var user = ApplicationClass.sharedPreferencesUtil.getUser()
-        UserService().getUsers(user.id, object : RetrofitCallback<HashMap<String, Any>>{
-            override fun onError(t: Throwable) {
-                Log.d(TAG, "onError: ")
+        var level = levelList[0].title
+        var progressMax = levelList[0].max
+
+        for (i in 0 until listSize) {
+            if (stamp <= levelList[i].max) {    // 사용자 스탬프 수가 기준보다 작으면
+                level = levelList[i].title
+                progressMax = levelList[i].max
+                break
             }
+        }
 
-            override fun onSuccess(code: Int, responseData: HashMap<String, Any>) {
-                Log.d(TAG, "onSuccess: $responseData")
-                //val grade = responseData!!["grade"]
-                val data = JSONObject(responseData as Map<*, *>)
-                val rawUser = data.getJSONObject("user")
-                val user = User(
-                    rawUser.getString("id"),
-                    rawUser.getString("name"),
-                    rawUser.getString("pass"),
-                    rawUser.getString("phone"),
-                    rawUser.getInt("stamps"),
-                    rawUser.getInt("money"),
-                    rawUser.getString("token")
-                )
-//                val user = Gson().fromJson(responseData["user"].toString(), User::class.java)
-
-                Log.d(TAG, "onSuccess: ${user.stamps}")
-                binding.tvStampCount.text = "${user.stamps} /"
-
-                viewModel.userStamp.value = user.stamps
-                val tmp = UserLevel.userInfoList.size
-                for(i in 0..tmp-1){
-                    if(UserLevel.userInfoList.get(i).max <= user.stamps){
-                        binding.tvUserLevel.text = UserLevel.userInfoList.get(i).title.toString()
-                        if(i == tmp - 1) {  // 마지막 레벨
-                            binding.tvStampTotal.text = "..."
-                            binding.progressBarStampState.max = Int.MAX_VALUE
-                        } else if(i + 1 < tmp - 1) {
-                            binding.tvStampTotal.text = UserLevel.userInfoList.get(i + 1).max.toString()
-                            binding.progressBarStampState.max = UserLevel.userInfoList.get(i + 1).max
-                        }
-                        binding.progressBarStampState.progress = user.stamps
-                    }
-                }
-
-            }
-
-            override fun onFailure(code: Int) {
-                Log.d(TAG, "onFailure: ")
-            }
-
-        })
+        binding.tvStampCount.text = stamp.toString()
+        binding.tvStampTotal.text = " / ${progressMax}"
+        binding.tvUserLevel.text = level
+        binding.progressBarStampState.progress = stamp
+        binding.progressBarStampState.max = progressMax
     }
+
+
+    // 주문 상세 내역 조회
     fun getOrderItemsById(orderId: Int) {
         OrderService().getOrderDetails(orderId).observe(viewLifecycleOwner) {
-//            viewModel.removeAllShoppingCart()
 
             it?.forEach { item ->
                 for(i in viewModel.productList!!.indices) {

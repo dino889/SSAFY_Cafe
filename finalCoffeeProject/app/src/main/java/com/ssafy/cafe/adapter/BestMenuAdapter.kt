@@ -17,6 +17,7 @@ class BestMenuAdapter : RecyclerView.Adapter<BestMenuAdapter.BestMenuHolder>(){
             Glide.with(itemView)
                 .load("${ApplicationClass.MENU_IMGS_URL}${data.img}")
                 .into(itemView.findViewById(R.id.ib_cafeImg))
+
             itemView.findViewById<TextView>(R.id.tv_listItemCafeMenuName).text = data.name
         }
     }
@@ -31,9 +32,9 @@ class BestMenuAdapter : RecyclerView.Adapter<BestMenuAdapter.BestMenuHolder>(){
     override fun onBindViewHolder(holder: BestMenuAdapter.BestMenuHolder, position: Int) {
         holder.apply {
             bindInfo(list[position])
-//            itemView.setOnClickListener{
-//                itemClickListner.onClick(it,position)
-//            }
+            itemView.setOnClickListener{
+                itemClickListner.onClick(it, position, list[position].productId)
+            }
         }
     }
 
@@ -42,7 +43,7 @@ class BestMenuAdapter : RecyclerView.Adapter<BestMenuAdapter.BestMenuHolder>(){
     }
     //클릭 인터페이스 정의 사용하는 곳에서 만들어준다.
     interface ItemClickListener {
-        fun onClick(view: View, position: Int)
+        fun onClick(view: View, position: Int, productId: Int)
     }
     //클릭리스너 선언
     private lateinit var itemClickListner: ItemClickListener

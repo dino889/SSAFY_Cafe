@@ -1,13 +1,19 @@
 package com.ssafy.cafe.service
 
+import android.annotation.SuppressLint
 import android.app.Application
+import android.app.Notification
 import android.app.PendingIntent
 import android.content.Intent
+import android.graphics.Color
+import android.media.RingtoneManager
+import android.net.Uri
 import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
+import com.ssafy.cafe.R
 import com.ssafy.cafe.activity.MainActivity
 import com.ssafy.cafe.config.ApplicationClass
 
@@ -39,11 +45,23 @@ class MyFirebaseMessageService : FirebaseMessagingService() {
 
             val mainPendingIntent: PendingIntent = PendingIntent.getActivity(this, 0, mainIntent, 0)
 
+//            val style: Notification.BigTextStyle = Notification.BigTextStyle(mBuilder)
+//            style.setSummaryText("and More +")
+//            style.setBigContentTitle("BigText Expanded Title")
+//            style.bigText(
+//                "Mir's IT Blog adress is \"itmir.tistory.com\"," +
+//                        "Welcome to the Mir's Blog!! Nice to Meet you, this is Example JellyBean Notification"
+//            )
+//
+//            mBuilder.setStyle(style)
+
             val builder1 = NotificationCompat.Builder(this, MainActivity.channel_id)
-                .setSmallIcon(android.R.drawable.ic_dialog_info)
+                .setSmallIcon(R.drawable.notification_alert_bell_icon)
                 .setContentTitle(messageTitle)
                 .setContentText(messageContent)
+                .setStyle(NotificationCompat.BigTextStyle().bigText(messageContent))
                 .setAutoCancel(true)
+                .setColor(Color.blue(700))
                 .setContentIntent(mainPendingIntent)
 
             NotificationManagerCompat.from(this).apply {
