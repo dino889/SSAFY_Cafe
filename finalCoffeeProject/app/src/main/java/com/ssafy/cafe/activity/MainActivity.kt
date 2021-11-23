@@ -230,7 +230,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
         createNotificationChannel(channel_id, "ssafy")
 
         // knell - notification Icon animation
-//        knell()
+        knell()
 
     }
 

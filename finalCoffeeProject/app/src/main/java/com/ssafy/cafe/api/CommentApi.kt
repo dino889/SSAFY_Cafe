@@ -21,4 +21,13 @@ interface CommentApi {
     // 사용자별 comment 정보를 조회한다.
     @GET("rest/comment/{userId}")
     fun selectCommentByUser(@Path("userId") userId : String) : Call<List<Comment>>
+
+    // 사용자가 주문한 상품에 대해 7일 내에 리뷰를 작성하지 않은 내역이 있다면 반환한다.
+    @GET("rest/comment/dupchk")
+    fun notWrittenComm(@Query("userId") userId: String, @Query("productId") productId: Int) : Call<Int>
+
+    // 리뷰 작성 여부 업데이트
+    @PUT("rest/comment/dupchk")
+    fun updateDupChk(@Query("dId") dId:Int) : Call<Boolean>
+
 }

@@ -12,4 +12,8 @@ public interface OrderDetailDao {
     OrderDetail select(Integer detailId);
 
     List<OrderDetail> selectAll();
+    
+//    Integer selectDup(Integer productId, Integer orderId);
+    
+    int updateCommChk(Integer dId);
 }

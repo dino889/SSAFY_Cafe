@@ -1,5 +1,7 @@
 package com.ssafy.cafe.model.service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -57,14 +59,10 @@ public class OrderServiceImpl implements OrderService {
             dDao.insert(detail);
             quantitySum += detail.getQuantity();
         }
-        
-        // 스템프 정보 저장
-//        Stamp stamp = Stamp.builder().userId(order.getUserId()).quantity(quantitySum).orderId(order.getId()).build();
+
         Stamp stamp = new Stamp(order.getUserId(), order.getId(), quantitySum);
         sDao.insert(stamp);
 
-        // 사용자 정보 업데이트
-//        User user = User.builder().id(order.getUserId()).stamps(stamp.getQuantity()).build();
         User user = new User();
         user.setId(order.getUserId());
         user.setStamps(stamp.getQuantity());
@@ -121,31 +119,6 @@ public class OrderServiceImpl implements OrderService {
     	
     }
     
-//    public void selectOrderState(Integer orderId) {	// 픽업 완료까지 주기적으로 주문 상태를 select
-//    	Order state = oDao.select(orderId);
-//    	
-//    	Order observable = new Order();
-//        observable.addPropertyChangeListener(observer);
-//        
-//        Timer timer = new Timer();
-//    	TimerTask task = new TimerTask() {
-//			@Override
-//			public void run() {
-//				observable.setCompleted(state.getCompleted());
-//				observer.setUserId(state.getUserId());
-//				
-//				logger.info(state.toString());
-//				
-//				if(state.getCompleted() >= 4)
-//				{
-//					this.cancel();
-//				}
-//			}
-//    		
-//    	};
-//    	timer.schedule(task, 0, 10000);
-//    }
-
     @Override
     public List<Map> selectOrderTotalInfo(int id) {
         return oDao.selectOrderTotalInfo(id);
@@ -155,5 +128,16 @@ public class OrderServiceImpl implements OrderService {
     public List<Map<String, Object>> getLastMonthOrder(String id) {
         return oDao.getLastMonthOrder(id);
     }
+    
+	@Override
+	public void updateDupChk(Integer odId) {
+		dDao.updateCommChk(odId);
+	}
+
+	@Override
+	public Integer selectDupChk(HashMap<String, Object> map) {
+		return oDao.selectdupchk(map);
+	}
+    
 
 }
