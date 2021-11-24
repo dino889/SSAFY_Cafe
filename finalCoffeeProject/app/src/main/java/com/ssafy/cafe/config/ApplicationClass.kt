@@ -16,7 +16,7 @@ class ApplicationClass : Application() {
     companion object{
         //boyeon serverurl
 //        const val SERVER_URL = "http://1.251.96.80:8888/"
-        const val SERVER_URL = "http://192.168.0.18:8888/"
+        const val SERVER_URL = "http://1.251.96.80:8888/"
 
         // jiwoo
 //        const val SERVER_URL = "http://192.168.0.19:8888/" // desktop

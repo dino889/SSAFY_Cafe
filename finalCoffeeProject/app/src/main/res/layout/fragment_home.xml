@@ -24,6 +24,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginBottom="8dp"
+            android:gravity="center"
             android:orientation="horizontal">
 
             <TextView
@@ -47,15 +48,13 @@
                 android:textColor="@color/yellow_200"
                 android:textSize="15sp" />
 
-            <TextView
-                android:id="@+id/tv_userLevel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:fontFamily="@font/nanumsquare_acl"
-                android:gravity="right"
-                android:text="Bronze Level"
-                android:textColor="@color/white" />
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/userlevel"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true" />
+
         </LinearLayout>
 
         <ProgressBar

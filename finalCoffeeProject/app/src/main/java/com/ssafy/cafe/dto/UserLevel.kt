@@ -7,11 +7,11 @@ data class UserLevel(
 ){
     companion object{
         var userInfoList = arrayOf(
-            UserLevel("Bronze Level", 10,0.01),
-            UserLevel("Silver Level", 30,0.1),
-            UserLevel("Gold Level", 50,5.0),
-            UserLevel("Platinum Level", 100,10.0),
-            UserLevel("Diamond Level", 500,15.0)
+            UserLevel("Bronze", 10,0.01),
+            UserLevel("Silver", 30,0.1),
+            UserLevel("Gold", 50,5.0),
+            UserLevel("Platinum", 100,10.0),
+            UserLevel("Diamond", 500,15.0)
         )
     }
 }
