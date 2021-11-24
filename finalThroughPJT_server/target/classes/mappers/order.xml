@@ -107,7 +107,7 @@
 		from t_order o
 		join t_order_detail ot
 		on o.o_id = ot.order_id
-		where ot.commentdupchk = 0 and product_id = #{productId} and user_id = #{userId} and completed = 4 and o.order_time BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK ) AND NOW()
+		where ot.commentdupchk = 0 and product_id = #{productId} and user_id = #{userId} and completed = 5 and o.order_time BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK ) AND NOW()
 		order by ot.d_id desc
 		limit 1
 	</select>

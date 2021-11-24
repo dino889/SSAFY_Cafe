@@ -78,7 +78,10 @@ class MenuInfoDetailFragment : BaseFragment<FragmentMenuInfoDetailBinding>(Fragm
             if(syrup != null) {
                 if(syrup!!.contains('+')){
                     syrup = "설탕"
-                } else{
+                }
+                if(syrup == "") {
+                    syrup = "없음"
+                } else {
                     totalPrice += 500
                 }
             }

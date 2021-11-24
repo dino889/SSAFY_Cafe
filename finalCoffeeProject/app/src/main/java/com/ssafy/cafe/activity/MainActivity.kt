@@ -544,12 +544,12 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
         }
             dialog.show()
 
-//        if(!this.isFinishing){
-//            dialog.show()
-//        }
-//        if(isFinishing){
-//            dialog.show()
-//        }
+        if(!this.isFinishing){
+            dialog.show()
+        }
+        if(isFinishing){
+            dialog.show()
+        }
     }
 
     fun getLastOrder() {

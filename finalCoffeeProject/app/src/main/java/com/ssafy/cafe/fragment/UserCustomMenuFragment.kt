@@ -78,13 +78,25 @@ class UserCustomMenuFragment : BaseFragment<FragmentUserCustomMenuBinding>(Fragm
         }
 
         override fun onSuccess(code: Int, responseData: Product) {
+            var totalPrice = responseData.price   // 상품 가격
+
+            if(uc.syrup == "null") {
+                if(uc.syrup != "설탕"){
+                    totalPrice += 500
+                }
+            }
+
+            if(uc.shot != 0) {
+                totalPrice += (uc.shot!! * 500)
+            }
+
             val cart = ShoppingCart(
                 uc.productId,
                 responseData.img,
                 responseData.name,
                 1,
                 responseData.price,
-                responseData.price,
+                totalPrice,
                 uc.type,
                 uc.syrup,
                 uc.shot
