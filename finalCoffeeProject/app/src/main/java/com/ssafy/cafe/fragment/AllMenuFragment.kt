@@ -113,8 +113,6 @@ class AllMenuFragment : BaseFragment<FragmentAllMenuBinding>(FragmentAllMenuBind
                 },500)
                 showLoadingDialog(requireContext())
 
-
-
             }
         })
 
