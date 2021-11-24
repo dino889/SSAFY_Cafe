@@ -268,4 +268,10 @@ class MapFragment : BaseFragment<FragmentMapBinding>(FragmentMapBinding::bind, R
         }
         builder.create().show()
     }
+
+    override fun onDestroy() {
+        mainActivity.hideBottomNav(false)
+        super.onDestroy()
+
+    }
 }

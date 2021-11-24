@@ -9,6 +9,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/white"
         android:orientation="vertical">
 
         <LinearLayout
@@ -41,11 +42,13 @@
 
 
         </LinearLayout>
+
         <LinearLayout
             android:id="@+id/ll_orderShot"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
+            android:background="@color/white"
             android:orientation="vertical">
 
             <TextView
@@ -85,7 +88,8 @@
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:background="@color/white">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -96,20 +100,23 @@
                     android:id="@+id/rv_orderDetailList"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    tools:listitem="@layout/recyclerview_order_detail_list_item"/>
+                    android:background="@color/white"
+                    tools:listitem="@layout/recyclerview_order_detail_list_item" />
             </LinearLayout>
         </ScrollView>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="10dp">
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
+                android:layout_marginBottom="10dp"
                 android:background="@color/black" />
 
             <LinearLayout
@@ -123,16 +130,19 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:fontFamily="@font/nanumsquare_acr"
                     android:text="적립금"
-                    android:textSize="15dp" />
+                    android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/tv_payback"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:fontFamily="@font/nanumsquare_acr"
                     android:gravity="right"
-                    android:text="0원" />
+                    android:text="0원"
+                    android:textSize="16sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -147,18 +157,18 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:fontFamily="@font/nanumsquare_acb"
+                    android:fontFamily="@font/nanumsquare_acr"
                     android:text="총 결제금액"
-                    android:textSize="15dp"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/tv_AllTotalPrice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/nanumsquare_acb"
+                    android:fontFamily="@font/nanumsquare_acr"
                     android:text="22,000원"
-                    android:textSize="15dp"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
             </LinearLayout>
 
