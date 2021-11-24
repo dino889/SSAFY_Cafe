@@ -148,13 +148,13 @@ public class FirebaseCloudMessageService {
     
     // 등록된 모든 토큰을 이용해서 broadcasting
     public int broadCastMessage(String title, String body) throws IOException {	// select token from t_user -> 모든 사용자에게 noti 전송
-       List<String> tokens = uService.selectTokens();
-       
-    	for(String token: tokens) {
-          logger.debug("broadcastmessage : {},{},{}",token, title, body);
-           sendMessageTo(token, title, body);
-       }
-       return tokens.size();
+    	List<User> users = uService.selectAllUser();
+    	for(User user: users) {
+//          logger.debug("broadcastmessage : {},{},{}", user.getToken(), title, body);
+          sendMessageTo(user.getToken(), title, body);
+        }
+    
+       return users.size();
     }
 
 }
