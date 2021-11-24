@@ -5,6 +5,7 @@
 
     <!-- spinner data -->
     <string-array name="syrup_array">
+        <item></item>
         <item>설탕 +0</item>
         <item>카라멜</item>
         <item>바닐라</item>
@@ -12,6 +13,7 @@
     </string-array>
 
     <string-array name="shot_array">
+        <item>0</item>
         <item>1</item>
         <item>2</item>
         <item>3</item>
