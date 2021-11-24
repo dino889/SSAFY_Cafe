@@ -51,7 +51,7 @@
             </LinearLayout>
 
             <ImageButton
-                android:id="@+id/imageButton6"
+                android:id="@+id/ibtn_card"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#00FFFFFF"

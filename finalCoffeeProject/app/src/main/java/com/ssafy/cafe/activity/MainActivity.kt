@@ -117,6 +117,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
     //    lateinit var orderTable : String
     var orderTable : String? = "x"
     var orderDetail : String?= "y"
+    var charge: String? = "z"
     // Location
     lateinit var locationServiceManager: LocationServiceManager
     lateinit var locationPermissionManager: LocationPermissionManager
@@ -632,6 +633,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
                         orderDetail = String(data,3,data.size-3)
                         Log.d(TAG, "getNFCData_kr: $orderDetail")
                         viewModel.nfcTaggingData = orderDetail
+                    }
+                    else if(type_data.equals("ca")){
+                        charge = String(data,3,data.size-3)
+                        viewModel.nfcTaggingData = charge
                     }
 
                 }

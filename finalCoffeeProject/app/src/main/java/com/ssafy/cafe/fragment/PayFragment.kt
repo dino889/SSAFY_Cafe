@@ -54,6 +54,11 @@ class PayFragment : BaseFragment<FragmentPayBinding>(FragmentPayBinding::bind, R
         binding.btnStroeOrder.setOnClickListener {
             makeOrder()
         }
+
+        binding.ibtnCard.setOnClickListener {
+            enableNfc()
+            showDialogForOrderInShop(1)
+        }
     }
 
     private fun initPay(){
@@ -64,6 +69,7 @@ class PayFragment : BaseFragment<FragmentPayBinding>(FragmentPayBinding::bind, R
             val rawUser = data.getJSONObject("user")
             binding.tvUserPay.text = CommonUtils.makeComma(rawUser.getInt("money"))
         }
+
     }
 
     private fun initData(id:String){
@@ -94,30 +100,65 @@ class PayFragment : BaseFragment<FragmentPayBinding>(FragmentPayBinding::bind, R
 
     private fun makeOrder(){
         enableNfc()
-        showDialogForOrderInShop()
+        showDialogForOrderInShop(0)
     }
-
-    private fun showDialogForOrderInShop() {
+    //0: 매장결제 1:충전
+    private fun showDialogForOrderInShop(checkType:Int) {
         Log.d(TAG, "showDialogForOrderInShop: ${viewModel.nfcTaggingData}")
         val builder: AlertDialog.Builder = AlertDialog.Builder(requireContext())
-        builder.setTitle("매장결제")
         builder.setView(R.layout.dialog_nfc_order)
         builder.setCancelable(true)
-        builder.setNegativeButton("확인"
-        ) { dialog, _ ->
-            if(viewModel.nfcTaggingData.equals("")) {   // NFC 태깅해서 테이블 데이터가 있으면
-                Toast.makeText(requireContext(), "Table NFC를 찍어주세요.", Toast.LENGTH_SHORT).show()
-            } else {
-                isChk = true
-                makeOrderDto()
-
+        if(checkType==0){
+            builder.setTitle("매장결제")
+            builder.setNegativeButton("확인"
+            ) { dialog, _ ->
+                if(viewModel.nfcTaggingData.equals("")) {   // NFC 태깅해서 테이블 데이터가 있으면
+                    Toast.makeText(requireContext(), "Table NFC를 찍어주세요.", Toast.LENGTH_SHORT).show()
+                } else {
+                    isChk = true
+                    makeOrderDto()
+                }
+                dialog.cancel()
+                disableNfc()
             }
-            dialog.cancel()
-            disableNfc()
+        }else if(checkType == 1){
+            builder.setTitle("카드를 충전하시겠습니까?")
+            builder.setNegativeButton("확인"
+            ) { dialog, _ ->
+                if(viewModel.nfcTaggingData.equals("")){
+                    Toast.makeText(requireContext(),"충전용 NFC를 태깅해주세요", Toast.LENGTH_SHORT).show()
+                }else{
+                    chargePay()
+                }
+                dialog.cancel()
+                disableNfc()
+            }
         }
         builder.create().show()
     }
+    private fun chargePay(){
+        val chargeMoney = viewModel.nfcTaggingData.toString().toInt()
+        val user = ApplicationClass.sharedPreferencesUtil.getUser()
+        val id = user.id
+        val curMoney = binding.tvUserPay.text.toString().toInt()
+        val updateMoney = curMoney + chargeMoney;
+        val updateUser = User(id, updateMoney)
+        UserService().updateMoney(updateUser , object : RetrofitCallback<User> {
+            override fun onError(t: Throwable) {
+                Log.d(TAG, "onError: ")
+            }
 
+            override fun onSuccess(code: Int, responseData: User) {
+                Log.d(TAG, "onSuccess: $responseData")
+                ApplicationClass.sharedPreferencesUtil.addUserPay(responseData.money)
+            }
+
+            override fun onFailure(code: Int) {
+                Log.d(TAG, "onFailure: ")
+            }
+
+        })
+    }
     private fun makeOrderDto(){
         var orderDetailList:ArrayList<OrderDetail> = arrayListOf()
 

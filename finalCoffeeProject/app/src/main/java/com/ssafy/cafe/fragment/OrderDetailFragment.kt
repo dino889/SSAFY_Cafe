@@ -9,11 +9,15 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ssafy.cafe.R
 import com.ssafy.cafe.activity.MainActivity
 import com.ssafy.cafe.adapter.OrderDetailAdapter
+import com.ssafy.cafe.config.ApplicationClass
 import com.ssafy.cafe.config.BaseFragment
 import com.ssafy.cafe.databinding.FragmentOrderDetailBinding
+import com.ssafy.cafe.dto.UserLevel
 import com.ssafy.cafe.response.OrderDetailResponse
 import com.ssafy.cafe.service.OrderService
+import com.ssafy.cafe.service.UserService
 import com.ssafy.cafe.util.CommonUtils
+import org.json.JSONObject
 
 private const val TAG = "OrderDetailFragment_싸피"
 class OrderDetailFragment : BaseFragment<FragmentOrderDetailBinding>(FragmentOrderDetailBinding::bind, R.layout.fragment_order_detail) {
@@ -71,6 +75,29 @@ class OrderDetailFragment : BaseFragment<FragmentOrderDetailBinding>(FragmentOrd
                 var AllTotalPrice = 0
                 for(i in 0..list.size-1){
                     AllTotalPrice += list[i].prodTotalPrice
+                }
+
+                var point = 0
+                val userInfoLiveData = UserService().getUsers(ApplicationClass.sharedPreferencesUtil.getUser().id)
+                userInfoLiveData.observe(viewLifecycleOwner) {
+                    val data = JSONObject(it as Map<*, *>)
+                    val rawUser = data.getJSONObject("user")
+
+                    val userPay = rawUser.getInt("money")
+                    val userStamp = rawUser.getInt("stamps")
+
+                    // 등급 계산
+                    val levelList = UserLevel.userInfoList
+                    val listSize = levelList.size
+
+
+                    for (i in 0 until listSize) {
+                        if (userStamp <= levelList[i].max) {
+                            point = (AllTotalPrice * levelList[i].point * 0.01).toInt()
+                            break
+                        }
+                    }
+                    binding.tvPayback.text = CommonUtils.makeComma(point)
                 }
                 binding.tvAllTotalPrice.text = CommonUtils.makeComma(AllTotalPrice)
             }
