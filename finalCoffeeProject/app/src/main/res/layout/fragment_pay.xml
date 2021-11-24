@@ -1,127 +1,133 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/swipeLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".fragment.PayFragment">
+    android:layout_height="match_parent">
 
-    <LinearLayout
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
-
+        tools:context=".fragment.PayFragment">
 
         <LinearLayout
-            android:id="@+id/ll_cardImageView"
             android:layout_width="match_parent"
-            android:layout_height="285dp"
-            android:orientation="vertical"
-            android:padding="20dp">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
 
             <LinearLayout
+                android:id="@+id/ll_cardImageView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="right"
-                android:orientation="horizontal">
+                android:layout_height="285dp"
+                android:orientation="vertical"
+                android:padding="20dp">
 
-                <com.airbnb.lottie.LottieAnimationView
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    app:lottie_autoPlay="true"
-                    app:lottie_fileName="store.json"
-                    app:lottie_loop="true" />
-
-                <Button
-                    android:id="@+id/btn_stroeOrder"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center|right"
-                    android:background="@color/nocolor"
-                    android:fontFamily="@font/nanumsquare_acl"
-                    android:gravity="center"
-                    android:padding="0dp"
-                    android:paddingLeft="0dp"
-                    android:paddingTop="0dp"
-                    android:paddingRight="0dp"
-                    android:paddingBottom="0dp"
-                    android:text="매장결제"
-                    android:textColor="@color/black" />
+                    android:gravity="right"
+                    android:orientation="horizontal">
+
+                    <com.airbnb.lottie.LottieAnimationView
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        app:lottie_autoPlay="true"
+                        app:lottie_fileName="store.json"
+                        app:lottie_loop="true" />
+
+                    <Button
+                        android:id="@+id/btn_stroeOrder"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center|right"
+                        android:background="@color/nocolor"
+                        android:fontFamily="@font/nanumsquare_acl"
+                        android:gravity="center"
+                        android:padding="0dp"
+                        android:paddingLeft="0dp"
+                        android:paddingTop="0dp"
+                        android:paddingRight="0dp"
+                        android:paddingBottom="0dp"
+                        android:text="매장결제"
+                        android:textColor="@color/black" />
+                </LinearLayout>
+
+                <ImageButton
+                    android:id="@+id/ibtn_card"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#00FFFFFF"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/card" />
             </LinearLayout>
 
-            <ImageButton
-                android:id="@+id/ibtn_card"
+            <LinearLayout
+                android:id="@+id/ll_moneyView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#00FFFFFF"
-                android:scaleType="centerInside"
-                android:src="@drawable/card" />
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <TextView
+                    android:id="@+id/textView8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/nanumsquare_acr"
+                    android:paddingLeft="15dp"
+                    android:text="잔액"
+                    android:textColor="@color/black"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/tv_userPay"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/nanumsquare_acr"
+                    android:gravity="right"
+                    android:paddingRight="15dp"
+                    android:text="0원"
+                    android:textColor="@color/black"
+                    android:textSize="20sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_historyView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="10dp">
+
+                <TextView
+                    android:id="@+id/textView11"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:fontFamily="@font/nanumsquare_acr"
+                    android:paddingLeft="15dp"
+                    android:text="주문 HISTORY"
+                    android:textColor="@color/black"
+                    android:textSize="15sp" />
+
+                <View
+                    android:id="@+id/view"
+                    android:layout_width="match_parent"
+                    android:layout_height="1.5dp"
+                    android:background="@color/black" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_orderHistory"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="15dp"
+                    tools:listitem="@layout/recyclervie_order_history_list_item" />
+            </LinearLayout>
+
         </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/ll_moneyView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="10dp">
-
-            <TextView
-                android:id="@+id/textView8"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:fontFamily="@font/nanumsquare_acr"
-                android:paddingLeft="15dp"
-                android:text="잔액"
-                android:textColor="@color/black"
-                android:textSize="20sp" />
-
-            <TextView
-                android:id="@+id/tv_userPay"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:fontFamily="@font/nanumsquare_acr"
-                android:gravity="right"
-                android:paddingRight="15dp"
-                android:text="0원"
-                android:textColor="@color/black"
-                android:textSize="20sp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/ll_historyView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="10dp">
-
-            <TextView
-                android:id="@+id/textView11"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:fontFamily="@font/nanumsquare_acr"
-                android:paddingLeft="15dp"
-                android:text="주문 HISTORY"
-                android:textColor="@color/black"
-                android:textSize="15sp" />
-
-            <View
-                android:id="@+id/view"
-                android:layout_width="match_parent"
-                android:layout_height="1.5dp"
-                android:background="@color/black" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_orderHistory"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="15dp"
-                tools:listitem="@layout/recyclervie_order_history_list_item" />
-        </LinearLayout>
-
-    </LinearLayout>
-</FrameLayout>
+    </FrameLayout>
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

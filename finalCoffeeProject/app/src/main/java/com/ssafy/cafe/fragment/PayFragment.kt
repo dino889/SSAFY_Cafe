@@ -13,6 +13,7 @@ import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.ssafy.cafe.R
 import com.ssafy.cafe.activity.MainActivity
 import com.ssafy.cafe.adapter.OrderHistoryAdapter
@@ -31,12 +32,13 @@ import com.ssafy.cafe.viewmodel.MainViewModel
 import org.json.JSONObject
 
 private const val TAG = "PayFragment"
-class PayFragment : BaseFragment<FragmentPayBinding>(FragmentPayBinding::bind, R.layout.fragment_pay) {
-
+class PayFragment : BaseFragment<FragmentPayBinding>(FragmentPayBinding::bind, R.layout.fragment_pay) ,
+    SwipeRefreshLayout.OnRefreshListener{
     private lateinit var historyAdapter: OrderHistoryAdapter
     private lateinit var list : List<LatestOrderResponse>
     var isChk = false
 
+    var swipeRefreshLayout: SwipeRefreshLayout? = null
 
     private lateinit var mainActivity: MainActivity
     override fun onAttach(context: Context) {
@@ -46,6 +48,9 @@ class PayFragment : BaseFragment<FragmentPayBinding>(FragmentPayBinding::bind, R
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        swipeRefreshLayout = binding.swipeLayout
+        swipeRefreshLayout!!.setOnRefreshListener(this)
 
         initPay()
         var user = ApplicationClass.sharedPreferencesUtil.getUser()
@@ -121,6 +126,7 @@ class PayFragment : BaseFragment<FragmentPayBinding>(FragmentPayBinding::bind, R
                 }
                 dialog.cancel()
                 disableNfc()
+                onRefresh()
             }
         }else if(checkType == 1){
             builder.setTitle("카드를 충전하시겠습니까?")
@@ -133,6 +139,7 @@ class PayFragment : BaseFragment<FragmentPayBinding>(FragmentPayBinding::bind, R
                 }
                 dialog.cancel()
                 disableNfc()
+                onRefresh()
             }
         }
         builder.create().show()
@@ -312,6 +319,16 @@ class PayFragment : BaseFragment<FragmentPayBinding>(FragmentPayBinding::bind, R
             }
 
         })
+    }
+
+    override fun onRefresh() {
+        updateLayoutView()
+        swipeRefreshLayout!!.setRefreshing(false)
+    }
+
+    // 당겨서 새로고침 했을 때 뷰 변경 메서드
+    fun updateLayoutView() {
+        initPay()
     }
 
 }
