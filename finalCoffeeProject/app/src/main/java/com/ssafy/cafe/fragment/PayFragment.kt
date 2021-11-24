@@ -81,7 +81,13 @@ class PayFragment : BaseFragment<FragmentPayBinding>(FragmentPayBinding::bind, R
                     adapter!!.stateRestorationPolicy =
                         RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
                 }
+                historyAdapter.setItemClickListener(object: OrderHistoryAdapter.ItemClickListener{
+                    override fun onClick(view: View, position: Int, orderId: Int) {
+                        val orderId = list[position].orderId
+                        mainActivity.openFragment(2, "orderId",orderId)
 
+                    }
+                })
             }
         )
     }
