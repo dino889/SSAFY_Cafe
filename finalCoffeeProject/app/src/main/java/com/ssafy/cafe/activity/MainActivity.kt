@@ -261,6 +261,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
                 .addToBackStack(null)
             // 주문 상세 보기
             2 -> transaction.replace(R.id.frame_layout_main, OrderDetailFragment.newInstance(key, value))
+                .addToBackStack(null)
             // 메뉴 상세 보기
             3 -> transaction.replace(R.id.frame_layout_main, MenuDetailFragment.newInstance(key, value))
                 .addToBackStack(null)
