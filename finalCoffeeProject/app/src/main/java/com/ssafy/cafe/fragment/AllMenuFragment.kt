@@ -2,6 +2,7 @@ package com.ssafy.cafe.fragment
 
 import android.content.Context
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -20,6 +21,9 @@ import com.ssafy.cafe.dto.Category
 import com.ssafy.cafe.dto.Product
 import com.ssafy.cafe.service.ProductService
 import com.ssafy.cafe.util.RetrofitCallback
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 private const val TAG = "AllMenuFragment_싸피"
 class AllMenuFragment : BaseFragment<FragmentAllMenuBinding>(FragmentAllMenuBinding::bind, R.layout.fragment_all_menu) {
@@ -124,8 +128,15 @@ class AllMenuFragment : BaseFragment<FragmentAllMenuBinding>(FragmentAllMenuBind
 
                 allMenuAdapter.setItemClickListener(object : AllMenuAdapter.ItemClickListener {
                     override fun onClick(view: View, position: Int, productId:Int) {
-                        Log.d(TAG, "onClick: $productId")
-                        mainActivity.openFragment(3, "productId", productId)
+
+                        GlobalScope.launch {
+                            delay(1000L)
+                            mainActivity.openFragment(3, "productId", productId)
+                            dismissLoadingDialog()
+                        }
+                        showLoadingDialog(requireContext())
+//                        Thread.sleep(2000L)
+
                     }
                 })
             }
