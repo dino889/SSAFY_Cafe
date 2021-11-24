@@ -50,6 +50,12 @@ import retrofit2.Response
 import com.nhn.android.naverlogin.OAuthLogin
 
 import android.os.AsyncTask
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.LifecycleRegistry
 import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -127,11 +133,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
     private lateinit var userInfo : HashMap<String, Any>
     private lateinit var userInfoLiveData : LiveData<HashMap<String, Any>>
 
+
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        binding = ActivityMainBinding.inflate(layoutInflater)
-//        setContentView(binding.root)
 
         // 네이버 계정으로 로그인
         mOAuthLoginInstance = OAuthLogin.getInstance()
@@ -818,6 +823,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
         nfcAdapter!!.disableForegroundDispatch(this)
     }
 
+
     // ---------------------------------------------------------------------------------------------
     // ---------------------------------------------------------------------------------------------
     // 네이버 로그아웃 토큰 삭제
@@ -854,15 +860,19 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
 
 
     private fun getUserInfo(userId:String) {
-        CoroutineScope(Dispatchers.IO).launch {
+//        CoroutineScope(Dispatchers.IO).launch {
             userInfoLiveData = UserService().getUsers(userId)
 //            userInfoLiveData.observe(this@MainActivity, {
 //                userInfo = it
 //            })
-        }
+//        }
     }
 
 
+    fun refreshFragment(fragment: Fragment, fragmentManager: FragmentManager) {
+        var ft: FragmentTransaction = fragmentManager.beginTransaction()
+        ft.detach(fragment).attach(fragment).commit()
+    }
 
     override fun onResume() {
         super.onResume()

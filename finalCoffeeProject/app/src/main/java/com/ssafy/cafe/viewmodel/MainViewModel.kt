@@ -6,13 +6,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.gson.Gson
 import com.ssafy.cafe.config.ApplicationClass
-import com.ssafy.cafe.dto.Product
-import com.ssafy.cafe.dto.ShoppingCart
-import com.ssafy.cafe.dto.User
-import com.ssafy.cafe.dto.UserLevel
+import com.ssafy.cafe.dto.*
 import com.ssafy.cafe.fragment.MenuDetailFragment
 import com.ssafy.cafe.response.MenuDetailWithCommentResponse
 import com.ssafy.cafe.service.ProductService
+import com.ssafy.cafe.service.UserCustomService
 import com.ssafy.cafe.service.UserService
 import com.ssafy.cafe.util.RetrofitCallback
 import kotlinx.coroutines.CoroutineScope
@@ -69,37 +67,17 @@ class MainViewModel : ViewModel() {
     var nfcTaggingData : String? = ""
 
 
-//    private val _user = MutableLiveData<User>()
-//    val user = _user
+//    // repository에 있는 MutableLiveData를 ViewModel의 LiveData에 넣는다.
+//    private var userCustomProduct: LiveData<List<UserCustom>>
+//        get() = UserCustomService().getCustomWithUserId(userId = )
 //
-//    fun getUserInfo(userId:String) {
-//        CoroutineScope(Dispatchers.IO).launch {
-//            UserService().getUsers(userId, object : RetrofitCallback<HashMap<String, Any>>{
-//                override fun onError(t: Throwable) {
-//                    Log.d(TAG, "onError: ")
-//                }
 //
-//                override fun onSuccess(code: Int, responseData: HashMap<String, Any>) {
-////                val user = Gson().fromJson(responseData["user"].toString(), User::class.java)
-//                    val data = JSONObject(responseData as Map<*, *>)
-//                    val rawUser = data.getJSONObject("user")
-//                    val user = User(
-//                        rawUser.getString("id"),
-//                        rawUser.getString("name"),
-//                        rawUser.getString("pass"),
-//                        rawUser.getString("phone"),
-//                        rawUser.getInt("stamps"),
-//                        rawUser.getInt("money"),
-//                        rawUser.getString("token")
-//                    )
-//                    _user.postValue(user)
-//                }
+//    fun loadCustomProduct(userId: String) {
+//        userCustomProduct = UserCustomService().getCustomWithUserId(userId) // repository에 있는 메서드를 호출함으로써 다음 공지사항을 불러온다.
+//    }
 //
-//                override fun onFailure(code: Int) {
-//                    Log.d(TAG, "onFailure: ")
-//                }
-//            })
-//        }
+//    fun getAllUserCustom(): LiveData<List<UserCustom>> {
+//        return userCustomProduct
 //    }
 
 }

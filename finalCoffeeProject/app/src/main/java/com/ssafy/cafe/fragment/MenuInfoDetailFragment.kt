@@ -80,13 +80,16 @@ class MenuInfoDetailFragment : BaseFragment<FragmentMenuInfoDetailBinding>(Fragm
                     syrup = "설탕"
                 }
                 if(syrup == "") {
-                    syrup = "없음"
+                    syrup = null
                 } else {
                     totalPrice += 500
                 }
             }
 
             if(shot != null) {
+                if(shot.toString() == "") {
+                    shot = null
+                }
                 totalPrice += (shot!! * 500)
             }
 
@@ -100,6 +103,15 @@ class MenuInfoDetailFragment : BaseFragment<FragmentMenuInfoDetailBinding>(Fragm
         binding.btnGotoHeart.setOnClickListener {
             if(shot == null){
                 shot = 0
+            }
+
+            if(binding.ice.isChecked) {
+                type = 1
+            } else if(binding.hot.isChecked) {
+                type = 0
+            }
+            if(productType == "frappuccino" || productType == "dessert") {
+                type = 3
             }
 
             val userCustom = UserCustom(

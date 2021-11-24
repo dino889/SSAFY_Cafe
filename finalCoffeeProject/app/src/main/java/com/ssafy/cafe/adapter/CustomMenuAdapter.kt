@@ -25,7 +25,7 @@ import com.ssafy.cafe.util.RetrofitCallback
 import com.ssafy.cafe.viewmodel.MainViewModel
 
 private const val TAG = "CustomMenuAdapter"
-class CustomMenuAdapter(var customList:List<UserCustom>) : RecyclerView.Adapter<CustomMenuAdapter.MenuHolder>() {
+class CustomMenuAdapter(var customList:List<UserCustom>, val kFunction1:() -> Unit) : RecyclerView.Adapter<CustomMenuAdapter.MenuHolder>() {
 
     inner class MenuHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val menuType = itemView.findViewById<TextView>(R.id.tv_menuType)
@@ -33,16 +33,18 @@ class CustomMenuAdapter(var customList:List<UserCustom>) : RecyclerView.Adapter<
         val menuShot = itemView.findViewById<TextView>(R.id.tv_menuShot)
 
         fun bindInfo(userCustom: UserCustom) {
-            var pId = userCustom.productId
+            val pId = userCustom.productId
             ProductService().getProductById(pId, GetProductCallback(itemView))
 
             if(userCustom.type == 1){
                 menuType.text = "|  ICE"
-            }else{
+            } else if(userCustom.type == 0){
                 menuType.text = "|  HOT"
+            } else if(userCustom.type == 3) {   // 프라푸치노 or 디저트
+                menuType.text = ""
             }
 
-            if(userCustom.syrup == null || userCustom.syrup.equals("null")){
+            if(userCustom.syrup == null || userCustom.syrup.equals("null") || userCustom.syrup == ""){
                 menuSyrup.visibility = View.GONE
             }else{
                 menuSyrup.text = "|  ${userCustom.syrup}"

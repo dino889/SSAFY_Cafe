@@ -1,5 +1,9 @@
 package com.ssafy.cafe.service
 
+import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import com.ssafy.cafe.dto.Notification
 import com.ssafy.cafe.dto.Order
 import com.ssafy.cafe.dto.UserCustom
 import com.ssafy.cafe.util.RetrofitCallback
@@ -9,7 +13,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class UserCustomService {
-
+    private val TAG = "UserCustomService_싸피"
     fun insertCustomMenu(userCustom: UserCustom, callback: RetrofitCallback<Boolean>){
         RetrofitUtil.customService.insert(userCustom).enqueue(object : Callback<Boolean> {
             override fun onResponse(call: Call<Boolean>, response: Response<Boolean>) {
@@ -29,12 +33,36 @@ class UserCustomService {
         })
     }
 
-    fun getCustomWithUserId(userId:String, callback:RetrofitCallback<List<UserCustom>>){
-        RetrofitUtil.customService.getCustomWithUserId(userId).enqueue(object : Callback<List<UserCustom>>{
-            override fun onResponse(
-                call: Call<List<UserCustom>>,
-                response: Response<List<UserCustom>>
-            ) {
+    fun getCustomWithUserId(userId:String) : LiveData<List<UserCustom>> {
+        val responseLiveData : MutableLiveData<List<UserCustom>> = MutableLiveData()
+        val getUserCustomRequest: Call<List<UserCustom>> = RetrofitUtil.customService.getCustomWithUserId(userId)
+
+            getUserCustomRequest.enqueue(object : Callback<List<UserCustom>>{
+                override fun onResponse(
+                    call: Call<List<UserCustom>>,
+                    response: Response<List<UserCustom>>
+                ) {
+                    val res = response.body()
+                    if(response.code() == 200){
+                        if(res!=null){
+                            responseLiveData.value = res
+                        }
+                    }else{
+                        Log.d(TAG, "onResponse: ")
+                    }
+                }
+
+                override fun onFailure(call: Call<List<UserCustom>>, t: Throwable) {
+                    Log.d(TAG, "onFailure: ")
+                }
+            })
+
+        return responseLiveData
+    }
+
+    fun deleteCustomMenu(customId:Int, callback:RetrofitCallback<Boolean>) {
+        RetrofitUtil.customService.delete(customId).enqueue(object : Callback<Boolean> {
+            override fun onResponse(call: Call<Boolean>, response: Response<Boolean>) {
                 val res = response.body()
                 if(response.code() == 200){
                     if(res != null){
@@ -43,12 +71,12 @@ class UserCustomService {
                 }else{
                     callback.onFailure(response.code())
                 }
-
             }
 
-            override fun onFailure(call: Call<List<UserCustom>>, t: Throwable) {
+            override fun onFailure(call: Call<Boolean>, t: Throwable) {
                 callback.onError(t)
             }
         })
     }
+
 }

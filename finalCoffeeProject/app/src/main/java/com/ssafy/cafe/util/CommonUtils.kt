@@ -58,7 +58,7 @@ object CommonUtils {
             "ICE"
         }
 
-        val syrups = if(syrup == null || syrup.equals("null")){
+        val syrups = if(syrup == null || syrup.equals("null") || syrup.equals("")){
             "없음"
         }else if(syrup.equals("설탕")){
             "${syrup}(+0원)"
