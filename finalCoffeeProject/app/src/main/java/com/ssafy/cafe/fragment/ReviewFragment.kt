@@ -84,7 +84,7 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(FragmentReviewBinding
     private fun initListener() {
         binding.btnInsertComment.setOnClickListener {
 
-            CommentService().notWrittenComm(viewModel.user.value!!.id, productId , object : RetrofitCallback<Int> {
+            CommentService().notWrittenComm(ApplicationClass.sharedPreferencesUtil.getUser().id, productId , object : RetrofitCallback<Int> {
                 override fun onError(t: Throwable) {
                     Log.d(TAG, "onError: $t")
                     showCustomToast("최근 7일 내 주문 내역이 없어 \n리뷰를 작성하실 수 없습니다.")

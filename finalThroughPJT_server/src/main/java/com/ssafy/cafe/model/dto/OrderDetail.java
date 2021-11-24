@@ -9,11 +9,15 @@ public class OrderDetail {
     private Integer type;	// 1 or 0
     private String syrup;
     private Integer shot;
+    private Integer totalPrice;
     
-    public OrderDetail() {}
     
 
-	public OrderDetail(Integer id, Integer orderId, Integer productId, Integer quantity, Integer type, String syrup, Integer shot) {
+
+	public OrderDetail() {}
+    
+
+	public OrderDetail(Integer id, Integer orderId, Integer productId, Integer quantity, Integer type, String syrup, Integer shot, Integer totalPrice) {
         super();
         this.id = id;
         this.orderId = orderId;
@@ -22,14 +26,16 @@ public class OrderDetail {
         this.type = type;
         this.syrup = syrup;
         this.shot = shot;
+        this.totalPrice = totalPrice;
     }
     
-    public OrderDetail(Integer id, Integer orderId, Integer productId, Integer quantity) {
+    public OrderDetail(Integer id, Integer orderId, Integer productId, Integer quantity, Integer totalPrice) {
         super();
         this.id = id;
         this.orderId = orderId;
         this.productId = productId;
         this.quantity = quantity;
+        this.totalPrice = totalPrice;
     }
     
     public OrderDetail(Integer productId, Integer quantity) {
@@ -99,7 +105,15 @@ public class OrderDetail {
 	public void setShot(Integer shot) {
 		this.shot = shot;
 	}
+	
+	public Integer getTotalPrice() {
+		return totalPrice;
+	}
 
+
+	public void setTotalPrice(Integer totalPrice) {
+		this.totalPrice = totalPrice;
+	}
 
 	@Override
 	public String toString() {

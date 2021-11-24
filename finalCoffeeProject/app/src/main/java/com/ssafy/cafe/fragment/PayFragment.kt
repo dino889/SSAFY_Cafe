@@ -57,8 +57,12 @@ class PayFragment : BaseFragment<FragmentPayBinding>(FragmentPayBinding::bind, R
     }
 
     private fun initPay(){
-        viewModel.user.observe(viewLifecycleOwner) {
-            binding.tvUserPay.text = CommonUtils.makeComma(it.money)
+
+        val userInfoLiveData = UserService().getUsers(ApplicationClass.sharedPreferencesUtil.getUser().id)
+        userInfoLiveData.observe(viewLifecycleOwner) {
+            val data = JSONObject(it as Map<*, *>)
+            val rawUser = data.getJSONObject("user")
+            binding.tvUserPay.text = CommonUtils.makeComma(rawUser.getInt("money"))
         }
     }
 
@@ -132,7 +136,8 @@ class PayFragment : BaseFragment<FragmentPayBinding>(FragmentPayBinding::bind, R
                 dataStr.get(3).toInt(), //quantity
                 dataStr.get(4).toInt(), //type(hot,ice)
                 dataStr.get(5).toString(),  //syrup
-                dataStr.get(6).toInt()  //shot
+                dataStr.get(6).toInt(),  //shot
+            0
             )
         )
         ProductService().getProductById(dataStr.get(2).toInt(), GetProductCallback(dataStr.get(3).toInt(),order))
@@ -159,12 +164,27 @@ class PayFragment : BaseFragment<FragmentPayBinding>(FragmentPayBinding::bind, R
         }
 
         override fun onSuccess(code: Int, responseData: Product) {
-            val totalPrice = responseData.price * quanty
+            var totalPrice = responseData.price * quanty   // 상품 가격
+            val od = order.details[0]
+            if(od.syrup != null) {
+                if(od.syrup != "설탕"){
+                    totalPrice += 500
+                }
+            }
+
+            if(od.shot != null) {
+                totalPrice += (od.shot!! * 500)
+            }
+            od.totalPrice = totalPrice
             var point = 0
 
-            viewModel.user.observe(viewLifecycleOwner) {
-                val userPay = it.money
-                val userStamp = it.stamps
+            val userInfoLiveData = UserService().getUsers(ApplicationClass.sharedPreferencesUtil.getUser().id)
+            userInfoLiveData.observe(viewLifecycleOwner) {
+                val data = JSONObject(it as Map<*, *>)
+                val rawUser = data.getJSONObject("user")
+
+                val userPay = rawUser.getInt("money")
+                val userStamp = rawUser.getInt("stamps")
 
                 // 등급 계산
                 val levelList = UserLevel.userInfoList

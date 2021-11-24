@@ -18,5 +18,5 @@ data class OrderDetailResponse(
     @SerializedName("type") val productType: Int,   // hot Ice
     @SerializedName("syrup") val syrup: String,
     @SerializedName("shot") val shot: Int,
-
+    @SerializedName("total_price") val prodTotalPrice: Int,
 )

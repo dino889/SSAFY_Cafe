@@ -48,11 +48,8 @@ public class OrderStateChangeService implements PropertyChangeListener {
     
 	public void propertyChange(PropertyChangeEvent evt) {
         this.setCompleted((Integer) evt.getNewValue());
-//        logger.info("message : {}", evt.getNewValue());
         
         String userToken = uService.selectUserToken(userId);
-        
-//        String userToken = "fuwi-tnmQZ-LiZKppdkkrL:APA91bG3ZYcde-fSLMXVcO0xatlrWscbVkx_QT56LPUmWnwVEugDx5rYG912zve9AtQI6arGQqrq0ZBLHLmhKtjsh0yIb3EqMk8iwd3MbcFZl-hIIQZVwcejvIkVrL-J3KL-Bj4cWxEH";
         Random random = new Random();
         try {
         	switch(orderState) {
@@ -72,14 +69,11 @@ public class OrderStateChangeService implements PropertyChangeListener {
         			List<Order> oList = oService.getOrdreByUser(userId);
         			
         			if(oList.size() == 1) {
-        				logger.info("isEmpty");
-            			fcmService.sendMessageTo(userToken, "User", "첫 주문이네요 ! \n 환영합니다 적립금 1000원을 선물로 드릴게요^^\n 많은 이용 부탁드릴게요~");
+            			fcmService.sendMessageTo(userToken, "User", "첫 주문이네요 ! \n환영합니다 적립금 1000원을 선물로 드릴게요^^\n많은 이용 부탁드릴게요~");
             			User user = uService.getInfo(userId);
             			int money = user.getMoney()+1000;
             			user.setMoney(money);
             			uService.updateUserMoney(user);
-            			
-            			
             			break;
         			}else {
         				break;

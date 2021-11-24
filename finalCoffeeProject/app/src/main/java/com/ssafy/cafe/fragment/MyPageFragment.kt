@@ -18,8 +18,10 @@ import com.ssafy.cafe.dto.Comment
 import com.ssafy.cafe.dto.Order
 import com.ssafy.cafe.service.CommentService
 import com.ssafy.cafe.service.OrderService
+import com.ssafy.cafe.service.UserService
 import com.ssafy.cafe.util.CommonUtils
 import com.ssafy.cafe.util.RetrofitCallback
+import org.json.JSONObject
 import kotlin.collections.ArrayList
 
 private const val TAG = "MyPageFragment"
@@ -89,10 +91,12 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(FragmentMyPageBinding
 
     private fun setUserPay() {
 
-        viewModel.user.observe(viewLifecycleOwner) {
-            binding.tvMyPayMoney.text = CommonUtils.makeComma(it.money)
+        val userInfoLiveData = UserService().getUsers(ApplicationClass.sharedPreferencesUtil.getUser().id)
+        userInfoLiveData.observe(viewLifecycleOwner) {
+            val data = JSONObject(it as Map<*, *>)
+            val rawUser = data.getJSONObject("user")
+            binding.tvMyPayMoney.text = CommonUtils.makeComma(rawUser.getInt("money"))
         }
-
     }
 
     private fun getOrderbyUser(id:String){

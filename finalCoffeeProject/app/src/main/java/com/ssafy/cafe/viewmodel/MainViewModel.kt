@@ -69,37 +69,37 @@ class MainViewModel : ViewModel() {
     var nfcTaggingData : String? = ""
 
 
-    private val _user = MutableLiveData<User>()
-    val user = _user
-
-    fun getUserInfo(userId:String) {
-        CoroutineScope(Dispatchers.IO).launch {
-            UserService().getUsers(userId, object : RetrofitCallback<HashMap<String, Any>>{
-                override fun onError(t: Throwable) {
-                    Log.d(TAG, "onError: ")
-                }
-
-                override fun onSuccess(code: Int, responseData: HashMap<String, Any>) {
-//                val user = Gson().fromJson(responseData["user"].toString(), User::class.java)
-                    val data = JSONObject(responseData as Map<*, *>)
-                    val rawUser = data.getJSONObject("user")
-                    val user = User(
-                        rawUser.getString("id"),
-                        rawUser.getString("name"),
-                        rawUser.getString("pass"),
-                        rawUser.getString("phone"),
-                        rawUser.getInt("stamps"),
-                        rawUser.getInt("money"),
-                        rawUser.getString("token")
-                    )
-                    _user.postValue(user)
-                }
-
-                override fun onFailure(code: Int) {
-                    Log.d(TAG, "onFailure: ")
-                }
-            })
-        }
-    }
+//    private val _user = MutableLiveData<User>()
+//    val user = _user
+//
+//    fun getUserInfo(userId:String) {
+//        CoroutineScope(Dispatchers.IO).launch {
+//            UserService().getUsers(userId, object : RetrofitCallback<HashMap<String, Any>>{
+//                override fun onError(t: Throwable) {
+//                    Log.d(TAG, "onError: ")
+//                }
+//
+//                override fun onSuccess(code: Int, responseData: HashMap<String, Any>) {
+////                val user = Gson().fromJson(responseData["user"].toString(), User::class.java)
+//                    val data = JSONObject(responseData as Map<*, *>)
+//                    val rawUser = data.getJSONObject("user")
+//                    val user = User(
+//                        rawUser.getString("id"),
+//                        rawUser.getString("name"),
+//                        rawUser.getString("pass"),
+//                        rawUser.getString("phone"),
+//                        rawUser.getInt("stamps"),
+//                        rawUser.getInt("money"),
+//                        rawUser.getString("token")
+//                    )
+//                    _user.postValue(user)
+//                }
+//
+//                override fun onFailure(code: Int) {
+//                    Log.d(TAG, "onFailure: ")
+//                }
+//            })
+//        }
+//    }
 
 }

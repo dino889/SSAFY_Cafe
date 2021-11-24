@@ -4,8 +4,8 @@
 <!-- name space는 BookRepo의 fully qualified name으로 설정한다. -->
 <mapper namespace="com.ssafy.cafe.model.dao.OrderDetailDao">
 	<insert id="insert" parameterType="OrderDetail">
-		INSERT INTO t_order_detail(order_id, product_id, quantity, type, syrup, shot)
-		VALUES(#{orderId}, #{productId}, #{quantity}, #{type}, #{syrup}, #{shot})
+		INSERT INTO t_order_detail(order_id, product_id, quantity, type, syrup, shot, total_price)
+		VALUES(#{orderId}, #{productId}, #{quantity}, #{type}, #{syrup}, #{shot}, #{totalPrice})
 	</insert>
 
 	<delete id="delete" parameterType="int">
@@ -32,6 +32,7 @@
 		<result column="type" property="type"/>
 		<result column="syrup" property="syrup"/>
 		<result column="shot" property="shot"/>
+		<result column="total_price" property="totalPrice"/>
 	</resultMap>
 	
 	<!-- 리뷰 작성하려는 상품의 주문내역이 있는지, 리뷰가 작성되었는지 체크 제일 최근 내역 1개-->

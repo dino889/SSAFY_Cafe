@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ssafy.cafe.R
 import com.ssafy.cafe.activity.MainActivity
 import com.ssafy.cafe.adapter.CustomMenuAdapter
+import com.ssafy.cafe.config.ApplicationClass
 import com.ssafy.cafe.config.BaseFragment
 import com.ssafy.cafe.databinding.FragmentUserCustomMenuBinding
 import com.ssafy.cafe.dto.Product
@@ -32,7 +33,7 @@ class UserCustomMenuFragment : BaseFragment<FragmentUserCustomMenuBinding>(Fragm
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        getCustomMenubyId(viewModel.user.value!!.id)
+        getCustomMenubyId(ApplicationClass.sharedPreferencesUtil.getUser().id)
 
     }
 

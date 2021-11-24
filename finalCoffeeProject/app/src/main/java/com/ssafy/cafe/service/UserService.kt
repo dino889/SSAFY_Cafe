@@ -1,5 +1,9 @@
 package com.ssafy.cafe.service
 
+import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import com.ssafy.cafe.dto.Notification
 import com.ssafy.cafe.dto.User
 import com.ssafy.cafe.util.RetrofitCallback
 import com.ssafy.cafe.util.RetrofitUtil
@@ -66,30 +70,31 @@ class UserService {
         })
     }
 
-    fun getUsers(id:String, callback: RetrofitCallback<HashMap<String, Any>>){
-        RetrofitUtil.userService.getInfo(id).enqueue(object : Callback<HashMap<String, Any>>{
+    fun getUsers(id:String) : LiveData<HashMap<String, Any>> {
+        val responseLiveData : MutableLiveData<HashMap<String, Any>> = MutableLiveData()
+        val userInfoRequest: Call<HashMap<String, Any>> = RetrofitUtil.userService.getInfo(id)
+
+        userInfoRequest.enqueue(object : Callback<HashMap<String, Any>> {
             override fun onResponse(
                 call: Call<HashMap<String, Any>>,
                 response: Response<HashMap<String, Any>>
             ) {
-                val data = response.body()
+                val res = response.body()
                 if(response.code() == 200){
-                    if(data!=null){
-                       // Log.d(TAG, "onResponse: ${data!!["order"]}")
-                        callback.onSuccess(response.code() , data)
-                    }else{
-                        callback.onFailure(response.code())
+                    if(res!=null){
+                        responseLiveData.value = res
                     }
+                }else{
+                    Log.d(TAG, "onResponse: ")
                 }
-
-
             }
 
             override fun onFailure(call: Call<HashMap<String, Any>>, t: Throwable) {
-                callback.onError(t)
+                Log.d(TAG, "onFailure: ")
             }
 
         })
+        return responseLiveData
     }
 
     fun updateMoney(user: User, callback: RetrofitCallback<User>) {

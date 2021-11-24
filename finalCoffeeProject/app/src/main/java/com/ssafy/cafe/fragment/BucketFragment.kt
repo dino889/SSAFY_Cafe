@@ -220,7 +220,7 @@ class BucketFragment : BaseFragment<FragmentBucketBinding>(FragmentBucketBinding
 
         val shoppingList = viewModel.shoppingCartList
 
-        for(i in 0 .. shoppingList.size - 1){
+        for(i in 0 until shoppingList.size){
             val tmp = shoppingList.get(i)
             orderDetailList.add(
                 OrderDetail(
@@ -230,7 +230,8 @@ class BucketFragment : BaseFragment<FragmentBucketBinding>(FragmentBucketBinding
                     tmp.menuCnt,
                     tmp.type,
                     tmp.syrup,
-                    tmp.shot
+                    tmp.shot,
+                    tmp.totalPrice
                 ))
             Log.d(TAG, "makeOrderDto: $tmp")
             Log.d(TAG, "makeOrderDtoSyrup: ${tmp.syrup}")
@@ -238,11 +239,13 @@ class BucketFragment : BaseFragment<FragmentBucketBinding>(FragmentBucketBinding
 
 
         var point = 0
-        viewModel.user.observe(viewLifecycleOwner) {
+        val userInfoLiveData = UserService().getUsers(ApplicationClass.sharedPreferencesUtil.getUser().id)
+        userInfoLiveData.observe(viewLifecycleOwner) {
+            val data = JSONObject(it as Map<*, *>)
+            val rawUser = data.getJSONObject("user")
 
-
-            val userPay = it.money
-            val userStamp = it.stamps
+            val userPay = rawUser.getInt("money")
+            val userStamp = rawUser.getInt("stamps")
 
             // 등급 계산
             val levelList = UserLevel.userInfoList
@@ -264,18 +267,12 @@ class BucketFragment : BaseFragment<FragmentBucketBinding>(FragmentBucketBinding
             }
 
         }
-
-
-
-//        completedOrder(order)
     }
 
     private fun completedOrder(order: Order, balance:Int){
 
         if (hereOrTogo && isChk) {
-//            val orderTable = ApplicationClass.sharedPreferencesUtil.getOrderTable()!!
             val orderTable = viewModel.nfcTaggingData
-//            Log.d(TAG, "completedOrder: $orderTable")
             order.orderTable = orderTable!!
             showCustomToast("${orderTable.substring(orderTable.length - 2, orderTable.length)}번 테이블 번호가 등록되었습니다.")
         } else {

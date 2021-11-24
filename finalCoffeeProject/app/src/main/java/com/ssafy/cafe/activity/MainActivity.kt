@@ -50,10 +50,19 @@ import retrofit2.Response
 import com.nhn.android.naverlogin.OAuthLogin
 
 import android.os.AsyncTask
+import androidx.lifecycle.LiveData
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.ssafy.cafe.adapter.NotificationAdapter
 import com.ssafy.cafe.dto.*
+import com.ssafy.cafe.service.NotificationService
 import com.ssafy.cafe.service.ProductService
 import com.ssafy.cafe.service.UserService
 import com.ssafy.cafe.util.RetrofitCallback
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import org.json.JSONObject
 
 
 private const val TAG = "MainActivity_싸피"
@@ -114,6 +123,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
 
     lateinit var mOAuthLoginInstance : OAuthLogin
 
+    private lateinit var userInfo : HashMap<String, Any>
+    private lateinit var userInfoLiveData : LiveData<HashMap<String, Any>>
+
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -142,7 +154,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
 
         // user 정보 받아오기
 //        viewModel.initUserLevel()
-        viewModel.getUserInfo(ApplicationClass.sharedPreferencesUtil.getUser().id)
+        initUserName()
+        getUserInfo(ApplicationClass.sharedPreferencesUtil.getUser().id)
+//        viewModel.getUserInfo(ApplicationClass.sharedPreferencesUtil.getUser().id)
 
 
         supportFragmentManager.beginTransaction()
@@ -185,7 +199,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
             }
         }
 
-        initUserName()
         binding.ibtnNotificaton.setOnClickListener{
             openFragment(6)
         }
@@ -238,7 +251,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
     }
 
     fun initUserName(){
-
         var user = ApplicationClass.sharedPreferencesUtil.getUser()
         Log.d(TAG, "initUserName: ${user.id}, ${user.name}, ${user.pass}, ${user.phone}")
         binding.tvUserName.text = "${user.name}님"
@@ -261,6 +273,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
                 .addToBackStack(null)
             // 주문 상세 보기
             2 -> transaction.replace(R.id.frame_layout_main, OrderDetailFragment.newInstance(key, value))
+                .addToBackStack(null)
             // 메뉴 상세 보기
             3 -> transaction.replace(R.id.frame_layout_main, MenuDetailFragment.newInstance(key, value))
                 .addToBackStack(null)
@@ -529,12 +542,14 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
         confirm.setOnClickListener {
             dialog.dismiss()
         }
-        if(!this.isFinishing){
             dialog.show()
-        }
-        if(isFinishing){
-            dialog.show()
-        }
+
+//        if(!this.isFinishing){
+//            dialog.show()
+//        }
+//        if(isFinishing){
+//            dialog.show()
+//        }
     }
 
     fun getLastOrder() {
@@ -672,9 +687,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
         Log.d(TAG, "makeOrderDto: $ood")
         val dataStr = ood.split("/")
         Log.d(TAG, "makeOrderDto: $dataStr")
-
-
+        if(dataStr[5] != "설탕")
         orderDetailList.add(
+
             OrderDetail(
                 0,
                 order.id,
@@ -682,7 +697,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
                 dataStr.get(3).toInt(), //quantity
                 dataStr.get(4).toInt(), //type(hot,ice)
                 dataStr.get(5).toString(),  //syrup
-                dataStr.get(6).toInt()  //shot
+                dataStr.get(6).toInt(),  //shot
+                0
             )
         )
 
@@ -695,12 +711,27 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
         }
 
         override fun onSuccess(code: Int, responseData: Product) {
-            val totalPrice = responseData.price * quanty
+            var totalPrice = responseData.price * quanty   // 상품 가격
+            val od = order.details[0]
+            if(od.syrup != null) {
+                if(od.syrup != "설탕"){
+                    totalPrice += 500
+                }
+            }
+
+            if(od.shot != null) {
+                totalPrice += (od.shot!! * 500)
+            }
+            od.totalPrice = totalPrice
             var point = 0
 
-            viewModel.user.observe(this@MainActivity) {
-                val userPay = it.money
-                val userStamp = it.stamps
+            userInfoLiveData.observe(this@MainActivity) {
+
+                val data = JSONObject(it as Map<*, *>)
+                val rawUser = data.getJSONObject("user")
+
+                val userPay = rawUser.getInt("money")
+                val userStamp = rawUser.getInt("stamps")
 
                 // 등급 계산
                 val levelList = UserLevel.userInfoList
@@ -816,6 +847,15 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
     }
 
 
+
+    private fun getUserInfo(userId:String) {
+        CoroutineScope(Dispatchers.IO).launch {
+            userInfoLiveData = UserService().getUsers(userId)
+//            userInfoLiveData.observe(this@MainActivity, {
+//                userInfo = it
+//            })
+        }
+    }
 
 
 

@@ -1,5 +1,6 @@
 package com.ssafy.cafe.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,8 +19,18 @@ class OrderDetailAdapter(val list:List<OrderDetailResponse>):RecyclerView.Adapte
 
         fun bindInfo(orderDetail : OrderDetailResponse){
             orderName.text = "${orderDetail.productName} ${orderDetail.quantity}개"
-            var unit = orderDetail.unitPrice * orderDetail.quantity
-            orderPrice.text = CommonUtils.makeComma(unit)
+//            var unit = orderDetail.unitPrice
+//            var totalPrice = orderDetail.unitPrice
+//            if(orderDetail.shot >= 1) {
+//                totalPrice *= orderDetail.shot * 500
+//            }
+//            if(orderDetail.syrup != "설탕" || orderDetail.syrup != null) {
+//                totalPrice += 500
+//            }
+//            Log.d("지우", "bindInfo: ${orderDetail.shot} /// ${orderDetail.syrup}")
+//            totalPrice = unit * orderDetail.quantity
+            Log.d("test", "bindInfo: ${orderDetail.prodTotalPrice}")
+            orderPrice.text = CommonUtils.makeComma(orderDetail.prodTotalPrice)
             orderOption.text = CommonUtils.convertOptionMenu(orderDetail.productType,orderDetail.syrup, orderDetail.shot)
         }
     }

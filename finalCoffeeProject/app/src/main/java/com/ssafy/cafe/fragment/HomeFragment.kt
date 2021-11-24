@@ -56,15 +56,17 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::bind
     override fun onAttach(context: Context) {
         super.onAttach(context)
         mainActivity = context as MainActivity
-        viewModel.getUserInfo(ApplicationClass.sharedPreferencesUtil.getUser().id)
+//        viewModel.getUserInfo(ApplicationClass.sharedPreferencesUtil.getUser().id)
     }
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        viewModel.user.observe(viewLifecycleOwner) {
-            setUserLevel(it.stamps)
+        val userInfoLiveData = UserService().getUsers(ApplicationClass.sharedPreferencesUtil.getUser().id)
+        userInfoLiveData.observe(viewLifecycleOwner) {
+            val data = JSONObject(it as Map<*, *>)
+            val rawUser = data.getJSONObject("user")
+            setUserLevel(rawUser.getInt("stamps"))
         }
 
         initAdapter()

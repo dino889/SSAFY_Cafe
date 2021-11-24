@@ -47,6 +47,7 @@ class OrderDetailFragment : BaseFragment<FragmentOrderDetailBinding>(FragmentOrd
         orderDetailLiveData.observe(
             viewLifecycleOwner, {
                 list = it
+                Log.d(TAG, "initData: $list")
                 orderDetailAdapter = OrderDetailAdapter(list)
                 binding.rvOrderDetailList.apply{
                     val linearLayoutManager = LinearLayoutManager(context)
@@ -69,7 +70,7 @@ class OrderDetailFragment : BaseFragment<FragmentOrderDetailBinding>(FragmentOrd
                 binding.tvOrderDate.text = CommonUtils.getFormattedString(list[0].orderDate)
                 var AllTotalPrice = 0
                 for(i in 0..list.size-1){
-                    AllTotalPrice += list[i].totalPrice
+                    AllTotalPrice += list[i].prodTotalPrice
                 }
                 binding.tvAllTotalPrice.text = CommonUtils.makeComma(AllTotalPrice)
             }

@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ssafy.cafe.R
 import com.ssafy.cafe.adapter.MyReviewAdapter
+import com.ssafy.cafe.config.ApplicationClass
 import com.ssafy.cafe.config.BaseFragment
 import com.ssafy.cafe.databinding.FragmentMyReviewBinding
 import com.ssafy.cafe.dto.Comment
@@ -20,7 +21,7 @@ class MyReviewFragment : BaseFragment<FragmentMyReviewBinding>(FragmentMyReviewB
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        getCommentByUsers(viewModel.user.value!!.id)
+        getCommentByUsers(ApplicationClass.sharedPreferencesUtil.getUser().id)
     }
 
     private fun getCommentByUsers(id:String){

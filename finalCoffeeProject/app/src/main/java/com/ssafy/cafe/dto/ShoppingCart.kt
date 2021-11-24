@@ -10,7 +10,7 @@ data class ShoppingCart(
 //    val productType: String,
     var type:Int,
     var syrup:String?,
-    var shot:Int?,
+    var shot:Int?
 ){
     fun addDupMenu(shoppingCart: ShoppingCart){
         this.menuCnt += shoppingCart.menuCnt
