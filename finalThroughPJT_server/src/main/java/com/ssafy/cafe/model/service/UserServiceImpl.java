@@ -110,4 +110,11 @@ public class UserServiceImpl implements UserService {
 	public List<String> selectTokens() {
 		return userDao.selectAllUserToken();
 	}
+
+	@Override
+	public List<User> selectAllUser() {
+		return userDao.selectAll();
+	}
+	
+	
 }

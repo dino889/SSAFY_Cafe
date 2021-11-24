@@ -52,7 +52,7 @@ class UserCustomMenuFragment : BaseFragment<FragmentUserCustomMenuBinding>(Fragm
 
     private fun initData() {
         val userCustomLiveData = UserCustomService().getCustomWithUserId(ApplicationClass.sharedPreferencesUtil.getUser().id)
-        
+
         userCustomLiveData.observe(viewLifecycleOwner, {
             list = it
             customMenuAdapter = CustomMenuAdapter(list, this::initData)

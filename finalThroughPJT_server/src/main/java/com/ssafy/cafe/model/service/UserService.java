@@ -66,4 +66,6 @@ public interface UserService {
     public List<String> selectTokens();
     
 //    public static final String firstId = "";
+    
+    public List<User> selectAllUser();
 }
