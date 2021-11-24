@@ -3,6 +3,7 @@ package com.ssafy.cafe.fragment
 import android.app.AlertDialog
 import android.content.Context
 import android.os.Bundle
+import android.text.TextUtils.substring
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -140,9 +141,13 @@ class PayFragment : BaseFragment<FragmentPayBinding>(FragmentPayBinding::bind, R
         val chargeMoney = viewModel.nfcTaggingData.toString().toInt()
         val user = ApplicationClass.sharedPreferencesUtil.getUser()
         val id = user.id
-        val curMoney = binding.tvUserPay.text.toString().toInt()
-        val updateMoney = curMoney + chargeMoney;
+        val curMoneyTmp = binding.tvUserPay.text.toString()
+        val curMoney = substring(curMoneyTmp.replace(",","").trim(),0,curMoneyTmp.replace(",","").trim().length-1)
+
+        val updateMoney = curMoney.trim().toInt() + chargeMoney.toInt()
         val updateUser = User(id, updateMoney)
+
+        Log.d(TAG, "chargePay: ${chargeMoney} 를 내가 가진 ${curMoney}에 충전하겠습니다 총 : ${updateMoney}")
         UserService().updateMoney(updateUser , object : RetrofitCallback<User> {
             override fun onError(t: Throwable) {
                 Log.d(TAG, "onError: ")
