@@ -2,7 +2,7 @@ package com.ssafy.cafe.util
 
 import android.content.Context
 import android.content.SharedPreferences
-import com.ssafy.cafe.dto.User
+import com.ssafy.cafe.src.main.dto.User
 
 class SharedPreferencesUtil (context: Context) {
     val SHARED_PREFERENCES_NAME = "smartstore_preference"
@@ -19,7 +19,7 @@ class SharedPreferencesUtil (context: Context) {
         editor.apply()
     }
 
-    fun getUser(): User{
+    fun getUser(): User {
         val id = preferences.getString("id", "")
         if (id != ""){
             val name = preferences.getString("name", "")

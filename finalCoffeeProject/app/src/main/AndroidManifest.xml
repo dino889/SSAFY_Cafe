@@ -37,7 +37,7 @@
             android:label="@string/app_name"/>
 
         <activity
-            android:name="com.ssafy.cafe.activity.LoadingActivity"
+            android:name="com.ssafy.cafe.src.splash.LoadingActivity"
             android:exported="true"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:windowSoftInputMode="adjustPan">
@@ -53,7 +53,7 @@
         </activity>
 
         <service
-            android:name=".service.MyFirebaseMessageService">
+            android:name="com.ssafy.cafe.src.main.network.service.MyFirebaseMessageService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT"/>
             </intent-filter>

@@ -4,7 +4,7 @@
     <data>
         <variable
             name="comment"
-            type="com.ssafy.cafe.dto.Comment" />
+            type="com.ssafy.cafe.src.main.dto.Comment" />
     </data>
     <LinearLayout
         android:layout_width="match_parent"

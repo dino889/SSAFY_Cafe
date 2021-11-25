@@ -10,8 +10,8 @@ import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.viewbinding.ViewBinding
+import com.ssafy.cafe.src.main.MainViewModel
 import com.ssafy.cafe.util.LoadingDialog
-import com.ssafy.cafe.viewmodel.MainViewModel
 
 // Fragment의 기본을 작성, 뷰 바인딩 활용
 abstract class BaseFragment<B : ViewBinding>(

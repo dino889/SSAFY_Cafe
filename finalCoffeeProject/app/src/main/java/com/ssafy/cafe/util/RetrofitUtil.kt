@@ -1,8 +1,8 @@
 package com.ssafy.cafe.util
 
 
-import com.ssafy.cafe.api.*
 import com.ssafy.cafe.config.ApplicationClass
+import com.ssafy.cafe.src.main.network.api.*
 
 class RetrofitUtil {
     companion object{

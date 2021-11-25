@@ -5,8 +5,8 @@ import android.util.Log
 import android.widget.TextView
 import com.ssafy.cafe.R
 import com.ssafy.cafe.config.ApplicationClass
-import com.ssafy.cafe.response.LatestOrderResponse
-import com.ssafy.cafe.response.OrderDetailResponse
+import com.ssafy.cafe.src.main.network.response.LatestOrderResponse
+import com.ssafy.cafe.src.main.network.response.OrderDetailResponse
 import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 import java.util.*
