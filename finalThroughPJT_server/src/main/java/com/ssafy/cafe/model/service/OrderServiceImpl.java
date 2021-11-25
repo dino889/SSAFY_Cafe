@@ -123,7 +123,7 @@ public class OrderServiceImpl implements OrderService {
 			}
     		
     	};
-    	timer.schedule(task, 1000, random.nextInt(30000) + 5000);	// 5초 ~ 30초 사이 랜덤
+    	timer.schedule(task, 500, random.nextInt(30000) + 5000);	// 5초 ~ 30초 사이 랜덤
     	
     }
     
