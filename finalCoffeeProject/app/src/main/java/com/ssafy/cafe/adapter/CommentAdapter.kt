@@ -1,10 +1,12 @@
 package com.ssafy.cafe.adapter
 
+import android.os.Build
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
@@ -16,6 +18,7 @@ import com.ssafy.cafe.response.MenuDetailWithCommentResponse
 import com.ssafy.cafe.service.CommentService
 import com.ssafy.cafe.service.ProductService
 import com.ssafy.cafe.util.RetrofitCallback
+import java.time.LocalDate
 
 private const val TAG = "CommentAdapter_싸피"
 class CommentAdapter(val list: List<MenuDetailWithCommentResponse>, val kFunction0: () -> Unit) :
@@ -62,6 +65,7 @@ class CommentAdapter(val list: List<MenuDetailWithCommentResponse>, val kFunctio
         }
 
 
+        @RequiresApi(Build.VERSION_CODES.O)
         fun bindInfo(data: MenuDetailWithCommentResponse, index: Int) {
             Log.d(TAG, "bindInfo: $data")
             if(data.userId == null) {
@@ -76,12 +80,13 @@ class CommentAdapter(val list: List<MenuDetailWithCommentResponse>, val kFunctio
                 userId.text = "${data.userId} 님"
                 comment.text = data.commentContent
                 rating.text = "${data.productRating} 점"
-
+                var date:LocalDate = LocalDate.now()
                 val newComment = Comment(
                     data.commentContent ?: "content X",
                     data.commentId,
                     data.productId,
                     data.productRating.toFloat(),
+                    date.toString(),
                     user.id
                 )
 
@@ -174,6 +179,7 @@ class CommentAdapter(val list: List<MenuDetailWithCommentResponse>, val kFunctio
     }
 
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onBindViewHolder(holder: CommentHolder, position: Int) {
         holder.bindInfo(list[position], position)
     }

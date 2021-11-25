@@ -2,11 +2,13 @@ package com.ssafy.cafe.fragment
 
 import android.app.AlertDialog
 import android.content.Context
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.RatingBar
 import android.widget.TextView
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -23,6 +25,7 @@ import com.ssafy.cafe.service.CommentService
 import com.ssafy.cafe.service.ProductService
 import com.ssafy.cafe.util.CommonUtils
 import com.ssafy.cafe.util.RetrofitCallback
+import java.time.LocalDate
 
 private const val TAG = "ReviewFragment_싸피"
 class ReviewFragment : BaseFragment<FragmentReviewBinding>(FragmentReviewBinding::bind, R.layout.fragment_review) {
@@ -107,6 +110,7 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(FragmentReviewBinding
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun showDialogRatingStar(detailId : Int){
         val view = layoutInflater.inflate(R.layout.dialog_add_comment, null)
         val dialog = AlertDialog.Builder(requireContext()).apply {
@@ -117,11 +121,13 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(FragmentReviewBinding
             setPositiveButton("확인") { dialog, which ->
 
                 val user = ApplicationClass.sharedPreferencesUtil.getUser()
+                var date:LocalDate = LocalDate.now()
                 newComment = Comment(
                     view.findViewById<TextInputEditText>(R.id.et_comment).text.toString(),
                     0,
                     viewModel.liveProductWithComment.value!!.get(0).productId,
                     view.findViewById<RatingBar>(R.id.ratingBarMenuDialogComment).rating,
+                    date.toString(),
                     user.id
                 )
                 CommentService().insert(newComment, CommentAddCallback())
