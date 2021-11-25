@@ -25,12 +25,12 @@
         android:usesCleartextTraffic="true">
 
         <activity
-            android:name="com.ssafy.cafe.activity.LoginActivity"
+            android:name="com.ssafy.cafe.src.login.LoginActivity"
             android:exported="true"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:windowSoftInputMode="adjustPan"/>
         <activity
-            android:name="com.ssafy.cafe.activity.MainActivity"
+            android:name="com.ssafy.cafe.src.main.MainActivity"
             android:exported="true"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:windowSoftInputMode="adjustPan"
