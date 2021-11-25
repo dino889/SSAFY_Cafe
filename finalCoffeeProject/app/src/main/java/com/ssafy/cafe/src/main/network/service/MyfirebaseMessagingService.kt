@@ -9,8 +9,8 @@ import androidx.core.app.NotificationManagerCompat
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import com.ssafy.cafe.R
-import com.ssafy.cafe.activity.MainActivity
 import com.ssafy.cafe.config.ApplicationClass
+import com.ssafy.cafe.src.main.MainActivity
 
 private const val TAG = "MyFirebaseMsgSvc_싸피"
 

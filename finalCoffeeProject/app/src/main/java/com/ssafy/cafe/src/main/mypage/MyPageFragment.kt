@@ -1,4 +1,4 @@
-package com.ssafy.cafe.fragment
+package com.ssafy.cafe.src.main.mypage
 
 import android.content.Context
 import android.os.Bundle
@@ -10,10 +10,10 @@ import android.widget.BaseAdapter
 import android.widget.ImageView
 import android.widget.TextView
 import com.ssafy.cafe.R
-import com.ssafy.cafe.activity.MainActivity
 import com.ssafy.cafe.config.ApplicationClass
 import com.ssafy.cafe.config.BaseFragment
 import com.ssafy.cafe.databinding.FragmentMyPageBinding
+import com.ssafy.cafe.src.main.MainActivity
 import com.ssafy.cafe.src.main.dto.Comment
 import com.ssafy.cafe.src.main.dto.Order
 import com.ssafy.cafe.src.main.network.service.CommentService

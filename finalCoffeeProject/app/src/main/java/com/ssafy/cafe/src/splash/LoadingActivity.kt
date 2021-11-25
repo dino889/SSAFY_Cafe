@@ -3,9 +3,9 @@ package com.ssafy.cafe.src.splash
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
-import com.ssafy.cafe.activity.LoginActivity
 import com.ssafy.cafe.config.BaseActivity
 import com.ssafy.cafe.databinding.ActivityLoadingBinding
+import com.ssafy.cafe.src.login.LoginActivity
 
 class LoadingActivity : BaseActivity<ActivityLoadingBinding>(ActivityLoadingBinding::inflate) {
     private val SPLASH_TIME:Long = 4000 // 4000

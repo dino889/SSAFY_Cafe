@@ -5,8 +5,8 @@ import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.ssafy.cafe.fragment.AllMenuFragment
-import com.ssafy.cafe.fragment.UserCustomMenuFragment
+import com.ssafy.cafe.src.main.allmenu.AllMenuFragment
+import com.ssafy.cafe.src.main.usercustom.UserCustomMenuFragment
 
 class OrderMenuPagerAdapter : FragmentPagerAdapter{
 

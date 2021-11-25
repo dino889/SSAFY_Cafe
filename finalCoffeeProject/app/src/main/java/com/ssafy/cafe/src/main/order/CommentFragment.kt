@@ -16,7 +16,7 @@ import com.google.android.material.textfield.TextInputEditText
 import com.ssafy.cafe.R
 import com.ssafy.cafe.config.ApplicationClass
 import com.ssafy.cafe.config.BaseFragment
-import com.ssafy.cafe.databinding.FragmentReviewBinding
+import com.ssafy.cafe.databinding.FragmentCommentBinding
 import com.ssafy.cafe.src.main.dto.Comment
 import com.ssafy.cafe.src.main.network.response.MenuDetailWithCommentResponse
 import com.ssafy.cafe.src.main.MainActivity
@@ -24,10 +24,9 @@ import com.ssafy.cafe.src.main.network.service.CommentService
 import com.ssafy.cafe.src.main.network.service.ProductService
 import com.ssafy.cafe.util.CommonUtils
 import com.ssafy.cafe.util.RetrofitCallback
-import java.time.LocalDate
 
 private const val TAG = "ReviewFragment_싸피"
-class ReviewFragment : BaseFragment<FragmentReviewBinding>(FragmentReviewBinding::bind, R.layout.fragment_review) {
+class CommentFragment : BaseFragment<FragmentCommentBinding>(FragmentCommentBinding::bind, R.layout.fragment_my_review) {
     private lateinit var mainActivity : MainActivity
     private var productId = -1
 
@@ -109,7 +108,6 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(FragmentReviewBinding
         }
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     private fun showDialogRatingStar(detailId : Int){
         val view = layoutInflater.inflate(R.layout.dialog_add_comment, null)
         val dialog = AlertDialog.Builder(requireContext()).apply {
@@ -120,7 +118,6 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(FragmentReviewBinding
             setPositiveButton("확인") { dialog, which ->
 
                 val user = ApplicationClass.sharedPreferencesUtil.getUser()
-                var date:LocalDate = LocalDate.now()
                 newComment = Comment(
                     view.findViewById<TextInputEditText>(R.id.et_comment).text.toString(),
                     0,
@@ -167,9 +164,9 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(FragmentReviewBinding
 
                 // comment 가 없을 경우 -> 들어온 response가 1개이고 해당 userId 가 null일 경우 빈 배열 Adapter 연결
                 if (responseData.size == 1 && responseData[0].userId == null) {
-                    commentAdapter = CommentAdapter(mutableListOf(), this@ReviewFragment::initData)
+                    commentAdapter = CommentAdapter(mutableListOf(), this@CommentFragment::initData)
                 } else {
-                    commentAdapter = CommentAdapter(responseData, this@ReviewFragment::initData)
+                    commentAdapter = CommentAdapter(responseData, this@CommentFragment::initData)
                 }
                 liveData.value = responseData
                 // 화면 정보 갱신
@@ -207,7 +204,7 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(FragmentReviewBinding
     companion object {
         @JvmStatic
         fun newInstance(key: String, value : Int) =
-            ReviewFragment().apply {
+            CommentFragment().apply {
                 arguments = Bundle().apply {
                     putInt(key, value)
                 }

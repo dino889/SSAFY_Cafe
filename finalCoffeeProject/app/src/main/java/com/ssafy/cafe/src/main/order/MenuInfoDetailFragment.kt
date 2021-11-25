@@ -6,7 +6,6 @@ import android.util.Log
 import android.view.View
 import android.widget.*
 import com.ssafy.cafe.R
-import com.ssafy.cafe.activity.MainActivity
 import com.ssafy.cafe.config.ApplicationClass
 import com.ssafy.cafe.databinding.FragmentMenuInfoDetailBinding
 import com.ssafy.cafe.src.main.dto.ShoppingCart
@@ -17,6 +16,7 @@ import android.widget.AdapterView
 
 import androidx.core.view.isVisible
 import com.ssafy.cafe.config.BaseFragment
+import com.ssafy.cafe.src.main.MainActivity
 import com.ssafy.cafe.src.main.dto.UserCustom
 import com.ssafy.cafe.src.main.network.service.UserCustomService
 

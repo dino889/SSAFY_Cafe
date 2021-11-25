@@ -4,8 +4,6 @@ import android.Manifest
 import android.app.Application
 import com.kakao.sdk.common.KakaoSdk
 import com.ssafy.cafe.R
-import com.ssafy.cafe.intercepter.AddCookiesInterceptor
-import com.ssafy.cafe.intercepter.ReceivedCookiesInterceptor
 import com.ssafy.cafe.util.SharedPreferencesUtil
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit

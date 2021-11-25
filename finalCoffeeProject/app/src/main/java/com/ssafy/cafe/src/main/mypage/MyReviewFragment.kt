@@ -6,7 +6,6 @@ import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ssafy.cafe.R
-import com.ssafy.cafe.adapter.MyReviewAdapter
 import com.ssafy.cafe.config.ApplicationClass
 import com.ssafy.cafe.config.BaseFragment
 import com.ssafy.cafe.databinding.FragmentMyReviewBinding

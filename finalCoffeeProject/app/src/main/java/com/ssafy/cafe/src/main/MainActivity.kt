@@ -35,7 +35,6 @@ import com.ssafy.cafe.src.main.network.api.FirebaseTokenService
 import com.ssafy.cafe.config.ApplicationClass
 import com.ssafy.cafe.config.BaseActivity
 import com.ssafy.cafe.databinding.ActivityMainBinding
-import com.ssafy.cafe.fragment.*
 import com.ssafy.cafe.src.main.network.response.LatestOrderResponse
 import com.ssafy.cafe.src.main.network.service.OrderService
 import com.ssafy.cafe.util.LocationPermissionManager
@@ -52,15 +51,21 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.LiveData
-import com.ssafy.cafe.dto.*
 import com.ssafy.cafe.src.main.network.service.ProductService
 import com.ssafy.cafe.src.main.network.service.UserService
 import com.ssafy.cafe.src.login.LoginActivity
+import com.ssafy.cafe.src.main.allmenu.AllMenuFragment
 import com.ssafy.cafe.src.main.dto.*
+import com.ssafy.cafe.src.main.home.HomeFragment
+import com.ssafy.cafe.src.main.map.MapFragment
 import com.ssafy.cafe.src.main.mypage.MyOrderHistoryFragment
+import com.ssafy.cafe.src.main.mypage.MyPageFragment
 import com.ssafy.cafe.src.main.mypage.MyReviewFragment
-import com.ssafy.cafe.src.main.order.OrderFragment
+import com.ssafy.cafe.src.main.notification.NotificationFragment
+import com.ssafy.cafe.src.main.order.*
+import com.ssafy.cafe.src.main.pay.PayFragment
 import com.ssafy.cafe.src.main.shoppinglist.ShoppingListFragment
+import com.ssafy.cafe.src.main.usercustom.UserCustomMenuFragment
 import com.ssafy.cafe.util.RetrofitCallback
 import org.json.JSONObject
 
@@ -304,7 +309,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
             }
             // 메뉴 리뷰 정보
             10->{
-                transaction.replace(R.id.fl_tablayout, ReviewFragment.newInstance(key, value))
+                transaction.replace(R.id.fl_tablayout, CommentFragment.newInstance(key, value))
             }
             // 사용자 결제 정보
             11 -> {

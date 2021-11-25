@@ -3,7 +3,6 @@ package com.ssafy.cafe.src.main
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.ssafy.cafe.dto.*
 import com.ssafy.cafe.src.main.network.response.MenuDetailWithCommentResponse
 import com.ssafy.cafe.src.main.dto.Product
 import com.ssafy.cafe.src.main.dto.ShoppingCart

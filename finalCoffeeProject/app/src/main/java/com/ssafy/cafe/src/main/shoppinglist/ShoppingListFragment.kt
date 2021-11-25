@@ -12,10 +12,10 @@ import com.google.android.gms.location.*
 import com.google.android.gms.maps.model.LatLng
 import com.gun0912.tedpermission.PermissionListener
 import com.ssafy.cafe.R
-import com.ssafy.cafe.activity.MainActivity
 import com.ssafy.cafe.config.ApplicationClass
 import com.ssafy.cafe.config.BaseFragment
 import com.ssafy.cafe.databinding.FragmentBucketBinding
+import com.ssafy.cafe.src.main.MainActivity
 import com.ssafy.cafe.src.main.dto.Order
 import com.ssafy.cafe.src.main.dto.OrderDetail
 import com.ssafy.cafe.src.main.dto.User

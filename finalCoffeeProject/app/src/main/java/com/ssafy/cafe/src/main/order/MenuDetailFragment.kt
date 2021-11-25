@@ -7,10 +7,10 @@ import android.view.View
 import com.bumptech.glide.Glide
 import com.google.android.material.tabs.TabLayout
 import com.ssafy.cafe.R
-import com.ssafy.cafe.activity.MainActivity
 import com.ssafy.cafe.config.ApplicationClass
 import com.ssafy.cafe.config.BaseFragment
 import com.ssafy.cafe.databinding.FragmentMenuDetailBinding
+import com.ssafy.cafe.src.main.MainActivity
 import com.ssafy.cafe.src.main.network.response.MenuDetailWithCommentResponse
 import com.ssafy.cafe.src.main.network.service.ProductService
 import com.ssafy.cafe.util.RetrofitCallback
