@@ -5,25 +5,25 @@
 ![mp4](image/newScreenshot/HomeFragment.mp4)
 
 
-###Login and Join
+### Login and Join
 ![loginjoin](image/loginjoin.png)
 ![mp4](image/newScreenshot/join_login×1.0.mp4)
 
-###Login API
+### Login API
 ![api](image/finalPpt_13.png)
 
 
-###Product
+### Product
 ![allmenufragment](image/finalPpt_14.png)
 ![mp4](image/newScreenshot/AllMenuFragment.mp4)
 
 
-###Custom MENU
+### Custom MENU
 ![usercustom](image/finalPpt_15.png)
 ![mp4](image/newScreenshot/UserCustomFragment.mp4)
 
 
-###ShopCart
+### ShopCart
 ![shoppinglist](image/finalPpt_16.png)
 ![mp4](image/newScreenshot/UserCustomFragment.mp4)
 
@@ -34,14 +34,15 @@
 ![review](image/finalPpt_18.png)
 ![mp4](image/newScreenshot/Comment.mp4)
 
-###Pay Fragment
+### Pay Fragment
 ![payfragment](image/finalPpt_19.png)
 ![mp4](image/newScreenshot/payFragment.mp4)
 
-###MY page
+### MY page
 ![mypage](image/finalPpt_20.png)
 ![mp4](image/newScreenshot/Screen_Recording_20211125-174730_ssafyCafe.mp4)
 
+### Map
 ![map](image/finalPpt_21.png)
 
 ### Notification
@@ -50,5 +51,5 @@
 ![mp4](image/newScreenshot/notification-firstOrder.mp4)
 ![mp4](image/newScreenshot/Notification-background_broadcast_category.mp4)
 
-
+### NFC
 ![other](image/finalPpt_24.png)
