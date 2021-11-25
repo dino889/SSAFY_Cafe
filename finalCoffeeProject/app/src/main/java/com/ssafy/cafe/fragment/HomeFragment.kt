@@ -178,11 +178,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::bind
                 break
             }
         }
-
         binding.tvStampCount.text = stamp.toString()
         binding.tvStampTotal.text = " / ${progressMax}"
         binding.userlevel.setAnimation("$level.json")
-        binding.progressBarStampState.progress = stamp
+        binding.progressBarStampState.setProgress(stamp)
         binding.progressBarStampState.max = progressMax
     }
 

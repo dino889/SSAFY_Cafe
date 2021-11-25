@@ -27,15 +27,14 @@ import com.ssafy.cafe.util.RetrofitCallback
 import okhttp3.internal.notifyAll
 
 private const val TAG = "UserCustomMenuFragment_싸피"
-class UserCustomMenuFragment : BaseFragment<FragmentUserCustomMenuBinding>(FragmentUserCustomMenuBinding::bind, R.layout.fragment_user_custom_menu) ,
-    SwipeRefreshLayout.OnRefreshListener{
+class UserCustomMenuFragment : BaseFragment<FragmentUserCustomMenuBinding>(FragmentUserCustomMenuBinding::bind, R.layout.fragment_user_custom_menu) {
 
     private lateinit var customMenuAdapter: CustomMenuAdapter
     private lateinit var mainActivity: MainActivity
     private lateinit var list: List<UserCustom>
     private var deleteProduct = mutableListOf<Int>()
 
-    var swipeRefreshLayout: SwipeRefreshLayout? = null
+//    var swipeRefreshLayout: SwipeRefreshLayout? = null
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -44,8 +43,8 @@ class UserCustomMenuFragment : BaseFragment<FragmentUserCustomMenuBinding>(Fragm
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        swipeRefreshLayout = binding.swipeLayout
-        swipeRefreshLayout!!.setOnRefreshListener(this)
+//        swipeRefreshLayout = binding.swipeLayout
+//        swipeRefreshLayout!!.setOnRefreshListener(this)
 //        getCustomMenubyId(ApplicationClass.sharedPreferencesUtil.getUser().id)
         initData()
     }
@@ -78,19 +77,19 @@ class UserCustomMenuFragment : BaseFragment<FragmentUserCustomMenuBinding>(Fragm
     }
 
 
-    override fun onRefresh() {
-
-        //새로 고침 코드
-        updateLayoutView()
-
-        //새로 고침 완
-        swipeRefreshLayout!!.setRefreshing(false)
-    }
-
-    // 당겨서 새로고침 했을 때 뷰 변경 메서드
-    fun updateLayoutView() {
-        initData()
-    }
+//    override fun onRefresh() {
+//
+//        //새로 고침 코드
+//        updateLayoutView()
+//
+//        //새로 고침 완
+//        swipeRefreshLayout!!.setRefreshing(false)
+//    }
+//
+//    // 당겨서 새로고침 했을 때 뷰 변경 메서드
+//    fun updateLayoutView() {
+//        initData()
+//    }
 
     inner class GetProductCallback(val uc: UserCustom): RetrofitCallback<Product>{
         override fun onError(t: Throwable) {

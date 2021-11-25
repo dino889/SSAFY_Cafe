@@ -75,6 +75,10 @@ class MenuInfoDetailFragment : BaseFragment<FragmentMenuInfoDetailBinding>(Fragm
 
             var totalPrice = count * price
 
+            if(productType == "frappuccino" || productType == "dessert") {
+                type = 3
+            }
+            
             if(syrup != null) {
                 if(syrup!!.contains('+')){
                     syrup = "설탕"
@@ -110,6 +114,7 @@ class MenuInfoDetailFragment : BaseFragment<FragmentMenuInfoDetailBinding>(Fragm
             } else if(binding.hot.isChecked) {
                 type = 0
             }
+
             if(productType == "frappuccino" || productType == "dessert") {
                 type = 3
             }

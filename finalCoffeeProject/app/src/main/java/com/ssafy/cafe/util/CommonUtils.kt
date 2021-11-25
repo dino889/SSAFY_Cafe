@@ -54,8 +54,10 @@ object CommonUtils {
     fun convertOptionMenu(type:Int?, syrup:String?, shot:Int?) : String{
         val types = if(type == 0){
             "HOT"
-        }else{
+        }else if(type == 1){
             "ICE"
+        } else {
+            "없음"
         }
 
         val syrups = if(syrup == null || syrup.equals("null") || syrup.equals("")){

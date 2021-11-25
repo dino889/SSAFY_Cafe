@@ -42,7 +42,7 @@ class NotificationFragment : BaseFragment<FragmentNotificationBinding>(FragmentN
             override fun onReceive(context: Context?, intent: Intent?) {
                 val action = intent!!.action
                 Log.d(TAG, "receive : $action")
-                initData()
+                NotificationService().getUserWithNotification(ApplicationClass.sharedPreferencesUtil.getUser().id)
             }
         }
         mainActivity.registerReceiver(receiver, intentFilter)
