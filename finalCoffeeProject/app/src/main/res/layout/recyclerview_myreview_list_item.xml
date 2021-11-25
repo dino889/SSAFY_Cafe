@@ -47,4 +47,13 @@
         android:text="완전 맛있고 써요!!"
         android:textColor="@color/black" />
 
+    <TextView
+        android:id="@+id/tv_reviewDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/nanumsquarel"
+        android:gravity="right"
+        android:paddingRight="10dp"
+        android:text="2011.11.02 11:03:21" />
+
 </LinearLayout>
