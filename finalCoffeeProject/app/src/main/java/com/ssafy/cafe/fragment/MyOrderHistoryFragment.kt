@@ -58,4 +58,9 @@ class MyOrderHistoryFragment : BaseFragment<FragmentMyOrderHistoryBinding>(Fragm
             }
         )
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mainActivity.hideBottomNav(false)
+    }
 }

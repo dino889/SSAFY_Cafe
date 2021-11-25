@@ -34,6 +34,7 @@ class MyReviewFragment : BaseFragment<FragmentMyReviewBinding>(FragmentMyReviewB
             override fun onSuccess(code: Int, responseData: List<Comment>){
                 responseData.let{
                     myReviewAdapter = MyReviewAdapter(responseData)
+                    Log.d(TAG, "onSuccess: $responseData")
                 }
                 binding.rvMyReview.apply {
                     val linearLayoutManager = LinearLayoutManager(context)

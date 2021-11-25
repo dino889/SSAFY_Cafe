@@ -104,6 +104,10 @@ class OrderDetailFragment : BaseFragment<FragmentOrderDetailBinding>(FragmentOrd
         )
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        mainActivity.hideBottomNav(false)
+    }
     companion object {
         @JvmStatic
         fun newInstance(key: String, value : Int) =
