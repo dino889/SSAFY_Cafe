@@ -56,8 +56,10 @@ object CommonUtils {
             "HOT"
         }else if(type == 1){
             "ICE"
-        } else {
+        } else if(type == 3){
             "없음"
+        } else {
+            ""
         }
 
         val syrups = if(syrup == null || syrup.equals("null") || syrup.equals("")){

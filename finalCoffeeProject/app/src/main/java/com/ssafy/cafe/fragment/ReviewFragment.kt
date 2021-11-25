@@ -127,7 +127,7 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(FragmentReviewBinding
                     0,
                     viewModel.liveProductWithComment.value!!.get(0).productId,
                     view.findViewById<RatingBar>(R.id.ratingBarMenuDialogComment).rating,
-                    date.toString(),
+                    null,
                     user.id
                 )
                 CommentService().insert(newComment, CommentAddCallback())

@@ -8,25 +8,25 @@ public class Comment {
     private Integer productId;
     private Double rating;
     private String comment;
-    private Date commentTime;
+    private Date date;
     
-	public Comment(Integer id, String userId, Integer productId, Double rating, String comment, Date commentTime) {
+	public Comment(Integer id, String userId, Integer productId, Double rating, String comment, Date date) {
 		super();
 		this.id = id;
 		this.userId = userId;
 		this.productId = productId;
 		this.rating = rating;
 		this.comment = comment;
-		this.commentTime = commentTime;
+		this.date = date;
 	}
 	
     
-	public Comment( String userId, Integer productId, Double rating, String comment, Date commentTime) {
+	public Comment( String userId, Integer productId, Double rating, String comment, Date date) {
         this.userId = userId;
         this.productId = productId;
         this.rating = rating;
         this.comment = comment;
-        this.commentTime = commentTime;
+        this.date = date;
     }
     
     public Comment() {
@@ -73,12 +73,12 @@ public class Comment {
 		this.comment = comment;
 	}
 
-	public Date getCommentTime() {
-		return commentTime;
+	public Date getDate() {
+		return date;
 	}
 
-	public void setCommentTime(Date commentTime) {
-		this.commentTime = commentTime;
+	public void setDate(Date date) {
+		this.date = date;
 	}
 
 	@Override

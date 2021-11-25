@@ -75,11 +75,14 @@ class MenuInfoDetailFragment : BaseFragment<FragmentMenuInfoDetailBinding>(Fragm
 
             var totalPrice = count * price
 
-            if(productType == "frappuccino" || productType == "dessert" || productType == "ade") {
+            if(productType == "frappuccino" || productType == "ade") {
                 type = 1
             }
+            if(productType == "dessert"){
+                type = 3
+            }
 
-            if(syrup != null) {
+                if(syrup != null) {
                 if(syrup!!.contains('+')){
                     syrup = "설탕"
                 }
@@ -115,10 +118,12 @@ class MenuInfoDetailFragment : BaseFragment<FragmentMenuInfoDetailBinding>(Fragm
                 type = 0
             }
 
-            if(productType == "frappuccino" || productType == "dessert" || productType == "ade") {
+            if(productType == "frappuccino" || productType == "ade") {
                 type = 1
             }
-
+            if(productType == "dessert"){
+                type = 3
+            }
             val userCustom = UserCustom(
                 0,
                 product.productId,

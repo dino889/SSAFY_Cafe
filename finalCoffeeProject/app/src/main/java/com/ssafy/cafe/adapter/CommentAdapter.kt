@@ -86,7 +86,7 @@ class CommentAdapter(val list: List<MenuDetailWithCommentResponse>, val kFunctio
                     data.commentId,
                     data.productId,
                     data.productRating.toFloat(),
-                    date.toString(),
+                    null,
                     user.id
                 )
 

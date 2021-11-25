@@ -11,6 +11,7 @@ import com.ssafy.cafe.R
 import com.ssafy.cafe.dto.Comment
 import com.ssafy.cafe.dto.Product
 import com.ssafy.cafe.service.ProductService
+import com.ssafy.cafe.util.CommonUtils
 import com.ssafy.cafe.util.RetrofitCallback
 
 private const val TAG = "MyReviewAdapter"
@@ -27,7 +28,7 @@ class MyReviewAdapter(var myReviewList:List<Comment>):RecyclerView.Adapter<MyRev
 //            reviewPName.text = pName
             reviewRating.rating = data.rating
             reviewContent.text = data.comment
-            reviewDate.text = data.date
+            reviewDate.text = data.date?.let { CommonUtils.getFormattedString(it!!) }
         }
     }
     inner class ProductCallback(val itemView: View):RetrofitCallback<Product>{

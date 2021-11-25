@@ -40,7 +40,7 @@ class CustomMenuAdapter(var customList:List<UserCustom>, val kFunction1:() -> Un
                 menuType.text = "|  ICE"
             } else if(userCustom.type == 0){
                 menuType.text = "|  HOT"
-            } else if(userCustom.type == 3) {   // 프라푸치노 or 디저트
+            } else if(userCustom.type == 3) {   // 디저트
                 menuType.text = ""
             }
 
