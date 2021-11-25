@@ -1,4 +1,4 @@
 # finalCoffeeProject
 
 ### HomeFragment
-[!HomeFragment](image/home.png)
+![HomeFragment](image/home.png)
