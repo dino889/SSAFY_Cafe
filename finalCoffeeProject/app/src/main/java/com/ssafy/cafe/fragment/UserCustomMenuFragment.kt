@@ -62,49 +62,19 @@ class UserCustomMenuFragment : BaseFragment<FragmentUserCustomMenuBinding>(Fragm
                 layoutManager = linearLayoutManager
                 adapter = customMenuAdapter
                 adapter!!.stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
-
-
-                binding.btnGotoShoppingList.setOnClickListener {
-                    for(i in list.indices){
-                        if(list.get(i).isChecked == true){
-                            ProductService().getProductById(list.get(i).productId, GetProductCallback(list.get(i)))
-                        }
-                    }
-                }
-
-                binding.btnDelete.setOnClickListener {
-                    for (i in list.indices) {
-                        if (list.get(i).isChecked == true) {
-
-                            UserCustomService().deleteCustomMenu(list[i].id, object : RetrofitCallback<Boolean> {
-                                override fun onError(t: Throwable) {
-                                    Log.d(TAG, "onError: ")
-                                }
-
-                                override fun onSuccess(code: Int, responseData: Boolean) {
-                                    Log.d(TAG, "onSuccess: ")
-                                    // 새로 고침 코드
-                                    updateLayoutView()
-
-                                    //새로 고침 완
-                                    swipeRefreshLayout!!.setRefreshing(false)
-
-//                                    val ft = fragmentManager!!.beginTransaction()
-//                                    ft.detach(this@UserCustomMenuFragment).attach(this@UserCustomMenuFragment).commit()
-                                }
-
-                                override fun onFailure(code: Int) {
-                                    Log.d(TAG, "onFailure: ")
-                                }
-
-                            })
-
-                        }
-                    }
-                }
-
             }
+
+            binding.btnGotoShoppingList.setOnClickListener {
+                for(i in list.indices){
+                    if(list.get(i).isChecked == true){
+                        ProductService().getProductById(list.get(i).productId, GetProductCallback(list.get(i)))
+                    }
+                }
+            }
+
         })
+
+
     }
 
 
@@ -121,63 +91,6 @@ class UserCustomMenuFragment : BaseFragment<FragmentUserCustomMenuBinding>(Fragm
     fun updateLayoutView() {
         initData()
     }
-//    private fun getCustomMenubyId(userId:String){
-//        UserCustomService().getCustomWithUserId(userId, object : RetrofitCallback<List<UserCustom>>{
-//            override fun onError(t: Throwable) {
-//                Log.d(TAG, "onError: ")
-//            }
-//
-//            override fun onSuccess(code: Int, responseData: List<UserCustom>) {
-//                Log.d(TAG, "onSuccess: ")
-//                responseData.let {
-//                    customMenuAdapter = CustomMenuAdapter(responseData)
-//                }
-//                binding.rvUserCustomList.apply {
-//                    val linearLayoutManager = LinearLayoutManager(context)
-//                    linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
-//                    layoutManager =linearLayoutManager
-//                    adapter = customMenuAdapter
-//                    adapter!!.stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
-//                }
-//
-//                binding.btnGotoShoppingList.setOnClickListener {
-//                    for(i in responseData.indices){
-//                        if(responseData.get(i).isChecked == true){
-//                            ProductService().getProductById(responseData.get(i).productId, GetProductCallback(responseData.get(i)))
-//                        }
-//                    }
-//                }
-//
-//                binding.btnDelete.setOnClickListener {
-//                    for (i in responseData.indices) {
-//                        if (responseData.get(i).isChecked == true) {
-//
-//                            UserCustomService().deleteCustomMenu(responseData[i].id, object : RetrofitCallback<Boolean> {
-//                                override fun onError(t: Throwable) {
-//                                    Log.d(TAG, "onError: ")
-//                                }
-//
-//                                override fun onSuccess(code: Int, responseData: Boolean) {
-//                                    Log.d(TAG, "onSuccess: ")
-//                                }
-//
-//                                override fun onFailure(code: Int) {
-//                                    Log.d(TAG, "onFailure: ")
-//                                }
-//
-//                            })
-//                        }
-//                    }
-//                }
-//
-//            }
-//
-//            override fun onFailure(code: Int) {
-//                Log.d(TAG, "onFailure: ")
-//            }
-//
-//        })
-//    }
 
     inner class GetProductCallback(val uc: UserCustom): RetrofitCallback<Product>{
         override fun onError(t: Throwable) {

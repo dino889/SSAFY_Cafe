@@ -87,7 +87,7 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(FragmentReviewBinding
             CommentService().notWrittenComm(ApplicationClass.sharedPreferencesUtil.getUser().id, productId , object : RetrofitCallback<Int> {
                 override fun onError(t: Throwable) {
                     Log.d(TAG, "onError: $t")
-                    showCustomToast("최근 7일 내 주문 내역이 없어 \n리뷰를 작성하실 수 없습니다.")
+                    showCustomToast("최근 7일 내의 주문 내역이 없어 \n리뷰를 작성하실 수 없습니다.")
                 }
 
                 override fun onSuccess(code: Int, responseData: Int) {

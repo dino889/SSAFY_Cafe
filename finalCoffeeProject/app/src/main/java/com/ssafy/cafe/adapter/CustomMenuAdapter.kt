@@ -4,10 +4,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.CheckBox
-import android.widget.ImageView
-import android.widget.TextView
+import android.widget.*
 import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.RecyclerView
@@ -19,7 +16,9 @@ import com.ssafy.cafe.dto.Product
 import com.ssafy.cafe.dto.ShoppingCart
 import com.ssafy.cafe.dto.UserCustom
 import com.ssafy.cafe.fragment.UserCustomMenuFragment
+import com.ssafy.cafe.service.NotificationService
 import com.ssafy.cafe.service.ProductService
+import com.ssafy.cafe.service.UserCustomService
 import com.ssafy.cafe.util.CommonUtils
 import com.ssafy.cafe.util.RetrofitCallback
 import com.ssafy.cafe.viewmodel.MainViewModel
@@ -31,6 +30,7 @@ class CustomMenuAdapter(var customList:List<UserCustom>, val kFunction1:() -> Un
         val menuType = itemView.findViewById<TextView>(R.id.tv_menuType)
         val menuSyrup = itemView.findViewById<TextView>(R.id.tv_menuSyrup)
         val menuShot = itemView.findViewById<TextView>(R.id.tv_menuShot)
+        val deleteBtn = itemView.findViewById<ImageButton>(R.id.ibtn_deleteBtn)
 
         fun bindInfo(userCustom: UserCustom) {
             val pId = userCustom.productId
@@ -56,14 +56,32 @@ class CustomMenuAdapter(var customList:List<UserCustom>, val kFunction1:() -> Un
                 menuShot.text = "|  ${userCustom.shot}"
             }
 
-//            itemView.setOnClickListener {
-//                itemClickListner.onClick(it, layoutPosition,  customList[layoutPosition].id)
-//            }
             val check = itemView.findViewById<CheckBox>(R.id.checkBox)
 
             check.setOnCheckedChangeListener { buttonView, isChecked ->
                 userCustom.isChecked = true
             }
+
+            deleteBtn.setOnClickListener {
+                UserCustomService().deleteCustomMenu(userCustom.id, DeleteCallback())
+            }
+
+        }
+        inner class DeleteCallback: RetrofitCallback<Boolean> {
+            override fun onError(t: Throwable) {
+                Log.d(TAG, "onError: ")
+            }
+
+            override fun onSuccess(code: Int, responseData: Boolean) {
+                if(responseData){
+                    kFunction1()
+                }
+            }
+
+            override fun onFailure(code: Int) {
+                Log.d(TAG, "onFailure: ")
+            }
+
         }
     }
 

@@ -45,16 +45,16 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <Button
-                    android:id="@+id/btn_delete"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/drawable_button_unclick_item2"
-                    android:fontFamily="@font/nanumsquare_acr"
-                    android:text="삭제하기"
-                    android:textColor="@color/black"
-                    android:layout_weight="1"
-                    android:layout_margin="5dp"/>
+<!--                <Button-->
+<!--                    android:id="@+id/btn_delete"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:background="@drawable/drawable_button_unclick_item2"-->
+<!--                    android:fontFamily="@font/nanumsquare_acr"-->
+<!--                    android:text="삭제하기"-->
+<!--                    android:textColor="@color/black"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:layout_margin="5dp"/>-->
 
                 <Button
                     android:id="@+id/btn_gotoShoppingList"

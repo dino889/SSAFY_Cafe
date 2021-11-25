@@ -53,7 +53,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_weight="1">
 
             <TextView
                 android:id="@+id/tv_menuType"
@@ -81,6 +82,15 @@
                 android:text="|  Shot(+2)"
                 android:textColor="@color/black" />
         </LinearLayout>
+
     </LinearLayout>
 
+    <ImageButton
+        android:id="@+id/ibtn_deleteBtn"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="#00FFFFFF"
+        android:layout_gravity="center"
+        android:scaleType="centerInside"
+        app:srcCompat="@android:drawable/ic_menu_close_clear_cancel" />
 </LinearLayout>
