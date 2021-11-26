@@ -59,8 +59,8 @@
 
 
 # 14. 요구사항 명세서
-![normal](/uploads/b39b3469286aac418fdd9f24e2f32f00/normal.png)
+![normal](/uploads/0fb6c0a69fc7a947f00208b2017cf8ed/normal.png)
 ------------
-![advanced](/uploads/9ea7d13afeb0112a34db01e65c4b1125/advanced.png)
+![advanced](/uploads/67e958f43d7aa5bcca1625c9d3484689/advanced.png)
 ------------
-![deep](/uploads/c887084a0066298887dd21781ef6cf8b/deep.png)
+![deep](/uploads/40d797bb2a7f78fd68e80ee12897bf78/deep.png)
