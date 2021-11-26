@@ -61,97 +61,97 @@ INSERT INTO t_product (name, type, price, img) VALUES ('프레즐', 5, 6200, 'pr
 
 
 -- t_comment
-INSERT INTO t_comment (user_id, product_id, rating, comment) VALUES ('test', 01, 01, 'test comment 01');
-INSERT INTO t_comment (user_id, product_id, rating, comment) VALUES ('test', 01, 10, 'test comment 02');
-INSERT INTO t_comment (user_id, product_id, rating, comment) VALUES ('test', 02, 01, 'test comment 03');
-INSERT INTO t_comment (user_id, product_id, rating, comment) VALUES ('test', 03, 01, 'test comment 04');
-INSERT INTO t_comment (user_id, product_id, rating, comment) VALUES ('test', 04, 01, 'test comment 05');
+-- INSERT INTO t_comment (user_id, product_id, rating, comment) VALUES ('test', 01, 01, 'test comment 01');
+-- INSERT INTO t_comment (user_id, product_id, rating, comment) VALUES ('test', 01, 10, 'test comment 02');
+-- INSERT INTO t_comment (user_id, product_id, rating, comment) VALUES ('test', 02, 01, 'test comment 03');
+-- INSERT INTO t_comment (user_id, product_id, rating, comment) VALUES ('test', 03, 01, 'test comment 04');
+-- INSERT INTO t_comment (user_id, product_id, rating, comment) VALUES ('test', 04, 01, 'test comment 05');
 
-INSERT INTO t_comment (user_id, product_id, rating, comment) VALUES ('id01', 01, 01, 'comment 01');
-INSERT INTO t_comment (user_id, product_id, rating, comment) VALUES ('id02', 01, 02, 'comment 02');
-INSERT INTO t_comment (user_id, product_id, rating, comment) VALUES ('id03', 01, 03, 'comment 03');
-INSERT INTO t_comment (user_id, product_id, rating, comment) VALUES ('id04', 04, 04, 'comment 04');
-INSERT INTO t_comment (user_id, product_id, rating, comment) VALUES ('id05', 05, 05, 'comment 05');
-INSERT INTO t_comment (user_id, product_id, rating, comment) VALUES ('id06', 06, 06, 'comment 06');
-INSERT INTO t_comment (user_id, product_id, rating, comment) VALUES ('id07', 07, 07, 'comment 07');
-INSERT INTO t_comment (user_id, product_id, rating, comment) VALUES ('id08', 08, 08, 'comment 08');
-INSERT INTO t_comment (user_id, product_id, rating, comment) VALUES ('id09', 09, 09, 'comment 09');
-INSERT INTO t_comment (user_id, product_id, rating, comment) VALUES ('id10', 10, 10, 'comment 10');
-
-
--- t_order
-INSERT INTO t_order (user_id, order_table, completed) VALUES ('test', 'order_table 01', 0);
-INSERT INTO t_order (user_id, order_table, completed) VALUES ('test', 'order_table 05', 0);
-INSERT INTO t_order (user_id, order_table, completed) VALUES ('test', 'order_table 03', 0);
-INSERT INTO t_order (user_id, order_table, completed) VALUES ('test', 'order_table 10', 0);
-INSERT INTO t_order (user_id, order_table, completed) VALUES ('test', 'take-out', 1);
-
-INSERT INTO t_order (user_id, order_table, completed) VALUES ('id01', 'order_table 01', 1);
-INSERT INTO t_order (user_id, order_table, completed) VALUES ('id02', 'order_table 02', 1);
-INSERT INTO t_order (user_id, order_table, completed) VALUES ('id03', 'order_table 03', 1);
-INSERT INTO t_order (user_id, order_table, completed) VALUES ('id04', 'order_table 04', 1);
-INSERT INTO t_order (user_id, order_table, completed) VALUES ('id05', 'order_table 05', 1);
-INSERT INTO t_order (user_id, order_table, completed) VALUES ('id06', 'order_table 06', 1);
-INSERT INTO t_order (user_id, order_table, completed) VALUES ('id07', 'order_table 07', 1);
-INSERT INTO t_order (user_id, order_table, completed) VALUES ('id08', 'order_table 08', 1);
-INSERT INTO t_order (user_id, order_table, completed) VALUES ('id09', 'order_table 09', 1);
-INSERT INTO t_order (user_id, order_table, completed) VALUES ('id10', 'order_table 10', 1);
+-- INSERT INTO t_comment (user_id, product_id, rating, comment) VALUES ('id01', 01, 01, 'comment 01');
+-- INSERT INTO t_comment (user_id, product_id, rating, comment) VALUES ('id02', 01, 02, 'comment 02');
+-- INSERT INTO t_comment (user_id, product_id, rating, comment) VALUES ('id03', 01, 03, 'comment 03');
+-- INSERT INTO t_comment (user_id, product_id, rating, comment) VALUES ('id04', 04, 04, 'comment 04');
+-- INSERT INTO t_comment (user_id, product_id, rating, comment) VALUES ('id05', 05, 05, 'comment 05');
+-- INSERT INTO t_comment (user_id, product_id, rating, comment) VALUES ('id06', 06, 06, 'comment 06');
+-- INSERT INTO t_comment (user_id, product_id, rating, comment) VALUES ('id07', 07, 07, 'comment 07');
+-- INSERT INTO t_comment (user_id, product_id, rating, comment) VALUES ('id08', 08, 08, 'comment 08');
+-- INSERT INTO t_comment (user_id, product_id, rating, comment) VALUES ('id09', 09, 09, 'comment 09');
+-- INSERT INTO t_comment (user_id, product_id, rating, comment) VALUES ('id10', 10, 10, 'comment 10');
 
 
--- t_order_detail
-INSERT INTO t_order_detail (order_id, product_id, quantity, type, syrup, shot) VALUES (01, 01, 01, 1, '카라멜', 2);
-INSERT INTO t_order_detail (order_id, product_id, quantity, type) VALUES (01, 02, 03, 1);
-INSERT INTO t_order_detail (order_id, product_id, quantity, type) VALUES (01, 24, 01, 1);
+-- -- t_order
+-- INSERT INTO t_order (user_id, order_table, completed) VALUES ('test', 'order_table 01', 0);
+-- INSERT INTO t_order (user_id, order_table, completed) VALUES ('test', 'order_table 05', 0);
+-- INSERT INTO t_order (user_id, order_table, completed) VALUES ('test', 'order_table 03', 0);
+-- INSERT INTO t_order (user_id, order_table, completed) VALUES ('test', 'order_table 10', 0);
+-- INSERT INTO t_order (user_id, order_table, completed) VALUES ('test', 'take-out', 1);
 
-INSERT INTO t_order_detail (order_id, product_id, quantity, type) VALUES (02, 13, 01, 1);
-
-INSERT INTO t_order_detail (order_id, product_id, quantity, type) VALUES (03, 11, 01, 1);
-
-INSERT INTO t_order_detail (order_id, product_id, quantity) VALUES (04, 22, 01);
-
-INSERT INTO t_order_detail (order_id, product_id, quantity, type, syrup) VALUES (05, 03, 01, 0, '바닐라');
-
-INSERT INTO t_order_detail (order_id, product_id, quantity) VALUES (02, 01, 01);
-INSERT INTO t_order_detail (order_id, product_id, quantity) VALUES (03, 03, 03);
-INSERT INTO t_order_detail (order_id, product_id, quantity) VALUES (04, 04, 04);
-INSERT INTO t_order_detail (order_id, product_id, quantity) VALUES (05, 05, 05);
-INSERT INTO t_order_detail (order_id, product_id, quantity) VALUES (06, 06, 06);
-INSERT INTO t_order_detail (order_id, product_id, quantity) VALUES (07, 07, 07);
-INSERT INTO t_order_detail (order_id, product_id, quantity) VALUES (08, 08, 08);
-INSERT INTO t_order_detail (order_id, product_id, quantity) VALUES (09, 09, 09);
-INSERT INTO t_order_detail (order_id, product_id, quantity) VALUES (10, 10, 10);
+-- INSERT INTO t_order (user_id, order_table, completed) VALUES ('id01', 'order_table 01', 1);
+-- INSERT INTO t_order (user_id, order_table, completed) VALUES ('id02', 'order_table 02', 1);
+-- INSERT INTO t_order (user_id, order_table, completed) VALUES ('id03', 'order_table 03', 1);
+-- INSERT INTO t_order (user_id, order_table, completed) VALUES ('id04', 'order_table 04', 1);
+-- INSERT INTO t_order (user_id, order_table, completed) VALUES ('id05', 'order_table 05', 1);
+-- INSERT INTO t_order (user_id, order_table, completed) VALUES ('id06', 'order_table 06', 1);
+-- INSERT INTO t_order (user_id, order_table, completed) VALUES ('id07', 'order_table 07', 1);
+-- INSERT INTO t_order (user_id, order_table, completed) VALUES ('id08', 'order_table 08', 1);
+-- INSERT INTO t_order (user_id, order_table, completed) VALUES ('id09', 'order_table 09', 1);
+-- INSERT INTO t_order (user_id, order_table, completed) VALUES ('id10', 'order_table 10', 1);
 
 
--- t_stamp
-INSERT INTO t_stamp (user_id, order_id, quantity) VALUES ('test', 1, 09);
-INSERT INTO t_stamp (user_id, order_id, quantity) VALUES ('id01', 2, 04);
-INSERT INTO t_stamp (user_id, order_id, quantity) VALUES ('id02', 3, 01);
-INSERT INTO t_stamp (user_id, order_id, quantity) VALUES ('id03', 4, 03);
-INSERT INTO t_stamp (user_id, order_id, quantity) VALUES ('id04', 5, 04);
-INSERT INTO t_stamp (user_id, order_id, quantity) VALUES ('id05', 6, 05);
-INSERT INTO t_stamp (user_id, order_id, quantity) VALUES ('id06', 7, 06);
-INSERT INTO t_stamp (user_id, order_id, quantity) VALUES ('id07', 8, 07);
-INSERT INTO t_stamp (user_id, order_id, quantity) VALUES ('id08', 9, 08);
-INSERT INTO t_stamp (user_id, order_id, quantity) VALUES ('id09', 10, 09);
-INSERT INTO t_stamp (user_id, order_id, quantity) VALUES ('id10', 11, 10);
+-- -- t_order_detail
+-- INSERT INTO t_order_detail (order_id, product_id, quantity, type, syrup, shot) VALUES (01, 01, 01, 1, '카라멜', 2);
+-- INSERT INTO t_order_detail (order_id, product_id, quantity, type) VALUES (01, 02, 03, 1);
+-- INSERT INTO t_order_detail (order_id, product_id, quantity, type) VALUES (01, 24, 01, 1);
+
+-- INSERT INTO t_order_detail (order_id, product_id, quantity, type) VALUES (02, 13, 01, 1);
+
+-- INSERT INTO t_order_detail (order_id, product_id, quantity, type) VALUES (03, 11, 01, 1);
+
+-- INSERT INTO t_order_detail (order_id, product_id, quantity) VALUES (04, 22, 01);
+
+-- INSERT INTO t_order_detail (order_id, product_id, quantity, type, syrup) VALUES (05, 03, 01, 0, '바닐라');
+
+-- INSERT INTO t_order_detail (order_id, product_id, quantity) VALUES (02, 01, 01);
+-- INSERT INTO t_order_detail (order_id, product_id, quantity) VALUES (03, 03, 03);
+-- INSERT INTO t_order_detail (order_id, product_id, quantity) VALUES (04, 04, 04);
+-- INSERT INTO t_order_detail (order_id, product_id, quantity) VALUES (05, 05, 05);
+-- INSERT INTO t_order_detail (order_id, product_id, quantity) VALUES (06, 06, 06);
+-- INSERT INTO t_order_detail (order_id, product_id, quantity) VALUES (07, 07, 07);
+-- INSERT INTO t_order_detail (order_id, product_id, quantity) VALUES (08, 08, 08);
+-- INSERT INTO t_order_detail (order_id, product_id, quantity) VALUES (09, 09, 09);
+-- INSERT INTO t_order_detail (order_id, product_id, quantity) VALUES (10, 10, 10);
+
+
+-- -- t_stamp
+-- INSERT INTO t_stamp (user_id, order_id, quantity) VALUES ('test', 1, 09);
+-- INSERT INTO t_stamp (user_id, order_id, quantity) VALUES ('id01', 2, 04);
+-- INSERT INTO t_stamp (user_id, order_id, quantity) VALUES ('id02', 3, 01);
+-- INSERT INTO t_stamp (user_id, order_id, quantity) VALUES ('id03', 4, 03);
+-- INSERT INTO t_stamp (user_id, order_id, quantity) VALUES ('id04', 5, 04);
+-- INSERT INTO t_stamp (user_id, order_id, quantity) VALUES ('id05', 6, 05);
+-- INSERT INTO t_stamp (user_id, order_id, quantity) VALUES ('id06', 7, 06);
+-- INSERT INTO t_stamp (user_id, order_id, quantity) VALUES ('id07', 8, 07);
+-- INSERT INTO t_stamp (user_id, order_id, quantity) VALUES ('id08', 9, 08);
+-- INSERT INTO t_stamp (user_id, order_id, quantity) VALUES ('id09', 10, 09);
+-- INSERT INTO t_stamp (user_id, order_id, quantity) VALUES ('id10', 11, 10);
 
 
 
--- t_notification order/event/user
-INSERT INTO t_notification (user_id, category, content) VALUES ('admin', 'event', 'cafe 이벤트');
-INSERT INTO t_notification (user_id, category, content) VALUES ('admin', 'order', '주문하신 메뉴 제조 완료되었으니 찾아가셈');
-INSERT INTO t_notification (user_id, category, content) VALUES ('admin', 'user', '비밀번호 변경하셈');
-INSERT INTO t_notification (user_id, category, content) VALUES ('admin', 'order', '주문 접수함');
-INSERT INTO t_notification (user_id, category, content) VALUES ('test', 'event', 'event1');
-INSERT INTO t_notification (user_id, category, content) VALUES ('test', 'order', '이보연바보');
-INSERT INTO t_notification (user_id, category, content) VALUES ('test', 'user', '스타벅스짱');
+-- -- t_notification order/event/user
+-- INSERT INTO t_notification (user_id, category, content) VALUES ('admin', 'event', 'cafe 이벤트');
+-- INSERT INTO t_notification (user_id, category, content) VALUES ('admin', 'order', '주문하신 메뉴 제조 완료되었으니 찾아가셈');
+-- INSERT INTO t_notification (user_id, category, content) VALUES ('admin', 'user', '비밀번호 변경하셈');
+-- INSERT INTO t_notification (user_id, category, content) VALUES ('admin', 'order', '주문 접수함');
+-- INSERT INTO t_notification (user_id, category, content) VALUES ('test', 'event', 'event1');
+-- INSERT INTO t_notification (user_id, category, content) VALUES ('test', 'order', '이보연바보');
+-- INSERT INTO t_notification (user_id, category, content) VALUES ('test', 'user', '스타벅스짱');
 
--- t_user_custom
-INSERT INTO t_user_custom (user_id, product_id, type, syrup, shot) VALUES ('test', 2, 1, '바닐라', '2');
-INSERT INTO t_user_custom (user_id, product_id, type, syrup) VALUES ('test', 1, 1, '카라멜');
-INSERT INTO t_user_custom (user_id, product_id, type) VALUES ('test', 9, 1);
+-- -- t_user_custom
+-- INSERT INTO t_user_custom (user_id, product_id, type, syrup, shot) VALUES ('test', 2, 1, '바닐라', '2');
+-- INSERT INTO t_user_custom (user_id, product_id, type, syrup) VALUES ('test', 1, 1, '카라멜');
+-- INSERT INTO t_user_custom (user_id, product_id, type) VALUES ('test', 9, 1);
 
-select * from t_order;
-select * from t_order_detail;
+-- select * from t_order;
+-- select * from t_order_detail;
 
 commit;
