@@ -79,7 +79,6 @@ class JoinFragment : BaseFragment<FragmentJoinBinding>(FragmentJoinBinding::bind
                 binding.userIDtextlayout.error = null
                 dupChkId = true
             }
-//            dupChkId = responseData
         }
 
         override fun onFailure(code: Int) {
@@ -89,7 +88,6 @@ class JoinFragment : BaseFragment<FragmentJoinBinding>(FragmentJoinBinding::bind
 
     // id 중복 체크
     private fun validateUserID() : Boolean{
-
         val inputUserId = binding.etUserID.text.toString()
 
         if(inputUserId.trim().isEmpty()){   // 값이 비어있으면 error
@@ -99,7 +97,6 @@ class JoinFragment : BaseFragment<FragmentJoinBinding>(FragmentJoinBinding::bind
             Log.d(TAG, "validateUserID: ${inputUserId}")
             UserService().isUsed(inputUserId, isUsedCallBack())
         }
-
         return dupChkId
     }
 
@@ -122,7 +119,7 @@ class JoinFragment : BaseFragment<FragmentJoinBinding>(FragmentJoinBinding::bind
         return true
     }
 
-    // 핸드폰 번호 중복 + 유효성 체크
+    // 핸드폰 번호 유효성 체크
     private fun validateUserTel() : Boolean{
         val inputUserTel = binding.etUserTel.text.toString()
 

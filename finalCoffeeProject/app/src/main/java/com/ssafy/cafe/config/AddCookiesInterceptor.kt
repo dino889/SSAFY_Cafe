@@ -1,7 +1,6 @@
 package com.ssafy.cafe.config
 
 import android.util.Log
-import com.ssafy.cafe.config.ApplicationClass
 import okhttp3.Interceptor
 import okhttp3.Request
 import okhttp3.Response

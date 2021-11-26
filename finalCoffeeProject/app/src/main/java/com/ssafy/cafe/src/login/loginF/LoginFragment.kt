@@ -41,7 +41,6 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::b
     var mGoogleSignInClient: GoogleSignInClient? = null
     lateinit var mOAuthLoginInstance : OAuthLogin
 
-
     override fun onAttach(context: Context) {
         super.onAttach(context)
         loginActivity = context as LoginActivity
